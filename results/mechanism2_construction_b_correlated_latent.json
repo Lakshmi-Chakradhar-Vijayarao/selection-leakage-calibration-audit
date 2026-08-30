@@ -1,0 +1,604 @@
+{
+  "framing": "Independent second construction of Mechanism 2 (code/97's newly built harness), changing exactly one thing -- cross-candidate correlation via a shared latent factor, RHO=0.5, vs. construction A's fully independent candidates -- to test whether construction A's fitted per-mechanism intercept for Mechanism 2 (a_2=-3.389) is a property of the mechanism or an artifact of that one harness. Reported as measured, in whichever direction it came out.",
+  "grid": {
+    "K_values": [
+      5,
+      10,
+      20,
+      40,
+      80
+    ],
+    "auroc0_values": [
+      0.7,
+      0.8,
+      0.95
+    ]
+  },
+  "construction_a_reference": {
+    "source": "results/matched_head_to_head_five_mechanisms.json (code/97)",
+    "per_mechanism_intercept_a_2": -3.3885276098192882
+  },
+  "construction_b": {
+    "design": "CONSTRUCTION B (independent second reconstruction of Mechanism 2, see module docstring). K candidate 'layers' share ONE latent factor L per seed (Cov(X_k,X_k')=RHO=0.5 for k!=k', vs. 0 in construction A), while each layer's own marginal distribution -- and its calibration to the target AUROC_0 -- is unchanged from construction A. Same LEAKY/severity definition, same grid, same N_SEEDS, same estimator (LogisticRegression), same mechanical null.",
+    "rho": 0.5,
+    "n_seeds": 100,
+    "feat_dim": 64,
+    "n_samples": 700,
+    "cells": {
+      "5|0.7": {
+        "K": 5,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.03199404275911725,
+        "gap_sem": 0.00421523886149371,
+        "gap_bca_ci_95": [
+          0.02417508214166447,
+          0.04029548278612269
+        ],
+        "wilcoxon_p_vs_zero": 3.2731004999774593e-10,
+        "A_winners_curse_on_selection_criterion": 0.02723742220043957,
+        "B_transferred_layer_quality": -0.004756620558677682,
+        "mean_pairwise_corr_cv_across_candidates": 0.32629229998669596,
+        "mechanical_null_mean": 0.027214054872088944,
+        "mechanical_null_sd": 0.0035589751068369493,
+        "mechanical_null_ci_95": [
+          0.020262946241681106,
+          0.03419791898285525
+        ],
+        "observed_vs_mechanical_null": 0.004779987887028304,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "5|0.8": {
+        "K": 5,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.023913122050049664,
+        "gap_sem": 0.003523015339643943,
+        "gap_bca_ci_95": [
+          0.017496959523052923,
+          0.03110388543810626
+        ],
+        "wilcoxon_p_vs_zero": 6.347669838371602e-09,
+        "A_winners_curse_on_selection_criterion": 0.022468363946698707,
+        "B_transferred_layer_quality": -0.0014447581033509682,
+        "mean_pairwise_corr_cv_across_candidates": 0.37046276963498703,
+        "mechanical_null_mean": 0.022467058901350045,
+        "mechanical_null_sd": 0.003159403308106779,
+        "mechanical_null_ci_95": [
+          0.01625972017752599,
+          0.02857843136730244
+        ],
+        "observed_vs_mechanical_null": 0.0014460631486996195,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "10|0.7": {
+        "K": 10,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.03755715350077475,
+        "gap_sem": 0.0038220871268224354,
+        "gap_bca_ci_95": [
+          0.030207109369126316,
+          0.045191726399426674
+        ],
+        "wilcoxon_p_vs_zero": 4.681588885474814e-13,
+        "A_winners_curse_on_selection_criterion": 0.037715008362624286,
+        "B_transferred_layer_quality": 0.0001578548618495379,
+        "mean_pairwise_corr_cv_across_candidates": 0.34862448358309245,
+        "mechanical_null_mean": 0.0376885384125844,
+        "mechanical_null_sd": 0.0036638416064590953,
+        "mechanical_null_ci_95": [
+          0.03053821017434719,
+          0.044881888590959026
+        ],
+        "observed_vs_mechanical_null": -0.0001313849118096469,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "10|0.8": {
+        "K": 10,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.032986231679394414,
+        "gap_sem": 0.0033280222428214296,
+        "gap_bca_ci_95": [
+          0.026673679481187266,
+          0.03951892648273998
+        ],
+        "wilcoxon_p_vs_zero": 5.180356160650198e-13,
+        "A_winners_curse_on_selection_criterion": 0.03035272995671077,
+        "B_transferred_layer_quality": -0.002633501722683649,
+        "mean_pairwise_corr_cv_across_candidates": 0.3847720344328374,
+        "mechanical_null_mean": 0.03031032396139093,
+        "mechanical_null_sd": 0.0031561924923074057,
+        "mechanical_null_ci_95": [
+          0.024132079780599135,
+          0.03647781593012416
+        ],
+        "observed_vs_mechanical_null": 0.0026759077180034847,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "20|0.7": {
+        "K": 20,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.04974385568748258,
+        "gap_sem": 0.0036368436065138316,
+        "gap_bca_ci_95": [
+          0.0426176400373172,
+          0.05709840186242528
+        ],
+        "wilcoxon_p_vs_zero": 8.012096741807243e-17,
+        "A_winners_curse_on_selection_criterion": 0.045892625935909676,
+        "B_transferred_layer_quality": -0.0038512297515728923,
+        "mean_pairwise_corr_cv_across_candidates": 0.3402397807050354,
+        "mechanical_null_mean": 0.045931982990371024,
+        "mechanical_null_sd": 0.0038407273181978356,
+        "mechanical_null_ci_95": [
+          0.038360732250423996,
+          0.05349421729086763
+        ],
+        "observed_vs_mechanical_null": 0.003811872697111557,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "5|0.95": {
+        "K": 5,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.012772423545059695,
+        "gap_sem": 0.0018089368958945362,
+        "gap_bca_ci_95": [
+          0.009351618955571673,
+          0.01635408452695041
+        ],
+        "wilcoxon_p_vs_zero": 1.3754339280391946e-09,
+        "A_winners_curse_on_selection_criterion": 0.012712121526352363,
+        "B_transferred_layer_quality": -6.030201870733443e-05,
+        "mean_pairwise_corr_cv_across_candidates": 0.2717514852998775,
+        "mechanical_null_mean": 0.012709552038085476,
+        "mechanical_null_sd": 0.0017386189897184207,
+        "mechanical_null_ci_95": [
+          0.009296115975311443,
+          0.016089644302076676
+        ],
+        "observed_vs_mechanical_null": 6.287150697421862e-05,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "20|0.8": {
+        "K": 20,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.04385595163174139,
+        "gap_sem": 0.003186239091328302,
+        "gap_bca_ci_95": [
+          0.03766815298196787,
+          0.050168919206985366
+        ],
+        "wilcoxon_p_vs_zero": 2.9260416298520113e-16,
+        "A_winners_curse_on_selection_criterion": 0.0367017954989793,
+        "B_transferred_layer_quality": -0.007154156132762087,
+        "mean_pairwise_corr_cv_across_candidates": 0.3600408658337629,
+        "mechanical_null_mean": 0.0366918359778449,
+        "mechanical_null_sd": 0.003316423576660472,
+        "mechanical_null_ci_95": [
+          0.0302103152422658,
+          0.04325843647406133
+        ],
+        "observed_vs_mechanical_null": 0.007164115653896491,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": true
+      },
+      "10|0.95": {
+        "K": 10,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.017243245387094715,
+        "gap_sem": 0.0017246849774862187,
+        "gap_bca_ci_95": [
+          0.014096950829590681,
+          0.020728201228470033
+        ],
+        "wilcoxon_p_vs_zero": 6.957422823453744e-14,
+        "A_winners_curse_on_selection_criterion": 0.016608281326440863,
+        "B_transferred_layer_quality": -0.0006349640606538454,
+        "mean_pairwise_corr_cv_across_candidates": 0.2875461239771481,
+        "mechanical_null_mean": 0.016603174119050223,
+        "mechanical_null_sd": 0.0017276051096376973,
+        "mechanical_null_ci_95": [
+          0.013216853980094158,
+          0.019981569610563448
+        ],
+        "observed_vs_mechanical_null": 0.0006400712680444919,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "40|0.7": {
+        "K": 40,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.05078737125947955,
+        "gap_sem": 0.0038138349648160347,
+        "gap_bca_ci_95": [
+          0.04333601064162044,
+          0.05832704166914372
+        ],
+        "wilcoxon_p_vs_zero": 5.312355559705195e-16,
+        "A_winners_curse_on_selection_criterion": 0.05304062649279447,
+        "B_transferred_layer_quality": 0.0022532552333149425,
+        "mean_pairwise_corr_cv_across_candidates": 0.3372655615445904,
+        "mechanical_null_mean": 0.05303532678683175,
+        "mechanical_null_sd": 0.003766636830949443,
+        "mechanical_null_ci_95": [
+          0.04555942568241486,
+          0.06044020451125405
+        ],
+        "observed_vs_mechanical_null": -0.0022479555273522064,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "20|0.95": {
+        "K": 20,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.020710134944815793,
+        "gap_sem": 0.0018360392488829588,
+        "gap_bca_ci_95": [
+          0.01725363386961548,
+          0.024483489270682418
+        ],
+        "wilcoxon_p_vs_zero": 7.044317414078139e-16,
+        "A_winners_curse_on_selection_criterion": 0.02025080381376572,
+        "B_transferred_layer_quality": -0.00045933113105008474,
+        "mean_pairwise_corr_cv_across_candidates": 0.25560679334247777,
+        "mechanical_null_mean": 0.020255977684103664,
+        "mechanical_null_sd": 0.0017593525088647982,
+        "mechanical_null_ci_95": [
+          0.016835422372289736,
+          0.02373135856330627
+        ],
+        "observed_vs_mechanical_null": 0.00045415726071212914,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "40|0.8": {
+        "K": 40,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.04285244246465195,
+        "gap_sem": 0.0032524128757358195,
+        "gap_bca_ci_95": [
+          0.03645416831681822,
+          0.04910466459063737
+        ],
+        "wilcoxon_p_vs_zero": 6.293307461307e-16,
+        "A_winners_curse_on_selection_criterion": 0.04284618177720571,
+        "B_transferred_layer_quality": -6.260687446217883e-06,
+        "mean_pairwise_corr_cv_across_candidates": 0.35430991109709087,
+        "mechanical_null_mean": 0.04285928590764096,
+        "mechanical_null_sd": 0.0032281071550556884,
+        "mechanical_null_ci_95": [
+          0.036548004591402776,
+          0.049236852392671684
+        ],
+        "observed_vs_mechanical_null": -6.843442989006021e-06,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "80|0.7": {
+        "K": 80,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.06006020464201502,
+        "gap_sem": 0.0037661269379359397,
+        "gap_bca_ci_95": [
+          0.05282151862371654,
+          0.06731640988768738
+        ],
+        "wilcoxon_p_vs_zero": 2.206954746622419e-17,
+        "A_winners_curse_on_selection_criterion": 0.05933229188671522,
+        "B_transferred_layer_quality": -0.0007279127552998099,
+        "mean_pairwise_corr_cv_across_candidates": 0.3467686967792232,
+        "mechanical_null_mean": 0.05935545237258664,
+        "mechanical_null_sd": 0.0038201198337021194,
+        "mechanical_null_ci_95": [
+          0.05180373576774404,
+          0.06685697535455569
+        ],
+        "observed_vs_mechanical_null": 0.0007047522694283853,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "40|0.95": {
+        "K": 40,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.022815711293969247,
+        "gap_sem": 0.00187913303788506,
+        "gap_bca_ci_95": [
+          0.019180603554084553,
+          0.02648707685149128
+        ],
+        "wilcoxon_p_vs_zero": 4.880034421013085e-16,
+        "A_winners_curse_on_selection_criterion": 0.022853388934199997,
+        "B_transferred_layer_quality": 3.7677640230721064e-05,
+        "mean_pairwise_corr_cv_across_candidates": 0.26846083082344907,
+        "mechanical_null_mean": 0.022837847535653707,
+        "mechanical_null_sd": 0.001777482607177418,
+        "mechanical_null_ci_95": [
+          0.019377299594078985,
+          0.02637866683330046
+        ],
+        "observed_vs_mechanical_null": -2.213624168445963e-05,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "80|0.8": {
+        "K": 80,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.04827738357095878,
+        "gap_sem": 0.003557200333434809,
+        "gap_bca_ci_95": [
+          0.04090842710337423,
+          0.054972110013256574
+        ],
+        "wilcoxon_p_vs_zero": 5.164212615311754e-16,
+        "A_winners_curse_on_selection_criterion": 0.04824612162744061,
+        "B_transferred_layer_quality": -3.126194351816714e-05,
+        "mean_pairwise_corr_cv_across_candidates": 0.36258500214169087,
+        "mechanical_null_mean": 0.04825243742259701,
+        "mechanical_null_sd": 0.0032781237202203673,
+        "mechanical_null_ci_95": [
+          0.04183269835430655,
+          0.0547527746685483
+        ],
+        "observed_vs_mechanical_null": 2.494614836177217e-05,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "80|0.95": {
+        "K": 80,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.026801627598301066,
+        "gap_sem": 0.00196839852645169,
+        "gap_bca_ci_95": [
+          0.022988407629867993,
+          0.030691469867743765
+        ],
+        "wilcoxon_p_vs_zero": 1.201865753526737e-16,
+        "A_winners_curse_on_selection_criterion": 0.02535450457527105,
+        "B_transferred_layer_quality": -0.0014471230230300247,
+        "mean_pairwise_corr_cv_across_candidates": 0.27114119939113684,
+        "mechanical_null_mean": 0.02538407070209089,
+        "mechanical_null_sd": 0.0018136006999053171,
+        "mechanical_null_ci_95": [
+          0.02183644190680112,
+          0.028950092866632113
+        ],
+        "observed_vs_mechanical_null": 0.0014175568962101759,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      }
+    },
+    "runtime_seconds": 132.24829387664795
+  },
+  "construction_b_own_fit": {
+    "form": "gap = exp(a_B + beta lnK + c z0), fit to construction B's 15 cells alone",
+    "a_B": -3.3489734771104724,
+    "beta": 0.21467062271610707,
+    "c": -0.7231416347592635,
+    "r_squared": 0.9615680479329383,
+    "n_cells_floored_to_positive": 0,
+    "floor_value": 1e-06
+  },
+  "per_cell_a_vs_b": {
+    "5|0.7": {
+      "K": 5,
+      "auroc0": 0.7,
+      "gap_construction_A": 0.03328715633306404,
+      "gap_construction_B": 0.03199404275911725,
+      "ratio_B_over_A": 0.9611527773352527,
+      "mean_pairwise_corr_cv_B": 0.32629229998669596
+    },
+    "10|0.7": {
+      "K": 10,
+      "auroc0": 0.7,
+      "gap_construction_A": 0.038173364105052274,
+      "gap_construction_B": 0.03755715350077475,
+      "ratio_B_over_A": 0.9838575766447588,
+      "mean_pairwise_corr_cv_B": 0.34862448358309245
+    },
+    "20|0.7": {
+      "K": 20,
+      "auroc0": 0.7,
+      "gap_construction_A": 0.05299177122870427,
+      "gap_construction_B": 0.04974385568748258,
+      "ratio_B_over_A": 0.9387090586724458,
+      "mean_pairwise_corr_cv_B": 0.3402397807050354
+    },
+    "40|0.7": {
+      "K": 40,
+      "auroc0": 0.7,
+      "gap_construction_A": 0.05824803045737377,
+      "gap_construction_B": 0.05078737125947955,
+      "ratio_B_over_A": 0.8719156829971448,
+      "mean_pairwise_corr_cv_B": 0.3372655615445904
+    },
+    "80|0.7": {
+      "K": 80,
+      "auroc0": 0.7,
+      "gap_construction_A": 0.07295190253125952,
+      "gap_construction_B": 0.06006020464201502,
+      "ratio_B_over_A": 0.8232849666433241,
+      "mean_pairwise_corr_cv_B": 0.3467686967792232
+    },
+    "5|0.8": {
+      "K": 5,
+      "auroc0": 0.8,
+      "gap_construction_A": 0.026889314492722017,
+      "gap_construction_B": 0.023913122050049664,
+      "ratio_B_over_A": 0.8893169090094171,
+      "mean_pairwise_corr_cv_B": 0.37046276963498703
+    },
+    "10|0.8": {
+      "K": 10,
+      "auroc0": 0.8,
+      "gap_construction_A": 0.031051340240127363,
+      "gap_construction_B": 0.032986231679394414,
+      "ratio_B_over_A": 1.0623126546005448,
+      "mean_pairwise_corr_cv_B": 0.3847720344328374
+    },
+    "20|0.8": {
+      "K": 20,
+      "auroc0": 0.8,
+      "gap_construction_A": 0.04239976023448871,
+      "gap_construction_B": 0.04385595163174139,
+      "ratio_B_over_A": 1.0343443309395932,
+      "mean_pairwise_corr_cv_B": 0.3600408658337629
+    },
+    "40|0.8": {
+      "K": 40,
+      "auroc0": 0.8,
+      "gap_construction_A": 0.04972579698206011,
+      "gap_construction_B": 0.04285244246465195,
+      "ratio_B_over_A": 0.8617748747217083,
+      "mean_pairwise_corr_cv_B": 0.35430991109709087
+    },
+    "80|0.8": {
+      "K": 80,
+      "auroc0": 0.8,
+      "gap_construction_A": 0.052965600320890455,
+      "gap_construction_B": 0.04827738357095878,
+      "ratio_B_over_A": 0.9114856298894328,
+      "mean_pairwise_corr_cv_B": 0.36258500214169087
+    },
+    "5|0.95": {
+      "K": 5,
+      "auroc0": 0.95,
+      "gap_construction_A": 0.016616727342293885,
+      "gap_construction_B": 0.012772423545059695,
+      "ratio_B_over_A": 0.7686485600898416,
+      "mean_pairwise_corr_cv_B": 0.2717514852998775
+    },
+    "10|0.95": {
+      "K": 10,
+      "auroc0": 0.95,
+      "gap_construction_A": 0.016703322129605777,
+      "gap_construction_B": 0.017243245387094715,
+      "ratio_B_over_A": 1.0323243037103351,
+      "mean_pairwise_corr_cv_B": 0.2875461239771481
+    },
+    "20|0.95": {
+      "K": 20,
+      "auroc0": 0.95,
+      "gap_construction_A": 0.02257261677267174,
+      "gap_construction_B": 0.020710134944815793,
+      "ratio_B_over_A": 0.9174893258228342,
+      "mean_pairwise_corr_cv_B": 0.25560679334247777
+    },
+    "40|0.95": {
+      "K": 40,
+      "auroc0": 0.95,
+      "gap_construction_A": 0.02340695456775734,
+      "gap_construction_B": 0.022815711293969247,
+      "ratio_B_over_A": 0.9747407005863754,
+      "mean_pairwise_corr_cv_B": 0.26846083082344907
+    },
+    "80|0.95": {
+      "K": 80,
+      "auroc0": 0.95,
+      "gap_construction_A": 0.02704107200447102,
+      "gap_construction_B": 0.026801627598301066,
+      "ratio_B_over_A": 0.9911451585155218,
+      "mean_pairwise_corr_cv_B": 0.27114119939113684
+    }
+  },
+  "a_vs_b_correlation": {
+    "pearson_r": 0.9817886262010191,
+    "pearson_p": 9.260377656109669e-11,
+    "n_cells": 15
+  },
+  "stability_assessment": {
+    "rule": "Pre-registered in this script's module docstring, fixed before the run. STABLE requires BOTH: (1) |a_B - a_2| < ln(10)~=2.303 (construction B's own fitted intercept within one order of magnitude of construction A's Mechanism-2 intercept), and (2) the two constructions' 15 matched per-cell gaps correlate positively and significantly (Pearson r>0, p<0.05).",
+    "a_B_own_fit": -3.3489734771104724,
+    "a_2_construction_A": -3.3885276098192882,
+    "intercept_delta_log_scale": 0.0395541327088158,
+    "intercept_within_order_of_magnitude": true,
+    "per_cell_correlation_positive_and_significant": true,
+    "verdict": "STABLE"
+  },
+  "pooled_model_comparison_with_construction_b_substituted_for_mechanism_2": {
+    "note": "Mechanisms 1, 3, 4 cells are taken verbatim from code/97's output (untouched); Mechanism 2's 15 cells are construction B's, replacing construction A's. Refit with the identical per-mechanism-intercept model code/97 uses.",
+    "comparison": {
+      "n_cells": 48,
+      "mechanisms_included": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "model_a_pooled": {
+        "form": "gap = exp(a + beta lnK + c z0)",
+        "coefficients": {
+          "a": -0.838252515957945,
+          "beta": -1.4549295004338414,
+          "c": -0.7194637279219221
+        },
+        "r_squared": 0.8505015535548819,
+        "aicc": -362.9157203144686,
+        "loo_r_squared": 0.8315593664202618,
+        "n_params": 3
+      },
+      "model_b_mechanism_aware": {
+        "form": "gap = exp(a_m + beta lnK + c z0), one a_m per mechanism",
+        "per_mechanism_intercept_a_m": {
+          "1": -0.8293947597366649,
+          "2": -3.353139311301817,
+          "3": -6.432153790991056,
+          "4": -4.2197383954246614
+        },
+        "shared_beta_lnK": 0.21595759938580547,
+        "shared_c_z0": -0.7234109694188462,
+        "r_squared": 0.9968887922119931,
+        "aicc": -541.2815940856849,
+        "loo_r_squared": 0.9857748709018114,
+        "n_params": 6,
+        "intercept_spread": {
+          "min": -6.432153790991056,
+          "max": -0.8293947597366649,
+          "range": 5.602759031254392,
+          "sd": 2.316260119840913,
+          "exp_range_multiplicative": 271.1735525606883
+        }
+      },
+      "nested_f_test": {
+        "description": "M(b) [per-mechanism intercepts] vs M(a) [pooled intercept]",
+        "f_stat": 658.7221043543664,
+        "df": [
+          3,
+          42
+        ],
+        "p": 1.1102230246251565e-16
+      },
+      "aicc_delta_b_minus_a": -178.3658737712163,
+      "loo_r2_delta_b_minus_a": 0.15421550448154953,
+      "winner_by_aicc_and_loo": "mechanism_aware (b)",
+      "reading": "If the nested F-test is non-significant AND AICc/LOO-R^2 do not clearly favour the mechanism-aware model, K and AUROC_0 alone predict this pooled severity comparably well regardless of mechanism identity, on this evidence. If the F-test is significant and AICc/LOO-R^2 favour it, mechanism identity carries information beyond K and AUROC_0 that the pooled model misses, and the per-mechanism intercept spread above is the size of that residual difference on the log-gap scale."
+    },
+    "mechanism_2_intercept_original_construction_a": -3.3885276098192882,
+    "mechanism_2_intercept_construction_b_substituted": -3.353139311301817,
+    "mechanism_2_intercept_shift": 0.035388298517471384
+  },
+  "limitations": [
+    "One correlation structure (RHO=0.5, one-factor latent model) is tested; this is not a sweep over RHO and does not characterize how severity depends on RHO continuously. RHO=0.5 was fixed before this script was run, chosen as a disclosed, representative middle value between construction A's RHO=0 and full collapse at RHO->1, not selected after seeing the result.",
+    "This still leaves the estimator (LogisticRegression), the sample sizes, and the severity definition identical to construction A's; it isolates the cross-candidate-correlation axis specifically and does not test estimator-family sensitivity (a genuinely different possible third construction, not attempted here, per this script's brief to change one thing at a time).",
+    "Both constructions remain synthetic reconstructions of Mechanism 2, not a measurement on GUARDIAN's real pipeline; this comparison bounds what a controlled-harness robustness check can say about construction-sensitivity, not whether either harness matches real hidden-state layer selection quantitatively."
+  ],
+  "runtime_seconds": 132.37067484855652
+}

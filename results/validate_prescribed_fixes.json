@@ -1,0 +1,87 @@
+{
+  "part_a_mechanism2_nested_cv": {
+    "naive_reported_mean": 0.7740318127417963,
+    "nested_reported_mean": 0.7508014023002646,
+    "gap_removed_by_nesting": {
+      "mean": 0.023230410441531877,
+      "sd": 0.054188056572907345,
+      "bca_ci_95": [
+        0.008173080305065101,
+        0.03827494671829408
+      ],
+      "wilcoxon_p": 0.004757046552823496,
+      "n_reps": 50
+    },
+    "selection_independent_references": {
+      "unconditional_mean_over_all_32_layers": 0.7334856848514668,
+      "modal_selected_layer": 14,
+      "modal_layer_held_out_mean": 0.7634829940340734
+    },
+    "nested_estimate_residual_vs_modal_layer_reference": -0.012681591733808784,
+    "cost": {
+      "validation_wall_clock_seconds": 2.97813081741333,
+      "artifact_probe_fit_count": 9984,
+      "artifact_size_mb": 4.041375,
+      "note": "Fit count = 32 layers x (5 inner-CV folds + 1 full-pool fit) x 52 split variants (50 randomized + sequential + reversed) = probe fits needed to build the artifact this validation reuses. Each fit is a scikit-learn LogisticRegression on at most 700 samples of GUARDIAN's probe-input dimensionality -- sub-second per fit on CPU, no GPU or hidden-state extraction involved once the 171MB raw cache exists."
+    },
+    "verdict": "Nesting removes +0.0232 AUROC of optimism on average (BCa 95% CI excludes zero: True), and the resulting nested estimate (0.7508) sits -0.0127 away from a selection-independent reference at the same (modal) layer -- small relative to the 0.0232 removed, consistent with this paper's own already-reported decomposition (\u00a74.2: winner's-curse term +0.042865 minus transferred layer quality +0.0173, net Delta_sel=+0.0255). The prescribed fix WORKS: it recovers an estimate close to (not identical to, since the selected layer does carry real transferable signal) the selection-independent reference, at a cost that is a probe-refitting exercise on already-extracted features, not a new hidden-state extraction."
+  },
+  "part_b_mechanism3_disjoint_holdout": {
+    "synthetic_harness": {
+      "shipped_uncorrected": {
+        "gap_mean": 0.0030163265306122344,
+        "gap_bca_ci_95": [
+          0.0009605915750800909,
+          0.005302040816326516
+        ],
+        "wilcoxon_p": 0.017422237124353705,
+        "gap_std": 0.011144788528426078,
+        "n_positive": 58,
+        "n_seeds": 100
+      },
+      "fully_corrected_disjoint_holdout": {
+        "gap_mean": -7.5510204081638e-05,
+        "gap_bca_ci_95": [
+          -0.0021326530612244916,
+          0.0020999999999999877
+        ],
+        "wilcoxon_p": 0.6573659707966516,
+        "gap_std": 0.010912365585631491,
+        "n_positive": 47,
+        "n_seeds": 100
+      },
+      "residual_bias_removed": 0.0030918367346938723
+    },
+    "real_feature_harness_by_capacity": {
+      "128": {
+        "gap_mean": 0.0005816135084427865,
+        "gap_bca_ci_95": [
+          -0.0036522826766729063,
+          0.006235146966854297
+        ],
+        "wilcoxon_p": 0.1691419414712192,
+        "gap_std": 0.024784507696014514,
+        "n_positive": 39,
+        "n_seeds": 100
+      },
+      "384": {
+        "gap_mean": 0.003039399624765484,
+        "gap_bca_ci_95": [
+          3.1269543464663186e-05,
+          0.007135709818636652
+        ],
+        "wilcoxon_p": 0.18702439100133827,
+        "gap_std": 0.01773913302713224,
+        "n_positive": 57,
+        "n_seeds": 100
+      }
+    },
+    "cost": {
+      "synthetic_factorial_runtime_seconds": 288.1401720046997,
+      "real_feature_corrected_controls_runtime_seconds": 3166.3639760017395,
+      "note": "Both already logged by their own scripts (code/77, code/78+79). The disjoint-holdout fix costs exactly what re-running the harness with a different carve-out convention costs -- no additional hidden-state extraction, since it operates on already-extracted features/synthetic draws and only changes which indices are used for selection vs. training vs. reporting."
+    },
+    "verdict": "On the synthetic harness, the disjoint-holdout fix moves the gap from +0.0030 (shipped) to -0.0001 (fully corrected), a reduction of +0.0031, landing on a BCa interval that includes zero ([-0.0021326530612244916, 0.0020999999999999877]) -- the fix removes the detectable synthetic effect entirely, at a logged cost of 288s (4.8 min) on CPU. On real features it does not remove the effect entirely -- residual gaps of +0.0006 (cap 128) and +0.0030 (cap 384) survive -- at a logged cost of 3166s (52.8 min). Both fixes are cheap in absolute terms (minutes of CPU time on already-extracted features/synthetic draws, no GPU, no re-extraction), which is the number \u00a76's 'cheap to fix' claim was previously missing."
+  },
+  "runtime_seconds": 2.985819101333618
+}

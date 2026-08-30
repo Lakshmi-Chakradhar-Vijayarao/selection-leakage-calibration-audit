@@ -1,0 +1,359 @@
+# Case Study 3 — External audit target: MultiHaluDet (arXiv 2605.24919)
+
+## What we checked, and how
+
+MultiHaluDet ("Multilingual Hallucination Detection via LLM Hidden State
+Probing," MeLLM Workshop @ ACL 2026) has a fully public, re-runnable
+pipeline: https://github.com/alvi-uiu/MultiHaluDet. It reports up to
+98.55% AUROC detecting hallucination from Mistral-7B / LLaMA-2-7B hidden
+states on HaluEval, via a 4-stage pipeline (feature extraction -> per-fold
+deep-model training -> out-of-fold feature generation -> log-odds ensemble
+stacking).
+
+We read the released training code directly (`run_pipeline.py::stage_2_3_train_oof`,
+`src/training/trainer.py::train_deep_model_fold`) rather than relying on
+the paper's prose description of its methodology.
+
+## The mechanism, verified in code
+
+Inside each of 5 inner CV folds:
+
+```python
+for fold, (tr_idx, val_idx) in enumerate(skf.split(X_seq_train, y_train)):
+    model, _ = train_deep_model_fold(
+        X_seq_train[tr_idx], ..., y_train[tr_idx],       # gradient-descent training data
+        X_seq_train[val_idx], ..., y_train[val_idx],     # <- also the checkpoint-selection split
+        config,
+    )
+    feats_val = extract_features_batch(model, X_seq_train[val_idx], ...)
+    oof_features[val_idx] = feats_val   # <- these become the "held-out" fold's features
+```
+
+and inside `train_deep_model_fold`, every epoch is scored on that same
+`val_idx` split, and whichever epoch's checkpoint maximizes AUROC there is
+the one kept (`best_model = copy.deepcopy(model.state_dict())` when
+`auc_score > best_auc`).
+
+This means the "out-of-fold" features stored for `val_idx` come from a
+model that was explicitly selected because it scores well on `val_idx`'s
+own labels. The model's *weights* never see `val_idx` via gradient descent
+-- so this is not the classic "trained on the test set" bug -- but the
+*checkpoint choice* is a function of `val_idx`'s labels, and that choice
+directly determines the features later fed, unmodified, to the downstream
+meta-learner as if they were clean OOF features. This is a distinct
+sibling of HaRP's bug (Case Study 1): not full-dataset leakage, but
+**per-fold checkpoint-selection leakage**.
+
+## Quantifying it: controlled synthetic reconstruction
+
+Re-running MultiHaluDet's actual pipeline requires a 7B-parameter model on
+real HaluEval/TriviaQA data -- not something this project's compute budget
+(Kaggle GPU, already committed to this paper) can spend on a secondary
+replication. Instead we isolated the *mechanism* in a controlled synthetic
+setting that mirrors their training loop exactly (same 5-fold structure,
+same "keep the best-val-AUC checkpoint" logic, same downstream-classifier-
+on-OOF-features structure), with one addition: a `CLEAN` control condition
+where checkpoint selection uses a separate carve-out from the training
+fold, never touching `val_idx`'s labels at all.
+
+Task difficulty was calibrated using **GEOM-PROOF's own closed-form result**
+from earlier in this project's arc -- the binormal AUROC identity
+AUROC = Phi(sqrt(J/2)), where J is the Fisher discriminant ratio -- inverted
+to target a realistic, non-saturated AUROC of 0.80 (matching the
+0.775-0.804 range seen in HaRP and GUARDIAN), rather than guessing a
+class-separation constant. **Correction, added after later review:
+the scripts originally used to produce the numbers below inverted
+Phi(sqrt(J)/2) instead -- the equal-prior Bayes-accuracy formula, not
+this AUROC identity -- so the "calibrated-to-0.80" task was actually an
+0.883-AUROC task; this is fixed in `02d_corrected_capacity_placebo_sweep.py`
+and all numbers below use the corrected inversion, J = 2*Phi^-1(0.80)^2.**
+Our first attempt at this synthetic task used an arbitrary separation and
+produced a saturated AUROC=1.0000 for both conditions -- a real
+methodological trap: a task with no room to fail leaves no room for a
+leakage bug to show any inflation either. Recalibrating via the Fisher/AUROC
+identity fixed this.
+
+**First-attempt result (20 seeds, N=700, 5-fold, hidden=48) — SUPERSEDED,
+retained only to show what the correction history started from:**
+
+| Condition | Mean AUROC | Std |
+|---|---|---|
+| LEAKY (checkpoint selected on val_idx) | 0.8708 | 0.0298 |
+| CLEAN (checkpoint selected on a disjoint carve-out) | 0.8689 | 0.0308 |
+| Gap (leaky − clean) | +0.0019 | 0.0057 |
+
+Wilcoxon signed-rank test on the paired per-seed gap: p=0.170. Positive
+gap in 12/20 seeds.
+
+> **These 0.87-level numbers are pre-correction and are NOT this case
+> study's result.** They come from a run whose task-difficulty calibration
+> inverted the wrong AUROC identity (realized task AUROC ~0.883 against an
+> intended 0.80) and whose LEAKY condition trained on ~15% more data than
+> CLEAN. Both defects are documented in the correction history below. The
+> isotropic synthetic sweep reads **+0.0011 to +0.0036 AUROC** across
+> capacities 16/48/128/384 against its shipped control (individually
+> significant at 2 of 4 capacities, 1 of 4 after Holm-Bonferroni) — but that
+> control carries three asymmetries, and a 2x2x2 factorial correcting all
+> three at once puts the fully corrected cell at -0.0001 (BCa
+> [-0.0021, +0.0021]) while attributing 75.5% of the movement to
+> selection-set size, 28.1% to selection-run budget and none to training
+> depth; the four-capacity mean falls to +0.0007 with no interval excluding
+> zero, so `main.tex` §4.3 no longer treats that band as this mechanism's
+> primary severity estimate. What carries it instead is the *corrected*
+> real-feature harness (+0.0060 and +0.0067 fold-matched) and the *corrected*
+> fidelity extension (+0.0159 at capacity 128, +0.0044 at 384), with the
+> fully-corrected out-of-fold control establishing the effect at capacity 384
+> in both harnesses and at capacity 128 in neither. An earlier version of this
+> note offered the uncorrected +0.0093/+0.0077/+0.0250 and the un-averaged
+> out-of-fold readout instead; all three carried the same asymmetry, and the
+> un-averaged line is withdrawn. Read `main.tex` §4.3 and Appendix A, not the
+> table above.
+
+**Capacity-sweep follow-up, corrected (four rounds of review,
+`02d_corrected_capacity_placebo_sweep.py`):** the obvious objection to
+reporting a single number from an arbitrarily-sized 48-unit MLP is that
+MultiHaluDet's actual model uses `hidden_dim=384` -- 8x larger. An
+earlier version of this case study reran at 16/48/128/384 units with 10
+seeds and reported a growing, individually-non-significant gap; a
+follow-up n=100 single-capacity rerun then reported the flagship-capacity
+gap as significant and, via a permuted-label placebo, "genuine peeking, not
+capacity variance." A third round of review found two further problems:
+the task-difficulty calibration inverted the wrong AUROC identity
+(actual task AUROC ~0.883, not the intended 0.80), and LEAKY trained on
+~15% more data than CLEAN (an unmatched training budget, not just a
+different selection rule). Correcting both and adding a budget-matched
+`CLEAN_MATCHED` condition initially showed no significant residual at any
+capacity -- **but a fourth round of review found that fix had itself
+introduced a new confound: `CLEAN_MATCHED` was retrained with a
+different random seed than `LEAKY`, adding independent noise that
+diluted the comparison's power.** Matching the seed and rerunning the
+full capacity sweep at n=100 seeds throughout gives the final result:
+
+| Hidden | LEAKY | CLEAN | CLEAN_MATCHED | PLACEBO | Gap LEAKY−CLEAN (p) [confounded, retracted] | Gap LEAKY−CLEAN_MATCHED (p) |
+|---|---|---|---|---|---|---|
+| 16  | 0.7604 | 0.7541 | 0.7585 | 0.7338 | +0.0062 (0.0000) | **+0.0019 (0.019)** |
+| 48  | 0.7633 | 0.7595 | 0.7621 | 0.7442 | +0.0038 (0.0003) | +0.0011 (0.171) |
+| 128 | 0.7586 | 0.7531 | 0.7549 | 0.7371 | +0.0055 (0.0015) | **+0.0036 (0.001)** |
+| **384 (matches MultiHaluDet's config)** | 0.7478 | 0.7446 | 0.7454 | 0.7338 | +0.0031 (0.0496) | +0.0024 (0.171) |
+
+**Seed-decoupling rerun (closure review).** The table above is the rerun after
+`code/02d` was retrofitted with `code/47`'s decoupled
+`data_seed`/`split_seed`/`fold_seed_base`/`init_seed_base` streams; previously a
+single `seed` drove the data draw, the outer split and the fold assignment at
+once. Magnitudes are stable (+0.0009–+0.0034 before, +0.0011–+0.0036 after);
+which capacities clear significance is not — 48 goes from p=0.015 to p=0.171 and
+16 goes from p=0.309 to p=0.019. The superseded run ships as
+`results/corrected_capacity_placebo_sweep_coupled_seed_legacy.json`.
+
+**The budget-confounded gap (LEAKY-CLEAN) is significant at all four
+capacities but shows no clear capacity trend** (it dips at 48, then rises
+-- not a monotonic growth curve); we retain this column only for
+transparency and do not treat it as evidence of anything beyond "a
+budget-confounded gap exists." **The properly seed-matched,
+budget-matched gap (LEAKY-CLEAN_MATCHED) is individually significant at 2 of 4
+capacities (16 and 128 units, $p$=0.019 and $p$=0.0012), of which only
+capacity 128 survives Holm-Bonferroni across the four-capacity family
+($0.0012\times4=0.0049$; capacity 16 gives $0.019\times3=0.058$ and stops the
+procedure). The two non-significant cells are underpowered rather than null:
+exact per-seed MDEs are 0.0023 at capacity 48 against an observed +0.0011, and
+0.0039 at capacity 384 against an observed +0.0024.**
+Decomposing the confounded gap: budget mismatch explains 80% of the
+apparent effect at 16 units but only 31-54% at the other three
+capacities, leaving a majority-share residual that reaches significance
+at two of them. Our pre-registered decision rule (\texttt{GENUINE\_LEAK\_CONFIRMED}
+/ \texttt{CONFOUND\_CONFIRMED\_NO\_REAL\_LEAK} / \texttt{MIXED}) returns
+\texttt{MIXED} on most tested versions of this experiment and
+\texttt{CONFOUND\_CONFIRMED\_NO\_REAL\_LEAK} on the one ceiling-confounded
+version -- an earlier claim that the confound-branch was structurally
+unreachable (on the reasoning that LEAKY-vs-PLACEBO is always significant
+at $p<10^{-8}$) was itself wrong, caught by a later independent review;
+\texttt{MIXED} is the modal but not universal honest label for what the
+data show across six tested configurations, and we report that rather
+than translating it into a cleaner narrative.
+
+**A further fidelity extension, not covered above:** the checkpoint-selection-only
+harness models only the final "keep the best-val-AUC checkpoint" decision.
+MultiHaluDet's real trainer also steps an LR scheduler and ties early
+stopping to the same validation fold every epoch. Porting this mechanic
+in (after five rounds of its own control-construction, configuration and
+fidelity bugs, documented in main.tex Appendix A items 10, 12, 13 and 14)
+finds a larger gap: **+0.0250** (BCa 95% CI [+0.0192, +0.0314], Wilcoxon
+p=1.5e-11, paired permutation p<0.0001, n=100 seeds, capacity 128),
+against **+0.0093** for the checkpoint-selection-only harness on the same
+features under the same label-free calibration — a like-for-like ratio of
+**2.7x**.
+
+**A sixth correction, which cut this number and retracted a claim about it.**
+An earlier revision reported +0.0338 here and a ratio of 3.6x, and attributed
+the increase to the *continuity* of the coupling. Neither survives.
+(a) The control was not budget-matched: `code/43`'s CLEAN_MATCHED retrains on
+the full `tr_idx`, this harness's control trained on `tr2_idx` (~85%). Arm by
+arm across the two harnesses, LEAKY moves only +0.0022 while the control moves
+-0.0224 and the placebo -0.0284 — most of the extra gap was the controls
+falling. A budget-matched control (full `tr_idx`, replaying the disjoint
+carve-out run's own per-epoch LR trajectory so it keeps an adaptive schedule)
+gives the +0.0250 above. (b) The coupling-continuity claim was tested across
+two harnesses that also differ in optimizer, batching, scaler and learning
+rate. The within-harness isolating arm — same optimizer, same reused fold,
+only a final-checkpoint argmax — scores **0.9583** against the coupled arm's
+**0.9424**, i.e. adding continuous coupling *lowers* the leaky arm by -0.0159
+(p=2.8e-13), because early stopping at patience=15 truncates it to a mean kept
+epoch of 29.14 against the argmax-only arm's 40.73. **The claim that
+continuity is what raises this number is withdrawn.** Sanity check:
+(LEAKY - CM)/(CM - PLACEBO) is 1.60 against the old control (outside the
+0.06-0.85 band the paper's other eight cells occupy) and 0.83 against the
+budget-matched one (inside it).
+
+**What "fidelity extension" covers, and what it does not.** Ported from the
+pinned commit: learning rate 2e-4 (the harness had used 2e-3), AdamW,
+`batch_size=28` mini-batching (the harness had been full-batch), a 5-epoch
+linear warmup during which the scheduler is not stepped, gradient clipping
+at 0.5, `min_lr=1e-7`, 45 epochs, `RobustScaler` on inputs and
+`StandardScaler` on the deep OOF features — alongside the scheduler,
+early-stopping and checkpoint mechanics. **Not** ported: EMA, the composite
+BCE/focal/asymmetric/contrastive objective, `pos_weight` class rebalancing,
+label smoothing, mixup, cutmix, and the 6-layer multi-scale transformer
+itself. So this is fidelity of the *validation-signal coupling and optimizer
+schedule*, not of the objective or the model class, and it is not an
+estimate of MultiHaluDet's own reported number's inflation.
+
+Three earlier figures in this document are superseded: "+0.0111 /
+roughly 5.2x" (reported before the early-stopping patience was corrected —
+the harness used the LR scheduler's `patience=3` for the early-stopping
+break instead of the audited repo's own `config.patience = 15`), the
+"3-4x" before that (which compared across operating points entirely), and
+"+0.0221 / 2.4x" (reported before the optimizer/data-pipeline fidelity port
+above). **One claim is retracted outright rather than merely updated:** this
+document previously reported that the patience correction's sign *flips*
+with the operating point, shrinking the gap at ~0.96 and growing it at
+~0.89-0.92. Rerun under the fidelity port, the sign does not flip — the
+patience correction shrinks the gap at both calibrations (-0.0029 and
+-0.0004). The earlier flip was an artifact of the full-batch,
+10x-learning-rate training loop. The factorial ablation (`code/54`) does
+still show that the *calibration* fix, not the patience fix, is what moves
+this number. The operating-point non-equivalence previously disclosed here
+(~0.918 vs ~0.940) has also largely closed: the two harnesses now sit at
+0.9424 and 0.9403, so the ratio is no longer reported as an upper bound on
+that account.
+
+## Why this matters for the paper's framing
+
+This is a genuinely important, non-obvious finding, but not the one any
+of our first three passes concluded. **We withdraw both the original
+claim that "this mechanism's severity scales with model capacity" and
+the intermediate, seed-confounded claim that the effect was "possibly
+entirely a training-budget artifact."** The final data show a small,
+real, inconsistently-significant-across-capacity residual leak -- not a
+capacity trend, and not a null. HaRP's own reported +0.19 AUROC
+inflation from full-dataset fit-then-score leakage (Case Study 1) is a
+structurally different mechanism (the model literally trains on the
+labels it is later scored against), not a checkpoint-selection subtlety
+— but note that figure is **not** re-verifiable from the submitted
+artifact (no supporting script, log, or data file ships with the paper),
+so it is excluded from the paper's abstract severity range and from
+every cross-mechanism comparison.
+
+This still does **not** mean MultiHaluDet's reported 98.55% AUROC's exact
+inflation is now known -- even our largest-capacity reconstruction (384
+units) is a single MLP, far simpler than their actual architecture (a
+6-layer, 384-hidden-dim, multi-scale transformer with mixup/cutmix/EMA/SWA
+and heavy augmentation). Our small, capacity-inconsistent residual is a
+lower bound at best on what a more expressive, longer-trained real
+pipeline might show; we flag this honestly as an open question rather
+than resolving it without access to their exact compute budget.
+
+**The paper's actual contribution here is the taxonomy and the checklist,
+not a single severity verdict for Case Study 3**: leakage in this
+literature is not one uniform failure mode, and quantifying any one
+mechanism's severity via synthetic reconstruction is itself failure-prone
+in ways this paper's own four-round correction history now documents
+directly. **Stated explicitly (review): the +0.19 (Case Study 1)
+and +0.0011-to-+0.0036 (Case Study 3) numbers below are not measurements
+on the same scale and must not be read as "mechanism 3 is roughly
+20-200x milder than mechanism 1." The first is a real-hidden-state
+effect size; the second is a linear-Gaussian synthetic-proxy effect
+size.**
+
+> **UPDATE (later review round) — two corrections to the paragraph above.**
+>
+> 1. **Case Study 1's `+0.19` is not verifiable from the submitted
+>    artifact.** No script, log, or data file supporting it ships with the
+>    paper. It is excluded from the abstract's severity range and from
+>    every cross-mechanism comparison. It should not be used as the top of
+>    a "severity spectrum."
+> 2. **Mechanism 3's severity on real MultiHaluDet geometry is no longer
+>    "simply unmeasured."** It has been measured on real
+>    Mistral-7B/HaluEval features (MultiHaluDet's own unmodified
+>    feature-extraction code) through the paper's own 5-fold
+>    OOF-plus-meta-learner architecture, under a label-free calibration
+>    that reaches chance exactly at zero separation. The measured values:
+>    **+0.0093** (capacity 128, BCa 95% CI [+0.0060, +0.0134], Wilcoxon
+>    p=7.3e-7, paired permutation p<0.0001) and **+0.0077** (capacity 384,
+>    CI [+0.0050, +0.0109], Wilcoxon p=1.4e-5, permutation p<0.0001), at
+>    an achieved operating point of ~0.94-0.95; and **+0.0250** for the
+>    LR-scheduler fidelity extension (CI [+0.0192, +0.0314], against a
+>    budget-matched control). These
+>    supersede the +0.0021 / +0.0022 previously reported under the
+>    superseded label-conditional calibration. **A later round corrected all
+>    three downward**, having found that they carry the same in-fold
+>    selection-set asymmetry as the synthetic sweep: fold-matched they are
+>    +0.0060, +0.0067 and +0.0159, and `main.tex` §4.3 reports those.
+>
+> **The "severity spectrum" framing below is also retracted.** Measured
+> against matched controls, the mechanisms do *not* differ sharply on the
+> absolute scale: every mechanism in this paper with a code-verified
+> AUROC-scale estimate falls between +0.0011 and +0.0255 AUROC, with a fifth
+> exactly zero on AUROC by construction. Within this paper's synthetic harness,
+> what moves severity is the number of candidates selected among and the
+> operating point. **Two clauses this note previously carried are withdrawn.**
+> The first, "larger than any between-mechanism difference measured here":
+> `main.tex` §5.4 tests it against this paper's own shipped data and it fails —
+> three measurements of the same contrast at achieved operating points within
+> 0.003 AUROC of each other differ by 14.3x and 38.3x from what the
+> relationship predicts. The second, the bare "48.6x swing from AUROC_0=0.70 to
+> 0.985": that multiplier is withdrawn in `main.tex` §5.3 and correction E3,
+> because its denominator cell is indistinguishable from zero and the ratio of
+> means therefore has no finite confidence interval. `main.tex` §5.2 now places
+> all three axes on one scale with denominator-sound spans — operating point
+> 2.2-14.3x, mechanism-and-harness 14.3-38.3x, candidate count 1.8-4.2x — on
+> which the mechanism-and-harness axis is *at least comparable to, and
+> plausibly larger than*, the operating-point axis, and the paper's title has
+> been changed accordingly. `main.tex` §5.2 stops short of calling it the
+> largest of the three: the first two axes divide the same denominator cell,
+> the mechanism axis rests on two observations and moves to 13.1-28.7x if the
+> operating point is matched on the control arm, and at capacity 384 it falls
+> to 8.0x, below the operating-point axis.
+> Those harnesses differ in leakage mechanic *and* in harness, which the
+> design does not separate, so the transport failure is reported without
+> being attributed. The operating point
+> is a strong severity modifier *within* a harness — enough that two severity
+> numbers cannot be compared until it is matched — and is not a law that
+> transports across harnesses or mechanisms. See `main.tex` §5 and
+> `code/58`.
+
+For the record, the original (now-superseded) spectrum framing read --
+
+1. **Severe, scale-independent** (Case Study 1, HaRP): a feature-generating
+   model fit on *all* labels, scored on those same labels, feeding a
+   downstream CV loop -- +0.19 AUROC, unambiguous, large, and not a
+   function of model capacity.
+2. **Structurally real, code-verified, small and capacity-inconsistent**
+   (Case Study 3, MultiHaluDet): checkpoint selection using the same fold
+   whose features get reused downstream -- a genuine, code-verified leak
+   channel whose magnitude, in our synthetic reconstruction, is small
+   ($+0.0011$ to $+0.0036$ AUROC) and reaches individual significance at only
+   2 of 4 capacities tested (1 of 4 after Holm-Bonferroni), once
+   training-budget, random-seed and seed-decoupling confounds are all
+   properly controlled for.
+3. **A related but distinct bias family entirely** (test-set-driven
+   best-layer selection with no correction for having tried 33
+   hypotheses -- see the quantized-LLM paper secondary case study) --
+   not "nested CV leakage" in the classical sense at all, but the same
+   broad hazard (using labels to make a choice, then reporting performance
+   as if that choice were free).
+
+This taxonomy -- not a blanket "everyone's numbers are inflated" claim --
+is the paper's real methodological contribution: a checklist for
+recognizing which of several distinct label-information-leak patterns a
+given pipeline is vulnerable to, and honest evidence about which ones are
+likely to matter most in practice.

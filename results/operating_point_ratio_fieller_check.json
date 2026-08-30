@@ -1,0 +1,49 @@
+{
+  "verdict": "RATIO_HAS_NO_FINITE_CONFIDENCE_INTERVAL__MULTIPLIER_WITHDRAWN",
+  "numerator_cell": {
+    "target_auroc": 0.7,
+    "n_seeds": 100,
+    "mean": 0.009316326530612241,
+    "sd": 0.02485959673548349,
+    "shipped_mean": 0.009316326530612241,
+    "wilcoxon_p": 0.00010772332971006228
+  },
+  "denominator_cell": {
+    "target_auroc": 0.985,
+    "n_seeds": 100,
+    "mean": 0.00019183673469387984,
+    "sd": 0.0013758630488354324,
+    "sd_over_mean": 7.172052063078232,
+    "shipped_mean": 0.00019183673469387984,
+    "shipped_wilcoxon_p": 0.21864939494907487,
+    "regenerated_wilcoxon_p": 0.21864939494907487,
+    "n_positive": 49,
+    "n_negative": 47,
+    "n_zero": 4,
+    "sign_test_p": 0.9187780353645374
+  },
+  "point_ratio": 48.563829787233445,
+  "fieller": {
+    "t_crit_975_df99": 1.9842169515086827,
+    "se_denominator_regenerated": 0.00013758630488354325,
+    "se_denominator_from_shipped_bca_halfwidth": 0.00013422248530320529,
+    "se_denominator_from_shipped_bca_halfwidth_legacy_normal_quantile": 0.00013588337982253535,
+    "g_from_bca_legacy_mixed_quantiles": 1.9753654115084571,
+    "quantile_consistency_note": "The halfwidth-to-SE conversion now uses the same t quantile (t_.975,99 = 1.98422) that fieller_g re-inflates by. An earlier revision divided by the normal 1.95996 and multiplied by the t quantile, giving g = 1.975 instead of 1.927. Both exceed 1, so the conclusion -- the ratio has no finite confidence interval -- is unchanged.",
+    "g_regenerated": 2.0251872203081716,
+    "g_from_shipped_bca": 1.927370982344907,
+    "unbounded_iff_g_ge_1": true,
+    "is_unbounded": true,
+    "note": "Fieller's theorem: the 95% confidence set for a ratio of means is unbounded exactly when g >= 1. Both estimates of g exceed 1, so the 48.6x point estimate admits no finite interval and must not be reported as a calibrated multiplier."
+  },
+  "paired_bootstrap": {
+    "n_resamples": 200000,
+    "fraction_of_resamples_with_denominator_le_zero": 0.08079,
+    "percentile_interval_95_of_finite_ratios": [
+      -340.10500000004885,
+      447.7526785713118
+    ],
+    "note": "The interval spans zero and both signs; a non-trivial share of resamples places the denominator at or below zero, at which point the ratio is undefined or negative."
+  },
+  "what_survives": "The monotone decline of the gap across the operating point is unaffected: +0.0093 / +0.0036 / +0.0011 / +0.0007 / +0.0002 at AUROC_0 = 0.70 / 0.80 / 0.90 / 0.95 / 0.985, individually significant at 0.70, 0.80 and 0.95. The paper now reports the endpoint as 'indistinguishable from zero (p = 0.219, n = 100)' and reports no multiplier."
+}

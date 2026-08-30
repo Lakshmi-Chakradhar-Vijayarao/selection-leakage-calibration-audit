@@ -1,0 +1,122 @@
+{
+  "shipped_style_infold": {
+    "64": {
+      "leaky_mean": 0.9818230143839899,
+      "clean_matched_mean": 0.9789806128830518,
+      "gap_mean": 0.0028424015009380797,
+      "gap_bca_ci_95": [
+        0.001013382861036558,
+        0.005771887141963085
+      ],
+      "wilcoxon_p": 0.04358516472334755,
+      "n_positive": 49
+    },
+    "128": {
+      "leaky_mean": 0.9830175109443401,
+      "clean_matched_mean": 0.9802439024390242,
+      "gap_mean": 0.0027736085053158234,
+      "gap_bca_ci_95": [
+        0.0011131957473420884,
+        0.004764151075523926
+      ],
+      "wilcoxon_p": 0.004132612562173802,
+      "n_positive": 55
+    },
+    "256": {
+      "leaky_mean": 0.9829205753595996,
+      "clean_matched_mean": 0.9827517198248905,
+      "gap_mean": 0.00016885553470920024,
+      "gap_bca_ci_95": [
+        -0.0012132582864290212,
+        0.0015036504389388844
+      ],
+      "wilcoxon_p": 0.476439127898833,
+      "n_positive": 48
+    },
+    "384": {
+      "leaky_mean": 0.9830925578486555,
+      "clean_matched_mean": 0.982373358348968,
+      "gap_mean": 0.0007191994996872963,
+      "gap_bca_ci_95": [
+        -0.0004940587867417144,
+        0.001968308077794061
+      ],
+      "wilcoxon_p": 0.2693034668148073,
+      "n_positive": 53
+    }
+  },
+  "fully_corrected_oof": {
+    "64": {
+      "leaky_mean": 0.9818230143839899,
+      "clean_matched_mean": 0.98218574108818,
+      "gap_mean": -0.000362726704190125,
+      "gap_bca_ci_95": [
+        -0.0015932441898255738,
+        0.0010203570845510887
+      ],
+      "wilcoxon_p": 0.3137073309147025,
+      "n_positive": 40
+    },
+    "128": {
+      "leaky_mean": 0.9830175109443401,
+      "clean_matched_mean": 0.9827579737335835,
+      "gap_mean": 0.000259537210756714,
+      "gap_bca_ci_95": [
+        -0.0007191994996873068,
+        0.0012883051907441989
+      ],
+      "wilcoxon_p": 0.8280607339279422,
+      "n_positive": 48
+    },
+    "256": {
+      "leaky_mean": 0.9829205753595996,
+      "clean_matched_mean": 0.9831801125703565,
+      "gap_mean": -0.00025953721075671623,
+      "gap_bca_ci_95": [
+        -0.0013574288980758773,
+        0.0008974358974358986
+      ],
+      "wilcoxon_p": 0.6306041760638093,
+      "n_positive": 46
+    },
+    "384": {
+      "leaky_mean": 0.9830925578486555,
+      "clean_matched_mean": 0.9832614133833648,
+      "gap_mean": -0.00016885553470920466,
+      "gap_bca_ci_95": [
+        -0.0011257035647279756,
+        0.0008310417035361867
+      ],
+      "wilcoxon_p": 0.6012170879901442,
+      "n_positive": 46
+    }
+  },
+  "design": {
+    "capacities": [
+      64,
+      128,
+      256,
+      384
+    ],
+    "epochs": 45,
+    "n_seeds": 100,
+    "es_hold_fraction": 0.15
+  },
+  "gaps_by_capacity_shipped": {
+    "64": 0.0028424015009380797,
+    "128": 0.0027736085053158234,
+    "256": 0.00016885553470920024,
+    "384": 0.0007191994996872963
+  },
+  "gaps_by_capacity_fully_corrected": {
+    "64": -0.000362726704190125,
+    "128": 0.000259537210756714,
+    "256": -0.00025953721075671623,
+    "384": -0.00016885553470920466
+  },
+  "strictly_decreasing_shipped": false,
+  "strictly_decreasing_fully_corrected": false,
+  "ratio_128_over_384_shipped_this_harness": 3.8565217391304802,
+  "runtime_seconds": 720.0238580703735,
+  "verdict": "Shipped-style control across capacities [64, 128, 256, 384]: gaps = [0.00284, 0.00277, 0.00017, 0.00072], NOT strictly decreasing (this simplified harness's own 128-vs-384 ratio: 3.86x, for comparison against the paper's fidelity-extension 4.8x/3.6x figures measured on a different, more faithful harness -- not directly comparable in magnitude, only in whether the qualitative decline persists on a denser grid). Fully-corrected control: gaps = [-0.00036, 0.00026, -0.00026, -0.00017], NOT strictly decreasing. The capacity-dependent decline is NOT cleanly monotone across the denser 4-point grid -- the 128-vs-384 comparison in the original 2-point grid understates how much non-monotonicity the intermediate capacities reveal."
+}

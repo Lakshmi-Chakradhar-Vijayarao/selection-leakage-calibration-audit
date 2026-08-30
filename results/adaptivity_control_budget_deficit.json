@@ -1,0 +1,45 @@
+{
+  "by_capacity": {
+    "128": {
+      "n_seeds": 100,
+      "n_train_per_fold_full": 448.0,
+      "n_train_per_fold_85": 380.0,
+      "clean_matched_mean": 0.7570530612244899,
+      "clean_matched_85_mean": 0.7555346938775511,
+      "budget_deficit_mean": 0.0015183673469387614,
+      "budget_deficit_bca_ci_95": [
+        -0.00028340115471325725,
+        0.00348848897241402
+      ],
+      "budget_deficit_wilcoxon_p": 0.28880573073331817,
+      "budget_deficit_n_positive": 54,
+      "leaky_minus_clean_matched_adaptive": 0.004879591836734678,
+      "leaky_minus_clean_matched": 0.0033612244897959164,
+      "budget_deficit_over_fold_reuse_effect": 0.31116687578418883,
+      "budget_deficit_exceeds_fold_reuse_effect": false,
+      "reproduces_code22_clean_matched_per_seed": true
+    },
+    "384": {
+      "n_seeds": 100,
+      "n_train_per_fold_full": 448.0,
+      "n_train_per_fold_85": 380.0,
+      "clean_matched_mean": 0.7505591836734693,
+      "clean_matched_85_mean": 0.7474244897959185,
+      "budget_deficit_mean": 0.003134693877551016,
+      "budget_deficit_bca_ci_95": [
+        0.00043634814222139084,
+        0.00569022016288357
+      ],
+      "budget_deficit_wilcoxon_p": 0.004721555218332806,
+      "budget_deficit_n_positive": 65,
+      "leaky_minus_clean_matched_adaptive": 0.005857142857142843,
+      "leaky_minus_clean_matched": 0.002722448979591827,
+      "budget_deficit_over_fold_reuse_effect": 0.5351916376306626,
+      "budget_deficit_exceeds_fold_reuse_effect": false,
+      "reproduces_code22_clean_matched_per_seed": true
+    }
+  },
+  "design": "CLEAN_MATCHED_85 is CLEAN_MATCHED with the blind fixed-epoch retrain run on tr2_idx (85% of tr_idx) instead of tr_idx. Identical selection rule, identical selected epoch, identical seeds/folds/initialization, identical downstream OOF and test-feature pipeline. The only difference is training-set size, so CLEAN_MATCHED minus CLEAN_MATCHED_85 isolates the ~15% training-budget deficit that CLEAN_MATCHED_ADAPTIVE also pays.",
+  "reading": "The adaptivity control's ~15% training-budget deficit is worth a measurable amount of AUROC on its own. Where it is comparable to or larger than the LEAKY-minus-CLEAN_MATCHED_ADAPTIVE increment, that increment cannot be read as a clean point estimate of fold-reuse-specific severity: it is an upper bound, which is what Appendix A.3 already said and what SS4.3 now says too. The confound biases toward the reported finding, not against it.",
+  "runtime_seconds": 219.5804090499878
+}

@@ -1,0 +1,260 @@
+{
+  "fidelity_extension_across_capacity_and_control": {
+    "capacity_128__shipped": {
+      "gap": 0.024984365228267646,
+      "ratio_vs_sweep_C_0.95_cell": 38.25730925578457,
+      "n_selection_points": 39.0
+    },
+    "capacity_128__fold_matched": {
+      "gap": 0.01585365853658536,
+      "ratio_vs_sweep_C_0.95_cell": 24.275914634146165,
+      "n_selection_points": 64.0
+    },
+    "capacity_384__shipped": {
+      "gap": 0.005234521575984998,
+      "ratio_vs_sweep_C_0.95_cell": 8.015361163226974,
+      "n_selection_points": 39.0
+    },
+    "capacity_384__fold_matched": {
+      "gap": 0.004365228267667289,
+      "ratio_vs_sweep_C_0.95_cell": 6.684255784865491,
+      "n_selection_points": 64.0
+    },
+    "reading": "The fidelity extension's transport ratio falls from 38.3x (capacity 128, shipped control) to 24.3x (capacity 128, fold-matched) to 8.0x (capacity 384, shipped) and 6.7x (capacity 384, fold-matched). The 38.3x that topped the mechanism-and-harness axis is therefore specific to one capacity AND one control construction; at capacity 384 the ratio falls below the operating-point axis's own sound maximum of 14.3x."
+  },
+  "why": "code/58 matches its three harnesses on the LEAKY arm only. This recomputes the same check matching on the control and placebo arms instead, changing nothing else.",
+  "reference_cell_sweep_C": {
+    "target_auroc": 0.95,
+    "leaky": 0.9433102040816326,
+    "control": 0.9426571428571426,
+    "placebo": 0.9286612244897959,
+    "gap": 0.0006530612244898004
+  },
+  "arm_match_quality": {
+    "leaky": {
+      "values": {
+        "sweep_C_0.95": 0.9433102040816326,
+        "code/43": 0.9402689180737961,
+        "code/49": 0.9424265165728579
+      },
+      "max_pairwise_spread": 0.0030412860078364856,
+      "pairwise": [
+        0.0030412860078364856,
+        0.0008836875087746554,
+        0.00215759849906183
+      ],
+      "ratio_to_leaky_spread": 1.0
+    },
+    "control": {
+      "values": {
+        "sweep_C_0.95": 0.9426571428571426,
+        "code/43": 0.930944340212633,
+        "code/49": 0.9174421513445903
+      },
+      "max_pairwise_spread": 0.025214991512552354,
+      "pairwise": [
+        0.01171280264450969,
+        0.025214991512552354,
+        0.013502188868042664
+      ],
+      "ratio_to_leaky_spread": 8.290897813484445
+    },
+    "placebo": {
+      "values": {
+        "sweep_C_0.95": 0.9286612244897959,
+        "code/43": 0.9158786741713569,
+        "code/49": 0.8874609130706693
+      },
+      "max_pairwise_spread": 0.04120031141912661,
+      "pairwise": [
+        0.012782550318439001,
+        0.04120031141912661,
+        0.02841776110068761
+      ],
+      "ratio_to_leaky_spread": 13.547003245655198
+    }
+  },
+  "by_matching_arm": {
+    "leaky": {
+      "matched_arm": "leaky",
+      "arm_spread_across_harnesses": 0.0030412860078364856,
+      "probit_loglinear_fit": {
+        "slope_m": -2.126040884199271,
+        "intercept_b": -4.077149608698064,
+        "r_squared_in_log_space": 0.9921821695538107
+      },
+      "observations": [
+        {
+          "harness": "real-feature checkpoint-only harness (code/43), capacity 128",
+          "short": "code/43",
+          "matched_on_value": 0.9402689180737961,
+          "nearest_sweep_C_cell_target": 0.95,
+          "nearest_sweep_C_cell_value": 0.9433102040816326,
+          "nearest_sweep_C_cell_gap": 0.0006530612244898004,
+          "gap": 0.009324577861163232,
+          "ratio_vs_nearest_cell": 14.278259849906101,
+          "interpolated_prediction": 0.000618960076323611,
+          "ratio_vs_interpolated": 15.064910028685052
+        },
+        {
+          "harness": "fidelity extension (code/49), capacity 128",
+          "short": "code/49",
+          "matched_on_value": 0.9424265165728579,
+          "nearest_sweep_C_cell_target": 0.95,
+          "nearest_sweep_C_cell_value": 0.9433102040816326,
+          "nearest_sweep_C_cell_gap": 0.0006530612244898004,
+          "gap": 0.024984365228267646,
+          "ratio_vs_nearest_cell": 38.25730925578457,
+          "interpolated_prediction": 0.0005951644857954631,
+          "ratio_vs_interpolated": 41.97892485952847
+        }
+      ],
+      "mechanism_axis_range_nearest_cell": [
+        14.278259849906101,
+        38.25730925578457
+      ],
+      "mechanism_axis_range_interpolated": [
+        15.064910028685052,
+        41.97892485952847
+      ]
+    },
+    "control": {
+      "matched_arm": "control",
+      "arm_spread_across_harnesses": 0.025214991512552354,
+      "probit_loglinear_fit": {
+        "slope_m": -2.1057046900820344,
+        "intercept_b": -4.1232141231353445,
+        "r_squared_in_log_space": 0.99298918133611
+      },
+      "observations": [
+        {
+          "harness": "real-feature checkpoint-only harness (code/43), capacity 128",
+          "short": "code/43",
+          "matched_on_value": 0.930944340212633,
+          "nearest_sweep_C_cell_target": 0.95,
+          "nearest_sweep_C_cell_value": 0.9426571428571426,
+          "nearest_sweep_C_cell_gap": 0.0006530612244898004,
+          "gap": 0.009324577861163232,
+          "ratio_vs_nearest_cell": 14.278259849906101,
+          "interpolated_prediction": 0.0007132477747539455,
+          "ratio_vs_interpolated": 13.073406172742708
+        },
+        {
+          "harness": "fidelity extension (code/49), capacity 128",
+          "short": "code/49",
+          "matched_on_value": 0.9174421513445903,
+          "nearest_sweep_C_cell_target": 0.95,
+          "nearest_sweep_C_cell_value": 0.9426571428571426,
+          "nearest_sweep_C_cell_gap": 0.0006530612244898004,
+          "gap": 0.024984365228267646,
+          "ratio_vs_nearest_cell": 38.25730925578457,
+          "interpolated_prediction": 0.000870815992702742,
+          "ratio_vs_interpolated": 28.690751476352595
+        }
+      ],
+      "mechanism_axis_range_nearest_cell": [
+        14.278259849906101,
+        38.25730925578457
+      ],
+      "mechanism_axis_range_interpolated": [
+        13.073406172742708,
+        28.690751476352595
+      ]
+    },
+    "placebo": {
+      "matched_arm": "placebo",
+      "arm_spread_across_harnesses": 0.04120031141912661,
+      "probit_loglinear_fit": {
+        "slope_m": -2.239320713244787,
+        "intercept_b": -4.151916483764301,
+        "r_squared_in_log_space": 0.9926069372333725
+      },
+      "observations": [
+        {
+          "harness": "real-feature checkpoint-only harness (code/43), capacity 128",
+          "short": "code/43",
+          "matched_on_value": 0.9158786741713569,
+          "nearest_sweep_C_cell_target": 0.95,
+          "nearest_sweep_C_cell_value": 0.9286612244897959,
+          "nearest_sweep_C_cell_gap": 0.0006530612244898004,
+          "gap": 0.009324577861163232,
+          "ratio_vs_nearest_cell": 14.278259849906101,
+          "interpolated_prediction": 0.0007191684451052148,
+          "ratio_vs_interpolated": 12.965777245411594
+        },
+        {
+          "harness": "fidelity extension (code/49), capacity 128",
+          "short": "code/49",
+          "matched_on_value": 0.8874609130706693,
+          "nearest_sweep_C_cell_target": 0.9,
+          "nearest_sweep_C_cell_value": 0.8645959183673468,
+          "nearest_sweep_C_cell_gap": 0.0010877551020408228,
+          "gap": 0.024984365228267646,
+          "ratio_vs_nearest_cell": 22.968741016606142,
+          "interpolated_prediction": 0.0010400203159354367,
+          "ratio_vs_interpolated": 24.02295882633378
+        }
+      ],
+      "mechanism_axis_range_nearest_cell": [
+        14.278259849906101,
+        22.968741016606142
+      ],
+      "mechanism_axis_range_interpolated": [
+        12.965777245411594,
+        24.02295882633378
+      ]
+    }
+  },
+  "reproduces_code58_under_leaky_matching": [
+    {
+      "harness": "real-feature checkpoint-only harness (code/43), capacity 128",
+      "nearest_drift": 0.0,
+      "interp_drift": 0.0
+    },
+    {
+      "harness": "fidelity extension (code/49), capacity 128",
+      "nearest_drift": 0.0,
+      "interp_drift": 0.0
+    }
+  ],
+  "retracted_non_budget_matched_control": {
+    "what": "code/49's non-budget-matched control (clean_matched_plus_lrsched), which this paper retracts: its sanity ratio is 1.60, outside the 0.06-0.85 comparator band, the signature of a degraded control.",
+    "gap": 0.03384615384615384,
+    "ratio_vs_leaky_matched_nearest_cell": 51.82692307692271,
+    "why_reported": "code/58's docstring quoted this arm's +0.0338 until the third review; 0.0338/0.00065 = 52x is the long-retracted multiplier its arithmetic reproduced. Reported here so the retraction is a number in the record, not only prose.",
+    "control_arm_mean": 0.9085803627267042
+  },
+  "headline": {
+    "leaky_matched_shipped": {
+      "nearest_cell": [
+        14.278259849906101,
+        38.25730925578457
+      ],
+      "interpolated": [
+        15.064910028685052,
+        41.97892485952847
+      ]
+    },
+    "control_matched": {
+      "nearest_cell": [
+        14.278259849906101,
+        38.25730925578457
+      ],
+      "interpolated": [
+        13.073406172742708,
+        28.690751476352595
+      ]
+    },
+    "placebo_matched": {
+      "nearest_cell": [
+        14.278259849906101,
+        22.968741016606142
+      ],
+      "interpolated": [
+        12.965777245411594,
+        24.02295882633378
+      ]
+    }
+  },
+  "reading": "The three harnesses' LEAKY arms agree to 0.0030 AUROC, their control arms to 0.0252 (8.3x worse) and their placebo arms to 0.0412 (13.5x worse). Since the quantity being compared is LEAKY minus CONTROL, matching on LEAKY alone leaves the control spread inside the ratio. The mechanism-and-harness axis is therefore not a single range but a convention-dependent one, and the paper reports all three rather than the largest."
+}

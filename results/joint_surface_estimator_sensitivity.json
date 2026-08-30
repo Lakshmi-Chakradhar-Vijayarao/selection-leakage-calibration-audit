@@ -1,0 +1,86 @@
+{
+  "n_cells": 20,
+  "by_subset": {
+    "all_20_cells": {
+      "n_cells": 20,
+      "nls_b": 0.1657194023201721,
+      "nls_c": -2.9658139782523176,
+      "nls_r2_raw": 0.9760708141655812,
+      "log_ols_b": 0.29321154326076726,
+      "log_ols_c": -2.4312242517074827,
+      "log_ols_r2_raw": 0.9003982637363864,
+      "log_ols_r2_logspace": 0.9032281018148052
+    },
+    "drop_K15": {
+      "n_cells": 15,
+      "nls_b": 0.08966499642435853,
+      "nls_c": -2.798341627803823,
+      "nls_r2_raw": 0.9941360578870474,
+      "log_ols_b": 0.01251351041822898,
+      "log_ols_c": -2.4603908771108616,
+      "log_ols_r2_raw": 0.9642000849025303,
+      "log_ols_r2_logspace": 0.9848699298125105
+    },
+    "drop_K45": {
+      "n_cells": 15,
+      "nls_b": 0.20789713860176545,
+      "nls_c": -2.974781849740329,
+      "nls_r2_raw": 0.9889112844843089,
+      "log_ols_b": 0.35327132998036703,
+      "log_ols_c": -2.471767639066874,
+      "log_ols_r2_raw": 0.9161914216564268,
+      "log_ols_r2_logspace": 0.922411888952044
+    },
+    "drop_K135": {
+      "n_cells": 15,
+      "nls_b": 0.16609796481072042,
+      "nls_c": -2.9874850834508884,
+      "nls_r2_raw": 0.9691248078405754,
+      "log_ols_b": 0.2930319597674478,
+      "log_ols_c": -2.4126940037934146,
+      "log_ols_r2_raw": 0.8764941950144038,
+      "log_ols_r2_logspace": 0.8777395505977382
+    },
+    "drop_K405": {
+      "n_cells": 15,
+      "nls_b": 0.18872524912120958,
+      "nls_c": -3.1669384745837323,
+      "nls_r2_raw": 0.966901101097249,
+      "log_ols_b": 0.43418910190866905,
+      "log_ols_c": -2.380044486858779,
+      "log_ols_r2_raw": 0.8477996434375401,
+      "log_ols_r2_logspace": 0.8862100191529999
+    }
+  },
+  "summary": {
+    "b_nls_all_cells": 0.1657194023201721,
+    "b_log_ols_all_cells": 0.29321154326076726,
+    "b_nls_column_deletion_range": [
+      0.08966499642435853,
+      0.20789713860176545
+    ],
+    "b_log_ols_column_deletion_range": [
+      0.01251351041822898,
+      0.43418910190866905
+    ],
+    "b_range_over_both_estimators_and_all_deletions": [
+      0.01251351041822898,
+      0.43418910190866905
+    ],
+    "b_estimator_shift_all_cells": 0.12749214094059516,
+    "b_column_deletion_span_within_nls": 0.11823214217740692,
+    "b_estimator_shift_exceeds_deletion_span": true,
+    "b_log_ols_outside_nls_deletion_range": true,
+    "c_nls_all_cells": -2.9658139782523176,
+    "c_log_ols_all_cells": -2.4312242517074827,
+    "c_range_over_both_estimators_and_all_deletions": [
+      -3.1669384745837323,
+      -2.380044486858779
+    ],
+    "c_estimator_shift_all_cells": 0.5345897265448349,
+    "c_column_deletion_span_within_nls": 0.36859684677990945,
+    "c_relative_span_over_both_estimators": 0.29090907537582655,
+    "b_relative_span_over_both_estimators": 1.9129489878486041
+  },
+  "reading": "The candidate-count exponent b moves further under a change of ESTIMATOR (raw-space Gauss-Newton NLS vs ordinary log-space OLS, same functional form, same 20 cells) than it does under deleting any single K column, and the log-OLS value falls outside the column-deletion range the paper quotes. The operating-point coefficient c is by contrast stable under both estimators and all deletions. This is a fitted-parameter stability caveat on b, not a validity failure of the surface: the two estimators minimize absolute and relative error respectively, and on a grid whose cell means span roughly two orders of magnitude they weight it very differently. Raw-space NLS remains the reported fit because its R^2 is then commensurable with the additive model's at equal parameter count. b is not a quantity this paper's conclusions rest on; c is, and c survives."
+}

@@ -1,0 +1,1382 @@
+{
+  "framing": "Attempts the highest-value open experiment this paper names in its own abstract, S5.2, S7 and Conclusion: a matched head-to-head across all five mechanisms at a common (K, AUROC_0). This is a CPU-only synthetic experiment; Mechanism 2 required a wholly new synthetic reconstruction (no prior version existed anywhere in this codebase). Results are reported as measured, in whichever direction they came out; neither 'mechanism identity dominates' nor 'K/AUROC_0 explain it away' was assumed going in.",
+  "grid": {
+    "K_values": [
+      5,
+      10,
+      20,
+      40,
+      80
+    ],
+    "auroc0_values": [
+      0.7,
+      0.8,
+      0.95
+    ],
+    "why_this_grid": "K spans the range this paper already explores across its other K-sweeps (2-405) while remaining realizable for Mechanisms 2, 4 and 5's own real candidate counts (32, 33, 81 respectively). AUROC_0 in {0.70, 0.80, 0.95} reuses exactly the three operating points code/86's existing Mechanism-1 reconstruction already ships, so Mechanism 1 needed no new compute."
+  },
+  "mechanism_1": {
+    "source": "results/mechanism1_severity_probe.json (code/86), reused verbatim",
+    "note": "Mechanism 1 has NO natural candidate count K: it is a single full-dataset probe fit reused as a feature, not a selection-among-K procedure. Its three AUROC_0 cells (K=1 by convention, i.e. ln K=0) are an anchor for the pooled fit below, not a K-sweep. No artificial K-dependence is fit onto it.",
+    "cells": {
+      "1|0.7": {
+        "K": 1,
+        "auroc0": 0.7,
+        "gap_mean": 0.2913689168334507,
+        "gap_bca_ci_95": [
+          0.2835333053481537,
+          0.29938269617925023
+        ],
+        "wilcoxon_p": 3.89655984509591e-18,
+        "n_seeds": 100
+      },
+      "1|0.8": {
+        "K": 1,
+        "auroc0": 0.8,
+        "gap_mean": 0.24950535518408276,
+        "gap_bca_ci_95": [
+          0.24207954417654,
+          0.25693225455267316
+        ],
+        "wilcoxon_p": 3.89655984509591e-18,
+        "n_seeds": 100
+      },
+      "1|0.95": {
+        "K": 1,
+        "auroc0": 0.95,
+        "gap_mean": 0.12720517943818568,
+        "gap_bca_ci_95": [
+          0.12098975734431638,
+          0.13359451034673483
+        ],
+        "wilcoxon_p": 3.89655984509591e-18,
+        "n_seeds": 100
+      }
+    }
+  },
+  "mechanism_2": {
+    "design": "NEW synthetic reconstruction (no prior version existed). K exchangeable candidate 'layers': independent isotropic-Gaussian feature blocks of the SAME samples (shared labels, shared selection/held-out partition), each calibrated to the same target AUROC_0 via this paper's binormal identity. LEAKY: l* = argmax_k(cv_k) where cv_k is the 5-fold CV AUROC on the selection pool (n_sel=560) -- non-nested, read off the same data used to select it, per the task specification. gap_l = cv_l - ho_l, where ho_l is the AUROC of a probe fit on the full selection pool and scored on a disjoint held-out set (n_ho=140, TEST_SIZE=0.20). Severity = Delta_sel = gap_{l*} - mean_l(gap_l), identical in form to the real GUARDIAN case study's own Delta_sel (main.tex S4.2, code/48/64).",
+    "n_seeds": 100,
+    "feat_dim": 64,
+    "n_samples": 700,
+    "n_sel": 560,
+    "n_ho": 140,
+    "n_inner_folds": 5,
+    "mechanical_null_note": "Because the K candidates are constructed EXCHANGEABLE (identical target AUROC_0, no real quality difference), this design predicts Delta_sel should sit close to the mechanical (layer-permutation) null rather than above it, since there is no real transferred layer quality (B) for an exchangeable candidate set to supply -- unlike real GUARDIAN layers, which do carry real, transferable signal (code/64: B/A = 40.4%). observed_vs_mechanical_null and observed_below/above_null_ci report whether that prediction holds at each cell.",
+    "cells": {
+      "5|0.7": {
+        "K": 5,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.03328715633306404,
+        "gap_sem": 0.004211296347325402,
+        "gap_bca_ci_95": [
+          0.02519726643113136,
+          0.04157153428005195
+        ],
+        "wilcoxon_p_vs_zero": 1.714319310881962e-10,
+        "A_winners_curse_on_selection_criterion": 0.03444353378917205,
+        "B_transferred_layer_quality": 0.0011563774561080332,
+        "mechanical_null_mean": 0.03447992324739838,
+        "mechanical_null_sd": 0.004240392373791272,
+        "mechanical_null_ci_95": [
+          0.026175290461523983,
+          0.04280845656840151
+        ],
+        "observed_vs_mechanical_null": -0.0011927669143343422,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "5|0.8": {
+        "K": 5,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.026889314492722017,
+        "gap_sem": 0.0038112804781477924,
+        "gap_bca_ci_95": [
+          0.019404210362626205,
+          0.03418808661946781
+        ],
+        "wilcoxon_p_vs_zero": 5.496459893247867e-09,
+        "A_winners_curse_on_selection_criterion": 0.028164371225842352,
+        "B_transferred_layer_quality": 0.0012750567331203167,
+        "mechanical_null_mean": 0.028198670773236182,
+        "mechanical_null_sd": 0.0037831594072895206,
+        "mechanical_null_ci_95": [
+          0.020805044962181943,
+          0.03550549739710368
+        ],
+        "observed_vs_mechanical_null": -0.001309356280514165,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "10|0.7": {
+        "K": 10,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.038173364105052274,
+        "gap_sem": 0.004358270258486093,
+        "gap_bca_ci_95": [
+          0.0295362282323535,
+          0.04643240738166614
+        ],
+        "wilcoxon_p_vs_zero": 1.836214434377775e-11,
+        "A_winners_curse_on_selection_criterion": 0.04446870637277307,
+        "B_transferred_layer_quality": 0.006295342267720811,
+        "mechanical_null_mean": 0.04447138355907033,
+        "mechanical_null_sd": 0.004450897599432916,
+        "mechanical_null_ci_95": [
+          0.03580078238350551,
+          0.053247054841825896
+        ],
+        "observed_vs_mechanical_null": -0.006298019454018054,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "10|0.8": {
+        "K": 10,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.031051340240127363,
+        "gap_sem": 0.00411236362589682,
+        "gap_bca_ci_95": [
+          0.023057983053519075,
+          0.039268584479083414
+        ],
+        "wilcoxon_p_vs_zero": 5.92462786523848e-10,
+        "A_winners_curse_on_selection_criterion": 0.03632044322422441,
+        "B_transferred_layer_quality": 0.005269102984097064,
+        "mechanical_null_mean": 0.036325761116385163,
+        "mechanical_null_sd": 0.003905050522230294,
+        "mechanical_null_ci_95": [
+          0.028683448495301626,
+          0.04386990339674934
+        ],
+        "observed_vs_mechanical_null": -0.005274420876257801,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "20|0.7": {
+        "K": 20,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.05299177122870427,
+        "gap_sem": 0.004854628171750389,
+        "gap_bca_ci_95": [
+          0.04347264266306677,
+          0.06229956591990628
+        ],
+        "wilcoxon_p_vs_zero": 2.1729294370652983e-14,
+        "A_winners_curse_on_selection_criterion": 0.054025616215669627,
+        "B_transferred_layer_quality": 0.0010338449869653499,
+        "mechanical_null_mean": 0.054081548515775936,
+        "mechanical_null_sd": 0.0045557768740247945,
+        "mechanical_null_ci_95": [
+          0.04520639708081841,
+          0.06297247097276552
+        ],
+        "observed_vs_mechanical_null": -0.0010897772870716652,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "5|0.95": {
+        "K": 5,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.016616727342293885,
+        "gap_sem": 0.002158861996415258,
+        "gap_bca_ci_95": [
+          0.012580766102249199,
+          0.021041910375206942
+        ],
+        "wilcoxon_p_vs_zero": 1.2222432997382332e-10,
+        "A_winners_curse_on_selection_criterion": 0.014949839758280565,
+        "B_transferred_layer_quality": -0.0016668875840133168,
+        "mechanical_null_mean": 0.014966559245341361,
+        "mechanical_null_sd": 0.0019874350806374772,
+        "mechanical_null_ci_95": [
+          0.011103448908709597,
+          0.018895905997069758
+        ],
+        "observed_vs_mechanical_null": 0.0016501680969525246,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "20|0.8": {
+        "K": 20,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.04239976023448871,
+        "gap_sem": 0.004172487101437559,
+        "gap_bca_ci_95": [
+          0.03421415031016461,
+          0.05068758164891952
+        ],
+        "wilcoxon_p_vs_zero": 1.2344747158137794e-13,
+        "A_winners_curse_on_selection_criterion": 0.043901842737093286,
+        "B_transferred_layer_quality": 0.0015020825026045648,
+        "mechanical_null_mean": 0.043912619743606746,
+        "mechanical_null_sd": 0.0039408210840434135,
+        "mechanical_null_ci_95": [
+          0.03625528188151375,
+          0.05165506587294879
+        ],
+        "observed_vs_mechanical_null": -0.0015128595091180377,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "40|0.7": {
+        "K": 40,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.05824803045737377,
+        "gap_sem": 0.004946862464703602,
+        "gap_bca_ci_95": [
+          0.049053542399825956,
+          0.06821136415646802
+        ],
+        "wilcoxon_p_vs_zero": 2.9988154022389913e-15,
+        "A_winners_curse_on_selection_criterion": 0.06358349177823627,
+        "B_transferred_layer_quality": 0.0053354613208624856,
+        "mechanical_null_mean": 0.0635686279716905,
+        "mechanical_null_sd": 0.0046599531436802245,
+        "mechanical_null_ci_95": [
+          0.05450966295280185,
+          0.07269874846405851
+        ],
+        "observed_vs_mechanical_null": -0.0053205975143167245,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "10|0.95": {
+        "K": 10,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.016703322129605777,
+        "gap_sem": 0.0021594638716886114,
+        "gap_bca_ci_95": [
+          0.01253594427630509,
+          0.02095616310137845
+        ],
+        "wilcoxon_p_vs_zero": 1.6389504642151865e-10,
+        "A_winners_curse_on_selection_criterion": 0.018589265698461324,
+        "B_transferred_layer_quality": 0.0018859435688555503,
+        "mechanical_null_mean": 0.018596752529410194,
+        "mechanical_null_sd": 0.0020889283904037188,
+        "mechanical_null_ci_95": [
+          0.014540466363956648,
+          0.02271071538046548
+        ],
+        "observed_vs_mechanical_null": -0.0018934303998044168,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "40|0.8": {
+        "K": 40,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.04972579698206011,
+        "gap_sem": 0.004075253483808251,
+        "gap_bca_ci_95": [
+          0.04206852361522454,
+          0.057920353345485
+        ],
+        "wilcoxon_p_vs_zero": 6.118237096853961e-16,
+        "A_winners_curse_on_selection_criterion": 0.05267102938991363,
+        "B_transferred_layer_quality": 0.0029452324078535286,
+        "mechanical_null_mean": 0.05267941925437651,
+        "mechanical_null_sd": 0.004032403040221105,
+        "mechanical_null_ci_95": [
+          0.04481801445830442,
+          0.060675727995557545
+        ],
+        "observed_vs_mechanical_null": -0.0029536222723164016,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "20|0.95": {
+        "K": 20,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.02257261677267174,
+        "gap_sem": 0.002105070713487994,
+        "gap_bca_ci_95": [
+          0.018414734460384365,
+          0.026627332684470303
+        ],
+        "wilcoxon_p_vs_zero": 1.9526067877933384e-14,
+        "A_winners_curse_on_selection_criterion": 0.022519379449680937,
+        "B_transferred_layer_quality": -5.3237322990798975e-05,
+        "mechanical_null_mean": 0.022506300559410927,
+        "mechanical_null_sd": 0.002088588728736266,
+        "mechanical_null_ci_95": [
+          0.018452865138530214,
+          0.026654536177096955
+        ],
+        "observed_vs_mechanical_null": 6.631621326081208e-05,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "80|0.7": {
+        "K": 80,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.07295190253125952,
+        "gap_sem": 0.004763880360874499,
+        "gap_bca_ci_95": [
+          0.06369609760690512,
+          0.0825116511924738
+        ],
+        "wilcoxon_p_vs_zero": 2.273152530832865e-17,
+        "A_winners_curse_on_selection_criterion": 0.07183105330739106,
+        "B_transferred_layer_quality": -0.0011208492238684508,
+        "mechanical_null_mean": 0.07183190923819247,
+        "mechanical_null_sd": 0.0046889679263087515,
+        "mechanical_null_ci_95": [
+          0.0627133764764798,
+          0.08103032254143917
+        ],
+        "observed_vs_mechanical_null": 0.0011199932930670564,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "80|0.8": {
+        "K": 80,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.052965600320890455,
+        "gap_sem": 0.004188228743730215,
+        "gap_bca_ci_95": [
+          0.04506409141834747,
+          0.061393333882528905
+        ],
+        "wilcoxon_p_vs_zero": 5.164212615311754e-16,
+        "A_winners_curse_on_selection_criterion": 0.05921386628933493,
+        "B_transferred_layer_quality": 0.006248265968444474,
+        "mechanical_null_mean": 0.059219450155802406,
+        "mechanical_null_sd": 0.004053495495571375,
+        "mechanical_null_ci_95": [
+          0.05128465018315474,
+          0.06721551118666827
+        ],
+        "observed_vs_mechanical_null": -0.006253849834911951,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "40|0.95": {
+        "K": 40,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.02340695456775734,
+        "gap_sem": 0.0019354927552717872,
+        "gap_bca_ci_95": [
+          0.019753248864360005,
+          0.027326793735232027
+        ],
+        "wilcoxon_p_vs_zero": 1.2003082792723794e-15,
+        "A_winners_curse_on_selection_criterion": 0.025978790157413226,
+        "B_transferred_layer_quality": 0.0025718355896558642,
+        "mechanical_null_mean": 0.02595506577306237,
+        "mechanical_null_sd": 0.0021008232542189054,
+        "mechanical_null_ci_95": [
+          0.02188152067119085,
+          0.03013233397021065
+        ],
+        "observed_vs_mechanical_null": -0.002548111205305032,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      },
+      "80|0.95": {
+        "K": 80,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.02704107200447102,
+        "gap_sem": 0.0022526414865674882,
+        "gap_bca_ci_95": [
+          0.022863250112520512,
+          0.03162740390455671
+        ],
+        "wilcoxon_p_vs_zero": 5.312355559705195e-16,
+        "A_winners_curse_on_selection_criterion": 0.02891106661615269,
+        "B_transferred_layer_quality": 0.0018699946116816591,
+        "mechanical_null_mean": 0.028900712269266444,
+        "mechanical_null_sd": 0.002126842240263675,
+        "mechanical_null_ci_95": [
+          0.02481301441803271,
+          0.03313903597499057
+        ],
+        "observed_vs_mechanical_null": -0.0018596402647954244,
+        "observed_below_null_ci": false,
+        "observed_above_null_ci": false
+      }
+    },
+    "runtime_seconds": 31410.171337366104
+  },
+  "mechanism_3": {
+    "design": "code/73's run_one_seed IMPORTED VERBATIM (not reimplemented), called at this script's own (K, AUROC_0) grid rather than code/73's shipped K in {2,5,15,45} at a single AUROC_0=0.80. Every moving part -- the isotropic generator, SweepMLP, CAPACITY=128, N_INNER_FOLDS=5, DEFAULT_N_SAMPLES=700, FIXED_EPOCHS=45, the LEAKY/CLEAN_MATCHED protocol -- is code/73's own.",
+    "n_seeds": 15,
+    "n_seeds_note": "N_SEEDS=15, against code/73's own 30 and this paper's usual 100. Compute-limited: measured empirically at ~33.6s/seed for a single K=80 cell on this machine (single-threaded), so the full 5x3 grid at N_SEEDS=100 would take multiple hours serially. Run under a 6-process pool across the 15 grid cells to keep wall time to {runtime_seconds} below.",
+    "mde_note": "Mean per-cell SEM across the grid is 0.00514; minimum detectable gap at 80% power (2.8x mean SEM, code/73's own convention) is +0.01439. Cells whose true gap is smaller than this should not be expected to separate from zero at this seed count -- read gap_bca_ci_95 per cell rather than the point estimate alone.",
+    "mean_gap_sem": 0.005139527551052902,
+    "min_detectable_gap_80pct_power": 0.014390677142948123,
+    "cells": {
+      "40|0.8": {
+        "K": 40,
+        "auroc0": 0.8,
+        "n_seeds": 15,
+        "gap_mean": -0.005102040816326518,
+        "gap_sem": 0.0036820976307341065,
+        "gap_bca_ci_95": [
+          -0.014379663126616283,
+          0.0003673469387754902
+        ],
+        "wilcoxon_p_vs_zero": 0.25238037109375,
+        "leaky_mean": 0.7440816326530614,
+        "clean_matched_mean": 0.7491836734693876
+      },
+      "40|0.7": {
+        "K": 40,
+        "auroc0": 0.7,
+        "n_seeds": 15,
+        "gap_mean": 0.004925170068027218,
+        "gap_sem": 0.009182353142680361,
+        "gap_bca_ci_95": [
+          -0.011649118045835165,
+          0.02324201050547311
+        ],
+        "wilcoxon_p_vs_zero": 0.48870849609375,
+        "leaky_mean": 0.631374149659864,
+        "clean_matched_mean": 0.6264489795918369
+      },
+      "40|0.95": {
+        "K": 40,
+        "auroc0": 0.95,
+        "n_seeds": 15,
+        "gap_mean": -0.0018775510204081562,
+        "gap_sem": 0.0015423521265609116,
+        "gap_bca_ci_95": [
+          -0.005000839024178666,
+          0.0009115646258503567
+        ],
+        "wilcoxon_p_vs_zero": 0.2719476239947354,
+        "leaky_mean": 0.9340408163265307,
+        "clean_matched_mean": 0.9359183673469388
+      },
+      "20|0.7": {
+        "K": 20,
+        "auroc0": 0.7,
+        "n_seeds": 15,
+        "gap_mean": -0.0027210884353741677,
+        "gap_sem": 0.008090581832937413,
+        "gap_bca_ci_95": [
+          -0.017551020408163295,
+          0.013197278911564586
+        ],
+        "wilcoxon_p_vs_zero": 0.67877197265625,
+        "leaky_mean": 0.6191156462585035,
+        "clean_matched_mean": 0.6218367346938775
+      },
+      "20|0.95": {
+        "K": 20,
+        "auroc0": 0.95,
+        "n_seeds": 15,
+        "gap_mean": 0.0001088435374149451,
+        "gap_sem": 0.001669276629995977,
+        "gap_bca_ci_95": [
+          -0.003508484695159385,
+          0.0028979591836734387
+        ],
+        "wilcoxon_p_vs_zero": 0.803955078125,
+        "leaky_mean": 0.9340680272108843,
+        "clean_matched_mean": 0.9339591836734694
+      },
+      "20|0.8": {
+        "K": 20,
+        "auroc0": 0.8,
+        "n_seeds": 15,
+        "gap_mean": -0.005877551020408167,
+        "gap_sem": 0.007369961767004988,
+        "gap_bca_ci_95": [
+          -0.02160002882502994,
+          0.006258889944622926
+        ],
+        "wilcoxon_p_vs_zero": 0.7332196494460775,
+        "leaky_mean": 0.7446666666666667,
+        "clean_matched_mean": 0.7505442176870749
+      },
+      "10|0.7": {
+        "K": 10,
+        "auroc0": 0.7,
+        "n_seeds": 15,
+        "gap_mean": -0.009455782312925164,
+        "gap_sem": 0.01049971485731454,
+        "gap_bca_ci_95": [
+          -0.031102040816326535,
+          0.009062004685162935
+        ],
+        "wilcoxon_p_vs_zero": 0.45428466796875,
+        "leaky_mean": 0.6112108843537416,
+        "clean_matched_mean": 0.6206666666666666
+      },
+      "10|0.8": {
+        "K": 10,
+        "auroc0": 0.8,
+        "n_seeds": 15,
+        "gap_mean": -0.004408163265306101,
+        "gap_sem": 0.005962331263999339,
+        "gap_bca_ci_95": [
+          -0.019406689146092962,
+          0.0045311385775655974
+        ],
+        "wilcoxon_p_vs_zero": 0.5994873046875,
+        "leaky_mean": 0.7448299319727891,
+        "clean_matched_mean": 0.7492380952380953
+      },
+      "10|0.95": {
+        "K": 10,
+        "auroc0": 0.95,
+        "n_seeds": 15,
+        "gap_mean": 0.002108843537414969,
+        "gap_sem": 0.0017974049270584498,
+        "gap_bca_ci_95": [
+          -0.0014013605442176958,
+          0.005374149659863944
+        ],
+        "wilcoxon_p_vs_zero": 0.28033687850550715,
+        "leaky_mean": 0.9365442176870747,
+        "clean_matched_mean": 0.9344353741496599
+      },
+      "5|0.7": {
+        "K": 5,
+        "auroc0": 0.7,
+        "n_seeds": 15,
+        "gap_mean": -0.005020408163265285,
+        "gap_sem": 0.007227838220808844,
+        "gap_bca_ci_95": [
+          -0.020603953626729822,
+          0.00727128418691877
+        ],
+        "wilcoxon_p_vs_zero": 0.76153564453125,
+        "leaky_mean": 0.6147346938775511,
+        "clean_matched_mean": 0.6197551020408163
+      },
+      "5|0.8": {
+        "K": 5,
+        "auroc0": 0.8,
+        "n_seeds": 15,
+        "gap_mean": 0.0011428571428571343,
+        "gap_sem": 0.004123391823211153,
+        "gap_bca_ci_95": [
+          -0.006326530612244902,
+          0.009564625850340146
+        ],
+        "wilcoxon_p_vs_zero": 0.7332196494460775,
+        "leaky_mean": 0.7471020408163266,
+        "clean_matched_mean": 0.7459591836734696
+      },
+      "5|0.95": {
+        "K": 5,
+        "auroc0": 0.95,
+        "n_seeds": 15,
+        "gap_mean": 0.0024489795918367346,
+        "gap_sem": 0.0019042759341187697,
+        "gap_bca_ci_95": [
+          -0.001151048098984441,
+          0.0060473581754146594
+        ],
+        "wilcoxon_p_vs_zero": 0.2804339073312231,
+        "leaky_mean": 0.9365306122448979,
+        "clean_matched_mean": 0.9340816326530614
+      },
+      "80|0.8": {
+        "K": 80,
+        "auroc0": 0.8,
+        "n_seeds": 15,
+        "gap_mean": -0.006911564625850312,
+        "gap_sem": 0.005080454496989666,
+        "gap_bca_ci_95": [
+          -0.01847619047619046,
+          0.0013333333333333715
+        ],
+        "wilcoxon_p_vs_zero": 0.33026123046875,
+        "leaky_mean": 0.7449251700680273,
+        "clean_matched_mean": 0.7518367346938777
+      },
+      "80|0.7": {
+        "K": 80,
+        "auroc0": 0.7,
+        "n_seeds": 15,
+        "gap_mean": 0.009591836734693888,
+        "gap_sem": 0.007728638803675602,
+        "gap_bca_ci_95": [
+          -0.002666666666666641,
+          0.027351817919676464
+        ],
+        "wilcoxon_p_vs_zero": 0.5614013671875,
+        "leaky_mean": 0.6306938775510205,
+        "clean_matched_mean": 0.6211020408163265
+      },
+      "80|0.95": {
+        "K": 80,
+        "auroc0": 0.95,
+        "n_seeds": 15,
+        "gap_mean": -0.003673469387755057,
+        "gap_sem": 0.0012322398087033987,
+        "gap_bca_ci_95": [
+          -0.005714285714285672,
+          -0.0008435374149659653
+        ],
+        "wilcoxon_p_vs_zero": 0.017036420262282723,
+        "leaky_mean": 0.9344625850340136,
+        "clean_matched_mean": 0.9381360544217687
+      }
+    },
+    "runtime_seconds": 4370.124976158142
+  },
+  "mechanism_4": {
+    "design": "Adapts code/45's PROMOTED estimator (exact bootstrap bias of a max-of-means, Delta_boot, non-negative for any input by Theorem 2 there) to K exchangeable candidates calibrated to a target AUROC_0 via this paper's binormal identity, each evaluated over N_REPS_M4=3 independent noisy AUROC draws (matching the real quantized-LLM case study's exact 3-seed convention), on synthetic test sets of N_TEST_M4=150 samples each (a disclosed choice; the real case study's own n is an order-of-magnitude placeholder, main.tex Table tab:ada-bound). L* = argmax over the candidates' full-sample (3-replicate) means; Delta_boot is computed by EXACT enumeration of all 3^3=27 bootstrap resamples of the replicate index, exactly as code/45/code/70 do.",
+    "n_seeds": 100,
+    "n_reps": 3,
+    "n_test_per_replicate": 150,
+    "nonnegativity_note": "Delta_boot >= 0 for any input by Theorem 2 (code/45's module docstring, CORRECTION 5): it is a magnitude diagnostic, not a signed test against zero, exactly as the real Mechanism-4 case study already concedes.",
+    "cells": {
+      "5|0.7": {
+        "K": 5,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.013363401920438951,
+        "gap_sem": 0.0006577251989555923,
+        "gap_bca_ci_95": [
+          0.011995777778828468,
+          0.01459915854533559
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.7269629629629629
+      },
+      "10|0.7": {
+        "K": 10,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.01724876817558299,
+        "gap_sem": 0.0007333978669889602,
+        "gap_bca_ci_95": [
+          0.01581639615866149,
+          0.018651443088413572
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.7361955555555555
+      },
+      "20|0.7": {
+        "K": 20,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.020685256515775036,
+        "gap_sem": 0.000671345246962718,
+        "gap_bca_ci_95": [
+          0.019356404265633637,
+          0.02197129650601652
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.7434459259259261
+      },
+      "40|0.7": {
+        "K": 40,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.023032625514403285,
+        "gap_sem": 0.0006867759571863123,
+        "gap_bca_ci_95": [
+          0.02170033231545599,
+          0.0243663822350655
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.7514014814814816
+      },
+      "80|0.7": {
+        "K": 80,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "gap_mean": 0.025503231824416998,
+        "gap_sem": 0.0007643071103672198,
+        "gap_bca_ci_95": [
+          0.023947146912215694,
+          0.026879106655069766
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.7577831111111112
+      },
+      "5|0.8": {
+        "K": 5,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.010576526748971193,
+        "gap_sem": 0.0005645521731953893,
+        "gap_bca_ci_95": [
+          0.00950655313050478,
+          0.011669574759945133
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.8232023703703705
+      },
+      "10|0.8": {
+        "K": 10,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.014620290809327847,
+        "gap_sem": 0.0005913389154121759,
+        "gap_bca_ci_95": [
+          0.013445575094979567,
+          0.015731723931241462
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.8304485925925927
+      },
+      "20|0.8": {
+        "K": 20,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.01661717421124828,
+        "gap_sem": 0.0005534933200878379,
+        "gap_bca_ci_95": [
+          0.015510486759577861,
+          0.017678245498287053
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.8365019259259258
+      },
+      "40|0.8": {
+        "K": 40,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.018706348422496574,
+        "gap_sem": 0.0005597935536575296,
+        "gap_bca_ci_95": [
+          0.01760071223659346,
+          0.01975519143375764
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.8428148148148148
+      },
+      "80|0.8": {
+        "K": 80,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "gap_mean": 0.021225064471879294,
+        "gap_sem": 0.0005625978172274862,
+        "gap_bca_ci_95": [
+          0.020071673431395834,
+          0.022267863206401076
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.8474405925925924
+      },
+      "5|0.95": {
+        "K": 5,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.004352175582990396,
+        "gap_sem": 0.00025303733629431977,
+        "gap_bca_ci_95": [
+          0.0038658617127684514,
+          0.004861683102599546
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.961303111111111
+      },
+      "10|0.95": {
+        "K": 10,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.005753042524005484,
+        "gap_sem": 0.000251348950560522,
+        "gap_bca_ci_95": [
+          0.005254888020228018,
+          0.006236873213909435
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.9639448888888887
+      },
+      "20|0.95": {
+        "K": 20,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.006534101508916319,
+        "gap_sem": 0.00026523924426203113,
+        "gap_bca_ci_95": [
+          0.0060006439581095534,
+          0.007053295300184629
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.9664177777777776
+      },
+      "40|0.95": {
+        "K": 40,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.007741585733882025,
+        "gap_sem": 0.00024136552412330786,
+        "gap_bca_ci_95": [
+          0.0072612152916769965,
+          0.008215219215372637
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.9688699259259259
+      },
+      "80|0.95": {
+        "K": 80,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "gap_mean": 0.008844641975308641,
+        "gap_sem": 0.00023257342655528092,
+        "gap_bca_ci_95": [
+          0.008371202354921892,
+          0.009290918053643906
+        ],
+        "n_negative": 0,
+        "naive_best_mean_auroc": 0.9706127407407409
+      }
+    },
+    "runtime_seconds": 118.99762606620789
+  },
+  "mechanism_5": {
+    "design": "Adapts code/46's verbatim find_best_thresholds/F1 branch to a variable number of candidate thresholds K (np.linspace(0.1, 0.9, K), in place of the fixed 81), keeping N_SAMPLES=700, TEST_SIZE=0.20, VAL_SIZE_OF_TRAIN=0.20 fixed (n_test=140, n_val=112, this paper's own established convention). LEAKY: threshold selected by find_best_f1_threshold_K(probs_test, y_test, K), non-nested. HONEST: threshold selected on an independent validation split, applied as-is.",
+    "n_seeds": 100,
+    "auroc_scale_note": "AUROC is threshold-free and its LEAKY-minus-HONEST gap is an algebraic identity (auroc_honest is DEFINED equal to auroc_leaky above, since no threshold enters an AUROC computation); max |auroc_gap_mean| over all 15 cells is 0.00e+00, i.e. exactly zero up to float noise, as the paper's own real Mechanism-5 measurement already reports. This is NOT pooled with the other four mechanisms' AUROC-scale gaps anywhere in this script's model comparison -- there is nothing here for K or AUROC_0 to predict.",
+    "cells": {
+      "5|0.7": {
+        "K": 5,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.01365000535546348,
+        "f1_gap_sem": 0.00279799329268243,
+        "f1_gap_bca_ci_95": [
+          0.00914405451466424,
+          0.020529188985263173
+        ],
+        "f1_wilcoxon_p": 1.1201596434767778e-08,
+        "f1_n_negative": 0
+      },
+      "10|0.7": {
+        "K": 10,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.017399578424473528,
+        "f1_gap_sem": 0.002675876673872487,
+        "f1_gap_bca_ci_95": [
+          0.013005641904715114,
+          0.02355811443620668
+        ],
+        "f1_wilcoxon_p": 3.5254980732707413e-12,
+        "f1_n_negative": 0
+      },
+      "20|0.7": {
+        "K": 20,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.020124384295699183,
+        "f1_gap_sem": 0.0027494872917525432,
+        "f1_gap_bca_ci_95": [
+          0.015651005602692145,
+          0.0263537381673936
+        ],
+        "f1_wilcoxon_p": 7.849526548031477e-15,
+        "f1_n_negative": 0
+      },
+      "40|0.7": {
+        "K": 40,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.02275786293073858,
+        "f1_gap_sem": 0.0028922723796230318,
+        "f1_gap_bca_ci_95": [
+          0.01801748745106384,
+          0.029654344939057675
+        ],
+        "f1_wilcoxon_p": 2.5509729516632515e-16,
+        "f1_n_negative": 0
+      },
+      "80|0.7": {
+        "K": 80,
+        "auroc0": 0.7,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.024285435180362733,
+        "f1_gap_sem": 0.0027927852346381864,
+        "f1_gap_bca_ci_95": [
+          0.019651023918372167,
+          0.030787326560298204
+        ],
+        "f1_wilcoxon_p": 3.809488706263662e-17,
+        "f1_n_negative": 0
+      },
+      "5|0.8": {
+        "K": 5,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.022701449060105464,
+        "f1_gap_sem": 0.002981630615730231,
+        "f1_gap_bca_ci_95": [
+          0.017804667456003707,
+          0.02940298235509571
+        ],
+        "f1_wilcoxon_p": 1.640948467627227e-12,
+        "f1_n_negative": 0
+      },
+      "10|0.8": {
+        "K": 10,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.027747992118738067,
+        "f1_gap_sem": 0.002737480651428033,
+        "f1_gap_bca_ci_95": [
+          0.02285316653132566,
+          0.03355412351025685
+        ],
+        "f1_wilcoxon_p": 3.66389094267832e-15,
+        "f1_n_negative": 0
+      },
+      "20|0.8": {
+        "K": 20,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.0318304168137617,
+        "f1_gap_sem": 0.0028404652629228544,
+        "f1_gap_bca_ci_95": [
+          0.026890951628923656,
+          0.03807676517291266
+        ],
+        "f1_wilcoxon_p": 8.149781597324959e-17,
+        "f1_n_negative": 0
+      },
+      "40|0.8": {
+        "K": 40,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.03240543382813726,
+        "f1_gap_sem": 0.0024080471545501634,
+        "f1_gap_bca_ci_95": [
+          0.028338541297005165,
+          0.03769104891386747
+        ],
+        "f1_wilcoxon_p": 5.697220948724935e-18,
+        "f1_n_negative": 0
+      },
+      "80|0.8": {
+        "K": 80,
+        "auroc0": 0.8,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.03385623359816333,
+        "f1_gap_sem": 0.0023578201874504432,
+        "f1_gap_bca_ci_95": [
+          0.029548396466893622,
+          0.03891957698162145
+        ],
+        "f1_wilcoxon_p": 5.697220948724935e-18,
+        "f1_n_negative": 0
+      },
+      "5|0.95": {
+        "K": 5,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.012727695127487126,
+        "f1_gap_sem": 0.00156869811359157,
+        "f1_gap_bca_ci_95": [
+          0.009982902144041933,
+          0.01610421019429327
+        ],
+        "f1_wilcoxon_p": 2.4051050298460756e-12,
+        "f1_n_negative": 0
+      },
+      "10|0.95": {
+        "K": 10,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.020705834173216368,
+        "f1_gap_sem": 0.0020903932134780784,
+        "f1_gap_bca_ci_95": [
+          0.017167968551113647,
+          0.025536342384984378
+        ],
+        "f1_wilcoxon_p": 1.1689128267491103e-15,
+        "f1_n_negative": 0
+      },
+      "20|0.95": {
+        "K": 20,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.021665207429398512,
+        "f1_gap_sem": 0.0018632623025592984,
+        "f1_gap_bca_ci_95": [
+          0.018433164406047756,
+          0.025792768680891722
+        ],
+        "f1_wilcoxon_p": 8.149781597324959e-17,
+        "f1_n_negative": 0
+      },
+      "40|0.95": {
+        "K": 40,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.02391125997093132,
+        "f1_gap_sem": 0.0019725321394955023,
+        "f1_gap_bca_ci_95": [
+          0.02050135208352776,
+          0.028197011595712262
+        ],
+        "f1_wilcoxon_p": 3.809731963383854e-17,
+        "f1_n_negative": 0
+      },
+      "80|0.95": {
+        "K": 80,
+        "auroc0": 0.95,
+        "n_seeds": 100,
+        "auroc_gap_mean": 0.0,
+        "auroc_gap_max_abs": 0.0,
+        "f1_gap_mean": 0.02357838905637915,
+        "f1_gap_sem": 0.0019794816050571398,
+        "f1_gap_bca_ci_95": [
+          0.020317107171665114,
+          0.02814942038581466
+        ],
+        "f1_wilcoxon_p": 2.604975543905349e-17,
+        "f1_n_negative": 0
+      }
+    },
+    "runtime_seconds": 151.8719198703766
+  },
+  "mechanism_5_f1_scale_fit": {
+    "note": "Mechanism 5's AUROC-scale gap is exactly zero by construction (see mechanism_5.auroc_scale_note) and is NOT included in the pooled AUROC-scale model comparison. Its F1-scale gap is fit separately here, on its own metric scale, per this paper's S2 metric-relativity principle.",
+    "K_values": [
+      5,
+      10,
+      20,
+      40,
+      80,
+      5,
+      10,
+      20,
+      40,
+      80,
+      5,
+      10,
+      20,
+      40,
+      80
+    ],
+    "auroc0_values": [
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.95,
+      0.95,
+      0.95,
+      0.95,
+      0.95
+    ],
+    "f1_gap_values": [
+      0.01365000535546348,
+      0.017399578424473528,
+      0.020124384295699183,
+      0.02275786293073858,
+      0.024285435180362733,
+      0.022701449060105464,
+      0.027747992118738067,
+      0.0318304168137617,
+      0.03240543382813726,
+      0.03385623359816333,
+      0.012727695127487126,
+      0.020705834173216368,
+      0.021665207429398512,
+      0.02391125997093132,
+      0.02357838905637915
+    ],
+    "loglinear_fit_on_shifted_f1_gap": {
+      "coefficients_a_beta_c": [
+        -4.171585473586287,
+        0.15492464092140357,
+        -0.06336479886948852
+      ],
+      "r_squared": 0.37248565783503307,
+      "shift_applied": 0.0
+    }
+  },
+  "pooled_auroc_scale_model_comparison": {
+    "n_cells": 48,
+    "mechanisms_included": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "model_a_pooled": {
+      "form": "gap = exp(a + beta lnK + c z0)",
+      "coefficients": {
+        "a": -0.8402423209538818,
+        "beta": -1.421476456045005,
+        "c": -0.717855682424212
+      },
+      "r_squared": 0.8260603575220664,
+      "aicc": -355.107459142897,
+      "loo_r_squared": 0.8069410554014119,
+      "n_params": 3
+    },
+    "model_b_mechanism_aware": {
+      "form": "gap = exp(a_m + beta lnK + c z0), one a_m per mechanism",
+      "per_mechanism_intercept_a_m": {
+        "1": -0.8224507048434521,
+        "2": -3.3885276098192882,
+        "3": -6.539159354719697,
+        "4": -4.348033647799383
+      },
+      "shared_beta_lnK": 0.2552717059351971,
+      "shared_c_z0": -0.7326348470665847,
+      "r_squared": 0.9970071652793129,
+      "aicc": -542.6035260646732,
+      "loo_r_squared": 0.9862837037957041,
+      "n_params": 6,
+      "intercept_spread": {
+        "min": -6.539159354719697,
+        "max": -0.8224507048434521,
+        "range": 5.716708649876245,
+        "sd": 2.36895560057422,
+        "exp_range_multiplicative": 303.9030238059112
+      }
+    },
+    "nested_f_test": {
+      "description": "M(b) [per-mechanism intercepts] vs M(a) [pooled intercept]",
+      "f_stat": 799.6617026856699,
+      "df": [
+        3,
+        42
+      ],
+      "p": 1.1102230246251565e-16
+    },
+    "aicc_delta_b_minus_a": -187.49606692177622,
+    "loo_r2_delta_b_minus_a": 0.17934264839429215,
+    "winner_by_aicc_and_loo": "mechanism_aware (b)",
+    "reading": "If the nested F-test is non-significant AND AICc/LOO-R^2 do not clearly favour the mechanism-aware model, K and AUROC_0 alone predict this pooled severity comparably well regardless of mechanism identity, on this evidence. If the F-test is significant and AICc/LOO-R^2 favour it, mechanism identity carries information beyond K and AUROC_0 that the pooled model misses, and the per-mechanism intercept spread above is the size of that residual difference on the log-gap scale.",
+    "n_cells_floored_to_positive": 9,
+    "floor_value": 1e-06
+  },
+  "matched_cell_comparison": {
+    "per_cell": {
+      "5|0.7": {
+        "K": 5,
+        "auroc0": 0.7,
+        "mechanism_2_gap": 0.03328715633306404,
+        "mechanism_3_gap": -0.005020408163265285,
+        "mechanism_4_gap": 0.013363401920438951,
+        "mechanism_1_gap_for_context_no_K_axis": 0.2913689168334507,
+        "max_over_min_ratio_2_3_4": null,
+        "range_2_3_4": 0.03830756449632933,
+        "coefficient_of_variation_2_3_4": 1.3806537035830475
+      },
+      "10|0.7": {
+        "K": 10,
+        "auroc0": 0.7,
+        "mechanism_2_gap": 0.038173364105052274,
+        "mechanism_3_gap": -0.009455782312925164,
+        "mechanism_4_gap": 0.01724876817558299,
+        "mechanism_1_gap_for_context_no_K_axis": 0.2913689168334507,
+        "max_over_min_ratio_2_3_4": null,
+        "range_2_3_4": 0.04762914641797744,
+        "coefficient_of_variation_2_3_4": 1.5580714840299377
+      },
+      "20|0.7": {
+        "K": 20,
+        "auroc0": 0.7,
+        "mechanism_2_gap": 0.05299177122870427,
+        "mechanism_3_gap": -0.0027210884353741677,
+        "mechanism_4_gap": 0.020685256515775036,
+        "mechanism_1_gap_for_context_no_K_axis": 0.2913689168334507,
+        "max_over_min_ratio_2_3_4": null,
+        "range_2_3_4": 0.05571285966407844,
+        "coefficient_of_variation_2_3_4": 1.18276200300059
+      },
+      "40|0.7": {
+        "K": 40,
+        "auroc0": 0.7,
+        "mechanism_2_gap": 0.05824803045737377,
+        "mechanism_3_gap": 0.004925170068027218,
+        "mechanism_4_gap": 0.023032625514403285,
+        "mechanism_1_gap_for_context_no_K_axis": 0.2913689168334507,
+        "max_over_min_ratio_2_3_4": 11.82660286910764,
+        "range_2_3_4": 0.053322860389346555,
+        "coefficient_of_variation_2_3_4": 0.9436129453357205
+      },
+      "80|0.7": {
+        "K": 80,
+        "auroc0": 0.7,
+        "mechanism_2_gap": 0.07295190253125952,
+        "mechanism_3_gap": 0.009591836734693888,
+        "mechanism_4_gap": 0.025503231824416998,
+        "mechanism_1_gap_for_context_no_K_axis": 0.2913689168334507,
+        "max_over_min_ratio_2_3_4": 7.605623880918537,
+        "range_2_3_4": 0.06336006579656564,
+        "coefficient_of_variation_2_3_4": 0.9152191141587396
+      },
+      "5|0.8": {
+        "K": 5,
+        "auroc0": 0.8,
+        "mechanism_2_gap": 0.026889314492722017,
+        "mechanism_3_gap": 0.0011428571428571343,
+        "mechanism_4_gap": 0.010576526748971193,
+        "mechanism_1_gap_for_context_no_K_axis": 0.24950535518408276,
+        "max_over_min_ratio_2_3_4": 23.52815018113194,
+        "range_2_3_4": 0.025746457349864884,
+        "coefficient_of_variation_2_3_4": 1.0121161497426558
+      },
+      "10|0.8": {
+        "K": 10,
+        "auroc0": 0.8,
+        "mechanism_2_gap": 0.031051340240127363,
+        "mechanism_3_gap": -0.004408163265306101,
+        "mechanism_4_gap": 0.014620290809327847,
+        "mechanism_1_gap_for_context_no_K_axis": 0.24950535518408276,
+        "max_over_min_ratio_2_3_4": null,
+        "range_2_3_4": 0.03545950350543346,
+        "coefficient_of_variation_2_3_4": 1.2901678353236006
+      },
+      "20|0.8": {
+        "K": 20,
+        "auroc0": 0.8,
+        "mechanism_2_gap": 0.04239976023448871,
+        "mechanism_3_gap": -0.005877551020408167,
+        "mechanism_4_gap": 0.01661717421124828,
+        "mechanism_1_gap_for_context_no_K_axis": 0.24950535518408276,
+        "max_over_min_ratio_2_3_4": null,
+        "range_2_3_4": 0.04827731125489688,
+        "coefficient_of_variation_2_3_4": 1.3638081478557542
+      },
+      "40|0.8": {
+        "K": 40,
+        "auroc0": 0.8,
+        "mechanism_2_gap": 0.04972579698206011,
+        "mechanism_3_gap": -0.005102040816326518,
+        "mechanism_4_gap": 0.018706348422496574,
+        "mechanism_1_gap_for_context_no_K_axis": 0.24950535518408276,
+        "max_over_min_ratio_2_3_4": null,
+        "range_2_3_4": 0.054827837798386625,
+        "coefficient_of_variation_2_3_4": 1.3023587979060798
+      },
+      "80|0.8": {
+        "K": 80,
+        "auroc0": 0.8,
+        "mechanism_2_gap": 0.052965600320890455,
+        "mechanism_3_gap": -0.006911564625850312,
+        "mechanism_4_gap": 0.021225064471879294,
+        "mechanism_1_gap_for_context_no_K_axis": 0.24950535518408276,
+        "max_over_min_ratio_2_3_4": null,
+        "range_2_3_4": 0.059877164946740766,
+        "coefficient_of_variation_2_3_4": 1.3357782598352634
+      },
+      "5|0.95": {
+        "K": 5,
+        "auroc0": 0.95,
+        "mechanism_2_gap": 0.016616727342293885,
+        "mechanism_3_gap": 0.0024489795918367346,
+        "mechanism_4_gap": 0.004352175582990396,
+        "mechanism_1_gap_for_context_no_K_axis": 0.12720517943818568,
+        "max_over_min_ratio_2_3_4": 6.785163664770003,
+        "range_2_3_4": 0.014167747750457151,
+        "coefficient_of_variation_2_3_4": 0.9850749709834031
+      },
+      "10|0.95": {
+        "K": 10,
+        "auroc0": 0.95,
+        "mechanism_2_gap": 0.016703322129605777,
+        "mechanism_3_gap": 0.002108843537414969,
+        "mechanism_4_gap": 0.005753042524005484,
+        "mechanism_1_gap_for_context_no_K_axis": 0.12720517943818568,
+        "max_over_min_ratio_2_3_4": 7.92060759049047,
+        "range_2_3_4": 0.014594478592190808,
+        "coefficient_of_variation_2_3_4": 0.9276431539378103
+      },
+      "20|0.95": {
+        "K": 20,
+        "auroc0": 0.95,
+        "mechanism_2_gap": 0.02257261677267174,
+        "mechanism_3_gap": 0.0001088435374149451,
+        "mechanism_4_gap": 0.006534101508916319,
+        "mechanism_1_gap_for_context_no_K_axis": 0.12720517943818568,
+        "max_over_min_ratio_2_3_4": 207.38591659896142,
+        "range_2_3_4": 0.022463773235256793,
+        "coefficient_of_variation_2_3_4": 1.1880282023369855
+      },
+      "40|0.95": {
+        "K": 40,
+        "auroc0": 0.95,
+        "mechanism_2_gap": 0.02340695456775734,
+        "mechanism_3_gap": -0.0018775510204081562,
+        "mechanism_4_gap": 0.007741585733882025,
+        "mechanism_1_gap_for_context_no_K_axis": 0.12720517943818568,
+        "max_over_min_ratio_2_3_4": null,
+        "range_2_3_4": 0.025284505588165494,
+        "coefficient_of_variation_2_3_4": 1.308001844769548
+      },
+      "80|0.95": {
+        "K": 80,
+        "auroc0": 0.95,
+        "mechanism_2_gap": 0.02704107200447102,
+        "mechanism_3_gap": -0.003673469387755057,
+        "mechanism_4_gap": 0.008844641975308641,
+        "mechanism_1_gap_for_context_no_K_axis": 0.12720517943818568,
+        "max_over_min_ratio_2_3_4": null,
+        "range_2_3_4": 0.030714541392226076,
+        "coefficient_of_variation_2_3_4": 1.438381979162519
+      }
+    },
+    "summary": {
+      "n_cells_all_three_positive": 6,
+      "max_over_min_ratio_range": [
+        6.785163664770003,
+        207.38591659896142
+      ],
+      "max_over_min_ratio_median": 9.873605229799056
+    },
+    "note": "Plain-language version of the same question: at a matched (K, AUROC_0), are the three mechanisms' raw gaps close to each other or clearly separated? A max/min ratio near 1 says 'close'; a ratio of many-fold says 'separated'. This is descriptive only and is not a substitute for the model comparison above, which controls for K and AUROC_0 jointly across the whole grid rather than cell by cell."
+  },
+  "limitations": [
+    "Mechanism 1 has no natural candidate count K; its three cells anchor the pooled fit at ln(K)=0 and inform only its own intercept and z0 term, supplying no information about a Mechanism-1 K-slope because none exists. This is a structural asymmetry in the pooled design, not an oversight.",
+    "Mechanism 2's synthetic reconstruction is NEW in this script and has not been through the multiple rounds of independent adversarial review the other four mechanisms' harnesses have (code/47/73 for Mechanism 3, code/45/59/70/71 for Mechanism 4, code/46/62 for Mechanism 5, code/86 for Mechanism 1). Its design choices (K exchangeable layers as independent isotropic-Gaussian blocks of the same samples, the mechanical-null adaptation) are reasoned from the real GUARDIAN case study's own metric definition but are a first attempt, not a battle-tested one.",
+    "Mechanism 3's N_SEEDS=15 (against code/73's own 30 and this paper's usual 100) is compute-limited; see mechanism_3.mde_note for the resulting minimum detectable gap per cell. Point estimates are reported as measured; per-cell confidence intervals should be read alongside them, not the point estimate alone.",
+    "Mechanism 4's per-replicate synthetic test-set size (N_TEST_M4=150) and Mechanism 2's feature dimension (FEAT_DIM_M2=64) are disclosed modeling choices, not measurements recovered from any real pipeline; the real Mechanism 4 case study's own n is itself an order-of-magnitude placeholder (main.tex Table tab:ada-bound).",
+    "This is one synthetic harness per mechanism, each built to resemble that mechanism's own real case study as closely as this paper's existing conventions allow, but none of the five is the real pipeline. As with every synthetic reconstruction elsewhere in this paper, this bounds what a matched-covariate comparison inside controlled harnesses can say; it is not a claim about the five real audited repositories at a matched operating point (S5.4 already shows real harnesses do not transport onto this paper's own synthetic operating-point relationship by an order of magnitude).",
+    "The NLS fits floor any zero/negative pooled gap to a small positive value (1e-6) purely so exp(...) has a well-defined multiplicative interpretation at initialization; see pooled_auroc_scale_model_comparison.n_cells_floored_to_positive for how many cells this touched."
+  ],
+  "runtime_seconds": 36051.40087008476
+}

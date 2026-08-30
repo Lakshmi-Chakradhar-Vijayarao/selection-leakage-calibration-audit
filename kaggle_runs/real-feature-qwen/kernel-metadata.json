@@ -1,0 +1,16 @@
+{
+  "id": "anonymous/real-feature-qwen",
+  "title": "real-feature-qwen",
+  "code_file": "run_real_feature_leakage_test_qwen.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": [],
+  "_anonymized": "The Kaggle kernel slug is namespaced by username; it is replaced with 'anonymous' for double-blind review. Restore your own username to push."
+}

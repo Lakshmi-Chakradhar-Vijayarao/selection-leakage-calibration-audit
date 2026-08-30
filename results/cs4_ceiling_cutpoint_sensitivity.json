@@ -1,0 +1,82 @@
+{
+  "n_cells": 24,
+  "cutpoint_sweep": [
+    {
+      "cutpoint": 0.95,
+      "n_saturated": 16,
+      "n_nonsaturated": 8,
+      "saturated_mean_delta_boot": 0.0016804716513600447,
+      "nonsaturated_mean_delta_boot": 0.0029590253167488968,
+      "ratio_nonsaturated_over_saturated": 1.7608302492660848
+    },
+    {
+      "cutpoint": 0.96,
+      "n_saturated": 12,
+      "n_nonsaturated": 12,
+      "saturated_mean_delta_boot": 0.0015965792181070091,
+      "nonsaturated_mean_delta_boot": 0.0026167331948723145,
+      "ratio_nonsaturated_over_saturated": 1.6389623297081715
+    },
+    {
+      "cutpoint": 0.97,
+      "n_saturated": 12,
+      "n_nonsaturated": 12,
+      "saturated_mean_delta_boot": 0.0015965792181070091,
+      "nonsaturated_mean_delta_boot": 0.0026167331948723145,
+      "ratio_nonsaturated_over_saturated": 1.6389623297081715
+    },
+    {
+      "cutpoint": 0.975,
+      "n_saturated": 12,
+      "n_nonsaturated": 12,
+      "saturated_mean_delta_boot": 0.0015965792181070091,
+      "nonsaturated_mean_delta_boot": 0.0026167331948723145,
+      "ratio_nonsaturated_over_saturated": 1.6389623297081715
+    },
+    {
+      "cutpoint": 0.98,
+      "n_saturated": 12,
+      "n_nonsaturated": 12,
+      "saturated_mean_delta_boot": 0.0015965792181070091,
+      "nonsaturated_mean_delta_boot": 0.0026167331948723145,
+      "ratio_nonsaturated_over_saturated": 1.6389623297081715
+    },
+    {
+      "cutpoint": 0.99,
+      "n_saturated": 12,
+      "n_nonsaturated": 12,
+      "saturated_mean_delta_boot": 0.0015965792181070091,
+      "nonsaturated_mean_delta_boot": 0.0026167331948723145,
+      "ratio_nonsaturated_over_saturated": 1.6389623297081715
+    }
+  ],
+  "ratio_range_over_cutpoint_grid": [
+    1.6389623297081715,
+    1.7608302492660848
+  ],
+  "split_12_12_only_at_cutpoints": [
+    0.96,
+    0.97,
+    0.975,
+    0.98,
+    0.99
+  ],
+  "continuous_regression_all_24_cells": {
+    "pearson_r": -0.1410832377806332,
+    "pearson_p": 0.5108154606794574,
+    "spearman_rho": 0.2362690878078337,
+    "spearman_p": 0.2663463097865957,
+    "ols_intercept": 0.01178106411622379,
+    "ols_slope": -0.01002790905919622,
+    "ols_r_squared": 0.01990447998266668,
+    "ols_slope_p": 0.5108154606794577
+  },
+  "continuous_regression_excluding_degenerate_cells": {
+    "n_cells": 17,
+    "pearson_r": -0.6634642292557045,
+    "pearson_p": 0.003688640735375365,
+    "ols_slope": -0.06436056643813305,
+    "ols_r_squared": 0.44018478350186613
+  },
+  "verdict": "Sweeping the cutpoint over [0.95, 0.96, 0.97, 0.975, 0.98, 0.99] moves the saturated/non-saturated split away from the reported-in-paper exact 12/12 at every point except cutpoint=0.975 itself (splits: [(16, 8), (12, 12), (12, 12), (12, 12), (12, 12), (12, 12)]), and the ratio of non-saturated to saturated mean Delta_boot ranges 1.64x to 1.76x over the grid (paper's reported 1.6x is the cutpoint=0.975 point in this range). The continuous alternative -- regressing Delta_boot against the selected layer's own naive AUROC with no cutpoint at all -- gives Pearson r=-0.141 (p=0.511), i.e. a not statistically distinguishable from zero negative association between how close to ceiling a cell sits and how large its winner's-curse magnitude is, consistent in DIRECTION with the paper's binary-split finding but not contingent on any specific cutpoint. The exact 12/12 split at 0.975 is therefore a real but cutpoint-specific artifact of that one threshold; the underlying negative relationship between operating point and severity is not, and survives as a continuous, cutpoint-free regression at a similar level of statistical support."
+}

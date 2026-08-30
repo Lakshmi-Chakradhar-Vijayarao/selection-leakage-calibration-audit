@@ -1,0 +1,91 @@
+{
+  "why": "code/77 reports the factorial's three main-effect shares (75.5% / 28.1% / -6.2%) as point estimates with no interval. This reruns the identical seed-generation pipeline and attaches a seed-level BCa bootstrap (n=100 seeds, 10000 resamples) to each share and to the underlying main effects and total movement.",
+  "point_estimates": {
+    "shipped_gap": 0.0030163265306122344,
+    "corrected_gap": -7.5510204081638e-05,
+    "total_movement": 0.0030918367346938723,
+    "eff_size": 0.002333673469387752,
+    "eff_budget": 0.0008683673469387768,
+    "eff_depth": -0.00019081632653061452,
+    "share_size": 0.754785478547855,
+    "share_budget": 0.2808580858085818,
+    "share_depth": -0.06171617161716256
+  },
+  "bca_intervals": {
+    "share_size": {
+      "ci_95": [
+        0.4072469200853922,
+        2.5356961652266636
+      ],
+      "z0": 0.02732564844887671,
+      "a": -0.00222860251516089
+    },
+    "share_budget": {
+      "ci_95": [
+        -1.4132304908682463,
+        0.6138239524131943
+      ],
+      "z0": -0.03234114172486775,
+      "a": 0.0010779905722233141
+    },
+    "share_depth": {
+      "ci_95": [
+        -0.3135903043119473,
+        0.02254735339485965
+      ],
+      "z0": -0.010277356845819739,
+      "a": 0.006639384939936653
+    },
+    "eff_size": {
+      "ci_95": [
+        0.0011811646104793261,
+        0.00346581632653061
+      ],
+      "z0": -0.011029388020359056,
+      "a": 0.006774796928360689
+    },
+    "eff_budget": {
+      "ci_95": [
+        -0.0012146126515516105,
+        0.0029658524241480185
+      ],
+      "z0": 0.0027572945958918454,
+      "a": -0.0010715887875700197
+    },
+    "eff_depth": {
+      "ci_95": [
+        -0.0004301020408163266,
+        4.7388886148783077e-05
+      ],
+      "z0": 0.007018616792533281,
+      "a": -0.0009871102125281865
+    },
+    "total_movement": {
+      "ci_95": [
+        0.0006693877551020445,
+        0.00570787637054461
+      ],
+      "z0": 0.007018616792533281,
+      "a": 0.005449587444381428
+    }
+  },
+  "budget_share_distinguishable_from_zero": {
+    "frac_positive_of_10000_boot": 0.7936,
+    "distinguishable_from_zero_bca": false
+  },
+  "size_share_distinguishable_from_zero": {
+    "frac_positive_of_10000_boot": 0.9918,
+    "distinguishable_from_zero_bca": true
+  },
+  "depth_share_distinguishable_from_zero": {
+    "frac_positive_of_10000_boot": 0.0628,
+    "distinguishable_from_zero_bca": false
+  },
+  "n_boot": 10000,
+  "n_seeds": 100,
+  "rng_seed": 20260805,
+  "outputs": {
+    "json": "results/mechanism3_factorial_share_bootstrap.json",
+    "script": "code/85_mechanism3_factorial_share_bootstrap.py"
+  }
+}

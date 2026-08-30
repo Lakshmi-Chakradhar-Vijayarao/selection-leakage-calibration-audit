@@ -1,0 +1,70 @@
+{
+  "config": {
+    "n_samples": 200,
+    "dim": 60,
+    "n_folds": 5,
+    "n_seeds": 100,
+    "auroc0_grid": [
+      0.7,
+      0.8,
+      0.95
+    ]
+  },
+  "by_auroc0": {
+    "0.7": {
+      "leaky_mean": 0.8717676694912062,
+      "clean_matched_mean": 0.5803987526577555,
+      "gap_mean": 0.2913689168334507,
+      "gap_bca_ci_95": [
+        0.2835333053481537,
+        0.29938269617925023
+      ],
+      "wilcoxon_p": 3.89655984509591e-18,
+      "gap_std": 0.04062551391807252,
+      "n_positive": 100,
+      "n_seeds": 100,
+      "auroc0_target": 0.7,
+      "verdict": "ESTABLISHED"
+    },
+    "0.8": {
+      "leaky_mean": 0.9234437781924393,
+      "clean_matched_mean": 0.6739384230083565,
+      "gap_mean": 0.24950535518408276,
+      "gap_bca_ci_95": [
+        0.24207954417654,
+        0.25693225455267316
+      ],
+      "wilcoxon_p": 3.89655984509591e-18,
+      "gap_std": 0.03811143577156711,
+      "n_positive": 100,
+      "n_seeds": 100,
+      "auroc0_target": 0.8,
+      "verdict": "ESTABLISHED"
+    },
+    "0.95": {
+      "leaky_mean": 0.9954079202466627,
+      "clean_matched_mean": 0.8682027408084773,
+      "gap_mean": 0.12720517943818568,
+      "gap_bca_ci_95": [
+        0.12098975734431638,
+        0.13359451034673483
+      ],
+      "wilcoxon_p": 3.89655984509591e-18,
+      "gap_std": 0.03266105736589711,
+      "n_positive": 100,
+      "n_seeds": 100,
+      "auroc0_target": 0.95,
+      "verdict": "ESTABLISHED"
+    }
+  },
+  "range_over_grid": [
+    0.12720517943818568,
+    0.2913689168334507
+  ],
+  "comparison_to_mechanisms_2_4": "Mechanisms 2-4's four code-verified point estimates span +0.0011 to +0.0255 AUROC (Table tab:severity-summary). This harness's Mechanism-1 gaps span +0.1272 to +0.2914 over the same three-operating-point design used elsewhere in \u00a75.",
+  "runtime_seconds": 9.762199878692627,
+  "outputs": {
+    "json": "results/mechanism1_severity_probe.json",
+    "script": "code/86_mechanism1_severity_probe.py"
+  }
+}

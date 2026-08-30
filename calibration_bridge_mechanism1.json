@@ -1,0 +1,26 @@
+{
+  "n_fold_seeds": 40,
+  "mechanism": "Mechanism 1 real-feature analog -- calibration bridge",
+  "auroc_leaky_mean": 1.0,
+  "auroc_clean_mean": 0.9888681203270735,
+  "auroc_gap_mean": 0.011131879672926398,
+  "auroc_gap_bca_95ci": [
+    0.010693176146892469,
+    0.011661372298734183
+  ],
+  "brier_leaky_mean": 0.00038536050638447836,
+  "brier_clean_mean": 0.02642107472688184,
+  "brier_gap_mean": 0.026035714220497358,
+  "brier_gap_bca_95ci": [
+    0.02524169528469742,
+    0.02686623256052067
+  ],
+  "ece_leaky_mean": 0.00564934422752379,
+  "ece_clean_mean": 0.02496437127564027,
+  "ece_gap_mean": 0.019315027048116478,
+  "ece_gap_bca_95ci": [
+    0.018395574480889503,
+    0.02034124869050884
+  ],
+  "runtime_seconds": 1.6601958274841309
+}

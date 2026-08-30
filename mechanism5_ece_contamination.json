@@ -1,0 +1,59 @@
+{
+  "description": "ECE gap under MultiHaluDet's own compute_uncertainty_metrics formula, LEAKY (Youden threshold selected on test labels, verbatim MultiHaluDet protocol) vs HONEST (Youden threshold selected on an independent validation split).",
+  "cells": {
+    "0.7": {
+      "leaky_ece_mean": 0.13255515894630182,
+      "honest_ece_mean": 0.15101644415786009,
+      "ece_gap_mean": -0.018461285211558248,
+      "ece_gap_bca_95ci": [
+        -0.023059368687354687,
+        -0.014067619702098508
+      ],
+      "wilcoxon_p": 1.2716288558116024e-12
+    },
+    "0.8": {
+      "leaky_ece_mean": 0.11641979473783726,
+      "honest_ece_mean": 0.12360893362865755,
+      "ece_gap_mean": -0.007189138890820275,
+      "ece_gap_bca_95ci": [
+        -0.01061425640783159,
+        -0.003974974304041326
+      ],
+      "wilcoxon_p": 0.001221802582439178
+    },
+    "0.9": {
+      "leaky_ece_mean": 0.09547553069023737,
+      "honest_ece_mean": 0.10301341111441328,
+      "ece_gap_mean": -0.007537880424175886,
+      "ece_gap_bca_95ci": [
+        -0.010334099229311647,
+        -0.004882430022054041
+      ],
+      "wilcoxon_p": 2.283186966525921e-06
+    },
+    "0.95": {
+      "leaky_ece_mean": 0.0800005912763869,
+      "honest_ece_mean": 0.08584121818887755,
+      "ece_gap_mean": -0.0058406269124906705,
+      "ece_gap_bca_95ci": [
+        -0.008379736709855142,
+        -0.0035181169469138186
+      ],
+      "wilcoxon_p": 5.726933307592712e-05
+    },
+    "0.985": {
+      "leaky_ece_mean": 0.054859595257808175,
+      "honest_ece_mean": 0.06092972572729419,
+      "ece_gap_mean": -0.0060701304694860255,
+      "ece_gap_bca_95ci": [
+        -0.008274131925899111,
+        -0.004273950750865432
+      ],
+      "wilcoxon_p": 2.2108556755176513e-08
+    }
+  },
+  "pooled_across_5_operating_points": {
+    "n_total_seeds": 1000,
+    "pooled_ece_gap_mean": -0.00901981238170622
+  }
+}

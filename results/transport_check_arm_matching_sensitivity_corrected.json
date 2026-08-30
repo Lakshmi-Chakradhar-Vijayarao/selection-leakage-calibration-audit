@@ -1,0 +1,96 @@
+{
+  "why": "code/82 recomputes the transport check's control-arm-matched ratio but both its harnesses still source the pre-correction (shipped) gap numerators. This script substitutes the corrected fold-matched numerators (+0.0060 real-feature, +0.0159 fidelity extension, both capacity 128) and reruns the identical probit-space interpolation.",
+  "shipped_numerators": {
+    "leaky_matched": {
+      "observations": [
+        {
+          "harness": "real-feature checkpoint-only harness (code/43), capacity 128",
+          "matched_on_value": 0.9402689180737961,
+          "gap": 0.009324577861163232,
+          "interpolated_prediction": 0.000618960076323611,
+          "ratio_vs_interpolated": 15.064910028685052
+        },
+        {
+          "harness": "fidelity extension (code/49), capacity 128",
+          "matched_on_value": 0.9424265165728579,
+          "gap": 0.024984365228267646,
+          "interpolated_prediction": 0.0005951644857954631,
+          "ratio_vs_interpolated": 41.97892485952847
+        }
+      ],
+      "range": [
+        15.064910028685052,
+        41.97892485952847
+      ]
+    },
+    "control_matched": {
+      "observations": [
+        {
+          "harness": "real-feature checkpoint-only harness (code/43), capacity 128",
+          "matched_on_value": 0.930944340212633,
+          "gap": 0.009324577861163232,
+          "interpolated_prediction": 0.0007132477747539455,
+          "ratio_vs_interpolated": 13.073406172742708
+        },
+        {
+          "harness": "fidelity extension (code/49), capacity 128",
+          "matched_on_value": 0.9174421513445903,
+          "gap": 0.024984365228267646,
+          "interpolated_prediction": 0.000870815992702742,
+          "ratio_vs_interpolated": 28.690751476352595
+        }
+      ],
+      "range": [
+        13.073406172742708,
+        28.690751476352595
+      ]
+    }
+  },
+  "corrected_numerators": {
+    "leaky_matched": {
+      "observations": [
+        {
+          "harness": "real-feature checkpoint-only harness (code/43), capacity 128, fold-matched",
+          "matched_on_value": 0.9402689180737961,
+          "gap": 0.006035021888680428,
+          "interpolated_prediction": 0.000618960076323611,
+          "ratio_vs_interpolated": 9.75026034720394
+        },
+        {
+          "harness": "fidelity extension (code/49), capacity 128, fold-matched",
+          "matched_on_value": 0.9424265165728579,
+          "gap": 0.01585365853658536,
+          "interpolated_prediction": 0.0005951644857954631,
+          "ratio_vs_interpolated": 26.63744043026401
+        }
+      ],
+      "range": [
+        9.75026034720394,
+        26.63744043026401
+      ]
+    },
+    "control_matched": {
+      "observations": [
+        {
+          "harness": "real-feature checkpoint-only harness (code/43), capacity 128, fold-matched",
+          "matched_on_value": 0.9342338961851157,
+          "gap": 0.006035021888680428,
+          "interpolated_prediction": 0.0006763496113775008,
+          "ratio_vs_interpolated": 8.92293244079653
+        },
+        {
+          "harness": "fidelity extension (code/49), capacity 128, fold-matched",
+          "matched_on_value": 0.9265728580362727,
+          "gap": 0.01585365853658536,
+          "interpolated_prediction": 0.000763170614319112,
+          "ratio_vs_interpolated": 20.77341323044746
+        }
+      ],
+      "range": [
+        8.92293244079653,
+        20.77341323044746
+      ]
+    }
+  },
+  "reading": "Leaky-matched (probit interpolation): shipped 15.1-42.0x -> corrected 9.8-26.6x. Control-matched: shipped 13.1-28.7x -> corrected 8.9-20.8x."
+}

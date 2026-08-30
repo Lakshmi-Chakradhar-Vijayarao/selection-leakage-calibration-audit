@@ -1,0 +1,84 @@
+{
+  "data": {
+    "source": "results/real_features_mistral7b_halueval.npz",
+    "n_samples": 400,
+    "feature_dim": 414,
+    "hall_rate": 0.49250000000000005
+  },
+  "primary_standardized_C1": {
+    "leaky_mean": 1.0,
+    "leaky_sd_over_fold_seeds": 0.0,
+    "clean_matched_mean": 0.9888681203270735,
+    "clean_matched_sd_over_fold_seeds": 0.0015834286605396995,
+    "gap_mean": 0.011131879672926398,
+    "gap_bca_ci_95_over_fold_assignment": [
+      0.010693176146892469,
+      0.011661372298734183
+    ],
+    "n_fold_seeds": 40
+  },
+  "unstandardized_C1": {
+    "leaky_mean": 0.9998749718686705,
+    "leaky_sd_over_fold_seeds": 1.1702778228589004e-16,
+    "clean_matched_mean": 0.974071666124878,
+    "clean_matched_sd_over_fold_seeds": 0.0027980850101386933,
+    "gap_mean": 0.025803305743792238,
+    "gap_bca_ci_95_over_fold_assignment": [
+      0.024130429792995674,
+      0.027436173138956174
+    ],
+    "n_fold_seeds": 10
+  },
+  "regularization_sweep_standardized": {
+    "0.01": {
+      "leaky_mean": 0.9969243079692933,
+      "leaky_sd_over_fold_seeds": 2.278129578503827e-16,
+      "clean_matched_mean": 0.9855855067390165,
+      "clean_matched_sd_over_fold_seeds": 0.0013615769251906725,
+      "gap_mean": 0.011338801230276807,
+      "gap_bca_ci_95_over_fold_assignment": [
+        0.010906203895876553,
+        0.01215220900149527
+      ],
+      "n_fold_seeds": 20
+    },
+    "0.1": {
+      "leaky_mean": 0.9998999774949364,
+      "leaky_sd_over_fold_seeds": 1.1390647892519134e-16,
+      "clean_matched_mean": 0.9886386937060838,
+      "clean_matched_sd_over_fold_seeds": 0.0019006574643630329,
+      "gap_mean": 0.011261283788852428,
+      "gap_bca_ci_95_over_fold_assignment": [
+        0.010678922895116716,
+        0.01250535269470993
+      ],
+      "n_fold_seeds": 20
+    },
+    "1.0": {
+      "leaky_mean": 1.0,
+      "leaky_sd_over_fold_seeds": 0.0,
+      "clean_matched_mean": 0.9891188017303895,
+      "clean_matched_sd_over_fold_seeds": 0.0019064663675825689,
+      "gap_mean": 0.010881198269610653,
+      "gap_bca_ci_95_over_fold_assignment": [
+        0.010275458981366961,
+        0.012020512632738173
+      ],
+      "n_fold_seeds": 20
+    },
+    "10.0": {
+      "leaky_mean": 1.0,
+      "leaky_sd_over_fold_seeds": 0.0,
+      "clean_matched_mean": 0.9902265509739692,
+      "clean_matched_sd_over_fold_seeds": 0.0017975929608159424,
+      "gap_mean": 0.009773449026030862,
+      "gap_bca_ci_95_over_fold_assignment": [
+        0.009150808932009688,
+        0.010728772067964751
+      ],
+      "n_fold_seeds": 20
+    }
+  },
+  "comparison_to_synthetic_mechanism1_harness": "code/86's synthetic isotropic-Gaussian reconstruction gives BCa-established gaps of +0.13 to +0.29 AUROC. This real-feature analog gives +0.0111 (standardized, C=1.0) and a regularization-sweep range of +0.0098 to +0.0113 over C in [0.01, 0.1, 1.0, 10.0].",
+  "runtime_seconds": 27.838287830352783
+}

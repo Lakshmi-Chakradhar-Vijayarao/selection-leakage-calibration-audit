@@ -1,0 +1,147 @@
+{
+  "design": {
+    "n_epochs": 45,
+    "sigma_ref": 0.03426495207741105,
+    "n_ref": 94,
+    "seed_effect_sd": 0.03,
+    "learning_curve": [
+      0.572108799272919,
+      0.592262402524677,
+      0.6106337179007584,
+      0.6273803623807228,
+      0.6426460140554772,
+      0.6565616448156418,
+      0.6692466440268764,
+      0.6808098428327576,
+      0.6913504478732304,
+      0.7009588924294836,
+      0.7097176122976601,
+      0.7177017530480236,
+      0.724979814737521,
+      0.7316142396070624,
+      0.737661947805676,
+      0.7431748257377921,
+      0.7482001712234394,
+      0.7527810992906095,
+      0.7569569120812968,
+      0.7607634360448217,
+      0.764233329311398,
+      0.7673963618830576,
+      0.7702796710458351,
+      0.772907994194526,
+      0.775303881067542,
+      0.7774878872127333,
+      0.7794787503440254,
+      0.781293551101919,
+      0.7829478595971061,
+      0.784455868994471,
+      0.7858305172835638,
+      0.7870835982802789,
+      0.7882258628120777,
+      0.789267110954876,
+      0.7902162761129446,
+      0.7910815016631869,
+      0.7918702108213648,
+      0.7925891703296912,
+      0.7932445485121977,
+      0.7938419681959649,
+      0.7943865549522515,
+      0.7948829810714124,
+      0.7953355056488839,
+      0.7957480111261579,
+      0.7961240366002478
+    ],
+    "calibration_note": "SIGMA_REF calibrated to code/47's sweep_A_K K=45 mean_val_auc_std = 0.03426 at n_val=94."
+  },
+  "estimand": "E[reported - true(selected epoch)] for each of the three arms this paper reports (shipped in-fold, fold-matched disjoint carve-out, fully-corrected out-of-fold), where true(e) = mu(e) + s_r (population AUROC of the model actually selected, no reused-fold noise).",
+  "by_condition": {
+    "shipped_in_fold": {
+      "n_val": 94,
+      "n_sel": 56,
+      "disjoint_sel": false,
+      "sigma_val": 0.03426495207741105,
+      "sigma_sel": 0.044393567029454184,
+      "true_bias": 0.06643115701778018,
+      "coverage": 0.9416666666666667,
+      "mean_ci_width": 0.007344578873043064,
+      "mean_point_estimate": 0.066470991459567,
+      "point_estimate_bias_vs_truth": 3.983444178681794e-05
+    },
+    "fold_matched": {
+      "n_val": 94,
+      "n_sel": 94,
+      "disjoint_sel": true,
+      "sigma_val": 0.03426495207741105,
+      "sigma_sel": 0.03426495207741105,
+      "true_bias": -4.83812334074646e-05,
+      "coverage": 0.975,
+      "mean_ci_width": 0.013324666601235087,
+      "mean_point_estimate": -6.941724477867288e-05,
+      "point_estimate_bias_vs_truth": -2.1036011371208283e-05
+    },
+    "fully_corrected_oof": {
+      "n_val": 94,
+      "n_sel": 94,
+      "disjoint_sel": true,
+      "sigma_val": 0.03426495207741105,
+      "sigma_sel": 0.03426495207741105,
+      "true_bias": 2.986257306460306e-05,
+      "coverage": 0.9416666666666667,
+      "mean_ci_width": 0.013234873892092696,
+      "mean_point_estimate": 0.00012180077490817445,
+      "point_estimate_bias_vs_truth": 9.193820184357138e-05
+    }
+  },
+  "contrast_sweep": [
+    {
+      "contrast_scale": 0.25,
+      "shipped_in_fold": 0.07246214792202461,
+      "fold_matched": 9.39119705889125e-05,
+      "fully_corrected_oof": 9.842773162435501e-05
+    },
+    {
+      "contrast_scale": 0.5,
+      "shipped_in_fold": 0.06979612084867054,
+      "fold_matched": 0.00021602988665138931,
+      "fully_corrected_oof": -0.0001187171777994455
+    },
+    {
+      "contrast_scale": 1.0,
+      "shipped_in_fold": 0.0664069980665127,
+      "fold_matched": 0.00014863297618219925,
+      "fully_corrected_oof": 1.676504552696029e-05
+    },
+    {
+      "contrast_scale": 2.0,
+      "shipped_in_fold": 0.06238425213087061,
+      "fold_matched": 1.0651156324664522e-05,
+      "fully_corrected_oof": -0.00010492078528188309
+    },
+    {
+      "contrast_scale": 4.0,
+      "shipped_in_fold": 0.057310274094181456,
+      "fold_matched": -0.00017192298589128546,
+      "fully_corrected_oof": 0.00014835623485011205
+    }
+  ],
+  "verdict": {
+    "shipped_in_fold": {
+      "true_bias": 0.06643115701778018,
+      "statement": "The shipped in-fold control carries a nonzero true fold-reuse bias of +0.066431 in this toy model, BECAUSE its selection statistic is a noisy subsample of the very fold it is later scored on (partial overlap rho=0.772) -- this is the toy model's analogue of why the shipped control still measures a nonzero gap even before code/77's three named confounds are added."
+    },
+    "fold_matched_and_fully_corrected": {
+      "true_bias": -4.83812334074646e-05,
+      "statement": "Both the fold-matched and fully-corrected-OOF controls have a TRUE fold-reuse-selection bias of exactly zero in this model, BY CONSTRUCTION: once the selection statistic is drawn from noise independent of the reused-fold noise the report inherits, E[eps_val at an independently-chosen epoch] = 0 exactly, with no free parameter to tune this to zero -- it follows from independence alone. This is the toy-model equivalent of code/71's known-zero null (sep=16 sigma) for Case Study 4, but here it is the DEFAULT condition for any control that selects off-fold, not a limiting case."
+    },
+    "estimator_calibration": {
+      "shipped_in_fold_estimator_bias_vs_truth": 3.983444178681794e-05,
+      "fold_matched_estimator_bias_vs_truth": -2.1036011371208283e-05,
+      "fully_corrected_estimator_bias_vs_truth": 9.193820184357138e-05,
+      "coverage_shipped": 0.9416666666666667,
+      "coverage_fold_matched": 0.975,
+      "coverage_fully_corrected": 0.9416666666666667
+    },
+    "answer_to_the_review_question": "UNBIASED, not conservative and not anti-conservative -- with a caveat on scope. In this analytically-known-ground-truth reconstruction, the fully-corrected out-of-fold control's point estimate is calibrated to the true fold-reuse bias (which is exactly zero here) at the sample sizes (n_val=94, n_sel=94, K=45) this paper's own real-feature harness uses, and its BCa interval covers that true value in 94.2% of simulated studies at nominal 95%. This means the surviving real-feature severities (+0.0060 to +0.0159) are NOT an artifact of the fully-corrected estimator itself being systematically miscalibrated toward zero or away from it. It does NOT mean a fourth correction round could not still find a real confound: this toy model has no analogue of the selection-set-size/budget/depth asymmetries code/77's factorial found responsible for 75.5%/28.1%/-6.2% of the SYNTHETIC sweep's shipped gap, nor of any anisotropic or non-Gaussian structure specific to real Mistral-7B features. What this settles is narrower than 'the real-feature numbers are real': it is that the ESTIMATOR used to report them, at these sample sizes, is not itself biased in either direction under the mechanism it is designed to isolate."
+  },
+  "runtime_seconds": 3.8703360557556152
+}

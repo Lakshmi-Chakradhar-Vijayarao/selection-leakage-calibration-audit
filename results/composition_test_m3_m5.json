@@ -1,0 +1,64 @@
+{
+  "design": {
+    "capacity": 128,
+    "epochs": 45,
+    "n_samples": 700,
+    "target_auroc0": 0.8,
+    "n_seeds": 100,
+    "n_thresh_grid": 81
+  },
+  "mean_auroc": {
+    "leaky": 0.7489632653061226,
+    "clean_matched": 0.7437653061224491
+  },
+  "m3_effect_f1": {
+    "mean": 0.003917572582008091,
+    "bca_ci_95": [
+      -0.0018558433353446076,
+      0.009699849440875563
+    ],
+    "wilcoxon_p": 0.05002324902827331,
+    "sd": 0.02957579662081367
+  },
+  "m5_effect_f1": {
+    "mean": 0.05257416231344987,
+    "bca_ci_95": [
+      0.047154401034079134,
+      0.058371696955150376
+    ],
+    "wilcoxon_p": 5.697220948724935e-18,
+    "sd": 0.028894017246634682
+  },
+  "combined_effect_f1": {
+    "mean": 0.055739827182416705,
+    "bca_ci_95": [
+      0.049299637678415525,
+      0.06199762781863205
+    ],
+    "wilcoxon_p": 2.5579684900142005e-17,
+    "sd": 0.03312236191731819
+  },
+  "additive_prediction_f1": {
+    "mean": 0.05649173489545797,
+    "bca_ci_95": [
+      0.047484162722649485,
+      0.06628128612537146
+    ],
+    "wilcoxon_p": 1.631012778441796e-15,
+    "sd": 0.047423306278373246
+  },
+  "interaction_term_f1": {
+    "mean": -0.0007519077130412621,
+    "bca_ci_95": [
+      -0.005940627387302436,
+      0.004555408670315151
+    ],
+    "wilcoxon_p": 0.6426603368711524,
+    "sd": 0.02685629621106224
+  },
+  "interaction_bca_excludes_zero": false,
+  "ratio_combined_over_additive": 0.9866899518233467,
+  "verdict": "ADDITIVE",
+  "statement": "With both mechanisms present, F1 inflation is +0.0557 (CI [0.049299637678415525, 0.06199762781863205]), against an additive prediction from each measured alone of +0.0565 (CI [0.047484162722649485, 0.06628128612537146]). The interaction term is -0.0008 (CI [-0.005940627387302436, 0.004555408670315151], p=0.643), which does not exclude zero, so the two mechanisms combine additive in this synthetic reconstruction. This is directly relevant to real pipelines like MultiHaluDet's own run_pipeline.py, which carries both mechanisms at once: a practitioner who fixes them independently and expects severities to simply subtract should read this result as a caution rather than an assumption.",
+  "runtime_seconds": 24.599693059921265
+}

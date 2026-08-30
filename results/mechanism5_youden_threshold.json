@@ -1,0 +1,186 @@
+{
+  "cells": {
+    "0.7": {
+      "f1_gap_youden_mean": 0.052003531249702306,
+      "f1_gap_youden_sd": 0.12719608880546576,
+      "f1_gap_youden_bca_ci_95": [
+        0.03483911493502931,
+        0.06966924960378752
+      ],
+      "f1_gap_youden_wilcoxon_p": 4.646387096798334e-08,
+      "f1_gap_youden_n_negative": 67,
+      "f1_gap_youden_n_zero": 2,
+      "f1_gap_youden_n_positive": 131,
+      "f1_gap_f1argmax_mean": 0.02278013173937266,
+      "f1_gap_f1argmax_n_negative": 0,
+      "f1_gap_f1argmax_n_zero": 13,
+      "acc_gap_mean": 0.04567857142857143,
+      "acc_gap_n_negative": 3,
+      "ratio_youden_over_f1argmax": 2.2828459398160805,
+      "leaky_f1_youden_mean": 0.6162091074794973,
+      "honest_f1_youden_mean": 0.5642055762297951
+    },
+    "0.8": {
+      "f1_gap_youden_mean": 0.04307300009846927,
+      "f1_gap_youden_sd": 0.0645542867767738,
+      "f1_gap_youden_bca_ci_95": [
+        0.03469721810948016,
+        0.052546474495807266
+      ],
+      "f1_gap_youden_wilcoxon_p": 9.743243517077414e-18,
+      "f1_gap_youden_n_negative": 37,
+      "f1_gap_youden_n_zero": 5,
+      "f1_gap_youden_n_positive": 158,
+      "f1_gap_f1argmax_mean": 0.03383057225045639,
+      "f1_gap_f1argmax_n_negative": 0,
+      "f1_gap_f1argmax_n_zero": 7,
+      "acc_gap_mean": 0.03578571428571429,
+      "acc_gap_n_negative": 1,
+      "ratio_youden_over_f1argmax": 1.273197502530812,
+      "leaky_f1_youden_mean": 0.7011491066764473,
+      "honest_f1_youden_mean": 0.6580761065779778
+    },
+    "0.9": {
+      "f1_gap_youden_mean": 0.034752290379560506,
+      "f1_gap_youden_sd": 0.03960512057186067,
+      "f1_gap_youden_bca_ci_95": [
+        0.029605236289466454,
+        0.04048760261407006
+      ],
+      "f1_gap_youden_wilcoxon_p": 1.2752155878253091e-26,
+      "f1_gap_youden_n_negative": 20,
+      "f1_gap_youden_n_zero": 2,
+      "f1_gap_youden_n_positive": 178,
+      "f1_gap_f1argmax_mean": 0.031110473364915195,
+      "f1_gap_f1argmax_n_negative": 0,
+      "f1_gap_f1argmax_n_zero": 7,
+      "acc_gap_mean": 0.03360714285714286,
+      "acc_gap_n_negative": 1,
+      "ratio_youden_over_f1argmax": 1.117060803669814,
+      "leaky_f1_youden_mean": 0.7960788963103912,
+      "honest_f1_youden_mean": 0.7613266059308308
+    },
+    "0.95": {
+      "f1_gap_youden_mean": 0.026198126305871833,
+      "f1_gap_youden_sd": 0.02534698236972876,
+      "f1_gap_youden_bca_ci_95": [
+        0.022939466227883214,
+        0.029932421529814304
+      ],
+      "f1_gap_youden_wilcoxon_p": 1.831976438048976e-31,
+      "f1_gap_youden_n_negative": 11,
+      "f1_gap_youden_n_zero": 6,
+      "f1_gap_youden_n_positive": 183,
+      "f1_gap_f1argmax_mean": 0.023326743029439476,
+      "f1_gap_f1argmax_n_negative": 0,
+      "f1_gap_f1argmax_n_zero": 13,
+      "acc_gap_mean": 0.024571428571428574,
+      "acc_gap_n_negative": 0,
+      "ratio_youden_over_f1argmax": 1.123094050155589,
+      "leaky_f1_youden_mean": 0.8564728816791464,
+      "honest_f1_youden_mean": 0.8302747553732747
+    },
+    "0.985": {
+      "f1_gap_youden_mean": 0.022543208734438613,
+      "f1_gap_youden_sd": 0.02003598989476651,
+      "f1_gap_youden_bca_ci_95": [
+        0.020034522498442044,
+        0.025553512522347548
+      ],
+      "f1_gap_youden_wilcoxon_p": 6.568454480974411e-33,
+      "f1_gap_youden_n_negative": 4,
+      "f1_gap_youden_n_zero": 9,
+      "f1_gap_youden_n_positive": 187,
+      "f1_gap_f1argmax_mean": 0.02118660067167907,
+      "f1_gap_f1argmax_n_negative": 0,
+      "f1_gap_f1argmax_n_zero": 15,
+      "acc_gap_mean": 0.021500000000000005,
+      "acc_gap_n_negative": 0,
+      "ratio_youden_over_f1argmax": 1.0640314170159904,
+      "leaky_f1_youden_mean": 0.9205590278639785,
+      "honest_f1_youden_mean": 0.8980158191295399
+    }
+  },
+  "summary": {
+    "n_seeds": 200,
+    "n_samples": 700,
+    "n_test": 140,
+    "f1_gap_youden_range": [
+      0.022543208734438613,
+      0.052003531249702306
+    ],
+    "f1_gap_f1argmax_range": [
+      0.02118660067167907,
+      0.03383057225045639
+    ],
+    "max_ratio_youden_over_f1argmax": 2.2828459398160805,
+    "youden_negative_reps_range": [
+      4,
+      67
+    ],
+    "f1argmax_total_negative_reps": 0,
+    "max_youden_wilcoxon_p": 4.646387096798334e-08,
+    "note": "The Youden column is the repo-faithful measurement: MultiHaluDet/run_pipeline.py:140 passes thresholds['youden'] to evaluate_all, so every threshold-dependent metric it reports -- F1 included -- is scored at the Youden threshold, not at the 81-point F1-argmax threshold find_best_thresholds also computes. The F1-argmax column reproduces code/46 exactly and is retained only to show the two conventions diverge.",
+    "reproduces_code46_f1argmax_column": true
+  },
+  "sample_size_sensitivity_at_youden": {
+    "target_auroc": 0.985,
+    "n_seeds": 200,
+    "by_n_samples": {
+      "700": {
+        "n_samples": 700,
+        "n_test": 140,
+        "n_val": 112,
+        "f1_gap_youden_mean": 0.022543208734438613,
+        "f1_gap_youden_bca_ci_95": [
+          0.01999486500058592,
+          0.02564150958386981
+        ],
+        "f1_gap_youden_wilcoxon_p": 6.568454480974411e-33,
+        "f1_gap_youden_n_negative": 4,
+        "f1_gap_f1argmax_mean": 0.02118660067167907
+      },
+      "1750": {
+        "n_samples": 1750,
+        "n_test": 350,
+        "n_val": 280,
+        "f1_gap_youden_mean": 0.012290251442067407,
+        "f1_gap_youden_bca_ci_95": [
+          0.01100691201750708,
+          0.013803532352242416
+        ],
+        "f1_gap_youden_wilcoxon_p": 1.404825554481343e-33,
+        "f1_gap_youden_n_negative": 1,
+        "f1_gap_f1argmax_mean": 0.011085958073806109
+      },
+      "3500": {
+        "n_samples": 3500,
+        "n_test": 700,
+        "n_val": 560,
+        "f1_gap_youden_mean": 0.006614277949047086,
+        "f1_gap_youden_bca_ci_95": [
+          0.005976625017159871,
+          0.007334106372269901
+        ],
+        "f1_gap_youden_wilcoxon_p": 3.611678791313557e-34,
+        "f1_gap_youden_n_negative": 3,
+        "f1_gap_f1argmax_mean": 0.006650753064888399
+      },
+      "10000": {
+        "n_samples": 10000,
+        "n_test": 2000,
+        "n_val": 1600,
+        "f1_gap_youden_mean": 0.0035868998617730073,
+        "f1_gap_youden_bca_ci_95": [
+          0.0032146069990641964,
+          0.003982669034616781
+        ],
+        "f1_gap_youden_wilcoxon_p": 5.1207220564605545e-34,
+        "f1_gap_youden_n_negative": 2,
+        "f1_gap_f1argmax_mean": 0.0034090780585667563
+      }
+    },
+    "shrinkage_factor_700_to_10000": 6.284872620696884,
+    "note": "Same sweep as code/46's sample_size_sensitivity, measured at the threshold rule MultiHaluDet actually reports at. Holds the operating point at 0.985 and scales N_SAMPLES, which scales n_test (LEAKY's selection set) and n_val (HONEST's) together."
+  }
+}

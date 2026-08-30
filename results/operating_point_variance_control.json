@@ -1,0 +1,197 @@
+{
+  "n_seeds_per_cell": 100,
+  "cells": {
+    "0.7": {
+      "achieved_auroc_clean_matched": 0.621438775510204,
+      "achieved_auroc_leaky": 0.6307551020408163,
+      "raw_gap_mean": 0.009316326530612241,
+      "raw_gap_sd": 0.02485959673548349,
+      "raw_gap_bca_ci_95": [
+        0.004344325286058041,
+        0.014063074615404266
+      ],
+      "probit_gap_mean": 0.024616528842144044,
+      "probit_gap_sd": 0.0657835470476034,
+      "probit_gap_bca_ci_95": [
+        0.01196644942360351,
+        0.03730824072486648
+      ],
+      "cohens_d_paired": 0.3747577496828228,
+      "cohens_d_bca_ci_95": [
+        0.10680254484970982,
+        0.5554379487195482
+      ],
+      "sign_statistic_r": 0.31313131313131315,
+      "rank_biserial_r": 0.31313131313131315,
+      "n_positive": 65,
+      "n_negative": 34,
+      "n_zero": 1,
+      "wilcoxon_p": 0.00010772332971006228,
+      "n_seeds": 100
+    },
+    "0.8": {
+      "achieved_auroc_clean_matched": 0.754938775510204,
+      "achieved_auroc_leaky": 0.758587755102041,
+      "raw_gap_mean": 0.0036489795918367273,
+      "raw_gap_sd": 0.009867987144640555,
+      "raw_gap_bca_ci_95": [
+        0.001797959183673463,
+        0.005681365122464948
+      ],
+      "probit_gap_mean": 0.01164777615803859,
+      "probit_gap_sd": 0.03174762644195845,
+      "probit_gap_bca_ci_95": [
+        0.0058628883892492935,
+        0.018438874248910917
+      ],
+      "cohens_d_paired": 0.3697795242688921,
+      "cohens_d_bca_ci_95": [
+        0.1872195765131137,
+        0.5451042257434607
+      ],
+      "sign_statistic_r": 0.36,
+      "rank_biserial_r": 0.36,
+      "n_positive": 68,
+      "n_negative": 32,
+      "n_zero": 0,
+      "wilcoxon_p": 0.0012363190170634885,
+      "n_seeds": 100
+    },
+    "0.9": {
+      "achieved_auroc_clean_matched": 0.8825448979591836,
+      "achieved_auroc_leaky": 0.8836326530612244,
+      "raw_gap_mean": 0.0010877551020408228,
+      "raw_gap_sd": 0.005044620609084154,
+      "raw_gap_bca_ci_95": [
+        0.0001489795918367405,
+        0.00210408163265307
+      ],
+      "probit_gap_mean": 0.005004439122640616,
+      "probit_gap_sd": 0.02531986344055524,
+      "probit_gap_bca_ci_95": [
+        0.00027113548604267,
+        0.010157356307835583
+      ],
+      "cohens_d_paired": 0.21562674110358987,
+      "cohens_d_bca_ci_95": [
+        0.011109356504655775,
+        0.4003186031022442
+      ],
+      "sign_statistic_r": 0.09090909090909091,
+      "rank_biserial_r": 0.09090909090909091,
+      "n_positive": 54,
+      "n_negative": 45,
+      "n_zero": 1,
+      "wilcoxon_p": 0.06660892449953998,
+      "n_seeds": 100
+    },
+    "0.95": {
+      "achieved_auroc_clean_matched": 0.9426571428571426,
+      "achieved_auroc_leaky": 0.9433102040816326,
+      "raw_gap_mean": 0.0006530612244898004,
+      "raw_gap_sd": 0.0029477348027877534,
+      "raw_gap_bca_ci_95": [
+        7.959183673470128e-05,
+        0.0012346938775510258
+      ],
+      "probit_gap_mean": 0.005334081599992624,
+      "probit_gap_sd": 0.026716416397336497,
+      "probit_gap_bca_ci_95": [
+        0.00034554971840182415,
+        0.010741601418195293
+      ],
+      "cohens_d_paired": 0.22154680396356635,
+      "cohens_d_bca_ci_95": [
+        0.019227278360829665,
+        0.4093496922487468
+      ],
+      "sign_statistic_r": 0.13131313131313133,
+      "rank_biserial_r": 0.13131313131313133,
+      "n_positive": 56,
+      "n_negative": 43,
+      "n_zero": 1,
+      "wilcoxon_p": 0.037005603355146195,
+      "n_seeds": 100
+    },
+    "0.985": {
+      "achieved_auroc_clean_matched": 0.9829612244897961,
+      "achieved_auroc_leaky": 0.9831530612244898,
+      "raw_gap_mean": 0.00019183673469387984,
+      "raw_gap_sd": 0.0013758630488354324,
+      "raw_gap_bca_ci_95": [
+        -9.387755102039459e-05,
+        0.00045306122448979957
+      ],
+      "probit_gap_mean": 0.0034198184121439603,
+      "probit_gap_sd": 0.033193229218427905,
+      "probit_gap_bca_ci_95": [
+        -0.0027926423081648653,
+        0.009980766350052272
+      ],
+      "cohens_d_paired": 0.13943010887330365,
+      "cohens_d_bca_ci_95": [
+        -0.06994385633874625,
+        0.33624415133040675
+      ],
+      "sign_statistic_r": 0.020833333333333332,
+      "rank_biserial_r": 0.020833333333333332,
+      "n_positive": 49,
+      "n_negative": 47,
+      "n_zero": 4,
+      "wilcoxon_p": 0.21864939494907487,
+      "n_seeds": 100
+    }
+  },
+  "declines": {
+    "raw_auroc_gap": {
+      "low_op_point": 0.009316326530612241,
+      "high_op_point": 0.00019183673469387984,
+      "absolute_decline": 0.009124489795918362,
+      "ratio": 48.563829787233445,
+      "monotone_nonincreasing": true
+    },
+    "probit_gap": {
+      "low_op_point": 0.024616528842144044,
+      "high_op_point": 0.0034198184121439603,
+      "absolute_decline": 0.021196710430000085,
+      "ratio": 7.19819764544498,
+      "monotone_nonincreasing": false
+    },
+    "cohens_d_paired": {
+      "low_op_point": 0.3747577496828228,
+      "high_op_point": 0.13943010887330365,
+      "absolute_decline": 0.23532764080951918,
+      "ratio": 2.6877820917672453,
+      "monotone_nonincreasing": false
+    },
+    "sign_statistic_r": {
+      "low_op_point": 0.31313131313131315,
+      "high_op_point": 0.020833333333333332,
+      "absolute_decline": 0.29229797979797983,
+      "ratio": 15.030303030303031,
+      "monotone_nonincreasing": false
+    },
+    "rank_biserial_r": {
+      "low_op_point": 0.31313131313131315,
+      "high_op_point": 0.020833333333333332,
+      "absolute_decline": 0.29229797979797983,
+      "ratio": 15.030303030303031,
+      "monotone_nonincreasing": false
+    }
+  },
+  "surviving_log_share_of_raw_decline": {
+    "probit_gap": 0.5083420477934444,
+    "cohens_d_paired": 0.2546348597482142,
+    "sign_statistic_r": 0.6979533376520696,
+    "rank_biserial_r": 0.6979533376520696,
+    "note": "log(stabilized decline ratio) / log(raw decline ratio). 1.0 would mean the raw decline is entirely real; 0.0 would mean it is entirely a coordinate effect."
+  },
+  "compression_diagnostic": {
+    "gap_sd_ratio_low_over_high": 18.068365711634836,
+    "gap_mean_ratio_low_over_high": 48.563829787233445,
+    "mean_falls_faster_than_sd": true,
+    "note": "A pure variance-compression account predicts that the gap's mean and its seed-to-seed SD fall at the SAME rate across the operating-point axis, so that the standardized effect size is flat. The measured mean falls faster than the SD, so the compression account's central prediction fails -- but the SD does fall substantially too, so compression is a real and large component of the raw decline rather than absent from it."
+  },
+  "verdict": "DECLINE_SURVIVES_IN_MAGNITUDE_BUT_NOT_IN_STRICT_MONOTONICITY",
+  "reading": "Split verdict, and both halves matter. (a) The operating-point effect is NOT purely an artifact of AUROC differences compressing near the ceiling: it survives re-expression in the probit coordinate (this harness's own binormal discriminability scale), division by the per-cell dispersion (paired Cohen's d, which is precisely the quantity a compression account says is shrinking), and a rank-based effect size that uses only the per-seed sign structure and is invariant to ANY monotone reparameterization of AUROC. All three still fall several-fold from AUROC_0 = 0.70 to 0.985. (b) But most of the raw decline's SIZE is coordinate effect. Against the raw AUROC gap's decline ratio -- recorded here as gap_mean_ratio_low_over_high, and NOT reportable as a multiplier for the reasons SS5.3 gives (Fieller g > 1, no finite CI) -- the same contrast declines by only 7.2x in probit units and 2.7x standardized, so on a log scale roughly a quarter to a half of it survives. And strict monotonicity does NOT survive: in every stabilized coordinate the 0.95 cell sits at or slightly above the 0.90 cell, an inversion the raw scale hides. The defensible claim is therefore that the operating point is a real severity modifier whose raw-AUROC magnitude is inflated by the metric's geometry, and the paper should not quote raw-AUROC decline ratios as if they measured a severity relationship. This control is also run inside the same synthetic harness as the relationship it tests, and SS5.4 separately shows that relationship failing to transport across harnesses by 14-38x."
+}

@@ -1,0 +1,329 @@
+{
+  "config": {
+    "capacity": 128,
+    "n_seeds": 100,
+    "epochs": 45,
+    "n_samples": 700,
+    "target_auroc": 0.8,
+    "n_inner_folds": 5,
+    "test_size": 0.2,
+    "f_small_shipped": 0.15,
+    "f_fold_matched": 0.25,
+    "oof_hold_fraction": 0.16666666666666666,
+    "n_train": 560,
+    "n_ges_out_of_fold_pool": 94,
+    "n_cv_pool": 466,
+    "n_val_per_fold": 93.2,
+    "n_tr_idx_per_fold": 372.8,
+    "geometry_note": "All eight arms plus LEAKY and PLACEBO share one pool, one fold assignment and one out-of-fold carve-out, so every gap is paired on identical folds and the in-fold/out-of-fold factor is not confounded with pool size. The carve-out costs 16.7% of the cross-validation pool for EVERY arm equally, so absolute AUROCs here are not comparable to the primary table's (|val|=112, |tr_idx|=448); only gaps within this run are.",
+    "operating_point_note": "EPOCHS/N_SAMPLES/TARGET_AUROC/N_INNER_FOLDS/TEST_SIZE and the decoupled data/split/fold/init seed scheme are imported from code/47, whose default cell is bit-identical to code/02d's capacity-128 primary cell."
+  },
+  "anchors_asserted_before_reporting": {
+    "small__infold__free": {
+      "reference": "code/75 part_B.cm_infold_r_mean",
+      "value": 0.749569387755102,
+      "drift": 0.0
+    },
+    "fold_matched__oof__free": {
+      "reference": "code/75 part_B.cm_oof_mean",
+      "value": 0.7527102040816324,
+      "drift": 0.0
+    },
+    "leaky": {
+      "reference": "code/75 part_B.leaky_r_mean",
+      "value": 0.7525857142857143,
+      "drift": 0.0
+    },
+    "placebo": {
+      "reference": "code/75 part_B.placebo_r_mean",
+      "value": 0.728622448979592,
+      "drift": 0.0
+    }
+  },
+  "oof_retrain_bitwise_identical_frac": 1.0,
+  "mean_selected_epoch_by_arm": {
+    "leaky": 20.372,
+    "small__infold": 21.098,
+    "small__oof": 20.956,
+    "fold_matched__infold": 21.22,
+    "fold_matched__oof": 20.938
+  },
+  "depth_shifts_applied": {
+    "small__infold": -1,
+    "small__oof": -1,
+    "fold_matched__infold": -1,
+    "fold_matched__oof": -1
+  },
+  "const_depth_epochs": 20,
+  "leaky_mean_auroc": 0.7525857142857143,
+  "placebo_mean_auroc": 0.728622448979592,
+  "factorial_cells": {
+    "small__infold__free": {
+      "selection_set_size": "small",
+      "selection_run_budget": "infold",
+      "training_depth": "free",
+      "arm_mean_auroc": 0.749569387755102,
+      "n_selection_points": 56.0,
+      "n_selection_run_training": 316.8,
+      "selection_run_budget_pct": 84.97854077253218,
+      "mean_selected_epoch": 21.098,
+      "depth_shift_applied": 0,
+      "gap_leaky_minus_arm": {
+        "gap_mean": 0.0030163265306122344,
+        "gap_bca_ci_95": [
+          0.0009605915750800909,
+          0.005302040816326516
+        ],
+        "wilcoxon_p": 0.017422237124353705,
+        "gap_std": 0.011144788528426078,
+        "n_positive": 58,
+        "n_seeds": 100
+      },
+      "is_shipped_uncorrected": true,
+      "is_fully_corrected": false
+    },
+    "small__infold__matched": {
+      "selection_set_size": "small",
+      "selection_run_budget": "infold",
+      "training_depth": "matched",
+      "arm_mean_auroc": 0.7493979591836735,
+      "n_selection_points": 56.0,
+      "n_selection_run_training": 316.8,
+      "selection_run_budget_pct": 84.97854077253218,
+      "mean_selected_epoch": 21.098,
+      "depth_shift_applied": -1,
+      "gap_leaky_minus_arm": {
+        "gap_mean": 0.0031877551020408146,
+        "gap_bca_ci_95": [
+          0.0010362334228565288,
+          0.005573469387755099
+        ],
+        "wilcoxon_p": 0.013649165042149773,
+        "gap_std": 0.011604311114091654,
+        "n_positive": 59,
+        "n_seeds": 100
+      },
+      "is_shipped_uncorrected": false,
+      "is_fully_corrected": false
+    },
+    "small__oof__free": {
+      "selection_set_size": "small",
+      "selection_run_budget": "oof",
+      "training_depth": "free",
+      "arm_mean_auroc": 0.7504102040816326,
+      "n_selection_points": 56.0,
+      "n_selection_run_training": 372.8,
+      "selection_run_budget_pct": 100.0,
+      "mean_selected_epoch": 20.956,
+      "depth_shift_applied": 0,
+      "gap_leaky_minus_arm": {
+        "gap_mean": 0.00217551020408163,
+        "gap_bca_ci_95": [
+          -3.995576406433922e-05,
+          0.00466824250536778
+        ],
+        "wilcoxon_p": 0.12205155052058997,
+        "gap_std": 0.012221933389047982,
+        "n_positive": 55,
+        "n_seeds": 100
+      },
+      "is_shipped_uncorrected": false,
+      "is_fully_corrected": false
+    },
+    "small__oof__matched": {
+      "selection_set_size": "small",
+      "selection_run_budget": "oof",
+      "training_depth": "matched",
+      "arm_mean_auroc": 0.7498918367346938,
+      "n_selection_points": 56.0,
+      "n_selection_run_training": 372.8,
+      "selection_run_budget_pct": 100.0,
+      "mean_selected_epoch": 20.956,
+      "depth_shift_applied": -1,
+      "gap_leaky_minus_arm": {
+        "gap_mean": 0.002693877551020407,
+        "gap_bca_ci_95": [
+          0.0003857142857142727,
+          0.005297456083737422
+        ],
+        "wilcoxon_p": 0.050411632574607165,
+        "gap_std": 0.012390021619366896,
+        "n_positive": 58,
+        "n_seeds": 100
+      },
+      "is_shipped_uncorrected": false,
+      "is_fully_corrected": false
+    },
+    "fold_matched__infold__free": {
+      "selection_set_size": "fold_matched",
+      "selection_run_budget": "infold",
+      "training_depth": "free",
+      "arm_mean_auroc": 0.7516285714285713,
+      "n_selection_points": 93.8,
+      "n_selection_run_training": 279.0,
+      "selection_run_budget_pct": 74.83905579399142,
+      "mean_selected_epoch": 21.22,
+      "depth_shift_applied": 0,
+      "gap_leaky_minus_arm": {
+        "gap_mean": 0.0009571428571428597,
+        "gap_bca_ci_95": [
+          -0.0008898613582247424,
+          0.0028047626629606375
+        ],
+        "wilcoxon_p": 0.4504112479182997,
+        "gap_std": 0.009319330417788879,
+        "n_positive": 51,
+        "n_seeds": 100
+      },
+      "is_shipped_uncorrected": false,
+      "is_fully_corrected": false
+    },
+    "fold_matched__infold__matched": {
+      "selection_set_size": "fold_matched",
+      "selection_run_budget": "infold",
+      "training_depth": "matched",
+      "arm_mean_auroc": 0.751604081632653,
+      "n_selection_points": 93.8,
+      "n_selection_run_training": 279.0,
+      "selection_run_budget_pct": 74.83905579399142,
+      "mean_selected_epoch": 21.22,
+      "depth_shift_applied": -1,
+      "gap_leaky_minus_arm": {
+        "gap_mean": 0.0009816326530612274,
+        "gap_bca_ci_95": [
+          -0.0008225910166052372,
+          0.002795918367346941
+        ],
+        "wilcoxon_p": 0.4302155189111334,
+        "gap_std": 0.009373524702422786,
+        "n_positive": 51,
+        "n_seeds": 100
+      },
+      "is_shipped_uncorrected": false,
+      "is_fully_corrected": false
+    },
+    "fold_matched__oof__free": {
+      "selection_set_size": "fold_matched",
+      "selection_run_budget": "oof",
+      "training_depth": "free",
+      "arm_mean_auroc": 0.7527102040816324,
+      "n_selection_points": 94.0,
+      "n_selection_run_training": 372.8,
+      "selection_run_budget_pct": 100.0,
+      "mean_selected_epoch": 20.938,
+      "depth_shift_applied": 0,
+      "gap_leaky_minus_arm": {
+        "gap_mean": -0.00012448979591837107,
+        "gap_bca_ci_95": [
+          -0.0022183989749340696,
+          0.0020510204081632634
+        ],
+        "wilcoxon_p": 0.5416562580572177,
+        "gap_std": 0.010866245566069015,
+        "n_positive": 46,
+        "n_seeds": 100
+      },
+      "is_shipped_uncorrected": false,
+      "is_fully_corrected": false
+    },
+    "fold_matched__oof__matched": {
+      "selection_set_size": "fold_matched",
+      "selection_run_budget": "oof",
+      "training_depth": "matched",
+      "arm_mean_auroc": 0.7526612244897959,
+      "n_selection_points": 94.0,
+      "n_selection_run_training": 372.8,
+      "selection_run_budget_pct": 100.0,
+      "mean_selected_epoch": 20.938,
+      "depth_shift_applied": -1,
+      "gap_leaky_minus_arm": {
+        "gap_mean": -7.5510204081638e-05,
+        "gap_bca_ci_95": [
+          -0.0021326530612244916,
+          0.0020999999999999877
+        ],
+        "wilcoxon_p": 0.6573659707966516,
+        "gap_std": 0.010912365585631491,
+        "n_positive": 47,
+        "n_seeds": 100
+      },
+      "is_shipped_uncorrected": false,
+      "is_fully_corrected": true
+    }
+  },
+  "reference_arms": {
+    "const_depth": {
+      "arm_mean_auroc": 0.7551591836734695,
+      "epochs": 20,
+      "gap_leaky_minus_arm": {
+        "gap_mean": -0.002573469387755102,
+        "gap_bca_ci_95": [
+          -0.004346938775510197,
+          -0.0008996387969543496
+        ],
+        "wilcoxon_p": 0.0032838007761660393,
+        "gap_std": 0.00875123780755258,
+        "n_positive": 34,
+        "n_seeds": 100
+      },
+      "degeneracy": "A blind fixed-epoch retrain on tr_idx from a fixed init seed for a CONSTANT number of epochs is a function of the epoch count alone -- not of selection-set size, not of where the selection set came from, not of the arm's own selected epoch. All four constant-depth factor combinations are therefore the same weights, verified bitwise in 72/72 (seed, fold) pairs where a depth-matched arm's shifted epoch coincided with const_depth. This is why 'force all arms to the same number of epochs' cannot be a factor level: it collapses the factorial to one cell. It is reported instead as what it actually measures -- selection of any kind versus no selection at all."
+    },
+    "placebo": {
+      "arm_mean_auroc": 0.728622448979592,
+      "gap_leaky_minus_arm": {
+        "gap_mean": 0.023963265306122427,
+        "gap_bca_ci_95": [
+          0.019098248836159282,
+          0.029234024402963195
+        ],
+        "wilcoxon_p": 1.914783678649336e-13,
+        "gap_std": 0.025976568742043505,
+        "n_positive": 83,
+        "n_seeds": 100
+      }
+    }
+  },
+  "decomposition": {
+    "shipped_uncorrected_gap": 0.0030163265306122344,
+    "fully_corrected_gap": -7.5510204081638e-05,
+    "total_movement": 0.0030918367346938723,
+    "main_effects_average_over_other_factors": {
+      "selection_set_size_small_minus_fold_matched": {
+        "value": 0.002333673469387752,
+        "reading": "How much of the gap is bought by giving the honest arm FEWER selection points than LEAKY. Positive means the uncorrected (small) selection set inflates the gap."
+      },
+      "selection_run_budget_infold_minus_oof": {
+        "value": 0.0008683673469387768,
+        "reading": "How much is bought by training the honest arm's SELECTION RUN on less data than LEAKY's. Positive means the in-fold budget deficit inflates the gap."
+      },
+      "training_depth_free_minus_matched": {
+        "value": -0.00019081632653061452,
+        "reading": "How much is bought by letting the honest arm stop at a systematically different mean depth than LEAKY. Positive means the depth difference inflates the gap."
+      }
+    },
+    "share_of_total_movement": {
+      "selection_set_size_small_minus_fold_matched": 0.754785478547855,
+      "selection_run_budget_infold_minus_oof": 0.2808580858085818,
+      "training_depth_free_minus_matched": -0.06171617161716256
+    },
+    "note": "Main effects are averaged over the other two factors' levels, so they sum to the total movement only if the design is additive; the residual below sizes the interaction.",
+    "additivity_residual": 8.061224489795812e-05
+  },
+  "prereg_rule": "The fully-corrected cell is fold_matched/oof/matched. ESTABLISHED if its gap > 0 and its BCa CI excludes zero from below; NOT_ESTABLISHED otherwise. Fixed before the run.",
+  "verdict": "NOT_ESTABLISHED",
+  "limitations": [
+    "One capacity (128) and one operating point (AUROC_0=0.80). code/47 measures operating point as the single strongest severity modifier (+0.0093 at 0.70 down to +0.0002 at 0.985), so these conclusions are conditional on 0.80 exactly as the primary estimate is.",
+    "Every arm pays the out-of-fold carve-out's 16.7% pool reduction, including the in-fold arms that never use it. That is what makes the eight cells mutually comparable, and what makes none of them directly comparable to the primary table's absolute AUROCs.",
+    "The single out-of-fold selection pool is reused across all five folds (code/75B's disclosed limitation, inherited). It is disjoint from every val_idx so it cannot leak into the reported metric, but the five folds' checkpoint choices are correlated through it in a way the in-fold arms' five independent carve-outs are not. The small/oof arm redraws its size-matched subsample per fold, which partially decorrelates it.",
+    "The depth shift is a single integer per arm estimated from the same 500 (seed, fold) pairs it is then applied to. It equalizes MEAN depth, not the depth distribution, and it is data-dependent. Its own sampling noise is small relative to the gaps (the shift is an integer over 500 pairs), but it is not a pre-specified constant.",
+    "Matching mean depth cannot separate 'stopped at a different depth' from 'stopped at a depth chosen on the reported fold' any further than this: forcing an arm to LEAKY's own per-fold epoch makes it bitwise identical to LEAKY and forcing a global constant makes all four arms identical. The mean shift is the strongest depth control this construction admits.",
+    "The downstream per-fold feature averaging that code/55 shows suppresses this effect is left in place, for comparability with the primary estimate. Every cell inherits that suppression equally.",
+    "This is the isotropic-Gaussian synthetic reconstruction, not a measurement on MultiHaluDet's real 7B-scale pipeline."
+  ],
+  "statement": "At capacity 128 and AUROC_0=0.80, with all eight arms sharing one pool, one fold assignment and one LEAKY reference, the shipped uncorrected control (small in-fold selection set, free depth) gives a gap of +0.0030 and the fully-corrected control (fold-matched selection-set size, out-of-fold selection run at 100% budget, mean training depth equalized to LEAKY's) gives -0.0001 (BCa CI [-0.0021, +0.0021], Wilcoxon p=0.657). Under the pre-registered rule the fold-reuse-specific severity of Mechanism 3 in this harness is NOT_ESTABLISHED. Averaging over the other two factors, the selection-set-size factor is worth +0.0023, the selection-run budget factor +0.0009, and the training-depth factor -0.0002, against a total movement of +0.0031.",
+  "runtime_seconds": 288.1401720046997,
+  "outputs": {
+    "json": "results/mechanism3_factorial_selection_controls.json",
+    "script": "code/77_mechanism3_factorial_selection_controls.py"
+  }
+}

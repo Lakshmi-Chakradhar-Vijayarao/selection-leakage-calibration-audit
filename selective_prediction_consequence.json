@@ -1,0 +1,78 @@
+{
+  "mechanism_2": {
+    "mechanism": "Mechanism 2 (CV-argmax layer selection)",
+    "coverage_targets": {
+      "0.30": {
+        "believed_risk_mean_from_leaky": 0.0775,
+        "actual_risk_mean_on_clean": 0.0857991050276377,
+        "actual_coverage_mean_on_clean": 0.31446666666666667,
+        "risk_violation_mean": 0.008299105027637707,
+        "risk_violation_bca_95ci": [
+          -0.0007114601508653882,
+          0.018248857031159034
+        ],
+        "relative_risk_inflation_pct": 10.70852261630672
+      },
+      "0.50": {
+        "believed_risk_mean_from_leaky": 0.09549999999999999,
+        "actual_risk_mean_on_clean": 0.11047408580661922,
+        "actual_coverage_mean_on_clean": 0.5066666666666666,
+        "risk_violation_mean": 0.014974085806619249,
+        "risk_violation_bca_95ci": [
+          0.006599844030234034,
+          0.023287053411863167
+        ],
+        "relative_risk_inflation_pct": 15.67967100169555
+      },
+      "0.70": {
+        "believed_risk_mean_from_leaky": 0.12778571428571428,
+        "actual_risk_mean_on_clean": 0.1416710797344164,
+        "actual_coverage_mean_on_clean": 0.7070666666666666,
+        "risk_violation_mean": 0.013885365448702109,
+        "risk_violation_bca_95ci": [
+          0.005350621464408062,
+          0.02308404526085078
+        ],
+        "relative_risk_inflation_pct": 10.866132827380074
+      }
+    }
+  },
+  "mechanism_1": {
+    "mechanism": "Mechanism 1 (full-dataset probe reuse)",
+    "coverage_targets": {
+      "0.30": {
+        "believed_risk_mean_from_leaky": 0.0,
+        "actual_risk_mean_on_clean": 0.002395631014152089,
+        "actual_coverage_mean_on_clean": 0.28300000000000003,
+        "risk_violation_mean": 0.002395631014152089,
+        "risk_violation_bca_95ci": [
+          0.0013018493378891655,
+          0.0037624237429675447
+        ],
+        "relative_risk_inflation_pct": null
+      },
+      "0.50": {
+        "believed_risk_mean_from_leaky": 0.0,
+        "actual_risk_mean_on_clean": 0.007470396721073825,
+        "actual_coverage_mean_on_clean": 0.483375,
+        "risk_violation_mean": 0.007470396721073825,
+        "risk_violation_bca_95ci": [
+          0.0063553693689310815,
+          0.008477284840754587
+        ],
+        "relative_risk_inflation_pct": null
+      },
+      "0.70": {
+        "believed_risk_mean_from_leaky": 0.0,
+        "actual_risk_mean_on_clean": 0.008727779303945407,
+        "actual_coverage_mean_on_clean": 0.68,
+        "risk_violation_mean": 0.008727779303945407,
+        "risk_violation_bca_95ci": [
+          0.008175079089294608,
+          0.009622746518834487
+        ],
+        "relative_risk_inflation_pct": null
+      }
+    }
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "design": {
+    "capacity": 128,
+    "epochs": 45,
+    "n_samples": 700,
+    "n_seeds": 80,
+    "target_grid": [
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.985
+    ],
+    "skew": 2.5,
+    "calibrated_deltas": {
+      "0.7": 0.75,
+      "0.8": 1.189453125,
+      "0.9": 1.81640625,
+      "0.95": 2.3203125,
+      "0.985": 3.09375
+    },
+    "simplification_note": "Single reused validation fold + single train/test split, direct sigmoid-AUROC readout (same simplification as code/88's item-2 script). Internal mixture-vs-Gaussian comparison only, not compared to Sweep C's absolute numbers."
+  },
+  "mixture_nongaussian": {
+    "0.7": {
+      "leaky_mean": 0.6191173469387754,
+      "clean_matched_mean": 0.608920918367347,
+      "placebo_mean": 0.5852589285714285,
+      "gap_mean": 0.010196428571428568,
+      "gap_bca_ci_95": [
+        0.0018806604195436712,
+        0.02391636882087647
+      ],
+      "wilcoxon_p": 0.12286502906179742,
+      "n_positive": 42,
+      "n_seeds": 80
+    },
+    "0.8": {
+      "leaky_mean": 0.7156122448979592,
+      "clean_matched_mean": 0.7131454081632654,
+      "placebo_mean": 0.6440714285714286,
+      "gap_mean": 0.002466836734693882,
+      "gap_bca_ci_95": [
+        -0.0025190781909031406,
+        0.008542323837027367
+      ],
+      "wilcoxon_p": 0.7765316245258942,
+      "n_positive": 36,
+      "n_seeds": 80
+    },
+    "0.9": {
+      "leaky_mean": 0.823452806122449,
+      "clean_matched_mean": 0.8196683673469387,
+      "placebo_mean": 0.7120497448979591,
+      "gap_mean": 0.0037844387755102057,
+      "gap_bca_ci_95": [
+        -4.814893626058253e-05,
+        0.009914876287147774
+      ],
+      "wilcoxon_p": 0.39755137664934426,
+      "n_positive": 32,
+      "n_seeds": 80
+    },
+    "0.95": {
+      "leaky_mean": 0.8795306122448979,
+      "clean_matched_mean": 0.8781045918367347,
+      "placebo_mean": 0.7449999999999999,
+      "gap_mean": 0.0014260204081632643,
+      "gap_bca_ci_95": [
+        1.5306122448978717e-05,
+        0.004491970295595416
+      ],
+      "wilcoxon_p": 0.619435907535959,
+      "n_positive": 28,
+      "n_seeds": 80
+    },
+    "0.985": {
+      "leaky_mean": 0.9307321428571427,
+      "clean_matched_mean": 0.9296785714285715,
+      "placebo_mean": 0.7729872448979591,
+      "gap_mean": 0.0010535714285714246,
+      "gap_bca_ci_95": [
+        -0.00017602040816327232,
+        0.0036988322811299557
+      ],
+      "wilcoxon_p": 0.6946606786525893,
+      "n_positive": 29,
+      "n_seeds": 80
+    }
+  },
+  "isotropic_gaussian_control": {
+    "0.7": {
+      "leaky_mean": 0.6282602040816326,
+      "clean_matched_mean": 0.622875,
+      "placebo_mean": 0.5919923469387754,
+      "gap_mean": 0.00538520408163264,
+      "gap_bca_ci_95": [
+        -0.002481353072629652,
+        0.014478115976833237
+      ],
+      "wilcoxon_p": 0.5841314577380072,
+      "n_positive": 39,
+      "n_seeds": 80
+    },
+    "0.8": {
+      "leaky_mean": 0.7493877551020409,
+      "clean_matched_mean": 0.7437780612244899,
+      "placebo_mean": 0.6788673469387756,
+      "gap_mean": 0.0056096938775510264,
+      "gap_bca_ci_95": [
+        0.0008503600093975334,
+        0.010989981673155565
+      ],
+      "wilcoxon_p": 0.055406063028502435,
+      "n_positive": 45,
+      "n_seeds": 80
+    },
+    "0.9": {
+      "leaky_mean": 0.8765918367346938,
+      "clean_matched_mean": 0.8740969387755101,
+      "placebo_mean": 0.7772563775510204,
+      "gap_mean": 0.002494897959183688,
+      "gap_bca_ci_95": [
+        -0.0001581632653061011,
+        0.005149444976671805
+      ],
+      "wilcoxon_p": 0.0433566902951206,
+      "n_positive": 43,
+      "n_seeds": 80
+    },
+    "0.95": {
+      "leaky_mean": 0.9393673469387755,
+      "clean_matched_mean": 0.9385357142857143,
+      "placebo_mean": 0.8448928571428571,
+      "gap_mean": 0.0008316326530612344,
+      "gap_bca_ci_95": [
+        -0.0005047731402373024,
+        0.00274460312917958
+      ],
+      "wilcoxon_p": 0.8928545173250021,
+      "n_positive": 36,
+      "n_seeds": 80
+    },
+    "0.985": {
+      "leaky_mean": 0.9808852040816326,
+      "clean_matched_mean": 0.979938775510204,
+      "placebo_mean": 0.899875,
+      "gap_mean": 0.0009464285714285856,
+      "gap_bca_ci_95": [
+        1.2755102040823335e-05,
+        0.0020353794456892424
+      ],
+      "wilcoxon_p": 0.26556457469030137,
+      "n_positive": 39,
+      "n_seeds": 80
+    }
+  },
+  "mixture_monotone_nonincreasing_in_auroc0": false,
+  "gaussian_control_monotone_nonincreasing_in_auroc0": false,
+  "runtime_seconds": 165.93630480766296,
+  "verdict": "Non-Gaussian (bimodal-mixture) operating-point gaps across AUROC_0=[0.7, 0.8, 0.9, 0.95, 0.985] are [np.float64(0.0102), np.float64(0.00247), np.float64(0.00378), np.float64(0.00143), np.float64(0.00105)], NOT monotone. The identically-harnessed isotropic-Gaussian control gives [np.float64(0.00539), np.float64(0.00561), np.float64(0.00249), np.float64(0.00083), np.float64(0.00095)], NOT monotone. The monotone decline DOES NOT cleanly survive the non-Gaussian generative process."
+}

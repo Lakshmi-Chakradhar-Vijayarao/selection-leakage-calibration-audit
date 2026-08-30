@@ -1,0 +1,473 @@
+{
+  "design": "code/47's Sweep A with exactly one substitution: K indexes K independently-seeded probes each trained to a FIXED epoch count (FIXED_EPOCHS = code/47's DEFAULT_EPOCHS = 45) and selected among by argmax, in place of K epochs of one optimizer run. LEAKY argmaxes on the same fold it then supplies OOF features for; CLEAN_MATCHED argmaxes the same K init seeds on the disjoint 15% carve-out after training them on the 85% part, then retrains the WINNING INIT SEED on the full fold; PLACEBO argmaxes the same K candidates against permuted validation labels. Generator, SweepMLP, train_fixed_epochs, extract_features, state_dicts_identical, CAPACITY=128, TEST_SIZE, N_INNER_FOLDS=5, FEAT_DIM, DEFAULT_N_SAMPLES=700, DEFAULT_TARGET_AUROC=0.80 and ES_HOLD_FRACTION=0.15 are all imported from code/47.",
+  "why": "code/47's K is the number of TRAINING EPOCHS of one run. Appendix A.11 (Correction 3) establishes that epochs of one run are not an exchangeable candidate set -- 'a learning curve ... dominated by the systematic climb from initialization to convergence'. The paper nonetheless uses the K-law to reason about selection among 32 layers, 33 layers or 81 thresholds, which are much closer to exchangeable. Whether the relationship transfers had never been measured.",
+  "n_seeds": 30,
+  "n_seeds_note": "N_SEEDS=30 against code/47 Sweep A's 200. Compute-limited: this design trains 2K+1 models per (seed, fold) rather than 3 trajectories, so the K=45 cell is 91 trainings per fold. K grid was held at the full [2, 5, 15, 45] in preference to trimming it. Per-cell CIs and the slope interval are therefore wider than code/47's by construction; point estimates are comparable, interval WIDTHS are not.",
+  "fixed_epochs": 45,
+  "cells": {
+    "2": {
+      "K": 2,
+      "n_seeds": 30,
+      "gap_mean": -0.0021700680272109104,
+      "gap_sem": 0.004377134294491083,
+      "gap_bca_ci_95": [
+        -0.010499642319680199,
+        0.006573114960314163
+      ],
+      "wilcoxon_p": 0.537722120370485,
+      "leaky_mean": 0.7468299319727891,
+      "clean_mean": 0.7489319727891156,
+      "clean_matched_mean": 0.749,
+      "placebo_mean": 0.7466938775510205,
+      "placebo_minus_clean_matched": -0.0023061224489796047,
+      "sigma_exchangeable": 0.010218775294443346,
+      "sigma_exchangeable_ddof0": 0.0072257653061224515,
+      "sigma_exchangeable_bias_corrected": 0.012807335542576206,
+      "c4_K": 0.7978845608028655,
+      "selection_set_mean_auroc": 0.7329060374149662,
+      "selection_max_minus_mean": 0.007225765306122448,
+      "degeneracy": {
+        "identical_state_dict_frac": 0.5,
+        "max_param_abs_diff": 0.42009443044662476,
+        "same_winning_init_seed_frac": 0.5,
+        "chance_agreement_rate": 0.5,
+        "seeds_with_exactly_zero_gap_frac": 0.03333333333333333
+      }
+    },
+    "5": {
+      "K": 5,
+      "n_seeds": 30,
+      "gap_mean": -0.0009183673469387939,
+      "gap_sem": 0.003306706666829331,
+      "gap_bca_ci_95": [
+        -0.007329787910207115,
+        0.005605442176870741
+      ],
+      "wilcoxon_p": 0.7812580734383165,
+      "leaky_mean": 0.7492108843537415,
+      "clean_mean": 0.7505646258503401,
+      "clean_matched_mean": 0.7501292517006802,
+      "placebo_mean": 0.7456054421768707,
+      "placebo_minus_clean_matched": -0.00452380952380953,
+      "sigma_exchangeable": 0.01283944422556595,
+      "sigma_exchangeable_ddof0": 0.011483948032673042,
+      "sigma_exchangeable_bias_corrected": 0.013659192422491431,
+      "c4_K": 0.9399856029866253,
+      "selection_set_mean_auroc": 0.7332568027210884,
+      "selection_max_minus_mean": 0.01615008503401361,
+      "degeneracy": {
+        "identical_state_dict_frac": 0.18000000000000005,
+        "max_param_abs_diff": 0.42009443044662476,
+        "same_winning_init_seed_frac": 0.18000000000000005,
+        "chance_agreement_rate": 0.2,
+        "seeds_with_exactly_zero_gap_frac": 0.0
+      }
+    },
+    "15": {
+      "K": 15,
+      "n_seeds": 30,
+      "gap_mean": -0.0029251700680271793,
+      "gap_sem": 0.0036436921376282873,
+      "gap_bca_ci_95": [
+        -0.010486502585043984,
+        0.003733912142895471
+      ],
+      "wilcoxon_p": 0.6408254038542509,
+      "leaky_mean": 0.7469319727891156,
+      "clean_mean": 0.744748299319728,
+      "clean_matched_mean": 0.749857142857143,
+      "placebo_mean": 0.744748299319728,
+      "placebo_minus_clean_matched": -0.005108843537414946,
+      "sigma_exchangeable": 0.013379158606072103,
+      "sigma_exchangeable_ddof0": 0.012925495193840904,
+      "sigma_exchangeable_bias_corrected": 0.013620012494059534,
+      "c4_K": 0.9823161771626508,
+      "selection_set_mean_auroc": 0.7328328373015872,
+      "selection_max_minus_mean": 0.024144203514739226,
+      "degeneracy": {
+        "identical_state_dict_frac": 0.060000000000000005,
+        "max_param_abs_diff": 0.4220786988735199,
+        "same_winning_init_seed_frac": 0.060000000000000005,
+        "chance_agreement_rate": 0.06666666666666667,
+        "seeds_with_exactly_zero_gap_frac": 0.0
+      }
+    },
+    "45": {
+      "K": 45,
+      "n_seeds": 30,
+      "gap_mean": -0.0021224489795918177,
+      "gap_sem": 0.002776200049496916,
+      "gap_bca_ci_95": [
+        -0.007432219889375055,
+        0.0031590823780563992
+      ],
+      "wilcoxon_p": 0.4521643426269293,
+      "leaky_mean": 0.7479251700680272,
+      "clean_mean": 0.7487346938775512,
+      "clean_matched_mean": 0.7500476190476191,
+      "placebo_mean": 0.745421768707483,
+      "placebo_minus_clean_matched": -0.004625850340136043,
+      "sigma_exchangeable": 0.013666738633289677,
+      "sigma_exchangeable_ddof0": 0.013514032850097968,
+      "sigma_exchangeable_bias_corrected": 0.01374460485896155,
+      "c4_K": 0.9943347788844505,
+      "selection_set_mean_auroc": 0.732914092025699,
+      "selection_max_minus_mean": 0.030234292328042343,
+      "degeneracy": {
+        "identical_state_dict_frac": 0.006666666666666667,
+        "max_param_abs_diff": 0.417510449886322,
+        "same_winning_init_seed_frac": 0.006666666666666667,
+        "chance_agreement_rate": 0.022222222222222223,
+        "seeds_with_exactly_zero_gap_frac": 0.0
+      }
+    }
+  },
+  "per_seed_gap": {
+    "2": [
+      -0.010612244897959311,
+      -0.008571428571428563,
+      0.0071428571428572285,
+      -0.013265306122449028,
+      0.001836734693877462,
+      -0.03959183673469391,
+      0.03306122448979587,
+      0.05367346938775508,
+      0.015510204081632617,
+      0.0,
+      -0.028367346938775517,
+      -0.0026530612244898277,
+      0.012040816326530424,
+      -0.002448979591836875,
+      -0.0034693877551020824,
+      -0.028163265306122454,
+      0.020612244897959098,
+      -0.014285714285714235,
+      0.013061224489795964,
+      -0.01857142857142846,
+      0.03510204081632651,
+      -0.0173469387755103,
+      0.013469387755102091,
+      0.022857142857142798,
+      -0.014693877551020362,
+      -0.0077551020408163085,
+      0.02918367346938766,
+      -0.033469387755102,
+      -0.04530612244897969,
+      -0.03408163265306119
+    ],
+    "5": [
+      -0.011224489795918391,
+      0.01510204081632649,
+      0.0014285714285714457,
+      -0.013673469387755155,
+      0.030612244897959218,
+      0.019795918367346843,
+      0.0014285714285714457,
+      -0.017755102040816317,
+      0.006326530612244863,
+      -0.001224489795918382,
+      -0.015306122448979553,
+      0.0128571428571429,
+      -0.013469387755102202,
+      -0.018571428571428572,
+      0.020816326530612383,
+      0.004897959183673528,
+      0.006734693877550879,
+      -0.012653061224489837,
+      -0.005102040816326592,
+      -0.025918367346938753,
+      -0.02571428571428569,
+      0.0106122448979592,
+      0.014285714285714235,
+      0.009387755102040818,
+      -0.027551020408163374,
+      0.0016326530612245094,
+      0.03653061224489784,
+      0.02122448979591829,
+      -0.026122448979591817,
+      -0.02693877551020407
+    ],
+    "15": [
+      -0.018775510204081636,
+      0.023061224489795862,
+      0.022040816326530654,
+      -0.03693877551020408,
+      -0.004897959183673417,
+      0.006326530612244863,
+      0.0065306122448980375,
+      -0.05591836734693867,
+      0.011632653061224518,
+      -0.007551020408163356,
+      0.015918367346938966,
+      -0.0128571428571429,
+      -0.004489795918367401,
+      -0.02020408163265297,
+      0.011224489795918502,
+      0.014897959183673537,
+      -0.02408163265306118,
+      0.010204081632653184,
+      -0.007551020408163245,
+      -0.012244897959183598,
+      -0.03346938775510211,
+      -0.0046938775510204644,
+      -0.001836734693877462,
+      -0.004693877551020353,
+      -0.027346938775510088,
+      0.006734693877551101,
+      0.017755102040816317,
+      0.03510204081632651,
+      0.001224489795918382,
+      0.0071428571428571175
+    ],
+    "45": [
+      -0.009183673469387754,
+      0.007551020408163245,
+      0.004489795918367179,
+      0.004285714285714337,
+      -0.015918367346938744,
+      -0.0059183673469387355,
+      0.0034693877551020824,
+      -0.0065306122448980375,
+      0.007346938775510181,
+      0.007959183673469372,
+      -0.0106122448979592,
+      -0.02020408163265308,
+      0.0026530612244898277,
+      -0.043469387755101896,
+      0.005102040816326592,
+      -0.009795918367346945,
+      -0.018163265306122445,
+      -0.00020408163265306367,
+      0.01571428571428568,
+      0.003673469387755146,
+      -0.0212244897959184,
+      0.00551020408163283,
+      -0.014081632653061282,
+      -0.022653061224489845,
+      -0.00448979591836729,
+      0.008775510204081738,
+      0.024897959183673546,
+      0.01448979591836741,
+      -0.0071428571428570065,
+      0.030000000000000027
+    ]
+  },
+  "per_seed_gap_note": "LEAKY minus CLEAN_MATCHED per seed, cells paired by seed (data/split/fold/init seeds are shared across K). Shipped so the ln K slope bootstrap and any refit can be reproduced without rerunning the sweep, as code/63 does for code/47.",
+  "fit_all_cells": {
+    "label": "all cells",
+    "K_values": [
+      2.0,
+      5.0,
+      15.0,
+      45.0
+    ],
+    "gaps": [
+      -0.0021700680272109104,
+      -0.0009183673469387939,
+      -0.0029251700680271793,
+      -0.0021224489795918177
+    ],
+    "monotone_nondecreasing_in_K": false,
+    "concave_in_K": false,
+    "concave_in_lnK": false,
+    "secant_slopes_in_K": [
+      0.0004172335600907055,
+      -0.00020068027210883854,
+      2.6757369614512053e-05
+    ],
+    "lnK_fit": {
+      "form": "gap = a + b ln K",
+      "a": -0.00161054187613477,
+      "b": -0.0001921095281968367,
+      "b_seed_bootstrap_ci_95": [
+        -0.0036648793055791477,
+        0.0032574229219449937
+      ],
+      "n_bootstrap_draws": 20000,
+      "r_squared": 0.09755276837967919
+    },
+    "evt_fit": {
+      "form": "gap = c * sigma_exchangeable_K * sqrt(2 ln K)",
+      "c": -0.07120581859746257,
+      "r_squared": -0.4836508753000366,
+      "sigma_per_cell": [
+        0.010218775294443346,
+        0.01283944422556595,
+        0.013379158606072103,
+        0.013666738633289677
+      ],
+      "sigma_ratio_max_over_min": 1.3374145374075528,
+      "corr_sigma_vs_gap": -0.05036913264305406,
+      "predictor_per_cell": [
+        0.012031688449511116,
+        0.023035536773983862,
+        0.03113666940086387,
+        0.037709612796950946
+      ]
+    }
+  },
+  "fit_degeneracy_gated": null,
+  "degeneracy_gate": {
+    "threshold_identical_state_dict_frac": 0.5,
+    "threshold_source": "read at runtime from code/57's DEGENERACY_MAX_IDENTICAL_FRAC, not chosen here",
+    "K_retained": [
+      2,
+      5,
+      15,
+      45
+    ],
+    "K_excluded": [],
+    "different_in_kind_from_code47": "In code/47 a bitwise-identical LEAKY/CLEAN_MATCHED pair meant both selection rules had saturated onto the last epoch, so the harness had no contrast to measure and the cell's near-zero gap was an artifact. Here it means the two honest selection rules picked the SAME INIT SEED out of K, whose chance rate is ~1/K. That is a real (and informative) property of exchangeable selection, not an instrumentation failure, so gating on it is reported but not privileged."
+  },
+  "comparison_to_code47_sweep_A": {
+    "code47_lnK_slope_b": 0.0011013798577461428,
+    "code47_lnK_slope_b_ci_95": [
+      0.00040084316446680504,
+      0.0018004276557344733
+    ],
+    "code47_source": "results/k_law_functional_form.json (code/68), the seed-level bootstrap of the a + b ln K slope over code/47 Sweep A's six non-degenerate cells; this is the b = +0.00110 [+0.00040, +0.00180] the paper quotes",
+    "code47_sweep_A_fit_shipped": {
+      "c_fit": 0.04166416560165224,
+      "r_squared": 0.7563634103739665,
+      "sigma_val_used": 0.03287400951343241
+    },
+    "code47_sweep_A_fit_note": "results/selection_multiplicity_sweep.json's `sweep_A_fit` holds the constant-sigma EVT fit (c, R^2, sigma_val_used), not the ln K slope; Appendix A.11 Correction 3 retracts it as a test of EVT because its sigma is trajectory dispersion. Both are reported here for completeness.",
+    "exchangeable_lnK_slope_b": -0.0001921095281968367,
+    "exchangeable_lnK_slope_b_ci_95": [
+      -0.0036648793055791477,
+      0.0032574229219449937
+    ],
+    "b_ratio_exchangeable_over_epochs": -0.17442622256590792,
+    "ci_overlaps_code47": true,
+    "b_ci_excludes_zero": false,
+    "matched_K_cells": {
+      "5": {
+        "code47_epoch_gap": 0.0018816326530612193,
+        "exchangeable_gap": -0.0009183673469387939,
+        "exchangeable_gap_ci_95": [
+          -0.007329787910207115,
+          0.005605442176870741
+        ],
+        "code47_value_inside_this_ci": true,
+        "difference": -0.0028000000000000134
+      },
+      "15": {
+        "code47_epoch_gap": 0.002262244897959178,
+        "exchangeable_gap": -0.0029251700680271793,
+        "exchangeable_gap_ci_95": [
+          -0.010486502585043984,
+          0.003733912142895471
+        ],
+        "code47_value_inside_this_ci": true,
+        "difference": -0.005187414965986357
+      },
+      "45": {
+        "code47_epoch_gap": 0.004155102040816322,
+        "exchangeable_gap": -0.0021224489795918177,
+        "exchangeable_gap_ci_95": [
+          -0.007432219889375055,
+          0.0031590823780563992
+        ],
+        "code47_value_inside_this_ci": false,
+        "difference": -0.00627755102040814
+      }
+    },
+    "matched_K_note": "Cell-by-cell, at the K values both sweeps contain. This comparison assumes no functional form and is the sharpest one available at this seed count: it asks only whether code/47's epoch-sweep gap at the same K falls inside this sweep's interval."
+  },
+  "evt_test_A11_could_not_run": {
+    "what_A11_says": "Appendix A.11 Correction 3 downgrades the EVT verdict to 'untestable in this harness as instrumented' because code/47's sigma is np.std over one trajectory's per-epoch validation AUROCs, whereas the derivation needs the sampling-noise SD of K exchangeable estimates around a common mean. It names 'K independently-seeded models' as one of the two designs that would supply the right quantity.",
+    "why_this_sigma_is_the_right_one": "sigma_exchangeable here is the SD ACROSS THE K CANDIDATES' selection-set AUROCs at a fixed point in training. The K candidates differ only in initialization seed and are scattered around a common mean, which is exactly the setting gap ~= c * sigma * sqrt(2 ln K) is derived in. code/47's mean_val_auc_std is not this quantity and its R^2 was never evidence for or against EVT.",
+    "c": -0.07120581859746257,
+    "r_squared": -0.4836508753000366,
+    "sigma_ratio_max_over_min": 1.3374145374075528,
+    "corr_sigma_vs_gap": -0.05036913264305406,
+    "code47_sigma_ratio_max_over_min_for_contrast": 2.656507951501305,
+    "code47_corr_sigma_vs_gap_for_contrast": -0.8374630233058248,
+    "bias_corrected_sigma_variant": {
+      "note": "The sigma estimator is itself K-dependent (it is a sample SD of K values, E[s] = c4(K) * sigma), so the raw sigma's trend in K is partly an estimator artifact. Dividing each cell's sigma by c4(K) gives the unbiased scale estimate; the ratio below is the honest answer to A.11's 'is sigma flat in K?' diagnostic.",
+      "sigma_bias_corrected_per_cell": {
+        "2": 0.012807335542576206,
+        "5": 0.013659192422491431,
+        "15": 0.013620012494059534,
+        "45": 0.01374460485896155
+      },
+      "c4_per_cell": {
+        "2": 0.7978845608028655,
+        "5": 0.9399856029866253,
+        "15": 0.9823161771626508,
+        "45": 0.9943347788844505
+      },
+      "sigma_ratio_max_over_min": 1.0731822253949326,
+      "corr_sigma_vs_gap": 0.13178455748015921,
+      "evt_c": -0.06984008607058523,
+      "evt_r_squared": -0.2878510349446519
+    },
+    "selection_stage_check": {
+      "note": "A direct check of the EVT expression at the SELECTION stage, before any downstream transfer: the mean of (max - mean) over the K candidates' selection-set AUROCs against sigma * sqrt(2 ln K). This is the quantity EVT actually predicts; the DOWNSTREAM gap is that quantity filtered through feature reuse and a logistic readout, and there is no reason for the two to share a constant.",
+      "per_cell": {
+        "2": {
+          "max_minus_mean_selection_auroc": 0.007225765306122448,
+          "sigma_sqrt_2lnK": 0.012031688449511116,
+          "ratio_to_sqrt_2lnK_form": 0.6005612043932248,
+          "observed_max_minus_mean_over_sigma": 0.5641895835477564,
+          "gaussian_expected_max_over_sigma": 0.5641895835477566,
+          "observed_over_exact_gaussian": 0.9999999999999996
+        },
+        "5": {
+          "max_minus_mean_selection_auroc": 0.01615008503401361,
+          "sigma_sqrt_2lnK": 0.023035536773983862,
+          "ratio_to_sqrt_2lnK_form": 0.7010943653048874,
+          "observed_max_minus_mean_over_sigma": 1.1823601670198771,
+          "gaussian_expected_max_over_sigma": 1.1629644736405196,
+          "observed_over_exact_gaussian": 1.0166778038529773
+        },
+        "15": {
+          "max_minus_mean_selection_auroc": 0.024144203514739226,
+          "sigma_sqrt_2lnK": 0.03113666940086387,
+          "ratio_to_sqrt_2lnK_form": 0.7754266586415746,
+          "observed_max_minus_mean_over_sigma": 1.7727005408599952,
+          "gaussian_expected_max_over_sigma": 1.735913444941038,
+          "observed_over_exact_gaussian": 1.0211917800545676
+        },
+        "45": {
+          "max_minus_mean_selection_auroc": 0.030234292328042343,
+          "sigma_sqrt_2lnK": 0.037709612796950946,
+          "ratio_to_sqrt_2lnK_form": 0.8017661833559577,
+          "observed_max_minus_mean_over_sigma": 2.1997207368482066,
+          "gaussian_expected_max_over_sigma": 2.2077195639984466,
+          "observed_over_exact_gaussian": 0.99637688260743
+        }
+      },
+      "verdict": "The winner's curse IS present at the selection stage and DOES scale with K as extreme-value theory predicts -- see observed_over_exact_gaussian, which is the observed (max - mean)/sigma against the exact E[max of K standard normals]. What fails to appear is its PROPAGATION to the downstream reported metric, which is what `cells[*].gap_mean` measures and what the paper's K-law is about."
+    }
+  },
+  "verdict": "DOES_NOT_TRANSFER",
+  "verdict_statement": "The K-law measured over EPOCHS of one training run does NOT reproduce when K indexes independently-seeded, exchangeable candidates. The downstream severity gap is indistinguishable from zero at every K tested, with slightly negative point estimates, and shows no monotone trend in K. This is not a failure of the harness to produce selection noise: the selection-stage winner's curse is present and scales with K as extreme-value theory predicts (see evt_test_A11_could_not_run.selection_stage_check); what is absent is its propagation to the reported metric. The paper's extrapolation from epoch-indexed K to selection among layers or thresholds is therefore not supported by this measurement, and the empirical K-regularity should be scoped to checkpoint-along-a-trajectory selection until an exchangeable-candidate measurement with more seeds says otherwise. Absence of the effect at 30 seeds is weaker than a matched-power null would be; see limitations.",
+  "verdict_by_criterion": {
+    "monotonicity": "DOES_NOT_TRANSFER",
+    "lnK_slope_interval": "INCONCLUSIVE",
+    "any_cell_gap_significantly_positive": false,
+    "cells_whose_ci_excludes_code47s_same_K_gap": [
+      "45"
+    ],
+    "honest_caveat": "The criteria do not all point the same way and the JSON says so rather than quoting only the one that fired. Monotonicity is what triggers the pre-registered rule, and monotonicity across four cells at 30 seeds is itself a weak instrument -- the spread among the four gap means is comparable to their own Monte-Carlo SEs (see cells[*].gap_sem), so non-monotonicity here is not by itself evidence of anything. The ln K slope interval, taken alone, would return INCONCLUSIVE: it contains zero AND overlaps code/47's, so it cannot separate the two hypotheses at this seed count. What is NOT ambiguous, and does not depend on the rule: no cell's gap is significantly positive, every point estimate is slightly NEGATIVE, and the epoch sweep's gap at the same K falls outside this sweep's interval where listed above. The finding is an absence of the effect at these K, not a demonstration that the effect is exactly zero."
+  },
+  "verdict_rule": "Fixed before the numbers were seen. DOES_NOT_TRANSFER if the gap is not monotone non-decreasing in K, or if the slope interval lies entirely below zero, or if it is disjoint from code/47's [+0.00040, +0.00180]. TRANSFERS if monotone, concave in K, slope interval excludes zero, and slope interval overlaps code/47's. INCONCLUSIVE otherwise.",
+  "reading": "The two stages come apart, and that is the substantive result. AT THE SELECTION STAGE the winner's curse is present and behaves exactly as extreme-value theory says it should: the selected candidate beats the mean of the K candidates by an amount that grows with K and tracks the exact Gaussian expected maximum (evt_test_A11_could_not_run.selection_stage_check). Exchangeability is therefore not the reason nothing shows up downstream -- the selection noise is real, measurable, and correctly scaled. AT THE REPORTED-METRIC STAGE the severity gap is indistinguishable from zero at every K, with slightly negative point estimates. Selecting the luckiest of K independently-seeded probes on a fold, and then reporting features from that probe on that same fold, does not inflate the downstream test AUROC in this harness, whereas selecting the luckiest EPOCH of one run does (code/47, +0.0042 at K=45). The natural mechanistic reading -- which this script does not test and which should not be asserted from it -- is that the epoch-indexed gap is carried by the systematic learning-curve structure that Appendix A.11 identifies, not by candidate multiplicity per se. What this script does establish is narrower and sufficient for the paper: the K-law's dynamic range was measured on a non-exchangeable candidate set, and it does not reproduce on an exchangeable one at these K and this seed count.",
+  "what_the_paper_should_do": "Scope the K-regularity to selection among checkpoints along a training trajectory, which is what code/47 measures, and stop using it -- without a qualifier -- to reason about the severity of selecting among 32 layers, 33 layers or 81 thresholds. Those candidate sets are closer to the exchangeable case tested here, where the downstream effect did not appear. The abstract's b = +0.00110 should carry the candidate-set qualifier.",
+  "power": {
+    "mean_gap_sem": 0.0035259332871114043,
+    "min_detectable_gap_80pct_power_two_sided_05": 0.009872613203911931,
+    "code47_gap_at_K45_for_scale": 0.004155102040816322,
+    "note": "An effect the size of code/47's K=45 epoch gap is at or below this design's minimum detectable effect at 30 seeds, so a null here does not rule out an effect of that magnitude on its own -- which is why the matched_K_cells comparison, the sign of every point estimate and the absence of any K-trend are reported alongside it rather than a bare p-value."
+  },
+  "limitations": [
+    "N_SEEDS=30 versus code/47 Sweep A's 200. Per-cell Monte-Carlo error is roughly sqrt(200/30) ~ 2.6x code/47's, so a null result here is weaker evidence of absence than a matched-power measurement would be, and the slope interval's WIDTH must not be compared to code/47's.",
+    "Four K cells (2, 5, 15, 45) support a two-parameter fit but cannot identify a functional form. code/68 already showed that even six cells at 200 seeds cannot distinguish a + b ln K from saturating or hyperbolic alternatives; four cells at 30 seeds certainly cannot. Monotonicity, concavity and the slope are the only claims made.",
+    "K=2 is included as the smallest non-trivial selection, but it is the cell where the two selection rules agree by chance most often (~1/2), so its bitwise degeneracy fraction is high for a reason different from code/47's saturation degeneracy. See degeneracy_gate.different_in_kind_from_code47.",
+    "Exchangeability here is by construction (identical data, identical epoch budget, seed-only variation) and is therefore an idealization of layer or threshold selection, where candidates share data but are not identically distributed. This measurement bounds the epoch-vs-exchangeable question; it does not directly measure layer selection.",
+    "The generator is the same isotropic synthetic process as code/47, so this inherits that setting's scope: it is a controlled harness, not a claim about real probe pipelines.",
+    "CLEAN_MATCHED pays the same ~15% training-budget deficit at the SELECTION stage that code/67 quantifies for code/22's adaptivity control (its argmax is taken over models fitted on tr2_idx), though its final model is retrained on the full fold. The gap is therefore an upper bound on the fold-reuse effect, exactly as in code/47."
+  ],
+  "runtime_seconds": 958.9203948974609
+}

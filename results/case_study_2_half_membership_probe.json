@@ -1,0 +1,435 @@
+{
+  "raw_cache_path_relative_to_home": "~/Desktop/guardian/results/hidden_states/mistral_7b_tqa_hidden_states.npz",
+  "raw_cache_env_var": "GUARDIAN_ROOT",
+  "raw_cache_available": true,
+  "label_base_rates": {
+    "sequential_selection_half_positive_rate": 0.73,
+    "sequential_selection_half_n": 400,
+    "sequential_heldout_half_positive_rate": 0.81,
+    "sequential_heldout_half_n": 300,
+    "sequential_base_rate_difference_pp": 8.000000000000007,
+    "n_randomized_reps": 50,
+    "randomized_selection_half_positive_rate_mean": 0.765,
+    "randomized_heldout_half_positive_rate_mean": 0.7633333333333334,
+    "randomized_base_rate_difference_pp_mean": -0.1666666666666594,
+    "randomized_base_rate_difference_pp_max_abs": 0.16666666666667052,
+    "note": "The randomized comparison reps are stratified, so their halves match in base rate to within a fraction of a point. The sequential split, which is what GUARDIAN actually ran, does not."
+  },
+  "half_membership_probe": {
+    "status": "COMPUTED",
+    "target": "1 if sample index >= 400 (held-out half), else 0",
+    "probe": "LogisticRegression(max_iter=1000, C=1.0) on unscaled raw hidden states",
+    "evaluation": "stratified 5-fold out-of-fold AUROC, random_state=42",
+    "per_layer": [
+      {
+        "layer": 0,
+        "half_membership_auroc": 0.521425
+      },
+      {
+        "layer": 1,
+        "half_membership_auroc": 0.5365833333333333
+      },
+      {
+        "layer": 2,
+        "half_membership_auroc": 0.5620833333333333
+      },
+      {
+        "layer": 3,
+        "half_membership_auroc": 0.581825
+      },
+      {
+        "layer": 4,
+        "half_membership_auroc": 0.6172666666666666
+      },
+      {
+        "layer": 5,
+        "half_membership_auroc": 0.678725
+      },
+      {
+        "layer": 6,
+        "half_membership_auroc": 0.6874583333333333
+      },
+      {
+        "layer": 7,
+        "half_membership_auroc": 0.7225333333333334
+      },
+      {
+        "layer": 8,
+        "half_membership_auroc": 0.7264999999999999
+      },
+      {
+        "layer": 9,
+        "half_membership_auroc": 0.7236166666666667
+      },
+      {
+        "layer": 10,
+        "half_membership_auroc": 0.7233750000000001
+      },
+      {
+        "layer": 11,
+        "half_membership_auroc": 0.7226833333333335
+      },
+      {
+        "layer": 12,
+        "half_membership_auroc": 0.7391833333333334
+      },
+      {
+        "layer": 13,
+        "half_membership_auroc": 0.7489583333333333
+      },
+      {
+        "layer": 14,
+        "half_membership_auroc": 0.7701166666666667
+      },
+      {
+        "layer": 15,
+        "half_membership_auroc": 0.7766833333333333
+      },
+      {
+        "layer": 16,
+        "half_membership_auroc": 0.77865
+      },
+      {
+        "layer": 17,
+        "half_membership_auroc": 0.78145
+      },
+      {
+        "layer": 18,
+        "half_membership_auroc": 0.7800916666666666
+      },
+      {
+        "layer": 19,
+        "half_membership_auroc": 0.7799166666666668
+      },
+      {
+        "layer": 20,
+        "half_membership_auroc": 0.7797
+      },
+      {
+        "layer": 21,
+        "half_membership_auroc": 0.7808083333333333
+      },
+      {
+        "layer": 22,
+        "half_membership_auroc": 0.7773666666666667
+      },
+      {
+        "layer": 23,
+        "half_membership_auroc": 0.7783166666666665
+      },
+      {
+        "layer": 24,
+        "half_membership_auroc": 0.7744583333333335
+      },
+      {
+        "layer": 25,
+        "half_membership_auroc": 0.788525
+      },
+      {
+        "layer": 26,
+        "half_membership_auroc": 0.7862833333333332
+      },
+      {
+        "layer": 27,
+        "half_membership_auroc": 0.7850166666666667
+      },
+      {
+        "layer": 28,
+        "half_membership_auroc": 0.7714916666666667
+      },
+      {
+        "layer": 29,
+        "half_membership_auroc": 0.7534666666666667
+      },
+      {
+        "layer": 30,
+        "half_membership_auroc": 0.7508333333333334
+      },
+      {
+        "layer": 31,
+        "half_membership_auroc": 0.7435916666666668
+      }
+    ],
+    "min_auroc": 0.521425,
+    "max_auroc": 0.788525,
+    "mean_auroc": 0.7259057291666666,
+    "median_auroc": 0.7521500000000001,
+    "argmin_layer": 0,
+    "argmax_layer": 25,
+    "n_layers_above_0_70": 25,
+    "note": "This is the quantity \u00a74.2 previously asserted without computing it. An AUROC materially above 0.5 means the two halves are systematically different populations, so the held-out half is not an exchangeable draw and the sequential-split optimism gap conflates selection optimism with a population difference."
+  },
+  "all_data_argmax_layer": {
+    "status": "COMPUTED",
+    "n_samples": 700,
+    "per_layer": [
+      {
+        "layer": 0,
+        "all_data_cv_auroc": 0.6238459359954687
+      },
+      {
+        "layer": 1,
+        "all_data_cv_auroc": 0.6603455111866326
+      },
+      {
+        "layer": 2,
+        "all_data_cv_auroc": 0.7015802888700085
+      },
+      {
+        "layer": 3,
+        "all_data_cv_auroc": 0.7115717926932879
+      },
+      {
+        "layer": 4,
+        "all_data_cv_auroc": 0.7257660719342963
+      },
+      {
+        "layer": 5,
+        "all_data_cv_auroc": 0.7434607759841405
+      },
+      {
+        "layer": 6,
+        "all_data_cv_auroc": 0.7474822996318322
+      },
+      {
+        "layer": 7,
+        "all_data_cv_auroc": 0.7500538091192297
+      },
+      {
+        "layer": 8,
+        "all_data_cv_auroc": 0.7455338431039366
+      },
+      {
+        "layer": 9,
+        "all_data_cv_auroc": 0.7554233928065703
+      },
+      {
+        "layer": 10,
+        "all_data_cv_auroc": 0.773695836873407
+      },
+      {
+        "layer": 11,
+        "all_data_cv_auroc": 0.7721778532993486
+      },
+      {
+        "layer": 12,
+        "all_data_cv_auroc": 0.7717700368167657
+      },
+      {
+        "layer": 13,
+        "all_data_cv_auroc": 0.7678504672897196
+      },
+      {
+        "layer": 14,
+        "all_data_cv_auroc": 0.7790540923251204
+      },
+      {
+        "layer": 15,
+        "all_data_cv_auroc": 0.7738884168790711
+      },
+      {
+        "layer": 16,
+        "all_data_cv_auroc": 0.7740809968847351
+      },
+      {
+        "layer": 17,
+        "all_data_cv_auroc": 0.768314924950439
+      },
+      {
+        "layer": 18,
+        "all_data_cv_auroc": 0.76910790144435
+      },
+      {
+        "layer": 19,
+        "all_data_cv_auroc": 0.7824752194845652
+      },
+      {
+        "layer": 20,
+        "all_data_cv_auroc": 0.7827017841971112
+      },
+      {
+        "layer": 21,
+        "all_data_cv_auroc": 0.78291702067403
+      },
+      {
+        "layer": 22,
+        "all_data_cv_auroc": 0.77267629566695
+      },
+      {
+        "layer": 23,
+        "all_data_cv_auroc": 0.7707958085528177
+      },
+      {
+        "layer": 24,
+        "all_data_cv_auroc": 0.7646898895497026
+      },
+      {
+        "layer": 25,
+        "all_data_cv_auroc": 0.7585046728971963
+      },
+      {
+        "layer": 26,
+        "all_data_cv_auroc": 0.7496686491079014
+      },
+      {
+        "layer": 27,
+        "all_data_cv_auroc": 0.746564712546021
+      },
+      {
+        "layer": 28,
+        "all_data_cv_auroc": 0.7444689889549703
+      },
+      {
+        "layer": 29,
+        "all_data_cv_auroc": 0.7410252053242707
+      },
+      {
+        "layer": 30,
+        "all_data_cv_auroc": 0.7381138487680543
+      },
+      {
+        "layer": 31,
+        "all_data_cv_auroc": 0.7424072500708014
+      }
+    ],
+    "argmax_layer": 21,
+    "argmax_auroc": 0.78291702067403,
+    "note": "The layer an argmax over all 700 samples would select. \u00a74.2 previously asserted a value for this in prose with no computation behind it."
+  },
+  "base_rate_matched_sequential_control": {
+    "n_draws": 20,
+    "target_positive_rate": 0.73,
+    "achieved_positive_rates_per_draw": [
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ],
+      [
+        0.73,
+        0.7298578199052133
+      ]
+    ],
+    "selection_specific_component_per_draw": [
+      -0.00824884603218104,
+      -0.006258785653962706,
+      -0.0039874823958173655,
+      -0.005884981826211555,
+      -0.0005698473992351016,
+      -0.002955071823933092,
+      -0.004824090962689126,
+      -0.003602998458701878,
+      -0.015493520217644774,
+      0.001341892176978221,
+      -0.013571100532066949,
+      -0.009861542546193314,
+      -0.00567849971183465,
+      -0.00472084990550059,
+      -0.008131364829173482,
+      0.007885239180851572,
+      -0.0026738289440060847,
+      -0.011143155669911753,
+      0.006283222776203579,
+      -0.00832004676127654
+    ],
+    "selection_specific_component_mean": -0.005020782976815331,
+    "selection_specific_component_sd": 0.005826518925151063,
+    "selected_layer_per_draw": [
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11
+    ]
+  },
+  "unmatched_sequential_reference": {
+    "selected_layer": 11,
+    "selection_specific_component": -0.003791240880131358
+  }
+}

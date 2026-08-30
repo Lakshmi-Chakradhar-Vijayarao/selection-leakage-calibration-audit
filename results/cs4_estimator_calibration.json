@@ -1,0 +1,1447 @@
+{
+  "design": {
+    "n_layers": 33,
+    "n_seeds": 3,
+    "sigma_from_real_data": 0.021084946871301382,
+    "sigma_range_real": [
+      0.004884537258512628,
+      0.04611918027054983
+    ],
+    "sigma_within_layer_median_real": 0.027204888126934786,
+    "seed_main_effect_inflation_factor": 1.2902516801672963,
+    "n_truth_draws": 400000,
+    "n_trials_per_condition": 20000,
+    "n_studies_for_coverage": 600,
+    "sep_grid_in_sigma": [
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0,
+      16.0
+    ]
+  },
+  "estimand": "E[ abar(Lhat) - mu(Lhat) ], Lhat = argmax_l abar(l)",
+  "controlled_sweep": [
+    {
+      "sep_in_sigma": 0.0,
+      "true_bias": 0.02534325640237317,
+      "implemented": {
+        "mean": 0.011971306979988921,
+        "sd": 0.003461470468622993,
+        "bias_vs_truth": -0.01337194942238425,
+        "ratio_to_truth": 0.4723665652874788,
+        "frac_negative": 0.0
+      },
+      "standard": {
+        "mean": 0.006989348102798584,
+        "sd": 0.0031829295281283554,
+        "bias_vs_truth": -0.018353908299574586,
+        "ratio_to_truth": 0.2757872939384417,
+        "frac_negative": 0.0
+      },
+      "rotation_delta_wc": {
+        "mean": 0.03104960418011826,
+        "sd": 0.013879508401594609,
+        "bias_vs_truth": 0.005706347777745088,
+        "ratio_to_truth": 1.2251623740511397,
+        "frac_negative": 0.0
+      }
+    },
+    {
+      "sep_in_sigma": 0.25,
+      "true_bias": 0.025236834942174134,
+      "implemented": {
+        "mean": 0.01196419669320099,
+        "sd": 0.0034739680905031983,
+        "bias_vs_truth": -0.013272638248973144,
+        "ratio_to_truth": 0.474076750139821,
+        "frac_negative": 0.0
+      },
+      "standard": {
+        "mean": 0.0069769194226731715,
+        "sd": 0.003181211924539364,
+        "bias_vs_truth": -0.01825991551950096,
+        "ratio_to_truth": 0.2764577823906834,
+        "frac_negative": 0.0
+      },
+      "rotation_delta_wc": {
+        "mean": 0.031002776516896074,
+        "sd": 0.013978591883667823,
+        "bias_vs_truth": 0.00576594157472194,
+        "ratio_to_truth": 1.2284732450774276,
+        "frac_negative": 0.0
+      }
+    },
+    {
+      "sep_in_sigma": 0.5,
+      "true_bias": 0.024676629018450084,
+      "implemented": {
+        "mean": 0.011805385524533243,
+        "sd": 0.003571662878278937,
+        "bias_vs_truth": -0.01287124349391684,
+        "ratio_to_truth": 0.4784034932691438,
+        "frac_negative": 0.0
+      },
+      "standard": {
+        "mean": 0.006844515111377504,
+        "sd": 0.003235142998414715,
+        "bias_vs_truth": -0.01783211390707258,
+        "ratio_to_truth": 0.27736831907875403,
+        "frac_negative": 0.0
+      },
+      "rotation_delta_wc": {
+        "mean": 0.030356291796615066,
+        "sd": 0.01421729046362076,
+        "bias_vs_truth": 0.005679662778164982,
+        "ratio_to_truth": 1.2301636408246217,
+        "frac_negative": 0.0
+      }
+    },
+    {
+      "sep_in_sigma": 1.0,
+      "true_bias": 0.020712115738690515,
+      "implemented": {
+        "mean": 0.011093824641082113,
+        "sd": 0.0038658537899279566,
+        "bias_vs_truth": -0.009618291097608402,
+        "ratio_to_truth": 0.5356200583776527,
+        "frac_negative": 0.0
+      },
+      "standard": {
+        "mean": 0.006195513902386017,
+        "sd": 0.003325797223637732,
+        "bias_vs_truth": -0.014516601836304498,
+        "ratio_to_truth": 0.2991251101794836,
+        "frac_negative": 0.0
+      },
+      "rotation_delta_wc": {
+        "mean": 0.02793097872783402,
+        "sd": 0.014977459024468938,
+        "bias_vs_truth": 0.007218862989143506,
+        "ratio_to_truth": 1.3485333454205537,
+        "frac_negative": 0.0
+      }
+    },
+    {
+      "sep_in_sigma": 2.0,
+      "true_bias": 0.005199185467927412,
+      "implemented": {
+        "mean": 0.006480747126583088,
+        "sd": 0.004778472407632488,
+        "bias_vs_truth": 0.0012815616586556756,
+        "ratio_to_truth": 1.2464927759475666,
+        "frac_negative": 0.0
+      },
+      "standard": {
+        "mean": 0.0027171862822508077,
+        "sd": 0.00292824131632074,
+        "bias_vs_truth": -0.0024819991856766047,
+        "ratio_to_truth": 0.5226176867535327,
+        "frac_negative": 0.0
+      },
+      "rotation_delta_wc": {
+        "mean": 0.012870109855807832,
+        "sd": 0.015730755238216577,
+        "bias_vs_truth": 0.00767092438788042,
+        "ratio_to_truth": 2.475408876101959,
+        "frac_negative": 0.0
+      }
+    },
+    {
+      "sep_in_sigma": 4.0,
+      "true_bias": 4.65710414042552e-06,
+      "implemented": {
+        "mean": 0.0003460025223596212,
+        "sd": 0.0011054425687935302,
+        "bias_vs_truth": 0.00034134541821919566,
+        "ratio_to_truth": 74.29563778833749,
+        "frac_negative": 0.0
+      },
+      "standard": {
+        "mean": 5.5805558724275564e-05,
+        "sd": 0.00026660800867625323,
+        "bias_vs_truth": 5.114845458385005e-05,
+        "ratio_to_truth": 11.982888301736926,
+        "frac_negative": 0.0
+      },
+      "rotation_delta_wc": {
+        "mean": 8.113285743081078e-05,
+        "sd": 0.0016081800541677615,
+        "bias_vs_truth": 7.647575329038526e-05,
+        "ratio_to_truth": 17.421310536422247,
+        "frac_negative": 0.0
+      }
+    },
+    {
+      "sep_in_sigma": 8.0,
+      "true_bias": -1.1750277025759826e-05,
+      "implemented": {
+        "mean": 1.0629357476503814e-19,
+        "sd": 1.2155212093701854e-17,
+        "bias_vs_truth": 1.1750277025759933e-05,
+        "ratio_to_truth": null,
+        "frac_negative": 0.0
+      },
+      "standard": {
+        "mean": -1.7555401576885287e-19,
+        "sd": 3.1978456885759137e-17,
+        "bias_vs_truth": 1.175027702575965e-05,
+        "ratio_to_truth": null,
+        "frac_negative": 0.0
+      },
+      "rotation_delta_wc": {
+        "mean": 5.204170427930421e-20,
+        "sd": 5.611496293980786e-18,
+        "bias_vs_truth": 1.1750277025759878e-05,
+        "ratio_to_truth": null,
+        "frac_negative": 0.0
+      }
+    },
+    {
+      "sep_in_sigma": 16.0,
+      "true_bias": -9.968416740365737e-07,
+      "implemented": {
+        "mean": -1.1976016886002861e-20,
+        "sd": 2.5022880380507024e-17,
+        "bias_vs_truth": 9.968416740365617e-07,
+        "ratio_to_truth": null,
+        "frac_negative": 0.0
+      },
+      "standard": {
+        "mean": 3.4139358007223564e-19,
+        "sd": 6.459074590821962e-17,
+        "bias_vs_truth": 9.96841674036915e-07,
+        "ratio_to_truth": null,
+        "frac_negative": 0.0
+      },
+      "rotation_delta_wc": {
+        "mean": 6.38378239159465e-20,
+        "sd": 1.1202872614418696e-17,
+        "bias_vs_truth": 9.968416740366375e-07,
+        "ratio_to_truth": null,
+        "frac_negative": 0.0
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "sep_in_sigma": 0.0,
+      "true_bias": 0.025350278862404884,
+      "coverage": {
+        "implemented": 0.0,
+        "standard": 0.0,
+        "rotation_delta_wc": 0.495
+      },
+      "mean_ci_width": {
+        "implemented": 0.002687068818511961,
+        "standard": 0.0024620198520828047,
+        "rotation_delta_wc": 0.01081155490632716
+      }
+    },
+    {
+      "sep_in_sigma": 1.0,
+      "true_bias": 0.020701050635877495,
+      "coverage": {
+        "implemented": 0.0,
+        "standard": 0.0,
+        "rotation_delta_wc": 0.37
+      },
+      "mean_ci_width": {
+        "implemented": 0.0030229946294265913,
+        "standard": 0.0025711726707234074,
+        "rotation_delta_wc": 0.011735754140005291
+      }
+    },
+    {
+      "sep_in_sigma": 16.0,
+      "true_bias": 3.624073590742087e-05,
+      "coverage": {
+        "implemented": 0.0,
+        "standard": 0.0,
+        "rotation_delta_wc": 0.0
+      },
+      "mean_ci_width": {
+        "implemented": 0.0,
+        "standard": 0.0,
+        "rotation_delta_wc": 0.0
+      }
+    }
+  ],
+  "realistic_mixture": {
+    "plugin": {
+      "true_pooled_bias": 0.019168370786626896,
+      "per_cell_true_bias_mean": 0.019168370786626896,
+      "shrinkage_factors": null,
+      "coverage_of_24cell_bca_ci": {
+        "implemented": 0.0,
+        "standard": 0.0,
+        "rotation_delta_wc": 0.7666666666666667
+      },
+      "mean_ci_width": {
+        "implemented": 0.005270892785229561,
+        "standard": 0.003689982235944478,
+        "rotation_delta_wc": 0.016766868328153876
+      },
+      "model_adequacy_per_cell": {
+        "llama3.1-8b__fever__linear": {
+          "implemented": {
+            "observed": 0.0006717161188705545,
+            "simulated_mean": 0.01639673834540693,
+            "pct_of_simulated_below_observed": 0.0033
+          },
+          "standard": {
+            "observed": 9.265049915441192e-05,
+            "simulated_mean": 0.009469135191934262,
+            "pct_of_simulated_below_observed": 0.00435
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0,
+            "simulated_mean": 0.04201607041323765,
+            "pct_of_simulated_below_observed": 0.02365
+          }
+        },
+        "llama3.1-8b__fever__mlp": {
+          "implemented": {
+            "observed": 0.005080335703641957,
+            "simulated_mean": 0.012948069925346788,
+            "pct_of_simulated_below_observed": 0.0463
+          },
+          "standard": {
+            "observed": 0.0026173766011163835,
+            "simulated_mean": 0.007483714694305991,
+            "pct_of_simulated_below_observed": 0.11015
+          },
+          "rotation_delta_wc": {
+            "observed": 0.01761517615176152,
+            "simulated_mean": 0.03326827793700603,
+            "pct_of_simulated_below_observed": 0.16505
+          }
+        },
+        "llama3.1-8b__halueval_qa__linear": {
+          "implemented": {
+            "observed": 0.002376543209876573,
+            "simulated_mean": 0.0023637231579919124,
+            "pct_of_simulated_below_observed": 0.48135
+          },
+          "standard": {
+            "observed": 0.00020833333333347692,
+            "simulated_mean": 0.001330284759165146,
+            "pct_of_simulated_below_observed": 0.06055
+          },
+          "rotation_delta_wc": {
+            "observed": 0.008125000000000049,
+            "simulated_mean": 0.005951786818989218,
+            "pct_of_simulated_below_observed": 0.7408
+          }
+        },
+        "llama3.1-8b__halueval_qa__mlp": {
+          "implemented": {
+            "observed": 0.0013657407407407487,
+            "simulated_mean": 0.003444994452526532,
+            "pct_of_simulated_below_observed": 0.0442
+          },
+          "standard": {
+            "observed": 0.00023148148148155467,
+            "simulated_mean": 0.0019878242167963535,
+            "pct_of_simulated_below_observed": 0.02895
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0027083333333333126,
+            "simulated_mean": 0.008876869871230304,
+            "pct_of_simulated_below_observed": 0.09025
+          }
+        },
+        "llama3.1-8b__synthetic__linear": {
+          "implemented": {
+            "observed": 0.0014197530864197448,
+            "simulated_mean": 0.013141168445472215,
+            "pct_of_simulated_below_observed": 0.0048
+          },
+          "standard": {
+            "observed": 0.0,
+            "simulated_mean": 0.007680817000419883,
+            "pct_of_simulated_below_observed": 0.0004
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0012499999999999734,
+            "simulated_mean": 0.03417091755860862,
+            "pct_of_simulated_below_observed": 0.0681
+          }
+        },
+        "llama3.1-8b__synthetic__mlp": {
+          "implemented": {
+            "observed": 0.0008256172839505983,
+            "simulated_mean": 0.007520707282418129,
+            "pct_of_simulated_below_observed": 0.00405
+          },
+          "standard": {
+            "observed": 0.0,
+            "simulated_mean": 0.004373278735592787,
+            "pct_of_simulated_below_observed": 0.00045
+          },
+          "rotation_delta_wc": {
+            "observed": 0.001666666666666668,
+            "simulated_mean": 0.019458654276891384,
+            "pct_of_simulated_below_observed": 0.06775
+          }
+        },
+        "llama3.1-8b__truthfulqa__linear": {
+          "implemented": {
+            "observed": -1.0691036533427433e-16,
+            "simulated_mean": 0.005399151712011916,
+            "pct_of_simulated_below_observed": 0.00145
+          },
+          "standard": {
+            "observed": -1.1102230246251565e-16,
+            "simulated_mean": 0.0027861364285213775,
+            "pct_of_simulated_below_observed": 0.0103
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0,
+            "simulated_mean": 0.012679728458849545,
+            "pct_of_simulated_below_observed": 0.0616
+          }
+        },
+        "llama3.1-8b__truthfulqa__mlp": {
+          "implemented": {
+            "observed": 0.0016059419853458458,
+            "simulated_mean": 0.0059362304923739305,
+            "pct_of_simulated_below_observed": 0.14155
+          },
+          "standard": {
+            "observed": 0.0007412039932366277,
+            "simulated_mean": 0.003126050586564466,
+            "pct_of_simulated_below_observed": 0.2259
+          },
+          "rotation_delta_wc": {
+            "observed": 0.003960808838857632,
+            "simulated_mean": 0.014107771009473408,
+            "pct_of_simulated_below_observed": 0.30805
+          }
+        },
+        "mistral-7b__fever__linear": {
+          "implemented": {
+            "observed": 0.0005095777453501065,
+            "simulated_mean": 0.01692236878276872,
+            "pct_of_simulated_below_observed": 0.00505
+          },
+          "standard": {
+            "observed": 4.6325249577372496e-05,
+            "simulated_mean": 0.009700605208351268,
+            "pct_of_simulated_below_observed": 0.0059
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0,
+            "simulated_mean": 0.043354025200577434,
+            "pct_of_simulated_below_observed": 0.03265
+          }
+        },
+        "mistral-7b__fever__mlp": {
+          "implemented": {
+            "observed": 0.0014669662366139872,
+            "simulated_mean": 0.012384087242538496,
+            "pct_of_simulated_below_observed": 0.0098
+          },
+          "standard": {
+            "observed": 0.00027795149746367986,
+            "simulated_mean": 0.0070895758713695614,
+            "pct_of_simulated_below_observed": 0.0131
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0055242860120909105,
+            "simulated_mean": 0.03167867920189453,
+            "pct_of_simulated_below_observed": 0.1012
+          }
+        },
+        "mistral-7b__halueval_qa__linear": {
+          "implemented": {
+            "observed": 0.0019058641975308907,
+            "simulated_mean": 0.004162306758321147,
+            "pct_of_simulated_below_observed": 0.06575
+          },
+          "standard": {
+            "observed": 0.00032407407407419875,
+            "simulated_mean": 0.0023583558589195673,
+            "pct_of_simulated_below_observed": 0.0421
+          },
+          "rotation_delta_wc": {
+            "observed": 0.004687500000000029,
+            "simulated_mean": 0.01057359000191519,
+            "pct_of_simulated_below_observed": 0.135
+          }
+        },
+        "mistral-7b__halueval_qa__mlp": {
+          "implemented": {
+            "observed": 0.0018750000000000628,
+            "simulated_mean": 0.004112332164047766,
+            "pct_of_simulated_below_observed": 0.055
+          },
+          "standard": {
+            "observed": 0.0005324074074075646,
+            "simulated_mean": 0.0023705530242803152,
+            "pct_of_simulated_below_observed": 0.0612
+          },
+          "rotation_delta_wc": {
+            "observed": 0.005833333333333357,
+            "simulated_mean": 0.010525173651879383,
+            "pct_of_simulated_below_observed": 0.173
+          }
+        },
+        "mistral-7b__synthetic__linear": {
+          "implemented": {
+            "observed": 0.0013580246913580314,
+            "simulated_mean": 0.018489622584847768,
+            "pct_of_simulated_below_observed": 0.0033
+          },
+          "standard": {
+            "observed": 0.0007638888888888973,
+            "simulated_mean": 0.010730837245743073,
+            "pct_of_simulated_below_observed": 0.0155
+          },
+          "rotation_delta_wc": {
+            "observed": 0.004375000000000055,
+            "simulated_mean": 0.04781533607587962,
+            "pct_of_simulated_below_observed": 0.0736
+          }
+        },
+        "mistral-7b__synthetic__mlp": {
+          "implemented": {
+            "observed": 0.0014351851851851917,
+            "simulated_mean": 0.009126515741313838,
+            "pct_of_simulated_below_observed": 0.0108
+          },
+          "standard": {
+            "observed": 0.0005092592592592649,
+            "simulated_mean": 0.005278374950423359,
+            "pct_of_simulated_below_observed": 0.0212
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0033333333333332624,
+            "simulated_mean": 0.023537592384723457,
+            "pct_of_simulated_below_observed": 0.074
+          }
+        },
+        "mistral-7b__truthfulqa__linear": {
+          "implemented": {
+            "observed": 0.000393764621406924,
+            "simulated_mean": 0.005684271911623006,
+            "pct_of_simulated_below_observed": 0.03385
+          },
+          "standard": {
+            "observed": 2.3162624788630737e-05,
+            "simulated_mean": 0.0030422921383857085,
+            "pct_of_simulated_below_observed": 0.03585
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0,
+            "simulated_mean": 0.013658057182659658,
+            "pct_of_simulated_below_observed": 0.0479
+          }
+        },
+        "mistral-7b__truthfulqa__mlp": {
+          "implemented": {
+            "observed": 0.001235339988727462,
+            "simulated_mean": 0.007590797265467526,
+            "pct_of_simulated_below_observed": 0.0518
+          },
+          "standard": {
+            "observed": 0.0003706019966180918,
+            "simulated_mean": 0.004152721740780211,
+            "pct_of_simulated_below_observed": 0.07945
+          },
+          "rotation_delta_wc": {
+            "observed": 3.700743415417188e-17,
+            "simulated_mean": 0.018665849330710468,
+            "pct_of_simulated_below_observed": 0.1659
+          }
+        },
+        "qwen2.5-7b__fever__linear": {
+          "implemented": {
+            "observed": 0.012152657139107008,
+            "simulated_mean": 0.02061194284403146,
+            "pct_of_simulated_below_observed": 0.15075
+          },
+          "standard": {
+            "observed": 0.00803743080165864,
+            "simulated_mean": 0.011726524912670566,
+            "pct_of_simulated_below_observed": 0.3272
+          },
+          "rotation_delta_wc": {
+            "observed": 0.034709193245778626,
+            "simulated_mean": 0.05232550059212261,
+            "pct_of_simulated_below_observed": 0.26825
+          }
+        },
+        "qwen2.5-7b__fever__mlp": {
+          "implemented": {
+            "observed": 0.007620503555462909,
+            "simulated_mean": 0.013156896439368017,
+            "pct_of_simulated_below_observed": 0.15725
+          },
+          "standard": {
+            "observed": 0.005975957195469284,
+            "simulated_mean": 0.007535863120417162,
+            "pct_of_simulated_below_observed": 0.39745
+          },
+          "rotation_delta_wc": {
+            "observed": 0.016468626224723854,
+            "simulated_mean": 0.033487128186805645,
+            "pct_of_simulated_below_observed": 0.19805
+          }
+        },
+        "qwen2.5-7b__halueval_qa__linear": {
+          "implemented": {
+            "observed": 0.0017438271604938735,
+            "simulated_mean": 0.0029627632266863977,
+            "pct_of_simulated_below_observed": 0.1243
+          },
+          "standard": {
+            "observed": 0.00023148148148155467,
+            "simulated_mean": 0.0016937605486128941,
+            "pct_of_simulated_below_observed": 0.04595
+          },
+          "rotation_delta_wc": {
+            "observed": 0.004375000000000018,
+            "simulated_mean": 0.007525991999165998,
+            "pct_of_simulated_below_observed": 0.2035
+          }
+        },
+        "qwen2.5-7b__halueval_qa__mlp": {
+          "implemented": {
+            "observed": 0.0017129629629629717,
+            "simulated_mean": 0.004029372307949972,
+            "pct_of_simulated_below_observed": 0.05875
+          },
+          "standard": {
+            "observed": 0.0005324074074075646,
+            "simulated_mean": 0.002323867828093124,
+            "pct_of_simulated_below_observed": 0.07115
+          },
+          "rotation_delta_wc": {
+            "observed": 0.005312500000000016,
+            "simulated_mean": 0.010323731773730105,
+            "pct_of_simulated_below_observed": 0.16115
+          }
+        },
+        "qwen2.5-7b__synthetic__linear": {
+          "implemented": {
+            "observed": 0.0005092592592592401,
+            "simulated_mean": 0.01318255810561839,
+            "pct_of_simulated_below_observed": 0.00475
+          },
+          "standard": {
+            "observed": 0.0,
+            "simulated_mean": 0.007582719778820115,
+            "pct_of_simulated_below_observed": 0.00175
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0002083333333333289,
+            "simulated_mean": 0.0338456114779745,
+            "pct_of_simulated_below_observed": 0.09785
+          }
+        },
+        "qwen2.5-7b__synthetic__mlp": {
+          "implemented": {
+            "observed": 0.0026311728395061813,
+            "simulated_mean": 0.011097929232019058,
+            "pct_of_simulated_below_observed": 0.02525
+          },
+          "standard": {
+            "observed": 0.0,
+            "simulated_mean": 0.006447668538946683,
+            "pct_of_simulated_below_observed": 0.00105
+          },
+          "rotation_delta_wc": {
+            "observed": 0.008749999999999999,
+            "simulated_mean": 0.028541458972722956,
+            "pct_of_simulated_below_observed": 0.09765
+          }
+        },
+        "qwen2.5-7b__truthfulqa__linear": {
+          "implemented": {
+            "observed": 3.289549702593056e-17,
+            "simulated_mean": 0.010048814420043363,
+            "pct_of_simulated_below_observed": 0.03095
+          },
+          "standard": {
+            "observed": 1.1102230246251565e-16,
+            "simulated_mean": 0.005454118830206239,
+            "pct_of_simulated_below_observed": 0.028
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0,
+            "simulated_mean": 0.024429916130436432,
+            "pct_of_simulated_below_observed": 0.04765
+          }
+        },
+        "qwen2.5-7b__truthfulqa__mlp": {
+          "implemented": {
+            "observed": 0.0006639952439410233,
+            "simulated_mean": 0.010049328426262214,
+            "pct_of_simulated_below_observed": 0.04335
+          },
+          "standard": {
+            "observed": 2.3162624788519715e-05,
+            "simulated_mean": 0.005458372598575733,
+            "pct_of_simulated_below_observed": 0.0436
+          },
+          "rotation_delta_wc": {
+            "observed": -3.700743415417188e-17,
+            "simulated_mean": 0.02453773608633847,
+            "pct_of_simulated_below_observed": 0.0
+          }
+        }
+      },
+      "implemented": {
+        "pooled_mean": 0.009615112136102312,
+        "bias_vs_truth": -0.009553258650524584,
+        "ratio_to_truth": 0.5016134257383231,
+        "observed_pooled_on_real_data": 0.002106656206489659,
+        "simulated_over_observed": 4.5641581699389215,
+        "implied_true_bias_from_observed": 0.004199760409899075
+      },
+      "standard": {
+        "pooled_mean": 0.00546597724199566,
+        "bias_vs_truth": -0.013702393544631236,
+        "ratio_to_truth": 0.2851560679225321,
+        "observed_pooled_on_real_data": 0.000897464850716905,
+        "simulated_over_observed": 6.090463863436407,
+        "implied_true_bias_from_observed": 0.003147276006627773
+      },
+      "rotation_delta_wc": {
+        "pooled_mean": 0.024389810608075945,
+        "bias_vs_truth": 0.005221439821449049,
+        "ratio_to_truth": 1.2723987280698819,
+        "observed_pooled_on_real_data": 0.0053709621030505255,
+        "simulated_over_observed": 4.5410505864905195,
+        "implied_true_bias_from_observed": 0.004221131304648353
+      }
+    },
+    "deflated": {
+      "true_pooled_bias": 0.019367187365424254,
+      "per_cell_true_bias_mean": 0.019367187365424254,
+      "shrinkage_factors": [
+        0.0,
+        0.9938313478851242
+      ],
+      "coverage_of_24cell_bca_ci": {
+        "implemented": 0.0,
+        "standard": 0.0,
+        "rotation_delta_wc": 0.77
+      },
+      "mean_ci_width": {
+        "implemented": 0.005247241609095602,
+        "standard": 0.003676564344103522,
+        "rotation_delta_wc": 0.016730690498052526
+      },
+      "model_adequacy_per_cell": {
+        "llama3.1-8b__fever__linear": {
+          "implemented": {
+            "observed": 0.0006717161188705545,
+            "simulated_mean": 0.01638428984520629,
+            "pct_of_simulated_below_observed": 0.00225
+          },
+          "standard": {
+            "observed": 9.265049915441192e-05,
+            "simulated_mean": 0.009482047439910985,
+            "pct_of_simulated_below_observed": 0.0032
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0,
+            "simulated_mean": 0.042202045558425286,
+            "pct_of_simulated_below_observed": 0.02225
+          }
+        },
+        "llama3.1-8b__fever__mlp": {
+          "implemented": {
+            "observed": 0.005080335703641957,
+            "simulated_mean": 0.012902793859851653,
+            "pct_of_simulated_below_observed": 0.0478
+          },
+          "standard": {
+            "observed": 0.0026173766011163835,
+            "simulated_mean": 0.00744074256124739,
+            "pct_of_simulated_below_observed": 0.11325
+          },
+          "rotation_delta_wc": {
+            "observed": 0.01761517615176152,
+            "simulated_mean": 0.03306067796124603,
+            "pct_of_simulated_below_observed": 0.16435
+          }
+        },
+        "llama3.1-8b__halueval_qa__linear": {
+          "implemented": {
+            "observed": 0.002376543209876573,
+            "simulated_mean": 0.0025281219092297027,
+            "pct_of_simulated_below_observed": 0.39885
+          },
+          "standard": {
+            "observed": 0.00020833333333347692,
+            "simulated_mean": 0.0014419077235378105,
+            "pct_of_simulated_below_observed": 0.0436
+          },
+          "rotation_delta_wc": {
+            "observed": 0.008125000000000049,
+            "simulated_mean": 0.00646648819390932,
+            "pct_of_simulated_below_observed": 0.6853
+          }
+        },
+        "llama3.1-8b__halueval_qa__mlp": {
+          "implemented": {
+            "observed": 0.0013657407407407487,
+            "simulated_mean": 0.0035162214413384076,
+            "pct_of_simulated_below_observed": 0.0366
+          },
+          "standard": {
+            "observed": 0.00023148148148155467,
+            "simulated_mean": 0.002032760028294237,
+            "pct_of_simulated_below_observed": 0.02515
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0027083333333333126,
+            "simulated_mean": 0.009081686968449632,
+            "pct_of_simulated_below_observed": 0.08065
+          }
+        },
+        "llama3.1-8b__synthetic__linear": {
+          "implemented": {
+            "observed": 0.0014197530864197448,
+            "simulated_mean": 0.013250526357933586,
+            "pct_of_simulated_below_observed": 0.0048
+          },
+          "standard": {
+            "observed": 0.0,
+            "simulated_mean": 0.007710410439545567,
+            "pct_of_simulated_below_observed": 0.0005
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0012499999999999734,
+            "simulated_mean": 0.03425404496052826,
+            "pct_of_simulated_below_observed": 0.0667
+          }
+        },
+        "llama3.1-8b__synthetic__mlp": {
+          "implemented": {
+            "observed": 0.0008256172839505983,
+            "simulated_mean": 0.007541001595040941,
+            "pct_of_simulated_below_observed": 0.00475
+          },
+          "standard": {
+            "observed": 0.0,
+            "simulated_mean": 0.00437156110864759,
+            "pct_of_simulated_below_observed": 0.00055
+          },
+          "rotation_delta_wc": {
+            "observed": 0.001666666666666668,
+            "simulated_mean": 0.019484514484966194,
+            "pct_of_simulated_below_observed": 0.06785
+          }
+        },
+        "llama3.1-8b__truthfulqa__linear": {
+          "implemented": {
+            "observed": -1.0691036533427433e-16,
+            "simulated_mean": 0.005435468883602982,
+            "pct_of_simulated_below_observed": 0.00155
+          },
+          "standard": {
+            "observed": -1.1102230246251565e-16,
+            "simulated_mean": 0.00281346049451607,
+            "pct_of_simulated_below_observed": 0.01075
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0,
+            "simulated_mean": 0.01263668448710244,
+            "pct_of_simulated_below_observed": 0.0627
+          }
+        },
+        "llama3.1-8b__truthfulqa__mlp": {
+          "implemented": {
+            "observed": 0.0016059419853458458,
+            "simulated_mean": 0.0059687392808727095,
+            "pct_of_simulated_below_observed": 0.14195
+          },
+          "standard": {
+            "observed": 0.0007412039932366277,
+            "simulated_mean": 0.0031282507105266665,
+            "pct_of_simulated_below_observed": 0.22665
+          },
+          "rotation_delta_wc": {
+            "observed": 0.003960808838857632,
+            "simulated_mean": 0.014127301894318657,
+            "pct_of_simulated_below_observed": 0.30865
+          }
+        },
+        "mistral-7b__fever__linear": {
+          "implemented": {
+            "observed": 0.0005095777453501065,
+            "simulated_mean": 0.016842163136674273,
+            "pct_of_simulated_below_observed": 0.0052
+          },
+          "standard": {
+            "observed": 4.6325249577372496e-05,
+            "simulated_mean": 0.009616023466259753,
+            "pct_of_simulated_below_observed": 0.006
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0,
+            "simulated_mean": 0.042983128573274576,
+            "pct_of_simulated_below_observed": 0.02945
+          }
+        },
+        "mistral-7b__fever__mlp": {
+          "implemented": {
+            "observed": 0.0014669662366139872,
+            "simulated_mean": 0.012402861726803341,
+            "pct_of_simulated_below_observed": 0.01055
+          },
+          "standard": {
+            "observed": 0.00027795149746367986,
+            "simulated_mean": 0.00709978597221516,
+            "pct_of_simulated_below_observed": 0.0127
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0055242860120909105,
+            "simulated_mean": 0.03174527934718659,
+            "pct_of_simulated_below_observed": 0.09915
+          }
+        },
+        "mistral-7b__halueval_qa__linear": {
+          "implemented": {
+            "observed": 0.0019058641975308907,
+            "simulated_mean": 0.004651694501550176,
+            "pct_of_simulated_below_observed": 0.0343
+          },
+          "standard": {
+            "observed": 0.00032407407407419875,
+            "simulated_mean": 0.002715287417841389,
+            "pct_of_simulated_below_observed": 0.02165
+          },
+          "rotation_delta_wc": {
+            "observed": 0.004687500000000029,
+            "simulated_mean": 0.012020595363211624,
+            "pct_of_simulated_below_observed": 0.0871
+          }
+        },
+        "mistral-7b__halueval_qa__mlp": {
+          "implemented": {
+            "observed": 0.0018750000000000628,
+            "simulated_mean": 0.004244203837212213,
+            "pct_of_simulated_below_observed": 0.04625
+          },
+          "standard": {
+            "observed": 0.0005324074074075646,
+            "simulated_mean": 0.0024527599809538317,
+            "pct_of_simulated_below_observed": 0.05295
+          },
+          "rotation_delta_wc": {
+            "observed": 0.005833333333333357,
+            "simulated_mean": 0.010949313426982169,
+            "pct_of_simulated_below_observed": 0.15445
+          }
+        },
+        "mistral-7b__synthetic__linear": {
+          "implemented": {
+            "observed": 0.0013580246913580314,
+            "simulated_mean": 0.018441867735884694,
+            "pct_of_simulated_below_observed": 0.0026
+          },
+          "standard": {
+            "observed": 0.0007638888888888973,
+            "simulated_mean": 0.010712488727284801,
+            "pct_of_simulated_below_observed": 0.01575
+          },
+          "rotation_delta_wc": {
+            "observed": 0.004375000000000055,
+            "simulated_mean": 0.047727922860227485,
+            "pct_of_simulated_below_observed": 0.07235
+          }
+        },
+        "mistral-7b__synthetic__mlp": {
+          "implemented": {
+            "observed": 0.0014351851851851917,
+            "simulated_mean": 0.009125583584740204,
+            "pct_of_simulated_below_observed": 0.0111
+          },
+          "standard": {
+            "observed": 0.0005092592592592649,
+            "simulated_mean": 0.005273441858627542,
+            "pct_of_simulated_below_observed": 0.02185
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0033333333333332624,
+            "simulated_mean": 0.023431201973357556,
+            "pct_of_simulated_below_observed": 0.07415
+          }
+        },
+        "mistral-7b__truthfulqa__linear": {
+          "implemented": {
+            "observed": 0.000393764621406924,
+            "simulated_mean": 0.00571889928746084,
+            "pct_of_simulated_below_observed": 0.0324
+          },
+          "standard": {
+            "observed": 2.3162624788630737e-05,
+            "simulated_mean": 0.0030638872222407045,
+            "pct_of_simulated_below_observed": 0.03455
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0,
+            "simulated_mean": 0.013761375028391571,
+            "pct_of_simulated_below_observed": 0.04555
+          }
+        },
+        "mistral-7b__truthfulqa__mlp": {
+          "implemented": {
+            "observed": 0.001235339988727462,
+            "simulated_mean": 0.007565808563870032,
+            "pct_of_simulated_below_observed": 0.0516
+          },
+          "standard": {
+            "observed": 0.0003706019966180918,
+            "simulated_mean": 0.004131241205041052,
+            "pct_of_simulated_below_observed": 0.07995
+          },
+          "rotation_delta_wc": {
+            "observed": 3.700743415417188e-17,
+            "simulated_mean": 0.018557906894307138,
+            "pct_of_simulated_below_observed": 0.16765
+          }
+        },
+        "qwen2.5-7b__fever__linear": {
+          "implemented": {
+            "observed": 0.012152657139107008,
+            "simulated_mean": 0.020779142542127947,
+            "pct_of_simulated_below_observed": 0.1429
+          },
+          "standard": {
+            "observed": 0.00803743080165864,
+            "simulated_mean": 0.011824901606121114,
+            "pct_of_simulated_below_observed": 0.31825
+          },
+          "rotation_delta_wc": {
+            "observed": 0.034709193245778626,
+            "simulated_mean": 0.052561799930891676,
+            "pct_of_simulated_below_observed": 0.2612
+          }
+        },
+        "qwen2.5-7b__fever__mlp": {
+          "implemented": {
+            "observed": 0.007620503555462909,
+            "simulated_mean": 0.01312008638506067,
+            "pct_of_simulated_below_observed": 0.16005
+          },
+          "standard": {
+            "observed": 0.005975957195469284,
+            "simulated_mean": 0.0074856887416268,
+            "pct_of_simulated_below_observed": 0.4001
+          },
+          "rotation_delta_wc": {
+            "observed": 0.016468626224723854,
+            "simulated_mean": 0.0333079874972663,
+            "pct_of_simulated_below_observed": 0.20165
+          }
+        },
+        "qwen2.5-7b__halueval_qa__linear": {
+          "implemented": {
+            "observed": 0.0017438271604938735,
+            "simulated_mean": 0.003137962026201768,
+            "pct_of_simulated_below_observed": 0.09175
+          },
+          "standard": {
+            "observed": 0.00023148148148155467,
+            "simulated_mean": 0.0018103562178717987,
+            "pct_of_simulated_below_observed": 0.0335
+          },
+          "rotation_delta_wc": {
+            "observed": 0.004375000000000018,
+            "simulated_mean": 0.008069763535167819,
+            "pct_of_simulated_below_observed": 0.16635
+          }
+        },
+        "qwen2.5-7b__halueval_qa__mlp": {
+          "implemented": {
+            "observed": 0.0017129629629629717,
+            "simulated_mean": 0.004158056532749827,
+            "pct_of_simulated_below_observed": 0.04895
+          },
+          "standard": {
+            "observed": 0.0005324074074075646,
+            "simulated_mean": 0.0024046805918504542,
+            "pct_of_simulated_below_observed": 0.06305
+          },
+          "rotation_delta_wc": {
+            "observed": 0.005312500000000016,
+            "simulated_mean": 0.010715960056835236,
+            "pct_of_simulated_below_observed": 0.1447
+          }
+        },
+        "qwen2.5-7b__synthetic__linear": {
+          "implemented": {
+            "observed": 0.0005092592592592401,
+            "simulated_mean": 0.013259054147350366,
+            "pct_of_simulated_below_observed": 0.004
+          },
+          "standard": {
+            "observed": 0.0,
+            "simulated_mean": 0.007629135674602315,
+            "pct_of_simulated_below_observed": 0.0013
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0002083333333333289,
+            "simulated_mean": 0.03401114556596971,
+            "pct_of_simulated_below_observed": 0.09195
+          }
+        },
+        "qwen2.5-7b__synthetic__mlp": {
+          "implemented": {
+            "observed": 0.0026311728395061813,
+            "simulated_mean": 0.011165554145577601,
+            "pct_of_simulated_below_observed": 0.02385
+          },
+          "standard": {
+            "observed": 0.0,
+            "simulated_mean": 0.006485721919912454,
+            "pct_of_simulated_below_observed": 0.0008
+          },
+          "rotation_delta_wc": {
+            "observed": 0.008749999999999999,
+            "simulated_mean": 0.02879138812548532,
+            "pct_of_simulated_below_observed": 0.09655
+          }
+        },
+        "qwen2.5-7b__truthfulqa__linear": {
+          "implemented": {
+            "observed": 3.289549702593056e-17,
+            "simulated_mean": 0.010230559070555676,
+            "pct_of_simulated_below_observed": 0.0301
+          },
+          "standard": {
+            "observed": 1.1102230246251565e-16,
+            "simulated_mean": 0.00557786502540925,
+            "pct_of_simulated_below_observed": 0.0264
+          },
+          "rotation_delta_wc": {
+            "observed": 0.0,
+            "simulated_mean": 0.025042476268804865,
+            "pct_of_simulated_below_observed": 0.0481
+          }
+        },
+        "qwen2.5-7b__truthfulqa__mlp": {
+          "implemented": {
+            "observed": 0.0006639952439410233,
+            "simulated_mean": 0.010138693625167913,
+            "pct_of_simulated_below_observed": 0.0406
+          },
+          "standard": {
+            "observed": 2.3162624788519715e-05,
+            "simulated_mean": 0.005511326642522384,
+            "pct_of_simulated_below_observed": 0.04105
+          },
+          "rotation_delta_wc": {
+            "observed": -3.700743415417188e-17,
+            "simulated_mean": 0.02480570247803881,
+            "pct_of_simulated_below_observed": 0.0
+          }
+        }
+      },
+      "implemented": {
+        "pooled_mean": 0.009687889750919327,
+        "bias_vs_truth": -0.009679297614504928,
+        "ratio_to_truth": 0.5002218219985246,
+        "observed_pooled_on_real_data": 0.002106656206489659,
+        "simulated_over_observed": 4.598704677619112,
+        "implied_true_bias_from_observed": 0.004211444031116004
+      },
+      "standard": {
+        "pooled_mean": 0.005508988865691963,
+        "bias_vs_truth": -0.013858198499732292,
+        "ratio_to_truth": 0.2844496085955682,
+        "observed_pooled_on_real_data": 0.000897464850716905,
+        "simulated_over_observed": 6.138389555079868,
+        "implied_true_bias_from_observed": 0.0031550925844054324
+      },
+      "rotation_delta_wc": {
+        "pooled_mean": 0.02457484964309768,
+        "bias_vs_truth": 0.005207662277673424,
+        "ratio_to_truth": 1.2688909948261529,
+        "observed_pooled_on_real_data": 0.0053709621030505255,
+        "simulated_over_observed": 4.575502334887076,
+        "implied_true_bias_from_observed": 0.004232800236545446
+      }
+    }
+  },
+  "real_data_matching": {
+    "calibration_ratio_ranges": {
+      "implemented": {
+        "over_rho_grid": [
+          0.501302490638029,
+          0.5468904833278487
+        ],
+        "over_sep_grid_true_bias_above_0.002": [
+          0.4723665652874788,
+          1.2464927759475666
+        ]
+      },
+      "standard": {
+        "over_rho_grid": [
+          0.28408335756689634,
+          0.298837917913386
+        ],
+        "over_sep_grid_true_bias_above_0.002": [
+          0.2757872939384417,
+          0.5226176867535327
+        ]
+      },
+      "rotation_delta_wc": {
+        "over_rho_grid": [
+          1.2684103105430238,
+          1.344769784502135
+        ],
+        "over_sep_grid_true_bias_above_0.002": [
+          1.2251623740511397,
+          2.475408876101959
+        ]
+      }
+    },
+    "measured_lag1_layer_autocorrelation": {
+      "median": 0.7115264807921342,
+      "per_cell": [
+        0.7410732481920205,
+        0.5969050681687492,
+        0.6762802081258354,
+        0.7525633170923541,
+        0.859709921729409,
+        0.8711957561729585,
+        0.4944359576121645,
+        0.6102360450727956,
+        0.7104970309068028,
+        0.6796905834303393,
+        0.8543603798003075,
+        0.6933654705442275,
+        0.8918714233422884,
+        0.7756607711855595,
+        0.4002299039481515,
+        0.37934127524809724,
+        0.7662286855259678,
+        0.7315794884354226,
+        0.6320390295876478,
+        0.8028527764070895,
+        0.738366726906532,
+        0.7125559306774656,
+        0.3811237972946491,
+        0.4494774875063866
+      ],
+      "q25": 0.606903300846784,
+      "q75": 0.7685867069408657
+    },
+    "observed_pooled_on_real_data": {
+      "implemented": 0.002106656206489659,
+      "standard": 0.000897464850716905,
+      "rotation_delta_wc": 0.0053709621030505255
+    },
+    "rho_sweep": [
+      {
+        "rho": 0.0,
+        "true_bias": 0.019179353952553053,
+        "implemented": {
+          "simulated_pooled": 0.009614657905243173,
+          "ratio_to_truth": 0.501302490638029,
+          "simulated_over_observed": 4.563942552954176
+        },
+        "standard": {
+          "simulated_pooled": 0.005448535266805196,
+          "ratio_to_truth": 0.28408335756689634,
+          "simulated_over_observed": 6.07102914666
+        },
+        "rotation_delta_wc": {
+          "simulated_pooled": 0.024327290302972388,
+          "ratio_to_truth": 1.2684103105430238,
+          "simulated_over_observed": 4.529410157103009
+        }
+      },
+      {
+        "rho": 0.3,
+        "true_bias": 0.018410625111987693,
+        "implemented": {
+          "simulated_pooled": 0.00928818698360214,
+          "ratio_to_truth": 0.5045014456111179,
+          "simulated_over_observed": 4.408971409283308
+        },
+        "standard": {
+          "simulated_pooled": 0.0052583528417641315,
+          "ratio_to_truth": 0.2856151168023222,
+          "simulated_over_observed": 5.859118424040452
+        },
+        "rotation_delta_wc": {
+          "simulated_pooled": 0.023500666788637464,
+          "ratio_to_truth": 1.2764730499745767,
+          "simulated_over_observed": 4.375504115973911
+        }
+      },
+      {
+        "rho": 0.5,
+        "true_bias": 0.017288156127408895,
+        "implemented": {
+          "simulated_pooled": 0.008802267141458526,
+          "ratio_to_truth": 0.509150141668566,
+          "simulated_over_observed": 4.178312111080444
+        },
+        "standard": {
+          "simulated_pooled": 0.0049575873402372475,
+          "ratio_to_truth": 0.2867620643694567,
+          "simulated_over_observed": 5.523990534311256
+        },
+        "rotation_delta_wc": {
+          "simulated_pooled": 0.02221920854712515,
+          "ratio_to_truth": 1.2852272031427627,
+          "simulated_over_observed": 4.136914042738337
+        }
+      },
+      {
+        "rho": 0.7,
+        "true_bias": 0.015056947429420542,
+        "implemented": {
+          "simulated_pooled": 0.00776407658702574,
+          "ratio_to_truth": 0.515647452673914,
+          "simulated_over_observed": 3.685497692080994
+        },
+        "standard": {
+          "simulated_pooled": 0.004354370895481188,
+          "ratio_to_truth": 0.2891934713787311,
+          "simulated_over_observed": 4.851856751830301
+        },
+        "rotation_delta_wc": {
+          "simulated_pooled": 0.019448838011611593,
+          "ratio_to_truth": 1.2916853235211216,
+          "simulated_over_observed": 3.6211087768735712
+        }
+      },
+      {
+        "rho": 0.8,
+        "true_bias": 0.013016807898566511,
+        "implemented": {
+          "simulated_pooled": 0.00680854345696541,
+          "ratio_to_truth": 0.5230578426001975,
+          "simulated_over_observed": 3.2319195870647306
+        },
+        "standard": {
+          "simulated_pooled": 0.0037929912274623084,
+          "ratio_to_truth": 0.2913918110353319,
+          "simulated_over_observed": 4.226339588043392
+        },
+        "rotation_delta_wc": {
+          "simulated_pooled": 0.017008326156747803,
+          "ratio_to_truth": 1.3066434020756241,
+          "simulated_over_observed": 3.1667187052181296
+        }
+      },
+      {
+        "rho": 0.9,
+        "true_bias": 0.009525448303021931,
+        "implemented": {
+          "simulated_pooled": 0.005016020678635612,
+          "ratio_to_truth": 0.5265915596900871,
+          "simulated_over_observed": 2.38103429652333
+        },
+        "standard": {
+          "simulated_pooled": 0.002783164925137695,
+          "ratio_to_truth": 0.2921820408447066,
+          "simulated_over_observed": 3.101140866870131
+        },
+        "rotation_delta_wc": {
+          "simulated_pooled": 0.012431182330010617,
+          "ratio_to_truth": 1.3050495823978014,
+          "simulated_over_observed": 2.314516857780494
+        }
+      },
+      {
+        "rho": 0.95,
+        "true_bias": 0.006534616629960473,
+        "implemented": {
+          "simulated_pooled": 0.0034766459213538075,
+          "ratio_to_truth": 0.5320351779190506,
+          "simulated_over_observed": 1.650314802502576
+        },
+        "standard": {
+          "simulated_pooled": 0.001927539044011133,
+          "ratio_to_truth": 0.2949735467530851,
+          "simulated_over_observed": 2.1477599289503018
+        },
+        "rotation_delta_wc": {
+          "simulated_pooled": 0.008631574292292903,
+          "ratio_to_truth": 1.3208998753986758,
+          "simulated_over_observed": 1.6070815855115528
+        }
+      },
+      {
+        "rho": 0.98,
+        "true_bias": 0.0036233359773390227,
+        "implemented": {
+          "simulated_pooled": 0.001981567963906121,
+          "ratio_to_truth": 0.5468904833278487,
+          "simulated_over_observed": 0.9406223748335409
+        },
+        "standard": {
+          "simulated_pooled": 0.001082790179368657,
+          "ratio_to_truth": 0.298837917913386,
+          "simulated_over_observed": 1.206498704103801
+        },
+        "rotation_delta_wc": {
+          "simulated_pooled": 0.00487255274142503,
+          "ratio_to_truth": 1.344769784502135,
+          "simulated_over_observed": 0.907202964373475
+        }
+      }
+    ],
+    "matched_rho": 0.98,
+    "true_bias_at_matched_rho": 0.0036233359773390227,
+    "calibrated": {
+      "implemented": {
+        "observed_on_real_data": 0.002106656206489659,
+        "calibration_ratio_estimator_over_truth": 0.5468904833278487,
+        "calibration_corrected_true_bias": 0.0038520622879933443
+      },
+      "standard": {
+        "observed_on_real_data": 0.000897464850716905,
+        "calibration_ratio_estimator_over_truth": 0.298837917913386,
+        "calibration_corrected_true_bias": 0.003003182651597187
+      },
+      "rotation_delta_wc": {
+        "observed_on_real_data": 0.0053709621030505255,
+        "calibration_ratio_estimator_over_truth": 1.344769784502135,
+        "calibration_corrected_true_bias": 0.00399396399662488
+      }
+    },
+    "note": "The i.i.d.-interaction model of section C overproduces the winner's curse by roughly 4.5x relative to what these files actually show, because a seed's deviation is correlated across adjacent layers. Sweeping an AR(1) correlation over the layer axis and reading each estimator's calibration ratio at the rho that reproduces the observed value is the defensible correction; the resulting corrected magnitudes agree across estimators far better than the raw ones do, which is itself a check on the procedure.",
+    "limitation": "The rho that reproduces the observed values (~0.98) exceeds the measured lag-1 residual autocorrelation (median 0.71), so AR(1) is a crude model of the real layer-correlation structure -- the true correlation almost certainly decays more slowly than geometrically. This does not threaten the correction, because every estimator's calibration ratio is nearly CONSTANT across the entire rho grid (see calibration_ratio_ranges): the correction factor does not depend on identifying rho correctly."
+  },
+  "verdict": {
+    "known_zero_null": {
+      "condition": "sep=16.0 sigma (argmax deterministic)",
+      "true_bias": -9.968416740365737e-07,
+      "implemented": -1.1976016886002861e-20,
+      "standard": 3.4139358007223564e-19,
+      "rotation_delta_wc": 6.38378239159465e-20,
+      "statement": "At a known-zero true bias with seed noise still present, all three estimators return values at or just above zero, and none returns a negative value in any of the simulated datasets -- the behaviour Theorems 1 and 2 predict."
+    },
+    "note": "Read together with code/70: both bootstrap quantities are non-negative for any input, so calibration -- not sign, and not a signed-rank test against zero -- is the only basis on which either can be reported.",
+    "headline": {
+      "implemented_understates_truth_by": 2.116999960383325,
+      "standard_understates_truth_by": 3.625982857002866,
+      "rotation_overstates_truth_by": 1.2251623740511397,
+      "coverage_of_24cell_bca_ci_at_sep0": {
+        "implemented": 0.0,
+        "standard": 0.0,
+        "rotation_delta_wc": 0.495
+      },
+      "calibration_corrected_true_bias": {
+        "implemented": 0.0038520622879933443,
+        "standard": 0.003003182651597187,
+        "rotation_delta_wc": 0.00399396399662488
+      }
+    }
+  }
+}

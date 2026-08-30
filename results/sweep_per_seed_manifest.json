@@ -1,0 +1,160 @@
+{
+  "sweep_A": {
+    "1": {
+      "gap_mean_recomputed": 0.0,
+      "gap_mean_shipped": 0.0,
+      "abs_diff": 0.0,
+      "gap_sem": 0.0,
+      "gap_sd": 0.0,
+      "n_seeds": 200,
+      "n_exactly_zero_gap": 200,
+      "identical_state_dict_frac": 1.0
+    },
+    "3": {
+      "gap_mean_recomputed": 0.000856122448979591,
+      "gap_mean_shipped": 0.000856122448979591,
+      "abs_diff": 0.0,
+      "gap_sem": 0.00022477256084272026,
+      "gap_sd": 0.003178764039931067,
+      "n_seeds": 200,
+      "n_exactly_zero_gap": 174,
+      "identical_state_dict_frac": 0.973
+    },
+    "5": {
+      "gap_mean_recomputed": 0.0018816326530612193,
+      "gap_mean_shipped": 0.0018816326530612193,
+      "abs_diff": 0.0,
+      "gap_sem": 0.00032447679908750274,
+      "gap_sd": 0.004588794899449563,
+      "n_seeds": 200,
+      "n_exactly_zero_gap": 112,
+      "identical_state_dict_frac": 0.9
+    },
+    "10": {
+      "gap_mean_recomputed": 0.0022622448979591836,
+      "gap_mean_shipped": 0.0022622448979591836,
+      "abs_diff": 0.0,
+      "gap_sem": 0.00040978750127719347,
+      "gap_sd": 0.0057952704199718905,
+      "n_seeds": 200,
+      "n_exactly_zero_gap": 27,
+      "identical_state_dict_frac": 0.645
+    },
+    "15": {
+      "gap_mean_recomputed": 0.002262244897959178,
+      "gap_mean_shipped": 0.002262244897959178,
+      "abs_diff": 0.0,
+      "gap_sem": 0.00044166143513264876,
+      "gap_sd": 0.006246035915417569,
+      "n_seeds": 200,
+      "n_exactly_zero_gap": 5,
+      "identical_state_dict_frac": 0.355
+    },
+    "25": {
+      "gap_mean_recomputed": 0.003088775510204072,
+      "gap_mean_shipped": 0.003088775510204072,
+      "abs_diff": 0.0,
+      "gap_sem": 0.0005692353516581759,
+      "gap_sd": 0.008050203544972104,
+      "n_seeds": 200,
+      "n_exactly_zero_gap": 0,
+      "identical_state_dict_frac": 0.06
+    },
+    "45": {
+      "gap_mean_recomputed": 0.004155102040816322,
+      "gap_mean_shipped": 0.004155102040816322,
+      "abs_diff": 0.0,
+      "gap_sem": 0.0007700747614126781,
+      "gap_sd": 0.010890501716310346,
+      "n_seeds": 200,
+      "n_exactly_zero_gap": 0,
+      "identical_state_dict_frac": 0.031
+    },
+    "75": {
+      "gap_mean_recomputed": 0.004599999999999998,
+      "gap_mean_shipped": 0.004599999999999998,
+      "abs_diff": 0.0,
+      "gap_sem": 0.0008747176846850956,
+      "gap_sd": 0.012370376129292548,
+      "n_seeds": 200,
+      "n_exactly_zero_gap": 0,
+      "identical_state_dict_frac": 0.026000000000000002
+    },
+    "135": {
+      "gap_mean_recomputed": 0.005019387755102033,
+      "gap_mean_shipped": 0.005019387755102033,
+      "abs_diff": 0.0,
+      "gap_sem": 0.0009804066893232691,
+      "gap_sd": 0.013865044366822727,
+      "n_seeds": 200,
+      "n_exactly_zero_gap": 1,
+      "identical_state_dict_frac": 0.024000000000000004
+    },
+    "225": {
+      "gap_mean_recomputed": 0.005221428571428567,
+      "gap_mean_shipped": 0.005221428571428567,
+      "abs_diff": 0.0,
+      "gap_sem": 0.0009948804355143358,
+      "gap_sd": 0.01406973404844025,
+      "n_seeds": 200,
+      "n_exactly_zero_gap": 1,
+      "identical_state_dict_frac": 0.02
+    }
+  },
+  "sweep_C": {
+    "0.7": {
+      "gap_mean_recomputed": 0.009316326530612241,
+      "gap_mean_shipped": 0.009316326530612241,
+      "abs_diff": 0.0,
+      "gap_sem": 0.0024859596735483493,
+      "gap_sd": 0.02485959673548349,
+      "n_seeds": 100,
+      "leaky_mean": 0.6307551020408163,
+      "clean_matched_mean": 0.621438775510204
+    },
+    "0.8": {
+      "gap_mean_recomputed": 0.0036489795918367273,
+      "gap_mean_shipped": 0.0036489795918367273,
+      "abs_diff": 0.0,
+      "gap_sem": 0.0009867987144640555,
+      "gap_sd": 0.009867987144640555,
+      "n_seeds": 100,
+      "leaky_mean": 0.758587755102041,
+      "clean_matched_mean": 0.754938775510204
+    },
+    "0.9": {
+      "gap_mean_recomputed": 0.0010877551020408228,
+      "gap_mean_shipped": 0.0010877551020408228,
+      "abs_diff": 0.0,
+      "gap_sem": 0.0005044620609084155,
+      "gap_sd": 0.005044620609084154,
+      "n_seeds": 100,
+      "leaky_mean": 0.8836326530612244,
+      "clean_matched_mean": 0.8825448979591836
+    },
+    "0.95": {
+      "gap_mean_recomputed": 0.0006530612244898004,
+      "gap_mean_shipped": 0.0006530612244898004,
+      "abs_diff": 0.0,
+      "gap_sem": 0.0002947734802787753,
+      "gap_sd": 0.0029477348027877534,
+      "n_seeds": 100,
+      "leaky_mean": 0.9433102040816326,
+      "clean_matched_mean": 0.9426571428571426
+    },
+    "0.985": {
+      "gap_mean_recomputed": 0.00019183673469387984,
+      "gap_mean_shipped": 0.00019183673469387984,
+      "abs_diff": 0.0,
+      "gap_sem": 0.00013758630488354325,
+      "gap_sd": 0.0013758630488354324,
+      "n_seeds": 100,
+      "leaky_mean": 0.9831530612244898,
+      "clean_matched_mean": 0.9829612244897961
+    }
+  },
+  "max_abs_diff_vs_shipped": 0.0,
+  "reproduces_shipped_cell_means": true,
+  "runtime_seconds": 3512.2986619472504,
+  "note": "Per-seed arm AUROCs for Sweep A (K) and Sweep C (operating point), produced by importing code/47's own run_one_seed at the same seeds run_sweep_cell uses. The recomputed cell means reproduce results/selection_multiplicity_sweep.json to full float64, so this artifact adds resolution and changes no published number."
+}

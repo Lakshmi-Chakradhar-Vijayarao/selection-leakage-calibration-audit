@@ -1,0 +1,992 @@
+{
+  "design": {
+    "n_samples": 700,
+    "n_test": 140,
+    "n_val_shipped": 112,
+    "n_val_matched": 140,
+    "selection_set_size_ratio_shipped": 1.25,
+    "n_train_shipped": 448,
+    "n_train_matched": 420,
+    "n_seeds": 200,
+    "target_aurocs": [
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.985
+    ],
+    "primary_target_auroc": 0.985,
+    "arms": {
+      "unmatched": "shipped code/46+code/62 configuration: LEAKY selects on the 140 test points it is scored on, HONEST selects on a disjoint 112-point validation split. Classifier trained on 448.",
+      "matched": "size-matched: HONEST's selection split grown to 140 so both arms select on 140 points. Inside a fixed N=700 this costs 28 training samples.",
+      "budget_control": "the matched arm's classifier and test split exactly, but HONEST selects on the first 112 of its own 140-point validation split. Isolates the training-budget cost of size-matching, so that matched - budget_control is a paired isolation of selection-set size alone."
+    }
+  },
+  "cells": {
+    "0.7": {
+      "n_seeds": 200,
+      "unmatched": {
+        "f1_gap_youden_mean": 0.052003531249702306,
+        "f1_gap_youden_sd": 0.12719608880546576,
+        "f1_gap_youden_bca_ci_95": [
+          0.03483911493502931,
+          0.06966924960378752
+        ],
+        "f1_gap_youden_wilcoxon_p": 4.646387096798334e-08,
+        "f1_gap_youden_n_negative": 67,
+        "f1_gap_youden_n_zero": 2,
+        "f1_gap_youden_n_positive": 131,
+        "acc_gap_mean": 0.04567857142857143,
+        "acc_gap_sd": 0.0357601822822222,
+        "acc_gap_bca_ci_95": [
+          0.040928571428571425,
+          0.050785714285714295
+        ],
+        "acc_gap_wilcoxon_p": 1.515264079027265e-32,
+        "acc_gap_n_negative": 3,
+        "acc_gap_n_zero": 6,
+        "acc_gap_n_positive": 191,
+        "f1_gap_f1argmax_mean": 0.02278013173937266,
+        "f1_gap_f1argmax_sd": 0.02357592652865773,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.019901555136705117,
+          0.02654413217942106
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 1.9442918608595278e-32,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 13,
+        "f1_gap_f1argmax_n_positive": 187,
+        "leaky_f1_youden_mean": 0.6162091074794973,
+        "honest_f1_youden_mean": 0.5642055762297951,
+        "leaky_acc_mean": 0.6246785714285714,
+        "honest_acc_mean": 0.579,
+        "n_train": 448,
+        "n_val": 112
+      },
+      "matched": {
+        "f1_gap_youden_mean": 0.05628881089848507,
+        "f1_gap_youden_sd": 0.125200849093436,
+        "f1_gap_youden_bca_ci_95": [
+          0.03938626576882192,
+          0.07376398750561436
+        ],
+        "f1_gap_youden_wilcoxon_p": 7.483336949467173e-10,
+        "f1_gap_youden_n_negative": 62,
+        "f1_gap_youden_n_zero": 3,
+        "f1_gap_youden_n_positive": 135,
+        "acc_gap_mean": 0.041714285714285725,
+        "acc_gap_sd": 0.034150547152022086,
+        "acc_gap_bca_ci_95": [
+          0.03735714285714286,
+          0.04689285714285716
+        ],
+        "acc_gap_wilcoxon_p": 6.724590859489371e-32,
+        "acc_gap_n_negative": 7,
+        "acc_gap_n_zero": 7,
+        "acc_gap_n_positive": 186,
+        "f1_gap_f1argmax_mean": 0.021555886444106533,
+        "f1_gap_f1argmax_sd": 0.020540258311174578,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.018928201511654315,
+          0.024759191656667727
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 2.836359113216918e-32,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 14,
+        "f1_gap_f1argmax_n_positive": 186,
+        "leaky_f1_youden_mean": 0.6131063514675483,
+        "honest_f1_youden_mean": 0.5568175405690633,
+        "leaky_acc_mean": 0.6231071428571429,
+        "honest_acc_mean": 0.581392857142857,
+        "n_train": 420,
+        "n_val": 140
+      },
+      "budget_control": {
+        "f1_gap_youden_mean": 0.05695767891052405,
+        "f1_gap_youden_sd": 0.1300008521645922,
+        "f1_gap_youden_bca_ci_95": [
+          0.039680518256100354,
+          0.07550957363229184
+        ],
+        "f1_gap_youden_wilcoxon_p": 1.7351509765639502e-09,
+        "f1_gap_youden_n_negative": 52,
+        "f1_gap_youden_n_zero": 4,
+        "f1_gap_youden_n_positive": 144,
+        "acc_gap_mean": 0.0435,
+        "acc_gap_sd": 0.03442534083909717,
+        "acc_gap_bca_ci_95": [
+          0.03900000000000001,
+          0.048480698871516716
+        ],
+        "acc_gap_wilcoxon_p": 2.8642700437328827e-31,
+        "acc_gap_n_negative": 3,
+        "acc_gap_n_zero": 10,
+        "acc_gap_n_positive": 187,
+        "f1_gap_f1argmax_mean": 0.02211761264060516,
+        "f1_gap_f1argmax_sd": 0.021427089266791134,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.019479202509943432,
+          0.025560687693662584
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 6.036609013600406e-32,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 16,
+        "f1_gap_f1argmax_n_positive": 184,
+        "leaky_f1_youden_mean": 0.6131063514675483,
+        "honest_f1_youden_mean": 0.5561486725570244,
+        "leaky_acc_mean": 0.6231071428571429,
+        "honest_acc_mean": 0.5796071428571428,
+        "n_train": 420,
+        "n_val": 112
+      },
+      "differences": {
+        "f1_youden": {
+          "gap_unmatched_mean": 0.052003531249702306,
+          "gap_matched_mean": 0.05628881089848507,
+          "gap_budget_control_mean": 0.05695767891052405,
+          "matched_minus_unmatched_mean": 0.004285279648782772,
+          "matched_minus_unmatched_bca_ci_95": [
+            -0.01091534123808687,
+            0.019899694612712418
+          ],
+          "matched_minus_unmatched_wilcoxon_p": 0.5863066718339724,
+          "matched_minus_budget_control_mean": -0.0006688680120389834,
+          "matched_minus_budget_control_bca_ci_95": [
+            -0.010385281209009955,
+            0.00805998780381807
+          ],
+          "matched_minus_budget_control_wilcoxon_p": 0.6953469800542981,
+          "budget_control_minus_unmatched_mean": 0.004954147660821756,
+          "budget_control_minus_unmatched_bca_ci_95": [
+            -0.009825876064492497,
+            0.020296117655171732
+          ],
+          "frac_attributable_to_size_paired": 0.012861972946169996,
+          "frac_attributable_to_size_paired_bca_ci_95": [
+            -0.1613796468020489,
+            0.20894647428724553
+          ],
+          "frac_attributable_raw_matched_vs_shipped": -0.08240362809606891,
+          "frac_attributable_raw_bca_ci_95": [
+            -0.48330324011030423,
+            0.18735945949555555
+          ],
+          "paired": true,
+          "pairing_note": "All arms share the seed, the generated data, the permutation, and the test split, so every difference here is paired on seed. matched vs budget_control additionally share the classifier and the LEAKY threshold, and their selection splits are nested."
+        },
+        "acc": {
+          "gap_unmatched_mean": 0.04567857142857143,
+          "gap_matched_mean": 0.041714285714285725,
+          "gap_budget_control_mean": 0.0435,
+          "matched_minus_unmatched_mean": -0.003964285714285705,
+          "matched_minus_unmatched_bca_ci_95": [
+            -0.009357142857142847,
+            0.0008214285714285777
+          ],
+          "matched_minus_unmatched_wilcoxon_p": 0.4850074827855433,
+          "matched_minus_budget_control_mean": -0.0017857142857142802,
+          "matched_minus_budget_control_bca_ci_95": [
+            -0.005107142857142853,
+            0.0013571428571428653
+          ],
+          "matched_minus_budget_control_wilcoxon_p": 0.3836529628093107,
+          "budget_control_minus_unmatched_mean": -0.0021785714285714242,
+          "budget_control_minus_unmatched_bca_ci_95": [
+            -0.00707142857142857,
+            0.0021428571428571486
+          ],
+          "frac_attributable_to_size_paired": 0.03909304143862363,
+          "frac_attributable_to_size_paired_bca_ci_95": [
+            -0.031121310228012344,
+            0.11119460523837926
+          ],
+          "frac_attributable_raw_matched_vs_shipped": 0.08678655199374491,
+          "frac_attributable_raw_bca_ci_95": [
+            -0.020421646494710958,
+            0.19032108082035254
+          ],
+          "paired": true,
+          "pairing_note": "All arms share the seed, the generated data, the permutation, and the test split, so every difference here is paired on seed. matched vs budget_control additionally share the classifier and the LEAKY threshold, and their selection splits are nested."
+        }
+      }
+    },
+    "0.8": {
+      "n_seeds": 200,
+      "unmatched": {
+        "f1_gap_youden_mean": 0.04307300009846927,
+        "f1_gap_youden_sd": 0.0645542867767738,
+        "f1_gap_youden_bca_ci_95": [
+          0.034569704156243136,
+          0.05245215174916018
+        ],
+        "f1_gap_youden_wilcoxon_p": 9.743243517077414e-18,
+        "f1_gap_youden_n_negative": 37,
+        "f1_gap_youden_n_zero": 5,
+        "f1_gap_youden_n_positive": 158,
+        "acc_gap_mean": 0.03578571428571429,
+        "acc_gap_sd": 0.02716372417367488,
+        "acc_gap_bca_ci_95": [
+          0.03225,
+          0.03975
+        ],
+        "acc_gap_wilcoxon_p": 6.7096518482627325e-34,
+        "acc_gap_n_negative": 1,
+        "acc_gap_n_zero": 4,
+        "acc_gap_n_positive": 195,
+        "f1_gap_f1argmax_mean": 0.03383057225045639,
+        "f1_gap_f1argmax_sd": 0.029857219479053575,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.030051643035442412,
+          0.0383403189179972
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 2.0176145602854456e-33,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 7,
+        "f1_gap_f1argmax_n_positive": 193,
+        "leaky_f1_youden_mean": 0.7011491066764473,
+        "honest_f1_youden_mean": 0.6580761065779778,
+        "leaky_acc_mean": 0.7033571428571429,
+        "honest_acc_mean": 0.6675714285714287,
+        "n_train": 448,
+        "n_val": 112
+      },
+      "matched": {
+        "f1_gap_youden_mean": 0.039347614018242896,
+        "f1_gap_youden_sd": 0.05962384371184773,
+        "f1_gap_youden_bca_ci_95": [
+          0.03132091922465952,
+          0.04784376177812861
+        ],
+        "f1_gap_youden_wilcoxon_p": 1.4903226962992242e-17,
+        "f1_gap_youden_n_negative": 40,
+        "f1_gap_youden_n_zero": 4,
+        "f1_gap_youden_n_positive": 156,
+        "acc_gap_mean": 0.03625,
+        "acc_gap_sd": 0.027087614278443077,
+        "acc_gap_bca_ci_95": [
+          0.03281021309506419,
+          0.040285714285714286
+        ],
+        "acc_gap_wilcoxon_p": 2.4960536485520467e-32,
+        "acc_gap_n_negative": 2,
+        "acc_gap_n_zero": 7,
+        "acc_gap_n_positive": 191,
+        "f1_gap_f1argmax_mean": 0.030816980584640732,
+        "f1_gap_f1argmax_sd": 0.024004207496617067,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.027700269929332954,
+          0.034359663180389396
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 4.293324680382192e-33,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 9,
+        "f1_gap_f1argmax_n_positive": 191,
+        "leaky_f1_youden_mean": 0.6965462815561386,
+        "honest_f1_youden_mean": 0.6571986675378958,
+        "leaky_acc_mean": 0.70125,
+        "honest_acc_mean": 0.665,
+        "n_train": 420,
+        "n_val": 140
+      },
+      "budget_control": {
+        "f1_gap_youden_mean": 0.042918879557727795,
+        "f1_gap_youden_sd": 0.06693819170547992,
+        "f1_gap_youden_bca_ci_95": [
+          0.03413732623564197,
+          0.052373641413816625
+        ],
+        "f1_gap_youden_wilcoxon_p": 1.3007958098913596e-16,
+        "f1_gap_youden_n_negative": 45,
+        "f1_gap_youden_n_zero": 3,
+        "f1_gap_youden_n_positive": 152,
+        "acc_gap_mean": 0.03735714285714286,
+        "acc_gap_sd": 0.029199047079023724,
+        "acc_gap_bca_ci_95": [
+          0.033499999999999995,
+          0.041571428571428565
+        ],
+        "acc_gap_wilcoxon_p": 1.7009072136102594e-32,
+        "acc_gap_n_negative": 3,
+        "acc_gap_n_zero": 8,
+        "acc_gap_n_positive": 189,
+        "f1_gap_f1argmax_mean": 0.03108247981527512,
+        "f1_gap_f1argmax_sd": 0.025534660056715182,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.027842674568772034,
+          0.034976104157034865
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 6.5007525036808414e-34,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 4,
+        "f1_gap_f1argmax_n_positive": 196,
+        "leaky_f1_youden_mean": 0.6965462815561386,
+        "honest_f1_youden_mean": 0.6536274019984109,
+        "leaky_acc_mean": 0.70125,
+        "honest_acc_mean": 0.6638928571428572,
+        "n_train": 420,
+        "n_val": 112
+      },
+      "differences": {
+        "f1_youden": {
+          "gap_unmatched_mean": 0.04307300009846927,
+          "gap_matched_mean": 0.039347614018242896,
+          "gap_budget_control_mean": 0.042918879557727795,
+          "matched_minus_unmatched_mean": -0.0037253860802263705,
+          "matched_minus_unmatched_bca_ci_95": [
+            -0.01350414711706287,
+            0.006056272654175192
+          ],
+          "matched_minus_unmatched_wilcoxon_p": 0.6631264226973533,
+          "matched_minus_budget_control_mean": -0.003571265539484901,
+          "matched_minus_budget_control_bca_ci_95": [
+            -0.00989303153604919,
+            0.0021465007878683586
+          ],
+          "matched_minus_budget_control_wilcoxon_p": 0.3691067553335603,
+          "budget_control_minus_unmatched_mean": -0.00015412054074146947,
+          "budget_control_minus_unmatched_bca_ci_95": [
+            -0.009564910057259611,
+            0.009056072456814848
+          ],
+          "frac_attributable_to_size_paired": 0.08291192931350548,
+          "frac_attributable_to_size_paired_bca_ci_95": [
+            -0.052412230750327436,
+            0.23039144835706432
+          ],
+          "frac_attributable_raw_matched_vs_shipped": 0.0864900534374146,
+          "frac_attributable_raw_bca_ci_95": [
+            -0.15509898351115092,
+            0.2826441754363801
+          ],
+          "paired": true,
+          "pairing_note": "All arms share the seed, the generated data, the permutation, and the test split, so every difference here is paired on seed. matched vs budget_control additionally share the classifier and the LEAKY threshold, and their selection splits are nested."
+        },
+        "acc": {
+          "gap_unmatched_mean": 0.03578571428571429,
+          "gap_matched_mean": 0.03625,
+          "gap_budget_control_mean": 0.03735714285714286,
+          "matched_minus_unmatched_mean": 0.0004642857142857093,
+          "matched_minus_unmatched_bca_ci_95": [
+            -0.0035357142857142896,
+            0.004321428571428566
+          ],
+          "matched_minus_unmatched_wilcoxon_p": 0.6144424657154501,
+          "matched_minus_budget_control_mean": -0.001107142857142857,
+          "matched_minus_budget_control_bca_ci_95": [
+            -0.004464285714285713,
+            0.001714285714285716
+          ],
+          "matched_minus_budget_control_wilcoxon_p": 0.8662766662103675,
+          "budget_control_minus_unmatched_mean": 0.0015714285714285665,
+          "budget_control_minus_unmatched_bca_ci_95": [
+            -0.0029285714285714297,
+            0.005785714285714283
+          ],
+          "frac_attributable_to_size_paired": 0.030938123752495144,
+          "frac_attributable_to_size_paired_bca_ci_95": [
+            -0.04628783250674902,
+            0.12181761416772767
+          ],
+          "frac_attributable_raw_matched_vs_shipped": -0.01297405189620743,
+          "frac_attributable_raw_bca_ci_95": [
+            -0.12799938927575594,
+            0.09809362650228552
+          ],
+          "paired": true,
+          "pairing_note": "All arms share the seed, the generated data, the permutation, and the test split, so every difference here is paired on seed. matched vs budget_control additionally share the classifier and the LEAKY threshold, and their selection splits are nested."
+        }
+      }
+    },
+    "0.9": {
+      "n_seeds": 200,
+      "unmatched": {
+        "f1_gap_youden_mean": 0.034752290379560506,
+        "f1_gap_youden_sd": 0.03960512057186067,
+        "f1_gap_youden_bca_ci_95": [
+          0.02968201531754717,
+          0.040520463105185776
+        ],
+        "f1_gap_youden_wilcoxon_p": 1.2752155878253091e-26,
+        "f1_gap_youden_n_negative": 20,
+        "f1_gap_youden_n_zero": 2,
+        "f1_gap_youden_n_positive": 178,
+        "acc_gap_mean": 0.03360714285714286,
+        "acc_gap_sd": 0.02359580740219197,
+        "acc_gap_bca_ci_95": [
+          0.03064285714285715,
+          0.03714285714285715
+        ],
+        "acc_gap_wilcoxon_p": 1.8812432079340662e-33,
+        "acc_gap_n_negative": 1,
+        "acc_gap_n_zero": 6,
+        "acc_gap_n_positive": 193,
+        "f1_gap_f1argmax_mean": 0.031110473364915195,
+        "f1_gap_f1argmax_sd": 0.02604426505374561,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.027797198124423605,
+          0.035050397477701854
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 2.017645077497827e-33,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 7,
+        "f1_gap_f1argmax_n_positive": 193,
+        "leaky_f1_youden_mean": 0.7960788963103912,
+        "honest_f1_youden_mean": 0.7613266059308308,
+        "leaky_acc_mean": 0.7992142857142858,
+        "honest_acc_mean": 0.7656071428571428,
+        "n_train": 448,
+        "n_val": 112
+      },
+      "matched": {
+        "f1_gap_youden_mean": 0.033372375358085946,
+        "f1_gap_youden_sd": 0.0373810108771031,
+        "f1_gap_youden_bca_ci_95": [
+          0.02842131779205597,
+          0.03886549691400904
+        ],
+        "f1_gap_youden_wilcoxon_p": 2.1639497499798166e-29,
+        "f1_gap_youden_n_negative": 16,
+        "f1_gap_youden_n_zero": 1,
+        "f1_gap_youden_n_positive": 183,
+        "acc_gap_mean": 0.030214285714285714,
+        "acc_gap_sd": 0.022832789431051746,
+        "acc_gap_bca_ci_95": [
+          0.027285714285714288,
+          0.03353571428571429
+        ],
+        "acc_gap_wilcoxon_p": 1.641883576584363e-32,
+        "acc_gap_n_negative": 2,
+        "acc_gap_n_zero": 10,
+        "acc_gap_n_positive": 188,
+        "f1_gap_f1argmax_mean": 0.027508611923056776,
+        "f1_gap_f1argmax_sd": 0.02431803750352624,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.02441189565410749,
+          0.031109134425665073
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 2.9431321070353902e-33,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 8,
+        "f1_gap_f1argmax_n_positive": 192,
+        "leaky_f1_youden_mean": 0.7933117904435725,
+        "honest_f1_youden_mean": 0.7599394150854866,
+        "leaky_acc_mean": 0.7961071428571429,
+        "honest_acc_mean": 0.7658928571428573,
+        "n_train": 420,
+        "n_val": 140
+      },
+      "budget_control": {
+        "f1_gap_youden_mean": 0.03618052474614783,
+        "f1_gap_youden_sd": 0.04040542873974343,
+        "f1_gap_youden_bca_ci_95": [
+          0.03100998486372173,
+          0.04220992596517262
+        ],
+        "f1_gap_youden_wilcoxon_p": 1.2650431589930675e-29,
+        "f1_gap_youden_n_negative": 16,
+        "f1_gap_youden_n_zero": 3,
+        "f1_gap_youden_n_positive": 181,
+        "acc_gap_mean": 0.03289285714285714,
+        "acc_gap_sd": 0.024586598390763086,
+        "acc_gap_bca_ci_95": [
+          0.029714285714285714,
+          0.03659551272764566
+        ],
+        "acc_gap_wilcoxon_p": 4.9995029621197324e-33,
+        "acc_gap_n_negative": 2,
+        "acc_gap_n_zero": 7,
+        "acc_gap_n_positive": 191,
+        "f1_gap_f1argmax_mean": 0.02848878400208402,
+        "f1_gap_f1argmax_sd": 0.024857020672305854,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.025417026047901164,
+          0.032372156264454416
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 1.3831803461251225e-33,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 6,
+        "f1_gap_f1argmax_n_positive": 194,
+        "leaky_f1_youden_mean": 0.7933117904435725,
+        "honest_f1_youden_mean": 0.7571312656974247,
+        "leaky_acc_mean": 0.7961071428571429,
+        "honest_acc_mean": 0.7632142857142857,
+        "n_train": 420,
+        "n_val": 112
+      },
+      "differences": {
+        "f1_youden": {
+          "gap_unmatched_mean": 0.034752290379560506,
+          "gap_matched_mean": 0.033372375358085946,
+          "gap_budget_control_mean": 0.03618052474614783,
+          "matched_minus_unmatched_mean": -0.0013799150214745576,
+          "matched_minus_unmatched_bca_ci_95": [
+            -0.007149319379640338,
+            0.004300217210700638
+          ],
+          "matched_minus_unmatched_wilcoxon_p": 0.627231130006518,
+          "matched_minus_budget_control_mean": -0.00280814938806188,
+          "matched_minus_budget_control_bca_ci_95": [
+            -0.0068368590829114406,
+            0.0008976610354171085
+          ],
+          "matched_minus_budget_control_wilcoxon_p": 0.1600718902921665,
+          "budget_control_minus_unmatched_mean": 0.0014282343665873226,
+          "budget_control_minus_unmatched_bca_ci_95": [
+            -0.0037006024739682382,
+            0.0068387013009382725
+          ],
+          "frac_attributable_to_size_paired": 0.08080472847664429,
+          "frac_attributable_to_size_paired_bca_ci_95": [
+            -0.025297877232525093,
+            0.19481763733696222
+          ],
+          "frac_attributable_raw_matched_vs_shipped": 0.03970716768314514,
+          "frac_attributable_raw_bca_ci_95": [
+            -0.13826526940078984,
+            0.18565297926753868
+          ],
+          "paired": true,
+          "pairing_note": "All arms share the seed, the generated data, the permutation, and the test split, so every difference here is paired on seed. matched vs budget_control additionally share the classifier and the LEAKY threshold, and their selection splits are nested."
+        },
+        "acc": {
+          "gap_unmatched_mean": 0.03360714285714286,
+          "gap_matched_mean": 0.030214285714285714,
+          "gap_budget_control_mean": 0.03289285714285714,
+          "matched_minus_unmatched_mean": -0.003392857142857148,
+          "matched_minus_unmatched_bca_ci_95": [
+            -0.007214285714285723,
+            0.0003928571428571425
+          ],
+          "matched_minus_unmatched_wilcoxon_p": 0.0853679265909105,
+          "matched_minus_budget_control_mean": -0.0026785714285714273,
+          "matched_minus_budget_control_bca_ci_95": [
+            -0.0052499999999999995,
+            -0.0004285714285714306
+          ],
+          "matched_minus_budget_control_wilcoxon_p": 0.05254750742794831,
+          "budget_control_minus_unmatched_mean": -0.0007142857142857207,
+          "budget_control_minus_unmatched_bca_ci_95": [
+            -0.00435714285714286,
+            0.0029285714285714258
+          ],
+          "frac_attributable_to_size_paired": 0.07970244420828897,
+          "frac_attributable_to_size_paired_bca_ci_95": [
+            0.011389751452483205,
+            0.15409413886630835
+          ],
+          "frac_attributable_raw_matched_vs_shipped": 0.10095642933049963,
+          "frac_attributable_raw_bca_ci_95": [
+            -0.012303612518021699,
+            0.20699774227173698
+          ],
+          "paired": true,
+          "pairing_note": "All arms share the seed, the generated data, the permutation, and the test split, so every difference here is paired on seed. matched vs budget_control additionally share the classifier and the LEAKY threshold, and their selection splits are nested."
+        }
+      }
+    },
+    "0.95": {
+      "n_seeds": 200,
+      "unmatched": {
+        "f1_gap_youden_mean": 0.026198126305871833,
+        "f1_gap_youden_sd": 0.02534698236972876,
+        "f1_gap_youden_bca_ci_95": [
+          0.022923619023221587,
+          0.02993557281918229
+        ],
+        "f1_gap_youden_wilcoxon_p": 1.831976438048976e-31,
+        "f1_gap_youden_n_negative": 11,
+        "f1_gap_youden_n_zero": 6,
+        "f1_gap_youden_n_positive": 183,
+        "acc_gap_mean": 0.024571428571428574,
+        "acc_gap_sd": 0.020413126255317604,
+        "acc_gap_bca_ci_95": [
+          0.021892857142857148,
+          0.02753571428571429
+        ],
+        "acc_gap_wilcoxon_p": 3.462906467200908e-32,
+        "acc_gap_n_negative": 0,
+        "acc_gap_n_zero": 15,
+        "acc_gap_n_positive": 185,
+        "f1_gap_f1argmax_mean": 0.023326743029439476,
+        "f1_gap_f1argmax_sd": 0.018457542341828226,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.021024500848602336,
+          0.026085927841528436
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 1.944229208143287e-32,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 13,
+        "f1_gap_f1argmax_n_positive": 187,
+        "leaky_f1_youden_mean": 0.8564728816791464,
+        "honest_f1_youden_mean": 0.8302747553732747,
+        "leaky_acc_mean": 0.8577142857142858,
+        "honest_acc_mean": 0.8331428571428572,
+        "n_train": 448,
+        "n_val": 112
+      },
+      "matched": {
+        "f1_gap_youden_mean": 0.02603586704937414,
+        "f1_gap_youden_sd": 0.02954954990371608,
+        "f1_gap_youden_bca_ci_95": [
+          0.02230416584863663,
+          0.030577098476577975
+        ],
+        "f1_gap_youden_wilcoxon_p": 2.0795504623273643e-29,
+        "f1_gap_youden_n_negative": 17,
+        "f1_gap_youden_n_zero": 9,
+        "f1_gap_youden_n_positive": 174,
+        "acc_gap_mean": 0.025035714285714286,
+        "acc_gap_sd": 0.020753885706556948,
+        "acc_gap_bca_ci_95": [
+          0.022321428571428575,
+          0.02803571428571428
+        ],
+        "acc_gap_wilcoxon_p": 1.5196279027625174e-31,
+        "acc_gap_n_negative": 2,
+        "acc_gap_n_zero": 17,
+        "acc_gap_n_positive": 181,
+        "f1_gap_f1argmax_mean": 0.023881201613200377,
+        "f1_gap_f1argmax_sd": 0.019037733906251467,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.021391967199675975,
+          0.026771449089483517
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 6.262626540934256e-33,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 10,
+        "f1_gap_f1argmax_n_positive": 190,
+        "leaky_f1_youden_mean": 0.8531941518166625,
+        "honest_f1_youden_mean": 0.8271582847672883,
+        "leaky_acc_mean": 0.856,
+        "honest_acc_mean": 0.8309642857142856,
+        "n_train": 420,
+        "n_val": 140
+      },
+      "budget_control": {
+        "f1_gap_youden_mean": 0.025813072378430668,
+        "f1_gap_youden_sd": 0.02603500317244804,
+        "f1_gap_youden_bca_ci_95": [
+          0.022460638904316942,
+          0.029682379311198548
+        ],
+        "f1_gap_youden_wilcoxon_p": 6.081484420957918e-29,
+        "f1_gap_youden_n_negative": 18,
+        "f1_gap_youden_n_zero": 7,
+        "f1_gap_youden_n_positive": 175,
+        "acc_gap_mean": 0.025857142857142853,
+        "acc_gap_sd": 0.02037440547152533,
+        "acc_gap_bca_ci_95": [
+          0.02321428571428571,
+          0.028892857142857133
+        ],
+        "acc_gap_wilcoxon_p": 2.192080800156901e-32,
+        "acc_gap_n_negative": 2,
+        "acc_gap_n_zero": 12,
+        "acc_gap_n_positive": 186,
+        "f1_gap_f1argmax_mean": 0.024960821729396673,
+        "f1_gap_f1argmax_sd": 0.018891310167585742,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.022545124041942984,
+          0.02785534902475516
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 9.13620425088645e-33,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 11,
+        "f1_gap_f1argmax_n_positive": 189,
+        "leaky_f1_youden_mean": 0.8531941518166625,
+        "honest_f1_youden_mean": 0.8273810794382318,
+        "leaky_acc_mean": 0.856,
+        "honest_acc_mean": 0.8301428571428571,
+        "n_train": 420,
+        "n_val": 112
+      },
+      "differences": {
+        "f1_youden": {
+          "gap_unmatched_mean": 0.026198126305871833,
+          "gap_matched_mean": 0.02603586704937414,
+          "gap_budget_control_mean": 0.025813072378430668,
+          "matched_minus_unmatched_mean": -0.00016225925649769157,
+          "matched_minus_unmatched_bca_ci_95": [
+            -0.0044002463480882735,
+            0.004363697937997517
+          ],
+          "matched_minus_unmatched_wilcoxon_p": 0.62899855174458,
+          "matched_minus_budget_control_mean": 0.00022279467094347584,
+          "matched_minus_budget_control_bca_ci_95": [
+            -0.0023365167855527082,
+            0.0035293012025049792
+          ],
+          "matched_minus_budget_control_wilcoxon_p": 0.28611976023030417,
+          "budget_control_minus_unmatched_mean": -0.0003850539274411674,
+          "budget_control_minus_unmatched_bca_ci_95": [
+            -0.004384273221844261,
+            0.003437492332998586
+          ],
+          "frac_attributable_to_size_paired": -0.008504221574561132,
+          "frac_attributable_to_size_paired_bca_ci_95": [
+            -0.13489458528299383,
+            0.08915966475079608
+          ],
+          "frac_attributable_raw_matched_vs_shipped": 0.006193544324630769,
+          "frac_attributable_raw_bca_ci_95": [
+            -0.1830202662424746,
+            0.1596959194744157
+          ],
+          "paired": true,
+          "pairing_note": "All arms share the seed, the generated data, the permutation, and the test split, so every difference here is paired on seed. matched vs budget_control additionally share the classifier and the LEAKY threshold, and their selection splits are nested."
+        },
+        "acc": {
+          "gap_unmatched_mean": 0.024571428571428574,
+          "gap_matched_mean": 0.025035714285714286,
+          "gap_budget_control_mean": 0.025857142857142853,
+          "matched_minus_unmatched_mean": 0.00046428571428571265,
+          "matched_minus_unmatched_bca_ci_95": [
+            -0.0028214285714285754,
+            0.0037500000000000007
+          ],
+          "matched_minus_unmatched_wilcoxon_p": 0.8184615336132787,
+          "matched_minus_budget_control_mean": -0.0008214285714285713,
+          "matched_minus_budget_control_bca_ci_95": [
+            -0.002892857142857143,
+            0.0012142857142857116
+          ],
+          "matched_minus_budget_control_wilcoxon_p": 0.25115535837267466,
+          "budget_control_minus_unmatched_mean": 0.001285714285714284,
+          "budget_control_minus_unmatched_bca_ci_95": [
+            -0.0017857142857142848,
+            0.004357142857142856
+          ],
+          "frac_attributable_to_size_paired": 0.03343023255813934,
+          "frac_attributable_to_size_paired_bca_ci_95": [
+            -0.04871447902571041,
+            0.1136162778486263
+          ],
+          "frac_attributable_raw_matched_vs_shipped": -0.018895348837209218,
+          "frac_attributable_raw_bca_ci_95": [
+            -0.1628992543545278,
+            0.10469433289043148
+          ],
+          "paired": true,
+          "pairing_note": "All arms share the seed, the generated data, the permutation, and the test split, so every difference here is paired on seed. matched vs budget_control additionally share the classifier and the LEAKY threshold, and their selection splits are nested."
+        }
+      }
+    },
+    "0.985": {
+      "n_seeds": 200,
+      "unmatched": {
+        "f1_gap_youden_mean": 0.022543208734438613,
+        "f1_gap_youden_sd": 0.02003598989476651,
+        "f1_gap_youden_bca_ci_95": [
+          0.020013925971235417,
+          0.025614321931716876
+        ],
+        "f1_gap_youden_wilcoxon_p": 6.568454480974411e-33,
+        "f1_gap_youden_n_negative": 4,
+        "f1_gap_youden_n_zero": 9,
+        "f1_gap_youden_n_positive": 187,
+        "acc_gap_mean": 0.021500000000000005,
+        "acc_gap_sd": 0.017685680769381887,
+        "acc_gap_bca_ci_95": [
+          0.019285714285714288,
+          0.024249999999999997
+        ],
+        "acc_gap_wilcoxon_p": 4.821653558655284e-32,
+        "acc_gap_n_negative": 0,
+        "acc_gap_n_zero": 16,
+        "acc_gap_n_positive": 184,
+        "f1_gap_f1argmax_mean": 0.02118660067167907,
+        "f1_gap_f1argmax_sd": 0.01625728122220199,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.01906673760157672,
+          0.023672673654635688
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 4.137775343180976e-32,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 15,
+        "f1_gap_f1argmax_n_positive": 185,
+        "leaky_f1_youden_mean": 0.9205590278639785,
+        "honest_f1_youden_mean": 0.8980158191295399,
+        "leaky_acc_mean": 0.9211428571428572,
+        "honest_acc_mean": 0.8996428571428572,
+        "n_train": 448,
+        "n_val": 112
+      },
+      "matched": {
+        "f1_gap_youden_mean": 0.021356283965664236,
+        "f1_gap_youden_sd": 0.019958238275244865,
+        "f1_gap_youden_bca_ci_95": [
+          0.018851025691581848,
+          0.02438557961330849
+        ],
+        "f1_gap_youden_wilcoxon_p": 1.721761575186489e-32,
+        "f1_gap_youden_n_negative": 8,
+        "f1_gap_youden_n_zero": 10,
+        "f1_gap_youden_n_positive": 182,
+        "acc_gap_mean": 0.02042857142857143,
+        "acc_gap_sd": 0.017599214049073702,
+        "acc_gap_bca_ci_95": [
+          0.018178571428571436,
+          0.023142857142857142
+        ],
+        "acc_gap_wilcoxon_p": 3.208406292468712e-31,
+        "acc_gap_n_negative": 0,
+        "acc_gap_n_zero": 21,
+        "acc_gap_n_positive": 179,
+        "f1_gap_f1argmax_mean": 0.019415699019628863,
+        "f1_gap_f1argmax_sd": 0.014843937764943853,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.0175023374444562,
+          0.02167090114010112
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 1.332765451665438e-32,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 12,
+        "f1_gap_f1argmax_n_positive": 188,
+        "leaky_f1_youden_mean": 0.9186835014161013,
+        "honest_f1_youden_mean": 0.8973272174504371,
+        "leaky_acc_mean": 0.9198571428571428,
+        "honest_acc_mean": 0.8994285714285715,
+        "n_train": 420,
+        "n_val": 140
+      },
+      "budget_control": {
+        "f1_gap_youden_mean": 0.021796970670596008,
+        "f1_gap_youden_sd": 0.02200673682338957,
+        "f1_gap_youden_bca_ci_95": [
+          0.019106861397569754,
+          0.025255002186106896
+        ],
+        "f1_gap_youden_wilcoxon_p": 1.426617008375911e-32,
+        "f1_gap_youden_n_negative": 5,
+        "f1_gap_youden_n_zero": 11,
+        "f1_gap_youden_n_positive": 184,
+        "acc_gap_mean": 0.020892857142857144,
+        "acc_gap_sd": 0.01911992363604574,
+        "acc_gap_bca_ci_95": [
+          0.018500000000000006,
+          0.02378571428571429
+        ],
+        "acc_gap_wilcoxon_p": 2.1997915500712055e-31,
+        "acc_gap_n_negative": 0,
+        "acc_gap_n_zero": 20,
+        "acc_gap_n_positive": 180,
+        "f1_gap_f1argmax_mean": 0.01911689867076462,
+        "f1_gap_f1argmax_sd": 0.014597921263356135,
+        "f1_gap_f1argmax_bca_ci_95": [
+          0.01729819841856566,
+          0.021321357989954406
+        ],
+        "f1_gap_f1argmax_wilcoxon_p": 1.332786697634237e-32,
+        "f1_gap_f1argmax_n_negative": 0,
+        "f1_gap_f1argmax_n_zero": 12,
+        "f1_gap_f1argmax_n_positive": 188,
+        "leaky_f1_youden_mean": 0.9186835014161013,
+        "honest_f1_youden_mean": 0.8968865307455053,
+        "leaky_acc_mean": 0.9198571428571428,
+        "honest_acc_mean": 0.8989642857142858,
+        "n_train": 420,
+        "n_val": 112
+      },
+      "differences": {
+        "f1_youden": {
+          "gap_unmatched_mean": 0.022543208734438613,
+          "gap_matched_mean": 0.021356283965664236,
+          "gap_budget_control_mean": 0.021796970670596008,
+          "matched_minus_unmatched_mean": -0.0011869247687743738,
+          "matched_minus_unmatched_bca_ci_95": [
+            -0.004080391978239142,
+            0.0016398059344866736
+          ],
+          "matched_minus_unmatched_wilcoxon_p": 0.6741642533381809,
+          "matched_minus_budget_control_mean": -0.0004406867049317742,
+          "matched_minus_budget_control_bca_ci_95": [
+            -0.0022089549194514026,
+            0.0014196581665269473
+          ],
+          "matched_minus_budget_control_wilcoxon_p": 0.5065477691659193,
+          "budget_control_minus_unmatched_mean": -0.0007462380638425997,
+          "budget_control_minus_unmatched_bca_ci_95": [
+            -0.003638752233487403,
+            0.002217396100749973
+          ],
+          "frac_attributable_to_size_paired": 0.019548534998859654,
+          "frac_attributable_to_size_paired_bca_ci_95": [
+            -0.06388595970838215,
+            0.09747103210192898
+          ],
+          "frac_attributable_raw_matched_vs_shipped": 0.05265110139184159,
+          "frac_attributable_raw_bca_ci_95": [
+            -0.07368911368587101,
+            0.1712793859167265
+          ],
+          "paired": true,
+          "pairing_note": "All arms share the seed, the generated data, the permutation, and the test split, so every difference here is paired on seed. matched vs budget_control additionally share the classifier and the LEAKY threshold, and their selection splits are nested."
+        },
+        "acc": {
+          "gap_unmatched_mean": 0.021500000000000005,
+          "gap_matched_mean": 0.02042857142857143,
+          "gap_budget_control_mean": 0.020892857142857144,
+          "matched_minus_unmatched_mean": -0.001071428571428571,
+          "matched_minus_unmatched_bca_ci_95": [
+            -0.0036428571428571417,
+            0.001500000000000004
+          ],
+          "matched_minus_unmatched_wilcoxon_p": 0.5799214410184554,
+          "matched_minus_budget_control_mean": -0.0004642857142857149,
+          "matched_minus_budget_control_bca_ci_95": [
+            -0.002142857142857145,
+            0.0011428571428571416
+          ],
+          "matched_minus_budget_control_wilcoxon_p": 0.5798538818277945,
+          "budget_control_minus_unmatched_mean": -0.0006071428571428561,
+          "budget_control_minus_unmatched_bca_ci_95": [
+            -0.003178571428571428,
+            0.0020517472168318303
+          ],
+          "frac_attributable_to_size_paired": 0.02159468438538196,
+          "frac_attributable_to_size_paired_bca_ci_95": [
+            -0.055550322555798136,
+            0.10320882039655141
+          ],
+          "frac_attributable_raw_matched_vs_shipped": 0.04983388704318947,
+          "frac_attributable_raw_bca_ci_95": [
+            -0.07334525939177095,
+            0.1620694462720573
+          ],
+          "paired": true,
+          "pairing_note": "All arms share the seed, the generated data, the permutation, and the test split, so every difference here is paired on seed. matched vs budget_control additionally share the classifier and the LEAKY threshold, and their selection splits are nested."
+        }
+      }
+    }
+  },
+  "accuracy_nonnegativity": {
+    "n_replicates": 1000,
+    "n_negative": 5,
+    "n_zero": 47,
+    "n_positive": 948,
+    "n_negative_by_target_auroc": {
+      "0.7": 3,
+      "0.8": 1,
+      "0.9": 1,
+      "0.95": 0,
+      "0.985": 0
+    },
+    "n_balanced_replicates": 105,
+    "n_balanced_negative": 0,
+    "min_acc_gap_balanced": 0.0,
+    "n_imbalanced_replicates": 895,
+    "n_imbalanced_negative": 5,
+    "min_acc_gap_imbalanced": -0.0357142857142857,
+    "n_distinct_balanced_seeds": 21,
+    "test_pos_count_range": [
+      50,
+      85
+    ],
+    "f1_youden_n_negative_for_contrast": 139,
+    "argument": "Youden J = tpr - fpr = 2*balanced_accuracy - 1, so LEAKY's threshold is the exact maximizer of BALANCED accuracy over the test set's own ROC threshold set. On an exactly class-balanced test split raw accuracy equals balanced accuracy, and any threshold HONEST could select induces the same test predictions as some member of that set, so the accuracy gap is non-negative there by algebra. Negatives can only arise on class-imbalanced test splits, where raw accuracy weights the two error types unequally and Youden's objective is no longer the one being scored.",
+    "note_on_replicate_vs_seed_counting": "The test split is identical across the five operating points for a given seed (make_synthetic_data's permutation and the split RNG both depend only on the seed, not on target_auroc), so balanced replicates come in blocks of five. An independent check reporting '0 of 21 exactly-balanced' was counting distinct SEEDS; the replicate-level count is five times that."
+  },
+  "verdict": "SIZE_ASYMMETRY_NEGLIGIBLE; ACCURACY_GAP_NONNEGATIVE_ON_BALANCED_SPLITS",
+  "statement": "Mechanism 5's two arms select their decision thresholds on sets of different size: LEAKY on the 140 test points it is scored on, HONEST on 112 validation points (1.25x). Growing HONEST's selection split to 140 so the two match, holding the classifier, the test split and LEAKY's threshold exactly fixed, changes the F1-at-Youden gap at the audited pipeline's own operating point (0.985) from +0.0218 to +0.0214, i.e. 2.0% of the shipped +0.0225 gap is attributable to the size asymmetry rather than to threshold leakage; the accuracy gap moves by 2.2% of its shipped value. Across all five operating points the largest attributable share is 8.3%. The asymmetry is real and should be disclosed the way \u00a74.3 discloses Mechanism 3's 1.67x one, but it does not carry the finding: the great majority of the gap survives size-matching. Separately, 5 of 1000 shipped replicates have a negative accuracy gap, of which 0 of 105 exactly class-balanced replicates do -- consistent with the algebraic argument that at the Youden threshold the accuracy gap is non-negative whenever the test split is balanced, so \u00a74.5's withdrawn non-negativity caveat still applies to ACCURACY in the balanced case even though it no longer applies to F1.",
+  "runtime_seconds": 786.5829060077667
+}

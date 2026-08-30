@@ -1,0 +1,17 @@
+{
+  "id": "anonymous/exchangeable-sweep-n200",
+  "title": "exchangeable-sweep-n200",
+  "code_file": "run_exchangeable_sweep_n200.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": [],
+  "_anonymized": "The Kaggle kernel slug is namespaced by username; it is replaced with 'anonymous' for double-blind review. Restore your own username to push.",
+  "_note": "CPU-only (enable_gpu=false): this reruns code/73's exchangeable-candidate K-sweep at N_SEEDS=200 (code/98's local design), moved here only to escape local CPU contention, not because it needs an accelerator. enable_internet=false since the run is fully self-contained synthetic simulation (no external data)."
+}

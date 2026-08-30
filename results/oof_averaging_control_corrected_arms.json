@@ -1,0 +1,104 @@
+{
+  "config": {
+    "capacity": 128,
+    "n_seeds": 100,
+    "epochs": 45,
+    "n_samples": 700,
+    "target_auroc": 0.8,
+    "k_cv": 5,
+    "es_fraction_shipped": 0.15,
+    "oof_hold_fraction": 0.16666666666666666,
+    "geometry_note": "code/77's shared out-of-fold geometry: 94 of the 560 training samples are held out before folding for every arm equally, so |val_idx|~93 and |tr_idx|~373. Absolute AUROCs are therefore not comparable to code/55's, which runs on the full pool; the readout CONTRASTS are.",
+    "what_was_wrong": "code/55:122 imports ES_HOLD_FRACTION from code/02d and re-reads code/02d's own trained models, so its CLEAN_MATCHED arm is the uncorrected arm whose asymmetry code/77 shows accounts for the whole primary gap."
+  },
+  "by_readout": {
+    "averaged": {
+      "leaky_mean": 0.7525857142857143,
+      "cm_shipped_mean": 0.749569387755102,
+      "cm_corrected_mean": 0.7527102040816324,
+      "gap_vs_shipped_control": {
+        "gap_mean": 0.0030163265306122344,
+        "gap_bca_ci_95": [
+          0.0009692745282706596,
+          0.005330104531868172
+        ],
+        "wilcoxon_p": 0.017422237124353705,
+        "n_positive": 58,
+        "n_seeds": 100
+      },
+      "gap_vs_corrected_control": {
+        "gap_mean": -0.00012448979591837107,
+        "gap_bca_ci_95": [
+          -0.0022151411544511952,
+          0.0020503477404442737
+        ],
+        "wilcoxon_p": 0.5416562580572177,
+        "n_positive": 46,
+        "n_seeds": 100
+      },
+      "suppression_ratio_vs_averaged_shipped": 1.0,
+      "suppression_ratio_vs_averaged_corrected": 1.0
+    },
+    "single_model": {
+      "leaky_mean": 0.7140306122448979,
+      "cm_shipped_mean": 0.7051253061224488,
+      "cm_corrected_mean": 0.7125379591836734,
+      "gap_vs_shipped_control": {
+        "gap_mean": 0.008905306122448976,
+        "gap_bca_ci_95": [
+          0.00607519467209061,
+          0.012214662977696427
+        ],
+        "wilcoxon_p": 6.06873946901776e-07,
+        "n_positive": 68,
+        "n_seeds": 100
+      },
+      "gap_vs_corrected_control": {
+        "gap_mean": 0.0014926530612244914,
+        "gap_bca_ci_95": [
+          -0.0015561992500126058,
+          0.004351290902766989
+        ],
+        "wilcoxon_p": 0.16532217183885178,
+        "n_positive": 59,
+        "n_seeds": 100
+      },
+      "suppression_ratio_vs_averaged_shipped": 2.952368064952648,
+      "suppression_ratio_vs_averaged_corrected": -11.990163934425885
+    },
+    "oof_apparent": {
+      "leaky_mean": 0.8127469653152573,
+      "cm_shipped_mean": 0.8039626812061375,
+      "cm_corrected_mean": 0.8068452172631656,
+      "gap_vs_shipped_control": {
+        "gap_mean": 0.008784284109119704,
+        "gap_bca_ci_95": [
+          0.006619985942985353,
+          0.011382763646485083
+        ],
+        "wilcoxon_p": 3.07678042465927e-11,
+        "n_positive": 78,
+        "n_seeds": 100
+      },
+      "gap_vs_corrected_control": {
+        "gap_mean": 0.005901748052091578,
+        "gap_bca_ci_95": [
+          0.00438712416858814,
+          0.007548928576290912
+        ],
+        "wilcoxon_p": 1.1036456261261395e-10,
+        "n_positive": 79,
+        "n_seeds": 100
+      },
+      "suppression_ratio_vs_averaged_shipped": 2.9122457465958527,
+      "suppression_ratio_vs_averaged_corrected": -47.40748435286535
+    }
+  },
+  "verdict_single_model_gap_survives_correction": false,
+  "reading": "The first half of code/55's finding --- that removing the averaging step raises whatever gap is present --- is a property of the readout and is reported here against both controls. The second half, that the mechanism is therefore not benign at its source, requires the un-averaged gap against a SOUND control to be non-zero, which is what verdict_single_model_gap_survives_correction reports.",
+  "runtime_seconds": 108.80781698226929,
+  "outputs": {
+    "json": "results/oof_averaging_control_corrected_arms.json",
+    "script": "code/83_oof_averaging_control_corrected_arms.py"
+  }
+}

@@ -1,0 +1,465 @@
+{
+  "purpose": "The three severity axes on one comparable scale. Each is a max/min ratio with the other axes held fixed.",
+  "operating_point_axis": {
+    "min": 48.563829787233445,
+    "max": 68.25316455696164,
+    "per_cell": {
+      "15": 50.186440677967354,
+      "45": 48.563829787233445,
+      "135": 59.42105263157868,
+      "405": 68.25316455696164
+    },
+    "with_intervals": {
+      "15": {
+        "ratio": 50.186440677967354,
+        "ci_95": [
+          8.567375886524687,
+          null
+        ],
+        "denominator_ci_excludes_zero": false,
+        "note": "denominator interval includes zero: no finite upper confidence limit, the same defect that retired the 48.6x multiplier (Section 5.3)",
+        "numerator": [
+          15,
+          0.7
+        ],
+        "denominator": [
+          15,
+          0.985
+        ]
+      },
+      "45": {
+        "ratio": 48.563829787233445,
+        "ci_95": [
+          9.83564138369429,
+          null
+        ],
+        "denominator_ci_excludes_zero": false,
+        "note": "denominator interval includes zero: no finite upper confidence limit, the same defect that retired the 48.6x multiplier (Section 5.3)",
+        "numerator": [
+          45,
+          0.7
+        ],
+        "denominator": [
+          45,
+          0.985
+        ]
+      },
+      "135": {
+        "ratio": 59.42105263157868,
+        "ci_95": [
+          8.952134462603695,
+          null
+        ],
+        "denominator_ci_excludes_zero": false,
+        "note": "denominator interval includes zero: no finite upper confidence limit, the same defect that retired the 48.6x multiplier (Section 5.3)",
+        "numerator": [
+          135,
+          0.7
+        ],
+        "denominator": [
+          135,
+          0.985
+        ]
+      },
+      "405": {
+        "ratio": 68.25316455696164,
+        "ci_95": [
+          12.149532710280477,
+          null
+        ],
+        "denominator_ci_excludes_zero": false,
+        "note": "denominator interval includes zero: no finite upper confidence limit, the same defect that retired the 48.6x multiplier (Section 5.3)",
+        "numerator": [
+          405,
+          0.7
+        ],
+        "denominator": [
+          405,
+          0.985
+        ]
+      }
+    },
+    "denominator_sound": {
+      "15": {
+        "ratio": 5.167539267015753,
+        "ci_95": [
+          1.0822774623495761,
+          59.63897671395307
+        ],
+        "denominator_ci_excludes_zero": true,
+        "note": null,
+        "numerator": [
+          15,
+          0.7
+        ],
+        "denominator": [
+          15,
+          0.8
+        ]
+      },
+      "45": {
+        "ratio": 14.265624999999897,
+        "ci_95": [
+          3.7134564407824695,
+          225.65779628369017
+        ],
+        "denominator_ci_excludes_zero": true,
+        "note": null,
+        "numerator": [
+          45,
+          0.7
+        ],
+        "denominator": [
+          45,
+          0.95
+        ]
+      },
+      "135": {
+        "ratio": 2.518683770217521,
+        "ci_95": [
+          0.6525254389856948,
+          11.738530834468435
+        ],
+        "denominator_ci_excludes_zero": true,
+        "note": null,
+        "numerator": [
+          135,
+          0.7
+        ],
+        "denominator": [
+          135,
+          0.8
+        ]
+      },
+      "405": {
+        "ratio": 2.218017276840807,
+        "ci_95": [
+          0.690589333972835,
+          7.319075288611537
+        ],
+        "denominator_ci_excludes_zero": true,
+        "note": null,
+        "numerator": [
+          405,
+          0.7
+        ],
+        "denominator": [
+          405,
+          0.8
+        ]
+      }
+    },
+    "denominator_sound_range": [
+      2.218017276840807,
+      14.265624999999897
+    ],
+    "varied": "AUROC_0 from 0.70 to 0.985, mechanism and harness fixed",
+    "caveat": "all four AUROC_0=0.985 denominators have intervals that include zero, so the full-range spans have no finite upper confidence limit -- exactly the defect that retired the 48.6x multiplier. Use denominator_sound for cross-axis comparison.",
+    "source": "results/joint_severity_surface.json, within each K column"
+  },
+  "mechanism_and_harness_axis": {
+    "min": null,
+    "max": 38.25730925578457,
+    "reported_range_in_paper": [
+      9.2,
+      24.3
+    ],
+    "probit_interpolated_range_in_paper": [
+      15.1,
+      42.0
+    ],
+    "probit_interpolated_range_stale": "computed by code/82 from the same superseded shipped numerators (+0.0093, +0.0250) that this script used before this correction; code/82 has not itself been re-run against the corrected fold-matched-carveout severities (+0.0060, +0.0159), so this figure and the control/placebo-arm-matched figures derived from it (results/transport_check_arm_matching_sensitivity.json) remain stale pending that correction and should not be quoted as current",
+    "varied": "leakage mechanic AND harness, operating point matched to within 0.0030 AUROC",
+    "confound": "mechanic and harness are varied together; this design does not separate them, so this row bounds the mechanism axis from above",
+    "with_intervals": {
+      "real_feature_checkpoint_only_cap128": {
+        "ratio": 9.241127267041842,
+        "ci_95": [
+          2.4546327964252486,
+          142.49530956847596
+        ],
+        "denominator_ci_excludes_zero": true,
+        "note": null
+      },
+      "fidelity_extension_cap128": {
+        "ratio": 24.275914634146165,
+        "ci_95": [
+          9.07438987478468,
+          321.09370701725766
+        ],
+        "denominator_ci_excludes_zero": true,
+        "note": null
+      },
+      "reference_cell": {
+        "gap": 0.0006530612244898004,
+        "bca_ci_95": [
+          6.530612244898157e-05,
+          0.0012102040816326586
+        ],
+        "wilcoxon_p": 0.037005603355146195
+      }
+    },
+    "denominator_ci_excludes_zero": true,
+    "source": "results/operating_point_transport_check.json"
+  },
+  "candidate_count_axis": {
+    "min": 1.5932203389831097,
+    "max": 7.106666666666778,
+    "per_cell": {
+      "0.7": 1.8210064167510966,
+      "0.8": 4.242582897033194,
+      "0.9": 7.106666666666778,
+      "0.95": 4.324324324324619,
+      "0.985": 1.5932203389831097
+    },
+    "with_intervals": {
+      "0.7": {
+        "ratio": 1.8210064167510966,
+        "ci_95": [
+          0.48983877248909613,
+          7.06392224246904
+        ],
+        "denominator_ci_excludes_zero": true,
+        "note": null,
+        "numerator": [
+          405,
+          0.7
+        ],
+        "denominator": [
+          15,
+          0.7
+        ]
+      },
+      "0.8": {
+        "ratio": 4.242582897033194,
+        "ci_95": [
+          1.0445477792406255,
+          42.30225071390648
+        ],
+        "denominator_ci_excludes_zero": true,
+        "note": null,
+        "numerator": [
+          405,
+          0.8
+        ],
+        "denominator": [
+          15,
+          0.8
+        ]
+      },
+      "0.9": {
+        "ratio": 7.106666666666778,
+        "ci_95": [
+          0.2691257344041183,
+          null
+        ],
+        "denominator_ci_excludes_zero": false,
+        "note": "denominator interval includes zero: no finite upper confidence limit, the same defect that retired the 48.6x multiplier (Section 5.3)",
+        "numerator": [
+          45,
+          0.9
+        ],
+        "denominator": [
+          15,
+          0.9
+        ]
+      },
+      "0.95": {
+        "ratio": 4.324324324324619,
+        "ci_95": [
+          0.140180009034063,
+          null
+        ],
+        "denominator_ci_excludes_zero": false,
+        "note": "denominator interval includes zero: no finite upper confidence limit, the same defect that retired the 48.6x multiplier (Section 5.3)",
+        "numerator": [
+          45,
+          0.95
+        ],
+        "denominator": [
+          15,
+          0.95
+        ]
+      },
+      "0.985": {
+        "ratio": 1.5932203389831097,
+        "ci_95": [
+          -0.2765957446808522,
+          null
+        ],
+        "denominator_ci_excludes_zero": false,
+        "note": "denominator interval includes zero: no finite upper confidence limit, the same defect that retired the 48.6x multiplier (Section 5.3)",
+        "numerator": [
+          45,
+          0.985
+        ],
+        "denominator": [
+          15,
+          0.985
+        ]
+      }
+    },
+    "denominator_sound": {
+      "0.7": {
+        "ratio": 1.8210064167510966,
+        "ci_95": [
+          0.48983877248909613,
+          7.06392224246904
+        ],
+        "denominator_ci_excludes_zero": true,
+        "note": null,
+        "numerator": [
+          405,
+          0.7
+        ],
+        "denominator": [
+          15,
+          0.7
+        ]
+      },
+      "0.8": {
+        "ratio": 4.242582897033194,
+        "ci_95": [
+          1.0445477792406255,
+          42.30225071390648
+        ],
+        "denominator_ci_excludes_zero": true,
+        "note": null,
+        "numerator": [
+          405,
+          0.8
+        ],
+        "denominator": [
+          15,
+          0.8
+        ]
+      }
+    },
+    "denominator_sound_range": [
+      1.8210064167510966,
+      4.242582897033194
+    ],
+    "excluding_K15_column": {
+      "min": 1.1364605543709991,
+      "max": 1.4096916299559568,
+      "per_cell": {
+        "0.7": 1.1939769707705925,
+        "0.8": 1.3596196868008967,
+        "0.9": 1.1364605543709991,
+        "0.95": 1.4096916299559568,
+        "0.985": 1.2368421052631668
+      },
+      "with_intervals": {
+        "0.7": {
+          "ratio": 1.1939769707705925,
+          "ci_95": [
+            0.3607374506239233,
+            4.412985458709446
+          ],
+          "denominator_ci_excludes_zero": true,
+          "note": null,
+          "numerator": [
+            405,
+            0.7
+          ],
+          "denominator": [
+            135,
+            0.7
+          ]
+        },
+        "0.8": {
+          "ratio": 1.3596196868008967,
+          "ci_95": [
+            0.4180098634050092,
+            4.354674149579246
+          ],
+          "denominator_ci_excludes_zero": true,
+          "note": null,
+          "numerator": [
+            405,
+            0.8
+          ],
+          "denominator": [
+            45,
+            0.8
+          ]
+        },
+        "0.9": {
+          "ratio": 1.1364605543709991,
+          "ci_95": [
+            0.0736046095149588,
+            null
+          ],
+          "denominator_ci_excludes_zero": false,
+          "note": "denominator interval includes zero: no finite upper confidence limit, the same defect that retired the 48.6x multiplier (Section 5.3)",
+          "numerator": [
+            45,
+            0.9
+          ],
+          "denominator": [
+            135,
+            0.9
+          ]
+        },
+        "0.95": {
+          "ratio": 1.4096916299559568,
+          "ci_95": [
+            0.058120475991823406,
+            null
+          ],
+          "denominator_ci_excludes_zero": false,
+          "note": "denominator interval includes zero: no finite upper confidence limit, the same defect that retired the 48.6x multiplier (Section 5.3)",
+          "numerator": [
+            45,
+            0.95
+          ],
+          "denominator": [
+            135,
+            0.95
+          ]
+        },
+        "0.985": {
+          "ratio": 1.2368421052631668,
+          "ci_95": [
+            -0.1805555555555564,
+            null
+          ],
+          "denominator_ci_excludes_zero": false,
+          "note": "denominator interval includes zero: no finite upper confidence limit, the same defect that retired the 48.6x multiplier (Section 5.3)",
+          "numerator": [
+            45,
+            0.985
+          ],
+          "denominator": [
+            135,
+            0.985
+          ]
+        }
+      }
+    },
+    "varied": "K from 15 to 405, operating point fixed",
+    "source": "results/joint_severity_surface.json, within each AUROC_0 row"
+  },
+  "denominator_sound_comparison": {
+    "operating_point": [
+      2.218017276840807,
+      14.265624999999897
+    ],
+    "mechanism_and_harness": [
+      9.241127267041842,
+      24.275914634146165
+    ],
+    "candidate_count": [
+      1.8210064167510966,
+      4.242582897033194
+    ],
+    "statement": "Restricted to ratios whose denominator interval excludes zero -- the only ones this paper's own Section 5.3 standard permits quoting, and using the fold-matched-carveout-corrected severities this paper currently reports as numerators (+0.0060, +0.0159; not the superseded shipped +0.0093, +0.0250) -- the mechanism-and-harness axis (9.2-24.3x) is AT LEAST COMPARABLE TO, AND PLAUSIBLY LARGER THAN, the operating-point axis (2.2-14.3x). It is NOT asserted to be strictly the largest of the three: its own lower end (9.2x) sits below the operating-point axis's upper end (14.3x), so the two ranges overlap substantially. Candidate count remains the smallest on every convention."
+  },
+  "verdict": {
+    "statement": "AS RAW SPANS: operating point 48.6-68.3x within this harness; mechanism-and-harness up to 38.3x across harnesses at a matched operating point; candidate count 1.6-7.1x within an operating point (1.1-1.4x excluding the low-contrast K=15 column). The first two are the same order of magnitude and the third is roughly an order weaker -- but the first and third use denominators whose intervals include zero. RESTRICTED TO SOUND DENOMINATORS, which is the only comparison this paper's own Section 5.3 standard permits: operating point 2.2-14.3x, mechanism-and-harness 9.2-24.3x, candidate count 1.8-4.2x -- and the mechanism-and-harness axis is AT LEAST COMPARABLE TO, AND PLAUSIBLY LARGER THAN, the operating-point axis (not asserted as strictly the largest of the three: their sound ranges overlap). On either reading the paper's former claim that severity is governed by candidate count and operating point RATHER THAN mechanism is not merely unproven; these numbers point the other way. It is withdrawn from the title and abstract. NOTE: the RAW-SPAN mechanism-and-harness figure above (38.3x) is sourced from operating_point_transport_check.json's own gap_spread_ratio and, like the probit-interpolated and arm-matched sensitivity figures, has not been re-derived from the corrected fold-matched-carveout severities in this round; only the denominator-sound with_intervals figures above use the corrected numerators.",
+    "operating_point_over_candidate_count": 9.604103830716777,
+    "mechanism_over_candidate_count": 5.383298675766975,
+    "operating_point_over_mechanism": 1.7840555408805088,
+    "precision_caveat": "The operating-point and candidate-count full-range spans quoted above use denominators whose intervals include zero and therefore have no finite upper confidence limit. See denominator_sound_comparison for the version that meets this paper's own Section 5.3 standard."
+  }
+}

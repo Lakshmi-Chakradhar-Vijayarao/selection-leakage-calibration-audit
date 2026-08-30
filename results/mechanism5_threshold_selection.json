@@ -1,0 +1,174 @@
+{
+  "capacities": {
+    "0.7": {
+      "leaky_f1_mean": 0.6843107161844327,
+      "honest_f1_mean": 0.66153058444506,
+      "f1_gap_mean": 0.02278013173937266,
+      "f1_gap_bca_ci_95": [
+        0.019827225892562122,
+        0.026424384553847286
+      ],
+      "f1_gap_wilcoxon_p": 1.9442918608595278e-32,
+      "leaky_acc_mean": 0.6246785714285714,
+      "honest_acc_mean": 0.579,
+      "acc_gap_mean": 0.04567857142857143,
+      "acc_gap_bca_ci_95": [
+        0.040928571428571425,
+        0.050785714285714295
+      ],
+      "acc_gap_wilcoxon_p": 1.515264079027265e-32
+    },
+    "0.8": {
+      "leaky_f1_mean": 0.7287788656209655,
+      "honest_f1_mean": 0.6949482933705091,
+      "f1_gap_mean": 0.03383057225045639,
+      "f1_gap_bca_ci_95": [
+        0.03007712735377521,
+        0.0382365368680203
+      ],
+      "f1_gap_wilcoxon_p": 2.0176145602854456e-33,
+      "leaky_acc_mean": 0.7033571428571429,
+      "honest_acc_mean": 0.6675714285714287,
+      "acc_gap_mean": 0.03578571428571429,
+      "acc_gap_bca_ci_95": [
+        0.03239285714285715,
+        0.03992857142857143
+      ],
+      "acc_gap_wilcoxon_p": 6.7096518482627325e-34
+    },
+    "0.9": {
+      "leaky_f1_mean": 0.8048280546393581,
+      "honest_f1_mean": 0.7737175812744429,
+      "f1_gap_mean": 0.031110473364915195,
+      "f1_gap_bca_ci_95": [
+        0.02780819094428048,
+        0.034958301729714494
+      ],
+      "f1_gap_wilcoxon_p": 2.017645077497827e-33,
+      "leaky_acc_mean": 0.7992142857142858,
+      "honest_acc_mean": 0.7656071428571428,
+      "acc_gap_mean": 0.03360714285714286,
+      "acc_gap_bca_ci_95": [
+        0.030571428571428572,
+        0.037000000000000005
+      ],
+      "acc_gap_wilcoxon_p": 1.8812432079340662e-33
+    },
+    "0.95": {
+      "leaky_f1_mean": 0.8589000248282112,
+      "honest_f1_mean": 0.8355732817987718,
+      "f1_gap_mean": 0.023326743029439476,
+      "f1_gap_bca_ci_95": [
+        0.02100845590210018,
+        0.026139409404151492
+      ],
+      "f1_gap_wilcoxon_p": 1.944229208143287e-32,
+      "leaky_acc_mean": 0.8577142857142858,
+      "honest_acc_mean": 0.8331428571428572,
+      "acc_gap_mean": 0.024571428571428574,
+      "acc_gap_bca_ci_95": [
+        0.021892857142857148,
+        0.02764285714285715
+      ],
+      "acc_gap_wilcoxon_p": 3.462906467200908e-32
+    },
+    "0.985": {
+      "leaky_f1_mean": 0.920526755428414,
+      "honest_f1_mean": 0.8993401547567348,
+      "f1_gap_mean": 0.02118660067167907,
+      "f1_gap_bca_ci_95": [
+        0.01911124057618646,
+        0.02360942370844139
+      ],
+      "f1_gap_wilcoxon_p": 4.137775343180976e-32,
+      "leaky_acc_mean": 0.9211428571428572,
+      "honest_acc_mean": 0.8996428571428572,
+      "acc_gap_mean": 0.021500000000000005,
+      "acc_gap_bca_ci_95": [
+        0.01925000000000001,
+        0.02427752865041046
+      ],
+      "acc_gap_wilcoxon_p": 4.821653558655284e-32
+    }
+  },
+  "sample_size_sensitivity": {
+    "target_auroc": 0.985,
+    "n_seeds": 200,
+    "by_n_samples": {
+      "700": {
+        "n_samples": 700,
+        "n_test": 140,
+        "n_val": 112,
+        "f1_gap_mean": 0.02118660067167907,
+        "f1_gap_bca_ci_95": [
+          0.019097018562860016,
+          0.023608089461819293
+        ],
+        "f1_gap_wilcoxon_p": 4.137775343180976e-32,
+        "acc_gap_mean": 0.021500000000000005,
+        "acc_gap_bca_ci_95": [
+          0.01932142857142858,
+          0.02417857142857143
+        ],
+        "leaky_f1_mean": 0.920526755428414,
+        "honest_f1_mean": 0.8993401547567348
+      },
+      "1750": {
+        "n_samples": 1750,
+        "n_test": 350,
+        "n_val": 280,
+        "f1_gap_mean": 0.011085958073806109,
+        "f1_gap_bca_ci_95": [
+          0.009983623943550781,
+          0.012382321266140523
+        ],
+        "f1_gap_wilcoxon_p": 9.482403857733062e-34,
+        "acc_gap_mean": 0.01198571428571428,
+        "acc_gap_bca_ci_95": [
+          0.010771428571428569,
+          0.013414285714285707
+        ],
+        "leaky_f1_mean": 0.9338038116771074,
+        "honest_f1_mean": 0.9227178536033014
+      },
+      "3500": {
+        "n_samples": 3500,
+        "n_test": 700,
+        "n_val": 560,
+        "f1_gap_mean": 0.006650753064888399,
+        "f1_gap_bca_ci_95": [
+          0.005971753412805858,
+          0.007427573971998458
+        ],
+        "f1_gap_wilcoxon_p": 2.0176145602854456e-33,
+        "acc_gap_mean": 0.006592857142857145,
+        "acc_gap_bca_ci_95": [
+          0.005957142857142859,
+          0.007292857142857146
+        ],
+        "leaky_f1_mean": 0.9359979391520835,
+        "honest_f1_mean": 0.9293471860871952
+      },
+      "10000": {
+        "n_samples": 10000,
+        "n_test": 2000,
+        "n_val": 1600,
+        "f1_gap_mean": 0.0034090780585667563,
+        "f1_gap_bca_ci_95": [
+          0.0030327923791249717,
+          0.0038507042867768587
+        ],
+        "f1_gap_wilcoxon_p": 9.13620425088645e-33,
+        "acc_gap_mean": 0.0036399999999999887,
+        "acc_gap_bca_ci_95": [
+          0.003280407012160137,
+          0.004044999999999988
+        ],
+        "leaky_f1_mean": 0.937831750213887,
+        "honest_f1_mean": 0.9344226721553204
+      }
+    },
+    "shrinkage_factor_700_to_10000": 6.214759623481997,
+    "note": "The main cells fix N_SAMPLES=700, hence n_test=140 and n_val=112, and this was previously unstated. The gap is a function of how noisy the threshold-selection signal is, so it shrinks as those grow. MultiHaluDet's own n_test is not recoverable from their released config (test_size=0.20 is pinned; src/data/loader.py defaults max_samples=10000), so describing the 0.985 cell as their reported regime matches OPERATING POINT only, not sample size."
+  }
+}

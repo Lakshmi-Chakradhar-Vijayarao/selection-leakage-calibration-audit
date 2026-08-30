@@ -1,0 +1,607 @@
+{
+  "config": {
+    "n_seeds": 100,
+    "capacities": [
+      16,
+      48,
+      128,
+      384
+    ],
+    "epochs": 45,
+    "n_samples": 700,
+    "target_auroc": 0.8,
+    "n_inner_folds": 5,
+    "test_size": 0.2,
+    "es_fractions_run": [
+      0.15,
+      0.2,
+      0.25
+    ],
+    "es_shipped": 0.15,
+    "es_fold_matched_exact": 0.25,
+    "oof_hold_fraction": 0.16666666666666666,
+    "n_seeds_note": "N_SEEDS=100, matching code/47 and code/02d exactly; no reduction was needed.",
+    "operating_point_note": "EPOCHS/N_SAMPLES/TARGET_AUROC/N_INNER_FOLDS/TEST_SIZE and the decoupled data/split/fold/init seed scheme are imported from code/47, whose default cell is bit-identical to code/02d's capacity-128 primary cell. Capacities are code/02d's full {16,48,128,384} grid, so Part A is apples-to-apples with the primary table and not merely with its flagship cell."
+  },
+  "asymmetry_1_retrain_budget_deficit_LOADED_NOT_REDERIVED": {
+    "source": "results/adaptivity_control_budget_deficit.json (code/67)",
+    "what_it_measures": "CLEAN_MATCHED's blind fixed-epoch retrain uses the full tr_idx but replays an epoch count chosen on a run that saw only 85% of it. CLEAN_MATCHED minus CLEAN_MATCHED_85 isolates that training-set-size difference. Reported here for context only; not recomputed.",
+    "by_capacity": {
+      "128": {
+        "budget_deficit_mean": 0.0015183673469387614,
+        "budget_deficit_bca_ci_95": [
+          -0.00028340115471325725,
+          0.00348848897241402
+        ],
+        "budget_deficit_wilcoxon_p": 0.28880573073331817
+      },
+      "384": {
+        "budget_deficit_mean": 0.003134693877551016,
+        "budget_deficit_bca_ci_95": [
+          0.00043634814222139084,
+          0.00569022016288357
+        ],
+        "budget_deficit_wilcoxon_p": 0.004721555218332806
+      }
+    }
+  },
+  "part_A_es_hold_fraction": {
+    "by_capacity": {
+      "16": {
+        "reproduces_code02d_per_seed": true,
+        "n_val": 112.0,
+        "n_tr_fold": 448.0,
+        "leaky_mean": 0.7603612244897959,
+        "leaky_best_epoch_mean": 41.996,
+        "by_es_fraction": {
+          "0.15": {
+            "gap_mean": 0.0019020408163265368,
+            "gap_bca_ci_95": [
+              0.0006510204081632717,
+              0.0036647093541004884
+            ],
+            "wilcoxon_p": 0.01943141313124108,
+            "gap_std": 0.00743849591104849,
+            "n_positive": 58,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.7584591836734694,
+            "n_es": 68.0,
+            "n_tr2_selection_run": 380.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.6470588235294117,
+            "clean_best_epoch_mean": 40.476,
+            "is_shipped": true,
+            "is_fold_matched": false
+          },
+          "0.20": {
+            "gap_mean": 0.0010979591836734659,
+            "gap_bca_ci_95": [
+              -0.00017551020408163208,
+              0.0025489795918367253
+            ],
+            "wilcoxon_p": 0.28259067160739204,
+            "gap_std": 0.006919758824706252,
+            "n_positive": 51,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.7592632653061225,
+            "n_es": 90.0,
+            "n_tr2_selection_run": 358.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.2444444444444445,
+            "clean_best_epoch_mean": 41.298,
+            "is_shipped": false,
+            "is_fold_matched": false
+          },
+          "0.25": {
+            "gap_mean": 0.0012040816326530624,
+            "gap_bca_ci_95": [
+              -8.427370345836344e-05,
+              0.0024750914114893894
+            ],
+            "wilcoxon_p": 0.15789607384291526,
+            "gap_std": 0.006695412135362768,
+            "n_positive": 49,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.7591571428571429,
+            "n_es": 112.0,
+            "n_tr2_selection_run": 336.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.0,
+            "clean_best_epoch_mean": 41.852000000000004,
+            "is_shipped": false,
+            "is_fold_matched": true
+          }
+        }
+      },
+      "48": {
+        "reproduces_code02d_per_seed": true,
+        "n_val": 112.0,
+        "n_tr_fold": 448.0,
+        "leaky_mean": 0.7632510204081633,
+        "leaky_best_epoch_mean": 32.04600000000001,
+        "by_es_fraction": {
+          "0.15": {
+            "gap_mean": 0.0011326530612244911,
+            "gap_bca_ci_95": [
+              -0.00041632653061225033,
+              0.002787755102040823
+            ],
+            "wilcoxon_p": 0.17115726556838295,
+            "gap_std": 0.008194096334432913,
+            "n_positive": 59,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.7621183673469386,
+            "n_es": 68.0,
+            "n_tr2_selection_run": 380.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.6470588235294117,
+            "clean_best_epoch_mean": 32.16400000000001,
+            "is_shipped": true,
+            "is_fold_matched": false
+          },
+          "0.20": {
+            "gap_mean": -6.122448979592576e-05,
+            "gap_bca_ci_95": [
+              -0.0013228648054273984,
+              0.0012655441649799667
+            ],
+            "wilcoxon_p": 0.9888606462798398,
+            "gap_std": 0.006570206964202822,
+            "n_positive": 47,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.763312244897959,
+            "n_es": 90.0,
+            "n_tr2_selection_run": 358.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.2444444444444445,
+            "clean_best_epoch_mean": 32.968,
+            "is_shipped": false,
+            "is_fold_matched": false
+          },
+          "0.25": {
+            "gap_mean": 0.00018979591836734922,
+            "gap_bca_ci_95": [
+              -0.0010541490135306775,
+              0.001508163265306116
+            ],
+            "wilcoxon_p": 0.9610262394808115,
+            "gap_std": 0.00658464652565146,
+            "n_positive": 47,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.7630612244897961,
+            "n_es": 112.0,
+            "n_tr2_selection_run": 336.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.0,
+            "clean_best_epoch_mean": 33.778,
+            "is_shipped": false,
+            "is_fold_matched": true
+          }
+        }
+      },
+      "128": {
+        "reproduces_code02d_per_seed": true,
+        "n_val": 112.0,
+        "n_tr_fold": 448.0,
+        "leaky_mean": 0.758587755102041,
+        "leaky_best_epoch_mean": 20.002,
+        "by_es_fraction": {
+          "0.15": {
+            "gap_mean": 0.0036489795918367273,
+            "gap_bca_ci_95": [
+              0.0018897959183673456,
+              0.005741122265706784
+            ],
+            "wilcoxon_p": 0.0012363190170634885,
+            "gap_std": 0.009867987144640555,
+            "n_positive": 68,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.754938775510204,
+            "n_es": 68.0,
+            "n_tr2_selection_run": 380.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.6470588235294117,
+            "clean_best_epoch_mean": 21.142,
+            "is_shipped": true,
+            "is_fold_matched": false
+          },
+          "0.20": {
+            "gap_mean": 0.0015469387755102004,
+            "gap_bca_ci_95": [
+              -0.00013673469387756568,
+              0.0033938775510203977
+            ],
+            "wilcoxon_p": 0.27195817029849856,
+            "gap_std": 0.008973695146028296,
+            "n_positive": 54,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.7570408163265305,
+            "n_es": 90.0,
+            "n_tr2_selection_run": 358.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.2444444444444445,
+            "clean_best_epoch_mean": 20.666000000000004,
+            "is_shipped": false,
+            "is_fold_matched": false
+          },
+          "0.25": {
+            "gap_mean": 0.001597959183673462,
+            "gap_bca_ci_95": [
+              1.561004079024244e-05,
+              0.0033729929602467727
+            ],
+            "wilcoxon_p": 0.13926686692984913,
+            "gap_std": 0.008502587716175436,
+            "n_positive": 51,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.7569897959183675,
+            "n_es": 112.0,
+            "n_tr2_selection_run": 336.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.0,
+            "clean_best_epoch_mean": 20.637999999999998,
+            "is_shipped": false,
+            "is_fold_matched": true
+          }
+        }
+      },
+      "384": {
+        "reproduces_code02d_per_seed": true,
+        "n_val": 112.0,
+        "n_tr_fold": 448.0,
+        "leaky_mean": 0.7477612244897959,
+        "leaky_best_epoch_mean": 10.958,
+        "by_es_fraction": {
+          "0.15": {
+            "gap_mean": 0.0023693877551020483,
+            "gap_bca_ci_95": [
+              -0.00019643651775017794,
+              0.005256498878868908
+            ],
+            "wilcoxon_p": 0.17069951344445478,
+            "gap_std": 0.01394233170349581,
+            "n_positive": 55,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.745391836734694,
+            "n_es": 68.0,
+            "n_tr2_selection_run": 380.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.6470588235294117,
+            "clean_best_epoch_mean": 12.448000000000002,
+            "is_shipped": true,
+            "is_fold_matched": false
+          },
+          "0.20": {
+            "gap_mean": 0.0009775510204081672,
+            "gap_bca_ci_95": [
+              -0.0012566529372525107,
+              0.003380842183167576
+            ],
+            "wilcoxon_p": 0.620506725279135,
+            "gap_std": 0.011925903834793616,
+            "n_positive": 54,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.7467836734693876,
+            "n_es": 90.0,
+            "n_tr2_selection_run": 358.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.2444444444444445,
+            "clean_best_epoch_mean": 11.585999999999999,
+            "is_shipped": false,
+            "is_fold_matched": false
+          },
+          "0.25": {
+            "gap_mean": 0.002022448979591841,
+            "gap_bca_ci_95": [
+              -0.0006355495687049551,
+              0.005006122448979596
+            ],
+            "wilcoxon_p": 0.36599785282450836,
+            "gap_std": 0.014397246832925382,
+            "n_positive": 52,
+            "n_seeds": 100,
+            "clean_matched_mean": 0.7457387755102041,
+            "n_es": 112.0,
+            "n_tr2_selection_run": 336.0,
+            "selection_set_size_ratio_leaky_over_clean": 1.0,
+            "clean_best_epoch_mean": 11.390000000000002,
+            "is_shipped": false,
+            "is_fold_matched": true
+          }
+        }
+      }
+    },
+    "geometry": {
+      "n_train": 560,
+      "n_val_per_fold": 112.0,
+      "n_tr_idx_per_fold": 448.0,
+      "exact_fold_matched_es_fraction": 0.25,
+      "derivation": "ES_HOLD_FRACTION is a fraction of tr_idx, not of the training pool. |tr_idx| = n_train*(K-1)/K and |val_idx| = n_train/K, so |es_idx| = |val_idx| requires f = 1/(K-1). With K=N_INNER_FOLDS=5 that is exactly 0.25, and the measured sizes confirm it: f=0.25 gives |es_idx|=112 = |val_idx|=112. 1/K = 0.20 is NOT the fold-matched value -- applied to tr_idx it gives |es_idx|=90 against a 112-sample fold. Both were run: 0.25 because it is the exact match Appendix A.3 named as unrun, 0.20 because it is the value the 1/K analogy suggests and because an intermediate point distinguishes a smooth trend from a single-cell artifact.",
+      "what_this_cannot_do": "Raising ES_HOLD_FRACTION matches the selection-SET size but worsens the selection RUN's training deficit (|tr2_idx| falls 380 -> 358 -> 336 as f goes 0.15 -> 0.20 -> 0.25). Inside one fold the two halves of the selection-run asymmetry are coupled and cannot both be fixed, which is exactly the trade Appendix A.3 described. Part B leaves the fold."
+    }
+  },
+  "part_B_out_of_fold_carveout": {
+    "by_capacity": {
+      "16": {
+        "n_ges_out_of_fold_selection_set": 94,
+        "n_cv_pool": 466,
+        "n_val_per_fold": 93.2,
+        "n_tr_idx_per_fold": 372.8,
+        "n_es_infold_reference_arm": 56.0,
+        "n_tr2_infold_reference_arm": 316.8,
+        "retrain_bitwise_identical_frac": 1.0,
+        "leaky_r_mean": 0.7537632653061225,
+        "cm_oof_mean": 0.7534897959183674,
+        "cm_infold_r_mean": 0.7522714285714287,
+        "placebo_r_mean": 0.7174061224489795,
+        "best_epoch_leaky_r": 41.92799999999999,
+        "best_epoch_cm_oof": 41.821999999999996,
+        "best_epoch_cm_infold_r": 39.4,
+        "gap_leaky_minus_cm_oof": {
+          "gap_mean": 0.00027346938775509646,
+          "gap_bca_ci_95": [
+            -0.0011795918367346957,
+            0.0023204081632653057
+          ],
+          "wilcoxon_p": 0.8504964915913021,
+          "gap_std": 0.008712516904531138,
+          "n_positive": 51,
+          "n_seeds": 100
+        },
+        "gap_leaky_minus_cm_infold_r": {
+          "gap_mean": 0.0014918367346938811,
+          "gap_bca_ci_95": [
+            -0.0005623551342014265,
+            0.0038393743905181903
+          ],
+          "wilcoxon_p": 0.270853259379786,
+          "gap_std": 0.011352179197700128,
+          "n_positive": 55,
+          "n_seeds": 100
+        },
+        "selection_run_asymmetry_cm_oof_minus_cm_infold_r": {
+          "gap_mean": 0.0012183673469387845,
+          "gap_bca_ci_95": [
+            -0.0010725169557509612,
+            0.0033895457054215435
+          ],
+          "wilcoxon_p": 0.2587979931760078,
+          "gap_std": 0.011341121343308919,
+          "n_positive": 47,
+          "n_seeds": 100
+        },
+        "gap_cm_oof_minus_placebo_r": {
+          "gap_mean": 0.03608367346938777,
+          "gap_bca_ci_95": [
+            0.02662385580854527,
+            0.047535577327588646
+          ],
+          "wilcoxon_p": 2.740367493312843e-10,
+          "gap_std": 0.05299563596933232,
+          "n_positive": 73,
+          "n_seeds": 100
+        }
+      },
+      "48": {
+        "n_ges_out_of_fold_selection_set": 94,
+        "n_cv_pool": 466,
+        "n_val_per_fold": 93.2,
+        "n_tr_idx_per_fold": 372.8,
+        "n_es_infold_reference_arm": 56.0,
+        "n_tr2_infold_reference_arm": 316.8,
+        "retrain_bitwise_identical_frac": 1.0,
+        "leaky_r_mean": 0.7575367346938776,
+        "cm_oof_mean": 0.7572857142857145,
+        "cm_infold_r_mean": 0.754495918367347,
+        "placebo_r_mean": 0.726834693877551,
+        "best_epoch_leaky_r": 31.794,
+        "best_epoch_cm_oof": 32.698,
+        "best_epoch_cm_infold_r": 31.028000000000002,
+        "gap_leaky_minus_cm_oof": {
+          "gap_mean": 0.0002510204081632572,
+          "gap_bca_ci_95": [
+            -0.0013172438625274883,
+            0.0018656403011340346
+          ],
+          "wilcoxon_p": 0.8071332875007708,
+          "gap_std": 0.007987430912584415,
+          "n_positive": 46,
+          "n_seeds": 100
+        },
+        "gap_leaky_minus_cm_infold_r": {
+          "gap_mean": 0.0030408163265306055,
+          "gap_bca_ci_95": [
+            0.001376338018207201,
+            0.004868180811346689
+          ],
+          "wilcoxon_p": 0.0026394243269417484,
+          "gap_std": 0.008986733727764751,
+          "n_positive": 61,
+          "n_seeds": 100
+        },
+        "selection_run_asymmetry_cm_oof_minus_cm_infold_r": {
+          "gap_mean": 0.002789795918367348,
+          "gap_bca_ci_95": [
+            0.0008531407283456881,
+            0.004795918367346944
+          ],
+          "wilcoxon_p": 0.007984502084816839,
+          "gap_std": 0.010137073533540127,
+          "n_positive": 63,
+          "n_seeds": 100
+        },
+        "gap_cm_oof_minus_placebo_r": {
+          "gap_mean": 0.030451020408163266,
+          "gap_bca_ci_95": [
+            0.023575127621059996,
+            0.03931683033653719
+          ],
+          "wilcoxon_p": 5.729627720340267e-13,
+          "gap_std": 0.03998100398122299,
+          "n_positive": 85,
+          "n_seeds": 100
+        }
+      },
+      "128": {
+        "n_ges_out_of_fold_selection_set": 94,
+        "n_cv_pool": 466,
+        "n_val_per_fold": 93.2,
+        "n_tr_idx_per_fold": 372.8,
+        "n_es_infold_reference_arm": 56.0,
+        "n_tr2_infold_reference_arm": 316.8,
+        "retrain_bitwise_identical_frac": 1.0,
+        "leaky_r_mean": 0.7525857142857143,
+        "cm_oof_mean": 0.7527102040816324,
+        "cm_infold_r_mean": 0.749569387755102,
+        "placebo_r_mean": 0.728622448979592,
+        "best_epoch_leaky_r": 20.372,
+        "best_epoch_cm_oof": 20.938000000000002,
+        "best_epoch_cm_infold_r": 21.098000000000003,
+        "gap_leaky_minus_cm_oof": {
+          "gap_mean": -0.00012448979591837107,
+          "gap_bca_ci_95": [
+            -0.002203065332299463,
+            0.0020885704040846877
+          ],
+          "wilcoxon_p": 0.5416562580572177,
+          "gap_std": 0.010866245566069015,
+          "n_positive": 46,
+          "n_seeds": 100
+        },
+        "gap_leaky_minus_cm_infold_r": {
+          "gap_mean": 0.0030163265306122344,
+          "gap_bca_ci_95": [
+            0.0009692569907151748,
+            0.0053530612244897776
+          ],
+          "wilcoxon_p": 0.017422237124353705,
+          "gap_std": 0.011144788528426078,
+          "n_positive": 58,
+          "n_seeds": 100
+        },
+        "selection_run_asymmetry_cm_oof_minus_cm_infold_r": {
+          "gap_mean": 0.0031408163265306053,
+          "gap_bca_ci_95": [
+            0.0006448979591836566,
+            0.005687755102040807
+          ],
+          "wilcoxon_p": 0.01816774364976738,
+          "gap_std": 0.0128903575382735,
+          "n_positive": 60,
+          "n_seeds": 100
+        },
+        "gap_cm_oof_minus_placebo_r": {
+          "gap_mean": 0.024087755102040802,
+          "gap_bca_ci_95": [
+            0.01939023770365359,
+            0.029612511091104465
+          ],
+          "wilcoxon_p": 1.2501731341931507e-13,
+          "gap_std": 0.026612379823310786,
+          "n_positive": 81,
+          "n_seeds": 100
+        }
+      },
+      "384": {
+        "n_ges_out_of_fold_selection_set": 94,
+        "n_cv_pool": 466,
+        "n_val_per_fold": 93.2,
+        "n_tr_idx_per_fold": 372.8,
+        "n_es_infold_reference_arm": 56.0,
+        "n_tr2_infold_reference_arm": 316.8,
+        "retrain_bitwise_identical_frac": 1.0,
+        "leaky_r_mean": 0.7424102040816325,
+        "cm_oof_mean": 0.7398489795918367,
+        "cm_infold_r_mean": 0.7389020408163266,
+        "placebo_r_mean": 0.7274265306122448,
+        "best_epoch_leaky_r": 12.042,
+        "best_epoch_cm_oof": 12.802,
+        "best_epoch_cm_infold_r": 13.019999999999998,
+        "gap_leaky_minus_cm_oof": {
+          "gap_mean": 0.002561224489795908,
+          "gap_bca_ci_95": [
+            -0.00023247206613647537,
+            0.005236734693877542
+          ],
+          "wilcoxon_p": 0.04383513999531269,
+          "gap_std": 0.013852317236990153,
+          "n_positive": 57,
+          "n_seeds": 100
+        },
+        "gap_leaky_minus_cm_infold_r": {
+          "gap_mean": 0.003508163265306111,
+          "gap_bca_ci_95": [
+            0.0006341893130932689,
+            0.0062055834208473775
+          ],
+          "wilcoxon_p": 0.007197882431866722,
+          "gap_std": 0.014116400870963572,
+          "n_positive": 62,
+          "n_seeds": 100
+        },
+        "selection_run_asymmetry_cm_oof_minus_cm_infold_r": {
+          "gap_mean": 0.0009469387755102032,
+          "gap_bca_ci_95": [
+            -0.001874931149743107,
+            0.003666704611421651
+          ],
+          "wilcoxon_p": 0.3585914307027066,
+          "gap_std": 0.014192010025427576,
+          "n_positive": 56,
+          "n_seeds": 100
+        },
+        "gap_cm_oof_minus_placebo_r": {
+          "gap_mean": 0.012422448979591843,
+          "gap_bca_ci_95": [
+            0.008235904353947431,
+            0.01723211812039491
+          ],
+          "wilcoxon_p": 1.7441504464453422e-06,
+          "gap_std": 0.022971608997179746,
+          "n_positive": 68,
+          "n_seeds": 100
+        }
+      }
+    },
+    "construction": "X_train (560) is split, stratified and before any folding, into an out-of-fold selection pool ges_idx and a cross-validation pool cv_idx, with |ges_idx| = n_train/(K+1) so that ges_idx and each subsequent validation fold are the same size (94 vs 93). StratifiedKFold(K=5) then runs over cv_idx only, so ges_idx is disjoint from every fold's tr_idx AND from every fold's val_idx. CLEAN_MATCHED_OOF's selection run trains on 100% of tr_idx and argmaxes on ges_idx; its blind fixed-epoch retrain then runs on the same 100% of tr_idx from the same seed, and is asserted at runtime to be bitwise identical to the selection run's kept checkpoint -- so the retrain-budget asymmetry is removed by construction rather than made small. LEAKY_R is the identical procedure selecting on the reported fold. CLEAN_MATCHED_INFOLD_R replicates the shipped ES_HOLD_FRACTION=0.15 in-fold scheme on the same reduced pool as the within-run reference.",
+    "what_it_costs": "The selection points have to come from somewhere and there is nowhere inside the fold left to take them from: tr_idx and val_idx partition the entire CV pool, so 'the other folds' training data' IS tr_idx. The 94 selection samples are therefore removed from the cross-validation pool outright -- they train no fold model and contribute no row to the OOF matrix the meta-learner is fit on (560 rows become 466) -- for every arm equally. The held-out test set (140) is untouched. So gaps WITHIN Part B are matched, but Part B as a whole runs at a 16.7% smaller effective training pool than the primary estimate, and its absolute AUROCs are not comparable to Part A's. code/47's sweeps do not agree on the sign of the pool-size effect on the gap (Sweep B: +0.0026/+0.0036/+0.0005 at N=350/700/2800; Sweep D: smaller n_val gives a SMALLER gap), so no direction is claimed for this residual.",
+    "coupling_caveat": "CLEAN_MATCHED_OOF minus CLEAN_MATCHED_INFOLD_R sizes asymmetry (2), but it moves two coupled things at once: the selection run's training budget (100% vs 85% of tr_idx) and the selection set's provenance and size (94 out-of-fold vs ~56 in-fold). Both are constituents of the selection-run asymmetry and neither can be moved alone inside this design. Part A's ES sweep is what varies the selection-set-size axis on its own terms."
+  },
+  "summary": {
+    "primary_gaps_by_capacity": {
+      "16": 0.0019020408163265368,
+      "48": 0.0011326530612244911,
+      "128": 0.0036489795918367273,
+      "384": 0.0023693877551020483
+    },
+    "es_0.25_fold_matched_gaps_by_capacity": {
+      "16": 0.0012040816326530624,
+      "48": 0.00018979591836734922,
+      "128": 0.001597959183673462,
+      "384": 0.002022448979591841
+    },
+    "out_of_fold_gaps_by_capacity": {
+      "16": 0.00027346938775509646,
+      "48": 0.0002510204081632572,
+      "128": -0.00012448979591837107,
+      "384": 0.002561224489795908
+    },
+    "asymmetry_2_size_by_capacity": {
+      "16": 0.0012183673469387845,
+      "48": 0.002789795918367348,
+      "128": 0.0031408163265306053,
+      "384": 0.0009469387755102032
+    },
+    "primary_mean_gap": 0.0022632653061224507,
+    "out_of_fold_mean_gap": 0.0007403061224489727,
+    "ratio_oof_over_primary": 0.3270964833183015,
+    "n_capacities_with_positive_gap": 3,
+    "n_capacities_with_bca_ci_excluding_zero_from_below": 0,
+    "prereg_rule": "SURVIVES if ratio >= 0.50 and all four out-of-fold gaps > 0 and >= 2 of 4 BCa CIs exclude zero from below; ATTENUATED if the mean gap is positive and ratio >= 0.25 but the SURVIVES conditions fail; DOES_NOT_SURVIVE otherwise. Fixed before the run."
+  },
+  "verdict": "ATTENUATED",
+  "runtime_seconds": 1630.1409649848938,
+  "outputs": {
+    "json": "results/mechanism3_selection_budget_controls.json",
+    "script": "code/75_mechanism3_selection_budget_controls.py"
+  },
+  "statement": "Mechanism 3's primary synthetic estimate contains two budget asymmetries inside its honest-selection control, not one. The first -- CLEAN_MATCHED retrains on the full fold but replays an epoch count chosen on 85% of it -- was already sized by code/67 at +0.0015 (capacity 128) and +0.0031 (384). The second, sized here for the first time, is that the two arms' SELECTION runs are trained on different amounts of data at all: LEAKY's sees 100% of tr_idx and argmaxes on the 112-sample fold it later reports on, while CLEAN_MATCHED's sees 85% and argmaxes on a 68-sample carve-out taken out of its own training set. Two controls were run at the primary estimate's exact operating point and all four of its capacities. (A) Resizing the in-fold carve-out to the exactly fold-matched 25% -- the variant Appendix A.3 named and did not run; 1/(K-1)=0.25, not 1/K=0.20, is the value that makes |es_idx| equal |val_idx| -- gives gaps of +0.0012, +0.0002, +0.0016, +0.0020 at capacities 16/48/128/384 against the shipped +0.0019, +0.0011, +0.0036, +0.0024. (B) Moving the carve-out OUTSIDE the fold, so the honest arm's selection run trains on 100% of tr_idx and argmaxes on an out-of-fold set the same size as LEAKY's validation fold, removes the second asymmetry entirely (and, as a by-product, the first: the blind retrain comes out bitwise identical to the selection run). Against that arm the fold-reuse gap is -0.0001 to +0.0026 across capacities, mean +0.0007 against the primary mean +0.0023 -- a ratio of 0.33, with 0 of 4 BCa intervals excluding zero. Under the pre-registered rule the verdict is ATTENUATED. The cost of arm (B) is that its out-of-fold selection samples are removed from the cross-validation pool outright, so the whole Part B comparison runs on a 16.7% smaller training pool; that is matched across arms but makes its absolute AUROCs incomparable to the primary table's.",
+  "limitations": [
+    "Part B's out-of-fold selection set is removed from the cross-validation pool entirely -- there is nowhere else for it to come from, because tr_idx and val_idx already partition that pool -- so every Part B arm trains on a 16.7% smaller pool than the primary estimate. The contrast is internally matched, but Part B gaps and primary gaps are gaps measured at different pool sizes, and code/47's own sweeps disagree on the sign of the pool-size effect.",
+    "Part B's single out-of-fold selection set is REUSED across all five folds. It is disjoint from every val_idx, so it cannot leak into the reported metric, but the five folds' checkpoint choices are correlated through it in a way the shipped in-fold scheme's five independent carve-outs are not.",
+    "CLEAN_MATCHED_OOF minus CLEAN_MATCHED_INFOLD_R moves the selection run's training budget and the selection set's size/provenance together. It bounds the selection-run asymmetry as a whole; it does not decompose it.",
+    "Part A cannot remove asymmetry (2), only trade its two halves against each other: a fold-matched 25% carve-out costs the selection run 25% of its training data instead of 15%. Its value is as a robustness check on the shipped constant, not as a fix.",
+    "Everything here is the isotropic-Gaussian synthetic reconstruction, at AUROC_0=0.80, EPOCHS=45, N_SAMPLES=700, d=64. Operating point is the single strongest severity modifier code/47 measures (+0.0093 at 0.70 down to +0.0002 at 0.985), so these conclusions are conditional on 0.80 in exactly the way the primary estimate is. Nothing here is a measurement on MultiHaluDet's real 7B-scale pipeline.",
+    "The verdict rule's thresholds (0.50 and 0.25 of the primary mean) are pre-registered but not derived. The raw per-capacity numbers are reported so a reader can apply a different rule.",
+    "The downstream feature averaging that code/55 showed suppresses this effect 2.3-5.8x is left in place here, because the point is comparability with the primary estimate. Both Part A and Part B therefore inherit that suppression."
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "n_cells_fit": 6,
+  "K_values_fit": [
+    15,
+    25,
+    45,
+    75,
+    135,
+    225
+  ],
+  "K_values_excluded_degenerate": [
+    1,
+    3,
+    5,
+    10
+  ],
+  "n_seeds_per_cell": 200,
+  "cell_means": {
+    "15": 0.002262244897959178,
+    "25": 0.003088775510204072,
+    "45": 0.004155102040816322,
+    "75": 0.004599999999999998,
+    "135": 0.005019387755102033,
+    "225": 0.005221428571428567
+  },
+  "cell_monte_carlo_se": {
+    "15": 0.00044166143513264876,
+    "25": 0.0005692353516581759,
+    "45": 0.0007700747614126781,
+    "75": 0.0008747176846850956,
+    "135": 0.0009804066893232691,
+    "225": 0.0009948804355143358
+  },
+  "identification": {
+    "mean_cell_monte_carlo_se": 0.0007718293929543672,
+    "rms_residual_of_paper_form": 0.0002626974059725025,
+    "mc_noise_over_residual_ratio": 2.9380929366129993,
+    "note": "The fit residuals of a + b ln K sit well BELOW the Monte-Carlo error of the points being fit, so R^2 = 0.939 is measuring how monotone the six points are, not how logarithmic they are."
+  },
+  "fits": {
+    "a_plus_b_lnK": {
+      "params": [
+        -0.0004160647963534697,
+        0.001101379859548288
+      ],
+      "r_squared": 0.9386138043281315,
+      "aicc": -80.93409282969154,
+      "loo_r_squared": 0.825084295552261,
+      "rss": 4.140595626280908e-07,
+      "rms_residual": 0.0002626974059725025
+    },
+    "saturating_exp": {
+      "params": [
+        0.005078911991182827,
+        26.67835709403261
+      ],
+      "r_squared": 0.991427386891475,
+      "aicc": -92.7457671341215,
+      "loo_r_squared": 0.9808752155988277,
+      "rss": 5.7823626231366714e-08,
+      "rms_residual": 9.816960343487753e-05
+    },
+    "a_plus_b_over_K": {
+      "params": [
+        0.005297123679305893,
+        -0.048261223362615686
+      ],
+      "r_squared": 0.97866796067969,
+      "aicc": -87.27594191585217,
+      "loo_r_squared": 0.8850104418138431,
+      "rss": 1.4388796657390186e-07,
+      "rms_residual": 0.00015485905773417638
+    },
+    "a_plus_b_lnlnK": {
+      "params": [
+        -0.0019855146345887976,
+        0.004398153558306982
+      ],
+      "r_squared": 0.9756989909148537,
+      "aicc": -86.49409547806842,
+      "loo_r_squared": 0.9379266095894571,
+      "rss": 1.6391413546788767e-07,
+      "rms_residual": 0.00016528467133397845
+    },
+    "a_plus_b_sqrtlnK": {
+      "params": [
+        -0.0048119609967014025,
+        0.004430941571768675
+      ],
+      "r_squared": 0.9594811260920559,
+      "aicc": -83.42659540394371,
+      "loo_r_squared": 0.888540955957746,
+      "rss": 2.733061891990575e-07,
+      "rms_residual": 0.0002134268763140581
+    },
+    "power_law": {
+      "params": [
+        0.0014011201614387053,
+        0.25534832550053554
+      ],
+      "r_squared": 0.8826655518288499,
+      "aicc": -77.04703240173947,
+      "loo_r_squared": 0.6535106051147301,
+      "rss": 7.914393416827937e-07,
+      "rms_residual": 0.00036318942295602755
+    },
+    "linear_in_K": {
+      "params": [
+        0.003022914670406127,
+        1.1941251454597205e-05
+      ],
+      "r_squared": 0.6824737606306004,
+      "aicc": -71.073839980194,
+      "loo_r_squared": -0.13869382370051486,
+      "rss": 2.1417645181828225e-06,
+      "rms_residual": 0.0005974619260090726
+    }
+  },
+  "ranking_by_aicc": [
+    "saturating_exp",
+    "a_plus_b_over_K",
+    "a_plus_b_lnlnK",
+    "a_plus_b_sqrtlnK",
+    "a_plus_b_lnK",
+    "power_law",
+    "linear_in_K"
+  ],
+  "parametric_bootstrap": {
+    "n_draws": 20000,
+    "p_best_on_aicc": {
+      "a_plus_b_lnK": 0.0628,
+      "saturating_exp": 0.4478,
+      "a_plus_b_over_K": 0.17455,
+      "a_plus_b_lnlnK": 0.1086,
+      "a_plus_b_sqrtlnK": 0.03985,
+      "power_law": 0.0909,
+      "linear_in_K": 0.0755
+    },
+    "p_best_on_r2": {
+      "a_plus_b_lnK": 0.0628,
+      "saturating_exp": 0.4478,
+      "a_plus_b_over_K": 0.17455,
+      "a_plus_b_lnlnK": 0.1086,
+      "a_plus_b_sqrtlnK": 0.03985,
+      "power_law": 0.0909,
+      "linear_in_K": 0.0755
+    },
+    "p_lnK_best_on_aicc": 0.0628,
+    "note": "Each draw perturbs every cell mean by its own measured Monte-Carlo SE and refits all seven forms. The probability that the paper's ln K form is the best-fitting one is small, and the two forms that most often win imply a CEILING in candidate count where ln K implies unbounded growth."
+  },
+  "properties_the_data_support": {
+    "monotone_nondecreasing_in_K": true,
+    "concave_in_K": true,
+    "concave_in_lnK": false,
+    "lnK_concavity_worst_violating_triple": [
+      15,
+      25,
+      45
+    ],
+    "lnK_concavity_worst_violation_magnitude": 0.0001961098099104914,
+    "lnK_slope": 0.0011013798577461428,
+    "lnK_intercept": -0.00041606478863735123,
+    "lnK_slope_bootstrap_ci_95": [
+      0.00040084316446680504,
+      0.0018004276557344733
+    ],
+    "gap_range_over_fitted_cells": [
+      0.002262244897959178,
+      0.005221428571428567
+    ],
+    "gap_ratio_over_fitted_cells": 2.3080739738385243
+  },
+  "reading": "Monotonicity and concavity in K are robust; the specific logarithmic functional form is not identified by six cells whose fit residuals are smaller than their own Monte-Carlo error. The paper should state the relationship as monotone and concave, report the slope with its interval, and not assert ln K over a saturating or hyperbolic alternative -- especially since those alternatives imply a ceiling in candidate-count effect, which is the operationally relevant difference for an auditor."
+}

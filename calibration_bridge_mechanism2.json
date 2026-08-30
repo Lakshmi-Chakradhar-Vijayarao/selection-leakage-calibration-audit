@@ -1,0 +1,27 @@
+{
+  "n_reps": 50,
+  "mechanism": "Mechanism 2 (GUARDIAN, CV-argmax layer selection) -- calibration bridge",
+  "method": "Brier score and 10-bin ECE at the CV-selected layer l_star per rep, LEAKY = own-fold scores (cv_scores, y_sel), CLEAN_MATCHED = genuinely held-out scores (ho_scores, y_ho), same l_star for both.",
+  "brier_leaky_mean": 0.14914397267238388,
+  "brier_clean_mean": 0.1573387164514558,
+  "brier_gap_mean": 0.008194743779071936,
+  "brier_gap_bca_95ci": [
+    0.0030277733179094224,
+    0.013688625920580346
+  ],
+  "ece_leaky_mean": 0.07163413448797074,
+  "ece_clean_mean": 0.08876284711016341,
+  "ece_gap_mean": 0.017128712622192694,
+  "ece_gap_bca_95ci": [
+    0.009852099569850031,
+    0.024164306588386187
+  ],
+  "auroc_leaky_mean": 0.770826032540676,
+  "auroc_clean_mean": 0.7508014023002646,
+  "auroc_gap_mean": 0.02002463024041144,
+  "auroc_gap_bca_95ci": [
+    0.00516281467579712,
+    0.03511749299133851
+  ],
+  "auroc_gap_matches_paper_delta_sel": 0.02002463024041144
+}

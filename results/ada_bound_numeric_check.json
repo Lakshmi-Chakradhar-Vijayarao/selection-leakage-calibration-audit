@@ -1,0 +1,133 @@
+{
+  "rows": [
+    {
+      "mechanism": "2 (GUARDIAN, CV-argmax layer selection)",
+      "K": 32,
+      "n": 400,
+      "n_note": "selection-pool size (results/case_study_2_probe_scores.npz, rand-split y_sel)",
+      "severity": 0.0255,
+      "metric": "AUROC",
+      "severity_note": "Delta_sel (\u00a74.2)",
+      "ada_bound_sqrt_logK_over_n": 0.09308243527647585,
+      "ratio_bound_over_measured_severity": 3.6502915794696413,
+      "orders_of_magnitude_bound_exceeds_severity": 0.5623275565926422
+    },
+    {
+      "mechanism": "3 (MultiHaluDet, real features, shipped control, cap.128)",
+      "K": 45,
+      "n": 56,
+      "n_note": "shipped in-fold selection-set size |sel| (\u00a74.3)",
+      "severity": 0.0093,
+      "metric": "AUROC",
+      "severity_note": "shipped gap (Table tab:m3-real)",
+      "ada_bound_sqrt_logK_over_n": 0.2607222964933297,
+      "ratio_bound_over_measured_severity": 28.03465553691717,
+      "orders_of_magnitude_bound_exceeds_severity": 1.447695224271319
+    },
+    {
+      "mechanism": "3 (MultiHaluDet, real features, fold-matched, cap.128)",
+      "K": 45,
+      "n": 64,
+      "n_note": "fold-matched |sel|=|val_idx| (\u00a74.3)",
+      "severity": 0.006,
+      "metric": "AUROC",
+      "severity_note": "fold-matched gap (Table tab:m3-real)",
+      "ada_bound_sqrt_logK_over_n": 0.24388337664273316,
+      "ratio_bound_over_measured_severity": 40.647229440455526,
+      "orders_of_magnitude_bound_exceeds_severity": 1.6090309489527672
+    },
+    {
+      "mechanism": "3 (MultiHaluDet, real features, fully corrected OOF, cap.128)",
+      "K": 45,
+      "n": 94,
+      "n_note": "fully-corrected out-of-fold |sel| (\u00a74.3)",
+      "severity": 0.0006,
+      "metric": "AUROC",
+      "severity_note": "fully-corrected gap (Table tab:m3-real)",
+      "ada_bound_sqrt_logK_over_n": 0.20123719702292042,
+      "ratio_bound_over_measured_severity": 335.39532837153405,
+      "orders_of_magnitude_bound_exceeds_severity": 2.5255570091448614
+    },
+    {
+      "mechanism": "3 (synthetic joint grid, largest K, most headroom)",
+      "K": 405,
+      "n": 112,
+      "n_note": "n_val held fixed at 112 throughout the joint K x AUROC_0 grid (\u00a75.5, code/57)",
+      "severity": 0.011,
+      "metric": "AUROC",
+      "severity_note": "K=405, AUROC_0=0.70 cell (\u00a75.5 table)",
+      "ada_bound_sqrt_logK_over_n": 0.23152998623879575,
+      "ratio_bound_over_measured_severity": 21.04818056716325,
+      "orders_of_magnitude_bound_exceeds_severity": 1.3232145607991517
+    },
+    {
+      "mechanism": "3 (synthetic joint grid, largest K, ceiling operating point)",
+      "K": 405,
+      "n": 112,
+      "n_note": "same n_val=112",
+      "severity": 0.00016,
+      "metric": "AUROC",
+      "severity_note": "K=405, AUROC_0=0.985 cell (\u00a75.5 table)",
+      "ada_bound_sqrt_logK_over_n": 0.23152998623879575,
+      "ratio_bound_over_measured_severity": 1447.0624139924732,
+      "orders_of_magnitude_bound_exceeds_severity": 3.160487263301452
+    },
+    {
+      "mechanism": "4 (quantized-LLM paper, test-set best-layer selection)",
+      "K": 33,
+      "n": 300,
+      "n_note": "APPROXIMATE -- the audited repo's shipped per-layer/per-seed AUROC arrays do not record the underlying test-set n; 300 is an order-of-magnitude placeholder typical of the FEVER/TruthfulQA/HaluEval-scale splits this literature uses, NOT a value read from the audited files. Flagged explicitly rather than presented as measured.",
+      "severity": 0.0021,
+      "metric": "AUROC",
+      "severity_note": "Delta_boot as computed (\u00a74.4)",
+      "ada_bound_sqrt_logK_over_n": 0.107958442026959,
+      "ratio_bound_over_measured_severity": 51.408781917599526,
+      "orders_of_magnitude_bound_exceeds_severity": 1.7110373137924932
+    },
+    {
+      "mechanism": "4 (quantized-LLM paper, calibration-corrected)",
+      "K": 33,
+      "n": 300,
+      "n_note": "same approximation caveat as above",
+      "severity": 0.004,
+      "metric": "AUROC",
+      "severity_note": "calibration-corrected upper end (\u00a74.4)",
+      "ada_bound_sqrt_logK_over_n": 0.107958442026959,
+      "ratio_bound_over_measured_severity": 26.98961050673975,
+      "orders_of_magnitude_bound_exceeds_severity": 1.4311966171984503
+    },
+    {
+      "mechanism": "5 (MultiHaluDet, test-set threshold selection, n_test=140)",
+      "K": 81,
+      "n": 140,
+      "n_note": "n_test=140 (\u00a74.5, results/mechanism5_youden_threshold.json)",
+      "severity": 0.0225,
+      "metric": "F1 (not AUROC -- disclosed)",
+      "severity_note": "F1 gap at Youden (\u00a74.5)",
+      "ada_bound_sqrt_logK_over_n": 0.17716919182909474,
+      "ratio_bound_over_measured_severity": 7.874186303515322,
+      "orders_of_magnitude_bound_exceeds_severity": 0.8962056859979601
+    },
+    {
+      "mechanism": "5 (MultiHaluDet, test-set threshold selection, n_test=2000)",
+      "K": 81,
+      "n": 2000,
+      "n_note": "n_test~2000 (largest sweep point, \u00a74.5)",
+      "severity": 0.0036,
+      "metric": "F1 (not AUROC -- disclosed)",
+      "severity_note": "F1 gap at Youden, largest n",
+      "ada_bound_sqrt_logK_over_n": 0.04687456215620813,
+      "ratio_bound_over_measured_severity": 13.020711710057814,
+      "orders_of_magnitude_bound_exceeds_severity": 1.1146347233491636
+    }
+  ],
+  "ratio_range": [
+    3.6502915794696413,
+    1447.0624139924732
+  ],
+  "orders_of_magnitude_range": [
+    0.5623275565926422,
+    3.160487263301452
+  ],
+  "verdict": "The Dwork et al. sqrt(log K / n) bound exceeds every measured severity in this table by 4x to 1447x (0.6 to 3.2 orders of magnitude), including on Mechanism 5's F1 metric it was not derived for (included for scale only, flagged). This is not a failure of the bound -- it is stated for adversarial, fully adaptive query sequences with an unspecified constant, and every pipeline audited here issues one short, benign, non-adaptive sweep, exactly the gap \u00a72 already names. The numeric answer this script adds: at the (K, n) scales this paper's own experiments actually use, the bound is EFFECTIVELY VACUOUS as a usable auditing instrument -- a reader computing it on their own pipeline would learn only that their measured severity is nowhere near a worst-case adversarial regime, not a number they could act on. Even the SMALLEST gap in this table (3.7x, Mechanism 2/CS2, 0.6 orders of magnitude) has the bound comfortably above the measurement, and every other row is one to three further orders of magnitude beyond that, so no row here approaches a regime where the bound and the measurement would need to be reconciled."
+}

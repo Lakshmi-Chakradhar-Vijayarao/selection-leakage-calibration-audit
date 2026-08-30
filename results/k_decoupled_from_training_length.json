@@ -1,0 +1,117 @@
+{
+  "design": {
+    "total_epochs": 225,
+    "n_seeds": 100,
+    "capacity": 128,
+    "n_samples": 700,
+    "target_auroc": 0.8,
+    "strides": {
+      "1": 225,
+      "3": 75,
+      "15": 15,
+      "45": 5
+    },
+    "es_hold_fraction": 0.15,
+    "simplification_note": "Single reused validation fold + single train/test split, reading each checkpoint's own sigmoid AUROC directly, rather than code/47's 5-fold OOF-plus-downstream-logistic-regression pipeline (disclosed in the module docstring). Internal coupled-vs-decoupled comparison only."
+  },
+  "decoupled": {
+    "1": {
+      "gap_mean": 0.006346938775510224,
+      "gap_bca_ci_95": [
+        0.0010168822357412971,
+        0.011400301367731144
+      ],
+      "wilcoxon_p": 0.008805122532315824,
+      "n_positive": 57,
+      "n_seeds": 100,
+      "k_nominal": 225
+    },
+    "3": {
+      "gap_mean": 0.005848979591836738,
+      "gap_bca_ci_95": [
+        0.0011322292790784888,
+        0.010703618015897249
+      ],
+      "wilcoxon_p": 0.010135908757492828,
+      "n_positive": 54,
+      "n_seeds": 100,
+      "k_nominal": 75
+    },
+    "15": {
+      "gap_mean": 0.003760204081632652,
+      "gap_bca_ci_95": [
+        -0.0006852379642214096,
+        0.008240238168574165
+      ],
+      "wilcoxon_p": 0.06369536018135308,
+      "n_positive": 31,
+      "n_seeds": 100,
+      "k_nominal": 15
+    },
+    "45": {
+      "gap_mean": 0.0009520408163265293,
+      "gap_bca_ci_95": [
+        -0.0009251821897143449,
+        0.0028548224756617083
+      ],
+      "wilcoxon_p": 0.1688153924331003,
+      "n_positive": 45,
+      "n_seeds": 100,
+      "k_nominal": 5
+    }
+  },
+  "coupled_baseline": {
+    "225": {
+      "gap_mean": 0.006346938775510224,
+      "gap_bca_ci_95": [
+        0.0012182735406289465,
+        0.011418550831680325
+      ],
+      "wilcoxon_p": 0.008805122532315824,
+      "n_positive": 57,
+      "n_seeds": 100,
+      "k": 225
+    },
+    "75": {
+      "gap_mean": 0.006115306122448995,
+      "gap_bca_ci_95": [
+        0.001586829907385588,
+        0.010807157858783807
+      ],
+      "wilcoxon_p": 0.018511398196750243,
+      "n_positive": 55,
+      "n_seeds": 100,
+      "k": 75
+    },
+    "15": {
+      "gap_mean": 0.003070408163265309,
+      "gap_bca_ci_95": [
+        -0.0001230240777726428,
+        0.006871241933550896
+      ],
+      "wilcoxon_p": 0.032863441539438834,
+      "n_positive": 40,
+      "n_seeds": 100,
+      "k": 15
+    },
+    "5": {
+      "gap_mean": 0.00106122448979592,
+      "gap_bca_ci_95": [
+        0.00013877551020408108,
+        0.002826530612244898
+      ],
+      "wilcoxon_p": 0.0969076798722545,
+      "n_positive": 6,
+      "n_seeds": 100,
+      "k": 5
+    }
+  },
+  "decoupled_monotone_nondecreasing_in_k": true,
+  "decoupled_ln_k_slope": 0.0013991190551112154,
+  "coupled_monotone_nondecreasing_in_k": true,
+  "runtime_seconds": 211.478942155838,
+  "verdict": {
+    "label": "SURVIVES",
+    "statement": "Decoupled design (fixed 225-epoch training budget, only eligible-checkpoint count varies): gaps at K_eff=[225, 75, 15, 5] are [0.00635, 0.00585, 0.00376, 0.00095], monotone non-decreasing in K, ln(K) slope +0.001399. Coupled baseline (this script's own simplified train-to-K-epochs readout) at the same nominal K values gives [0.00106, 0.00307, 0.00612, 0.00635], monotone."
+  }
+}

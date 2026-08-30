@@ -1,0 +1,34 @@
+{
+  "observed_delta_sel": 0.025549413646943724,
+  "n_reps": 50,
+  "n_layers": 32,
+  "n_null_draws": 20000,
+  "layer_permutation_null": {
+    "mean": 0.04293606882253877,
+    "sd": 0.0042951785672207645,
+    "ci_95": [
+      0.03497056500926612,
+      0.05174599707765901
+    ],
+    "p_null_le_observed": 0.0,
+    "p_null_ge_observed": 1.0,
+    "observed_below_entire_ci": true,
+    "description": "Permutes which layer's held-out AUROC is paired with which layer's CV AUROC, 20,000 draws, independently per rep per draw. Leaves both marginal vectors, the argmax rule and the layer count untouched; removes only the cv-to-ho layer correspondence, i.e. exactly the transferable component."
+  },
+  "decomposition": {
+    "A_winners_curse_on_selection_criterion": 0.042865131095741305,
+    "A_sd_over_reps": 0.010018342082940971,
+    "A_t": 30.254731394988656,
+    "A_p": 2.2991281056274953e-33,
+    "B_transferred_layer_quality": 0.017315717448797566,
+    "B_sd_over_reps": 0.013495967103504012,
+    "B_t": 9.072385206078346,
+    "B_p": 4.600143471385886e-12,
+    "B_n_negative_reps": 7,
+    "B_over_A_fraction_offset": 0.40395811248359625,
+    "identity_check_A_minus_B_equals_delta": 1.3877787807814457e-17,
+    "A_equals_null_mean_abs_diff": 7.093772679746257e-05,
+    "description": "Delta_sel = A - B exactly. A = cv at the selected layer minus mean cv (the winner's curse on the selection criterion; also the analytic mean of the permutation null). B = ho at the selected layer minus mean ho (how much genuinely better the selected layer is on data that played no part in selecting it). B/A is the fraction of the raw curse that real, transferred layer quality cancels."
+  },
+  "reading": "Delta_sel = +0.0255 is NOT above its mechanical null -- it is below the null's entire 95% interval. The correct statement is not 'selection optimism is significantly positive' (an unsurprising claim against a null the paper itself calls false) but 'CV-argmax layer selection recovers a genuinely better-than-average layer, and that transferred quality offsets 40.4% of the raw winner's curse, leaving +0.0255 as the residual optimism a practitioner still pays.'"
+}
