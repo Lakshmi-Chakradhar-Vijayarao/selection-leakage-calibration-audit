@@ -1,0 +1,106 @@
+{
+  "queries_per_day": 100000,
+  "n_reps": 50,
+  "seed": 20260925,
+  "coverage_targets": {
+    "0.30": {
+      "coverage_target": 0.3,
+      "achieved_coverage_leaky_mean": 0.30000000000000004,
+      "achieved_coverage_clean_mean": 0.31446666666666667,
+      "coverage_shift_clean_minus_leaky": {
+        "mean": 0.014466666666666675,
+        "bca_95ci": [
+          0.006333333333333342,
+          0.022509237705605978
+        ]
+      },
+      "believed_risk_mean": 0.0775,
+      "actual_risk_mean": 0.0857991050276377,
+      "answered_per_day_believed": 30000.000000000004,
+      "answered_per_day_actual": 31446.666666666668,
+      "errors_per_day_believed": 2325.0,
+      "errors_per_day_actual": 2693.333333333333,
+      "excess_errors_per_day_corrected": {
+        "mean": 368.33333333333366,
+        "bca_95ci": [
+          76.66666666666718,
+          661.6666666666671
+        ]
+      },
+      "excess_errors_per_day_submitted_estimator": {
+        "mean": 248.97315082913127,
+        "bca_95ci": [
+          -38.54691095619522,
+          525.3638808532816
+        ],
+        "note": "Q * target_coverage * (risk_clean - risk_leaky); assumes coverage is unchanged by the threshold transfer."
+      }
+    },
+    "0.50": {
+      "coverage_target": 0.5,
+      "achieved_coverage_leaky_mean": 0.5,
+      "achieved_coverage_clean_mean": 0.5066666666666666,
+      "coverage_shift_clean_minus_leaky": {
+        "mean": 0.0066666666666666645,
+        "bca_95ci": [
+          -0.003066666666666666,
+          0.017599999999999998
+        ]
+      },
+      "believed_risk_mean": 0.09549999999999999,
+      "actual_risk_mean": 0.11047408580661922,
+      "answered_per_day_believed": 50000.0,
+      "answered_per_day_actual": 50666.66666666666,
+      "errors_per_day_believed": 4774.999999999999,
+      "errors_per_day_actual": 5600.0,
+      "excess_errors_per_day_corrected": {
+        "mean": 825.0000000000015,
+        "bca_95ci": [
+          411.6666666666678,
+          1260.0000000000016
+        ]
+      },
+      "excess_errors_per_day_submitted_estimator": {
+        "mean": 748.7042903309624,
+        "bca_95ci": [
+          339.42200741922915,
+          1173.3712396915096
+        ],
+        "note": "Q * target_coverage * (risk_clean - risk_leaky); assumes coverage is unchanged by the threshold transfer."
+      }
+    },
+    "0.70": {
+      "coverage_target": 0.7,
+      "achieved_coverage_leaky_mean": 0.7000000000000002,
+      "achieved_coverage_clean_mean": 0.7070666666666666,
+      "coverage_shift_clean_minus_leaky": {
+        "mean": 0.007066666666666708,
+        "bca_95ci": [
+          -0.0037999999999999623,
+          0.017733333333333372
+        ]
+      },
+      "believed_risk_mean": 0.12778571428571428,
+      "actual_risk_mean": 0.1416710797344164,
+      "answered_per_day_believed": 70000.00000000001,
+      "answered_per_day_actual": 70706.66666666666,
+      "errors_per_day_believed": 8945.0,
+      "errors_per_day_actual": 10026.666666666666,
+      "excess_errors_per_day_corrected": {
+        "mean": 1081.6666666666665,
+        "bca_95ci": [
+          434.8448870081704,
+          1718.3333333333335
+        ]
+      },
+      "excess_errors_per_day_submitted_estimator": {
+        "mean": 971.9755814091477,
+        "bca_95ci": [
+          348.1259580678542,
+          1591.205744611801
+        ],
+        "note": "Q * target_coverage * (risk_clean - risk_leaky); assumes coverage is unchanged by the threshold transfer."
+      }
+    }
+  }
+}

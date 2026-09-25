@@ -1,0 +1,475 @@
+{
+  "seed": 20260925,
+  "n_reps": 50,
+  "n_layers": 32,
+  "selected_layer_per_rep": [
+    18,
+    19,
+    16,
+    14,
+    19,
+    11,
+    10,
+    12,
+    13,
+    14,
+    15,
+    20,
+    18,
+    15,
+    15,
+    19,
+    20,
+    10,
+    22,
+    19,
+    23,
+    15,
+    14,
+    14,
+    15,
+    14,
+    23,
+    16,
+    14,
+    5,
+    19,
+    16,
+    10,
+    11,
+    14,
+    14,
+    21,
+    14,
+    14,
+    15,
+    14,
+    14,
+    19,
+    22,
+    16,
+    19,
+    15,
+    10,
+    16,
+    15
+  ],
+  "random_placebo_layer_per_rep": [
+    24,
+    5,
+    19,
+    6,
+    11,
+    15,
+    15,
+    13,
+    9,
+    16,
+    6,
+    10,
+    2,
+    5,
+    2,
+    29,
+    5,
+    14,
+    31,
+    0,
+    1,
+    14,
+    20,
+    8,
+    24,
+    9,
+    5,
+    6,
+    14,
+    6,
+    29,
+    2,
+    19,
+    27,
+    11,
+    20,
+    29,
+    1,
+    8,
+    22,
+    31,
+    18,
+    22,
+    30,
+    19,
+    24,
+    11,
+    22,
+    19,
+    11
+  ],
+  "base_rate_sel_mean": 0.765,
+  "base_rate_ho_mean": 0.7633333333333334,
+  "note_base_rate": "Murphy UNC = obar(1-obar); LEAKY and CLEAN base rates are matched to within the value reported here, so the REL/RES comparison is not confounded by an uncertainty-term shift.",
+  "placebo_control": {
+    "brier": {
+      "gap_at_selected_layer": {
+        "mean": 0.008194743779071936,
+        "bca_95ci": [
+          0.0029737657826162302,
+          0.013563212995891265
+        ],
+        "excludes_zero": true
+      },
+      "placebo_gap_all_layer_mean": {
+        "mean": 0.0006737897803452479,
+        "bca_95ci": [
+          -0.004047789864410577,
+          0.005089928102570564
+        ],
+        "excludes_zero": false
+      },
+      "placebo_gap_random_layer": {
+        "mean": -0.001452032106181959,
+        "bca_95ci": [
+          -0.006110999169691028,
+          0.0027437396864426365
+        ],
+        "excludes_zero": false
+      },
+      "selection_specific_increment_vs_all_layer_mean": {
+        "mean": 0.00752095399872669,
+        "bca_95ci": [
+          0.005373982011936179,
+          0.009621440996162219
+        ],
+        "excludes_zero": true
+      },
+      "selection_specific_increment_vs_random_layer": {
+        "mean": 0.009646775885253898,
+        "bca_95ci": [
+          0.006319619370463183,
+          0.013400321999181763
+        ],
+        "excludes_zero": true
+      },
+      "share_of_gap_that_is_selection_specific": 0.9177778099583785
+    },
+    "reliability": {
+      "gap_at_selected_layer": {
+        "mean": 0.004574954063529454,
+        "bca_95ci": [
+          0.002726982071526577,
+          0.006532273801469423
+        ],
+        "excludes_zero": true
+      },
+      "placebo_gap_all_layer_mean": {
+        "mean": 0.001985727161281315,
+        "bca_95ci": [
+          0.0005477377097916319,
+          0.003363001514741189
+        ],
+        "excludes_zero": true
+      },
+      "placebo_gap_random_layer": {
+        "mean": 0.001149480008673833,
+        "bca_95ci": [
+          -0.0009513096858453871,
+          0.0029912496968812754
+        ],
+        "excludes_zero": false
+      },
+      "selection_specific_increment_vs_all_layer_mean": {
+        "mean": 0.00258922690224814,
+        "bca_95ci": [
+          0.0013472556081740082,
+          0.003969811438458528
+        ],
+        "excludes_zero": true
+      },
+      "selection_specific_increment_vs_random_layer": {
+        "mean": 0.0034254740548556217,
+        "bca_95ci": [
+          0.0010682820342790226,
+          0.006031731024112437
+        ],
+        "excludes_zero": true
+      },
+      "share_of_gap_that_is_selection_specific": 0.5659569181008607
+    },
+    "resolution": {
+      "gap_at_selected_layer": {
+        "mean": -0.0028016192607701234,
+        "bca_95ci": [
+          -0.00701943609897599,
+          0.001350760795304359
+        ],
+        "excludes_zero": false
+      },
+      "placebo_gap_all_layer_mean": {
+        "mean": 0.0020145686270785904,
+        "bca_95ci": [
+          -0.0011144577276005752,
+          0.0053763688565577695
+        ],
+        "excludes_zero": false
+      },
+      "placebo_gap_random_layer": {
+        "mean": 0.003259494970438832,
+        "bca_95ci": [
+          7.769556367156097e-05,
+          0.006834560743159529
+        ],
+        "excludes_zero": true
+      },
+      "selection_specific_increment_vs_all_layer_mean": {
+        "mean": -0.004816187887848714,
+        "bca_95ci": [
+          -0.00658379274829058,
+          -0.003060014452941548
+        ],
+        "excludes_zero": true
+      },
+      "selection_specific_increment_vs_random_layer": {
+        "mean": -0.006061114231208955,
+        "bca_95ci": [
+          -0.008731707612298082,
+          -0.003838683556686334
+        ],
+        "excludes_zero": true
+      },
+      "share_of_gap_that_is_selection_specific": 1.719072950164119
+    },
+    "ece_10_width": {
+      "gap_at_selected_layer": {
+        "mean": 0.017128712622192694,
+        "bca_95ci": [
+          0.009930400580228893,
+          0.024078246897137695
+        ],
+        "excludes_zero": true
+      },
+      "placebo_gap_all_layer_mean": {
+        "mean": 0.007212182125433437,
+        "bca_95ci": [
+          0.003017414811866213,
+          0.01125690561630825
+        ],
+        "excludes_zero": true
+      },
+      "placebo_gap_random_layer": {
+        "mean": 0.004492684477891704,
+        "bca_95ci": [
+          -0.00273299734659644,
+          0.011556437221149306
+        ],
+        "excludes_zero": false
+      },
+      "selection_specific_increment_vs_all_layer_mean": {
+        "mean": 0.009916530496759257,
+        "bca_95ci": [
+          0.005411275540252529,
+          0.014962689754353865
+        ],
+        "excludes_zero": true
+      },
+      "selection_specific_increment_vs_random_layer": {
+        "mean": 0.01263602814430099,
+        "bca_95ci": [
+          0.004093863106335211,
+          0.022367370024992412
+        ],
+        "excludes_zero": true
+      },
+      "share_of_gap_that_is_selection_specific": 0.5789419622763111
+    },
+    "smooth_calibration_error": {
+      "gap_at_selected_layer": {
+        "mean": 0.00338377452567793,
+        "bca_95ci": [
+          0.0019935438756060733,
+          0.0049964089690493875
+        ],
+        "excludes_zero": true
+      },
+      "placebo_gap_all_layer_mean": {
+        "mean": 0.0019071716571914868,
+        "bca_95ci": [
+          0.0008742273748620782,
+          0.002879146851320722
+        ],
+        "excludes_zero": true
+      },
+      "placebo_gap_random_layer": {
+        "mean": 0.001388372859207386,
+        "bca_95ci": [
+          -0.00026946953525102275,
+          0.0029700721481911575
+        ],
+        "excludes_zero": false
+      },
+      "selection_specific_increment_vs_all_layer_mean": {
+        "mean": 0.0014766028684864436,
+        "bca_95ci": [
+          0.00043992362681807975,
+          0.0026486368489702966
+        ],
+        "excludes_zero": true
+      },
+      "selection_specific_increment_vs_random_layer": {
+        "mean": 0.0019954016664705445,
+        "bca_95ci": [
+          2.6889818709075536e-05,
+          0.004204781698174505
+        ],
+        "excludes_zero": true
+      },
+      "share_of_gap_that_is_selection_specific": 0.43637744101481163
+    }
+  },
+  "brier_decomposition_at_selected_layer": {
+    "brier_leaky_mean": 0.14914397267238388,
+    "brier_clean_mean": 0.1573387164514558,
+    "reliability_leaky_mean": 0.00810771420234527,
+    "reliability_clean_mean": 0.012682668265874724,
+    "resolution_leaky_mean": 0.03789646426284416,
+    "resolution_clean_mean": 0.035094845002074035,
+    "uncertainty_leaky_mean": 0.17977499999999996,
+    "uncertainty_clean_mean": 0.18065555555555554,
+    "reliability_gap_clean_minus_leaky": {
+      "mean": 0.004574954063529454,
+      "bca_95ci": [
+        0.002726982071526577,
+        0.006532273801469423
+      ],
+      "excludes_zero": true
+    },
+    "resolution_gap_leaky_minus_clean": {
+      "mean": 0.0028016192607701234,
+      "bca_95ci": [
+        -0.0013507607953043594,
+        0.007019436098975992
+      ],
+      "excludes_zero": false
+    },
+    "uncertainty_gap_clean_minus_leaky": {
+      "mean": 0.0008805555555555789,
+      "bca_95ci": [
+        0.0008805555555555789,
+        0.0008805555555555789
+      ],
+      "excludes_zero": true
+    },
+    "interpretation": "A positive reliability gap means the held-out predictions are less reliable than the reused-fold predictions, i.e. a genuine calibration effect. A positive resolution gap means part of the Brier difference is discrimination, which argmax-AUROC selection optimises directly and which is therefore not a calibration claim."
+  },
+  "ece_bin_sensitivity_at_selected_layer": {
+    "width_5bins": {
+      "ece_leaky_mean": 0.0622923047666205,
+      "ece_clean_mean": 0.0796765247540238,
+      "mean": 0.0173842199874033,
+      "bca_95ci": [
+        0.010187365985835898,
+        0.024730811823845407
+      ],
+      "excludes_zero": true
+    },
+    "width_10bins": {
+      "ece_leaky_mean": 0.07163413448797074,
+      "ece_clean_mean": 0.08876284711016341,
+      "mean": 0.017128712622192694,
+      "bca_95ci": [
+        0.009930400580228893,
+        0.024078246897137695
+      ],
+      "excludes_zero": true
+    },
+    "width_15bins": {
+      "ece_leaky_mean": 0.0773964321743464,
+      "ece_clean_mean": 0.09623540838711586,
+      "mean": 0.018838976212769448,
+      "bca_95ci": [
+        0.012660812751998698,
+        0.02556815331053326
+      ],
+      "excludes_zero": true
+    },
+    "width_20bins": {
+      "ece_leaky_mean": 0.08333319852899294,
+      "ece_clean_mean": 0.10272620812744523,
+      "mean": 0.019393009598452297,
+      "bca_95ci": [
+        0.012568351021918193,
+        0.02658353675297416
+      ],
+      "excludes_zero": true
+    },
+    "mass_5bins": {
+      "ece_leaky_mean": 0.059633671017526646,
+      "ece_clean_mean": 0.07601364362553384,
+      "mean": 0.016379972608007186,
+      "bca_95ci": [
+        0.008468524426779905,
+        0.02423330626173587
+      ],
+      "excludes_zero": true
+    },
+    "mass_10bins": {
+      "ece_leaky_mean": 0.06659762585486752,
+      "ece_clean_mean": 0.08464558930114531,
+      "mean": 0.018047963446277807,
+      "bca_95ci": [
+        0.011054091241411155,
+        0.025711985903444912
+      ],
+      "excludes_zero": true
+    },
+    "mass_15bins": {
+      "ece_leaky_mean": 0.07370677364047153,
+      "ece_clean_mean": 0.09217266468222561,
+      "mean": 0.018465891041754112,
+      "bca_95ci": [
+        0.011824434218373906,
+        0.026490049400661644
+      ],
+      "excludes_zero": true
+    },
+    "mass_20bins": {
+      "ece_leaky_mean": 0.0798564840343548,
+      "ece_clean_mean": 0.10110249795929217,
+      "mean": 0.02124601392493738,
+      "bca_95ci": [
+        0.014468366518889456,
+        0.028930803583927453
+      ],
+      "excludes_zero": true
+    }
+  },
+  "ece_sweep_all_settings_exclude_zero": true,
+  "calibration_slope_intercept_at_selected_layer": {
+    "slope_leaky_mean": 0.6806666032366175,
+    "slope_clean_mean": 0.6185214671258474,
+    "intercept_leaky_mean": 0.06862945505114637,
+    "intercept_clean_mean": 0.13853528742205634,
+    "slope_gap_leaky_minus_clean": {
+      "mean": 0.06214513611077024,
+      "bca_95ci": [
+        0.01451002423179193,
+        0.1032938935145834
+      ],
+      "excludes_zero": true
+    },
+    "interpretation": "Slope 1 / intercept 0 is perfect calibration; slope below 1 indicates overconfidence. Reported because it is a calibration-specific statistic that does not depend on binning."
+  },
+  "smooth_calibration_error_at_selected_layer": {
+    "sce_leaky_mean": 0.006528312165882915,
+    "sce_clean_mean": 0.009912086691560846,
+    "sce_gap_clean_minus_leaky": {
+      "mean": 0.00338377452567793,
+      "bca_95ci": [
+        0.0019935438756060733,
+        0.0049964089690493875
+      ],
+      "excludes_zero": true
+    },
+    "caveat": "Isotonic fit is in-sample, so this underestimates absolute calibration error; it is used only for the LEAKY-vs-CLEAN comparison, where the bias applies to both arms."
+  }
+}
