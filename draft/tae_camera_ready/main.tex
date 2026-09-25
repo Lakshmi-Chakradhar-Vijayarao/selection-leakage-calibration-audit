@@ -521,10 +521,12 @@ estimator, and $825$ at $50\%$. Coverage shifts furthest at the $30\%$ target,
 where the coverage-aware excess of $368$ errors excludes zero, $[77,662]$,
 and the fixed-coverage estimator's does not; we flag that cell as established
 \emph{only} under the coverage-aware count and keep the risk-difference
-verdict above as the conservative one (Appendix~\ref{app:reviewer-response}).
-What degrades here is the abstention rate a deployment was sized against: this
-transfers an empirically chosen threshold and neither constructs nor
-contradicts a distribution-free risk-controlling procedure.
+verdict as the conservative one (Appendix~\ref{app:reviewer-response}). What
+degrades is the abstention rate a deployment was sized against; this transfers
+an empirically chosen threshold and neither constructs nor contradicts a
+distribution-free risk-controlling procedure. The per-day counts scale one
+dataset's split-to-split behaviour to a hypothetical query volume: they convey
+magnitude, not a population estimate.
 
 \paragraph{Mechanism 1, and robustness.} With a candidate set of size one,
 selection reduces to fitting on the evaluation data: believed risk is
@@ -757,6 +759,9 @@ Scope limits & Calibration shown on two mechanisms (the four extra
   architectures test AUROC only); M2 at $30\%$ coverage established only under
   the coverage-aware count; severity relationship diagnostic, not predictive
   ($9.2$--$24.3\times$ off); threshold transfer is informal, not conformal;
+  per-day error counts scale one dataset to a hypothetical query volume rather
+  than estimating a population; M5's $+0.0090$ is quantified in our synthetic
+  harness, not on the external pipeline's own reported outputs;
   no prevalence estimate (repositories found by targeted search, not sampled). \\
 \bottomrule
 \end{tabular}}
