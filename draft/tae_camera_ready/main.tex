@@ -85,7 +85,8 @@ probe ranks hallucinated versus correct generations? The closest audit in this
 paradigm, on a different detection task, scopes calibration out explicitly:
 Li et al.\ (2026, \S5.2) report AUC only, stating that ``calibration is not the
 target estimand.'' To our knowledge no prior audit of this failure class has asked whether the
-same selection step also corrupts \emph{calibration}. We show it does: a probe
+same selection step also corrupts \emph{calibration}. We show that it can, and
+measure where it does not: a probe
 scored at its own selected configuration on the data used to select it yields
 Brier and ECE values that look better than its genuinely held-out reliability,
 with the same statistical signature (BCa-established, excluding zero) as the
@@ -116,8 +117,8 @@ construction asymmetries.
 \paragraph{Contributions.}
 \begin{itemize}
 \itemsep0pt
-\item The first evidence that selection-induced optimism corrupts
-   calibration and degrades an actual selective-prediction operating
+\item The first evidence that selection-induced optimism \emph{can} corrupt
+   calibration and degrade an actual selective-prediction operating
    point, not only discrimination: confirmed on two mechanisms
    (\S\ref{sec:calibration-bridge}), a structurally different external
    confirmation (\S\ref{sec:mechanism5-ece}), and an operational
@@ -141,15 +142,26 @@ construction asymmetries.
    (\S\ref{sec:checklist}).
 \end{itemize}
 
-\paragraph{What each claim is, and how strongly.} Every claim sits in one of
-three tiers and is read at that tier, nowhere at a stronger one:
-\textbf{(A) documented} -- present in the harnesses as written, descriptive;
-\textbf{(B) statistically established} -- BCa $95\%$ excludes zero,
-Holm-corrected where a family applies; \textbf{(C) illustrative, unresolved, or
-negative} -- reported but not relied on, including our own primary synthetic
-estimate, which fails its own control. We give no prevalence estimate:
-repositories were found by targeted search, not sampled.
-Table~\ref{tab:claim-tiers} (Appendix~\ref{app:claim-tiers}) maps every row.
+\paragraph{What each claim is, and how strongly.} Every claim sits in one tier
+of Table~\ref{tab:tiers}, read at that tier and nowhere at a stronger one;
+Appendix~\ref{app:claim-tiers} assigns every individual result to one.
+
+\begin{table}[h]
+\centering
+\small
+\vspace{-0.6em}
+{\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.15\linewidth}p{0.80\linewidth}@{}}
+\toprule
+\textbf{A} Documented & Present in the harness as written; descriptive, no effect size claimed. Five mechanisms, three traced to pinned third-party source. \\
+\textbf{B} Established & BCa $95\%$ excludes zero, Holm-corrected where a family applies. M2's discrimination, calibration and operating-point results; M1/M3/M5 severities. \\
+\textbf{C} Illustrative & Reported, not relied on. Our primary synthetic estimate (fails its own control), a non-reproducible prior number, and the scope limits including a negative cross-harness calibration result. \\
+\bottomrule
+\end{tabular}}
+\caption{How to read every claim here. No prevalence estimate is given:
+repositories were found by targeted search, not sampled.}
+\label{tab:tiers}
+\end{table}
 
 
 \begin{figure}[t]
@@ -337,7 +349,7 @@ or the unequal harness maturity correlated with it. What this licenses is only
 the negative conclusion: severity is not governed by those two covariates to
 the exclusion of mechanism.
 
-\section{Operational Safety Failures: Selection Bias Breaks Selective Prediction}
+\section{Operational Consequences: Selection Bias Degrades Selective Prediction}
 \label{sec:calibration-bridge}
 
 A selective-prediction threshold calibrated on reused-fold scores buys a risk
