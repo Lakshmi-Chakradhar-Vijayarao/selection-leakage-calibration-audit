@@ -1,0 +1,279 @@
+{
+  "n_reps": 50,
+  "n_bins": 10,
+  "n_pooled_leaky": 20000,
+  "n_pooled_clean": 15000,
+  "base_rate_leaky": 0.765,
+  "base_rate_clean": 0.7633333333333333,
+  "note": "Pooled across splits at each split's own CV-argmax layer. Pooling mixes splits, so these curves are descriptive; every inferential statement in the paper is computed per split and aggregated with BCa over splits (see 103).",
+  "curves": {
+    "mass": {
+      "leaky": [
+        {
+          "bin": 0,
+          "n": 2000,
+          "mean_predicted": 0.26281762099661865,
+          "observed_frequency": 0.344
+        },
+        {
+          "bin": 1,
+          "n": 2000,
+          "mean_predicted": 0.5610226842463016,
+          "observed_frequency": 0.549
+        },
+        {
+          "bin": 2,
+          "n": 2000,
+          "mean_predicted": 0.7190178269147873,
+          "observed_frequency": 0.684
+        },
+        {
+          "bin": 3,
+          "n": 2000,
+          "mean_predicted": 0.8134803241789341,
+          "observed_frequency": 0.7515
+        },
+        {
+          "bin": 4,
+          "n": 2000,
+          "mean_predicted": 0.8749477122724056,
+          "observed_frequency": 0.82
+        },
+        {
+          "bin": 5,
+          "n": 2000,
+          "mean_predicted": 0.9156923620998859,
+          "observed_frequency": 0.864
+        },
+        {
+          "bin": 6,
+          "n": 2000,
+          "mean_predicted": 0.9444407242536544,
+          "observed_frequency": 0.872
+        },
+        {
+          "bin": 7,
+          "n": 2000,
+          "mean_predicted": 0.9649261583983898,
+          "observed_frequency": 0.9015
+        },
+        {
+          "bin": 8,
+          "n": 2000,
+          "mean_predicted": 0.9805980585813522,
+          "observed_frequency": 0.9235
+        },
+        {
+          "bin": 9,
+          "n": 2000,
+          "mean_predicted": 0.9936539633274079,
+          "observed_frequency": 0.9405
+        }
+      ],
+      "clean": [
+        {
+          "bin": 0,
+          "n": 1500,
+          "mean_predicted": 0.24827565734429904,
+          "observed_frequency": 0.372
+        },
+        {
+          "bin": 1,
+          "n": 1500,
+          "mean_predicted": 0.558592332303524,
+          "observed_frequency": 0.568
+        },
+        {
+          "bin": 2,
+          "n": 1500,
+          "mean_predicted": 0.7200335890452068,
+          "observed_frequency": 0.6946666666666667
+        },
+        {
+          "bin": 3,
+          "n": 1500,
+          "mean_predicted": 0.8182660452922186,
+          "observed_frequency": 0.77
+        },
+        {
+          "bin": 4,
+          "n": 1500,
+          "mean_predicted": 0.8794695690472921,
+          "observed_frequency": 0.8133333333333334
+        },
+        {
+          "bin": 5,
+          "n": 1500,
+          "mean_predicted": 0.9188652191559473,
+          "observed_frequency": 0.8413333333333334
+        },
+        {
+          "bin": 6,
+          "n": 1500,
+          "mean_predicted": 0.9471579204003017,
+          "observed_frequency": 0.8473333333333334
+        },
+        {
+          "bin": 7,
+          "n": 1500,
+          "mean_predicted": 0.9675605026086171,
+          "observed_frequency": 0.9006666666666666
+        },
+        {
+          "bin": 8,
+          "n": 1500,
+          "mean_predicted": 0.9828780831098557,
+          "observed_frequency": 0.9013333333333333
+        },
+        {
+          "bin": 9,
+          "n": 1500,
+          "mean_predicted": 0.9946224286953608,
+          "observed_frequency": 0.9246666666666666
+        }
+      ]
+    },
+    "width": {
+      "leaky": [
+        {
+          "bin": 0,
+          "n": 267,
+          "mean_predicted": 0.05930979508202007,
+          "observed_frequency": 0.18726591760299627
+        },
+        {
+          "bin": 1,
+          "n": 352,
+          "mean_predicted": 0.15392073133791034,
+          "observed_frequency": 0.26704545454545453
+        },
+        {
+          "bin": 2,
+          "n": 497,
+          "mean_predicted": 0.24921027470522483,
+          "observed_frequency": 0.352112676056338
+        },
+        {
+          "bin": 3,
+          "n": 601,
+          "mean_predicted": 0.353679311255647,
+          "observed_frequency": 0.40099833610648916
+        },
+        {
+          "bin": 4,
+          "n": 706,
+          "mean_predicted": 0.45132110903182043,
+          "observed_frequency": 0.4745042492917847
+        },
+        {
+          "bin": 5,
+          "n": 922,
+          "mean_predicted": 0.5531838843336333,
+          "observed_frequency": 0.527114967462039
+        },
+        {
+          "bin": 6,
+          "n": 1307,
+          "mean_predicted": 0.6543717171366924,
+          "observed_frequency": 0.640397857689365
+        },
+        {
+          "bin": 7,
+          "n": 1994,
+          "mean_predicted": 0.754162348679817,
+          "observed_frequency": 0.708124373119358
+        },
+        {
+          "bin": 8,
+          "n": 3450,
+          "mean_predicted": 0.8564353751445162,
+          "observed_frequency": 0.7950724637681159
+        },
+        {
+          "bin": 9,
+          "n": 9904,
+          "mean_predicted": 0.9604529926375831,
+          "observed_frequency": 0.9013529886914378
+        }
+      ],
+      "clean": [
+        {
+          "bin": 0,
+          "n": 221,
+          "mean_predicted": 0.056863484531219595,
+          "observed_frequency": 0.2081447963800905
+        },
+        {
+          "bin": 1,
+          "n": 332,
+          "mean_predicted": 0.15291092755744257,
+          "observed_frequency": 0.28313253012048195
+        },
+        {
+          "bin": 2,
+          "n": 346,
+          "mean_predicted": 0.2515911786800864,
+          "observed_frequency": 0.42196531791907516
+        },
+        {
+          "bin": 3,
+          "n": 422,
+          "mean_predicted": 0.34867410460637077,
+          "observed_frequency": 0.44075829383886256
+        },
+        {
+          "bin": 4,
+          "n": 515,
+          "mean_predicted": 0.4512742435469211,
+          "observed_frequency": 0.4912621359223301
+        },
+        {
+          "bin": 5,
+          "n": 681,
+          "mean_predicted": 0.5521522874173964,
+          "observed_frequency": 0.5506607929515418
+        },
+        {
+          "bin": 6,
+          "n": 969,
+          "mean_predicted": 0.6541821871133535,
+          "observed_frequency": 0.6542827657378741
+        },
+        {
+          "bin": 7,
+          "n": 1413,
+          "mean_predicted": 0.7537605780198569,
+          "observed_frequency": 0.7147912243453645
+        },
+        {
+          "bin": 8,
+          "n": 2569,
+          "mean_predicted": 0.8576215346437709,
+          "observed_frequency": 0.7995328921759439
+        },
+        {
+          "bin": 9,
+          "n": 7532,
+          "mean_predicted": 0.9619543070623486,
+          "observed_frequency": 0.8831651619755709
+        }
+      ]
+    }
+  },
+  "high_confidence_region": {
+    "leaky": {
+      "threshold": 0.8,
+      "n_bins": 7,
+      "n_predictions": 14000,
+      "mean_deviation": -0.059248471873147156
+    },
+    "clean": {
+      "threshold": 0.8,
+      "n_bins": 7,
+      "n_predictions": 10500,
+      "mean_deviation": -0.07287901452041809
+    },
+    "excess_overconfidence_clean_minus_leaky": -0.013630542647270934,
+    "note": "Negative mean_deviation = overconfident (observed below predicted). A more negative value for CLEAN means the genuinely held-out predictions are more overconfident than the reused-fold ones precisely where an abstention threshold operates."
+  }
+}

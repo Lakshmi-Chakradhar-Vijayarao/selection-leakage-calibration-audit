@@ -1,0 +1,381 @@
+{
+  "n_reps": 50,
+  "seed": 20260925,
+  "random_state": 42,
+  "coverage_target_for_risk": 0.5,
+  "by_config": {
+    "shipped_unscaled_C1.0": {
+      "n_reps": 50,
+      "metrics": {
+        "brier": {
+          "gap_at_selected": {
+            "mean": 0.008194746375083923,
+            "bca_95ci": [
+              0.0029737695690775553,
+              0.013563212930194494
+            ],
+            "excludes_zero": true
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.0006737902387976647,
+            "bca_95ci": [
+              -0.00404778942709144,
+              0.005089928699686278
+            ],
+            "excludes_zero": false
+          },
+          "selection_specific": {
+            "mean": 0.007520956136286259,
+            "bca_95ci": [
+              0.005373982853004117,
+              0.009621441879065988
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 0.9177777800608546
+        },
+        "reliability": {
+          "gap_at_selected": {
+            "mean": 0.004574954063529454,
+            "bca_95ci": [
+              0.002726982071526577,
+              0.006532273801469423
+            ],
+            "excludes_zero": true
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.001985727161281315,
+            "bca_95ci": [
+              0.0005477377097916319,
+              0.003363001514741189
+            ],
+            "excludes_zero": true
+          },
+          "selection_specific": {
+            "mean": 0.00258922690224814,
+            "bca_95ci": [
+              0.0013472556081740082,
+              0.003969811438458528
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 0.5659569181008609
+        },
+        "ece": {
+          "gap_at_selected": {
+            "mean": 0.017128712622192694,
+            "bca_95ci": [
+              0.009930400580228893,
+              0.024078246897137695
+            ],
+            "excludes_zero": true
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.007212182125433437,
+            "bca_95ci": [
+              0.003017414811866213,
+              0.01125690561630825
+            ],
+            "excludes_zero": true
+          },
+          "selection_specific": {
+            "mean": 0.009916530496759257,
+            "bca_95ci": [
+              0.005411275540252529,
+              0.014962689754353865
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 0.5789419622763111
+        },
+        "resolution": {
+          "gap_at_selected": {
+            "mean": -0.0028016192607701234,
+            "bca_95ci": [
+              -0.00701943609897599,
+              0.001350760795304359
+            ],
+            "excludes_zero": false
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.0020145686270785904,
+            "bca_95ci": [
+              -0.0011144577276005752,
+              0.0053763688565577695
+            ],
+            "excludes_zero": false
+          },
+          "selection_specific": {
+            "mean": -0.004816187887848714,
+            "bca_95ci": [
+              -0.00658379274829058,
+              -0.003060014452941548
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 1.719072950164119
+        }
+      },
+      "risk_violation_at_coverage": {
+        "mean": 0.014974085806619249,
+        "bca_95ci": [
+          0.006788440148384571,
+          0.02346742479383018
+        ],
+        "excludes_zero": true
+      }
+    },
+    "scaled_C1.0": {
+      "n_reps": 50,
+      "metrics": {
+        "brier": {
+          "gap_at_selected": {
+            "mean": 0.014576821029186249,
+            "bca_95ci": [
+              0.008289426453626021,
+              0.020807508034887033
+            ],
+            "excludes_zero": true
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.003264442915096879,
+            "bca_95ci": [
+              -0.002753583029662699,
+              0.008888405266666555
+            ],
+            "excludes_zero": false
+          },
+          "selection_specific": {
+            "mean": 0.01131237811408937,
+            "bca_95ci": [
+              0.008156527505557417,
+              0.014479449712149563
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 0.7760524802657115
+        },
+        "reliability": {
+          "gap_at_selected": {
+            "mean": 0.007448674912444,
+            "bca_95ci": [
+              0.004164996374168819,
+              0.0108495317871509
+            ],
+            "excludes_zero": true
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.0032644067306886434,
+            "bca_95ci": [
+              0.00012530439289646066,
+              0.006259060261278866
+            ],
+            "excludes_zero": true
+          },
+          "selection_specific": {
+            "mean": 0.004184268181755355,
+            "bca_95ci": [
+              0.0022714266979976974,
+              0.006326277704385535
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 0.5617466503693133
+        },
+        "ece": {
+          "gap_at_selected": {
+            "mean": 0.01811765613059347,
+            "bca_95ci": [
+              0.010604328729407676,
+              0.025709056816364543
+            ],
+            "excludes_zero": true
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.006494311337964739,
+            "bca_95ci": [
+              8.293458093526513e-08,
+              0.012620450449699644
+            ],
+            "excludes_zero": true
+          },
+          "selection_specific": {
+            "mean": 0.011623344792628729,
+            "bca_95ci": [
+              0.007086892047927018,
+              0.016458715400141488
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 0.6415479303087971
+        },
+        "resolution": {
+          "gap_at_selected": {
+            "mean": -0.006261382515302754,
+            "bca_95ci": [
+              -0.009713756417742211,
+              -0.002637120928570811
+            ],
+            "excludes_zero": true
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.0007844489303908185,
+            "bca_95ci": [
+              -0.0018694307357144306,
+              0.0036419833885012777
+            ],
+            "excludes_zero": false
+          },
+          "selection_specific": {
+            "mean": -0.007045831445693571,
+            "bca_95ci": [
+              -0.008819310814012441,
+              -0.005212120696208837
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 1.1252836619506368
+        }
+      },
+      "risk_violation_at_coverage": {
+        "mean": 0.01675175685248504,
+        "bca_95ci": [
+          0.008724696806006262,
+          0.02480289315469658
+        ],
+        "excludes_zero": true
+      },
+      "convergence": {
+        "n_fits": 9600,
+        "max_n_iter": 114,
+        "n_convergence_warnings": 0
+      }
+    },
+    "scaled_C0.01": {
+      "n_reps": 50,
+      "metrics": {
+        "brier": {
+          "gap_at_selected": {
+            "mean": 0.009819474220275879,
+            "bca_95ci": [
+              0.004697743686573792,
+              0.014774644060069888
+            ],
+            "excludes_zero": true
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.0008721991814672947,
+            "bca_95ci": [
+              -0.0038885562583652507,
+              0.005373862836701253
+            ],
+            "excludes_zero": false
+          },
+          "selection_specific": {
+            "mean": 0.008947275038808584,
+            "bca_95ci": [
+              0.007102502369442661,
+              0.010798858565698996
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 0.9111765903243249
+        },
+        "reliability": {
+          "gap_at_selected": {
+            "mean": 0.005600080422191071,
+            "bca_95ci": [
+              0.0038525631462319456,
+              0.0074267169220628695
+            ],
+            "excludes_zero": true
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.002099780684641962,
+            "bca_95ci": [
+              0.000602714466022587,
+              0.003596632799623682
+            ],
+            "excludes_zero": true
+          },
+          "selection_specific": {
+            "mean": 0.0035002997375491087,
+            "bca_95ci": [
+              0.0023923380561709385,
+              0.0047997797342546515
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 0.6250445482316113
+        },
+        "ece": {
+          "gap_at_selected": {
+            "mean": 0.020635550210271813,
+            "bca_95ci": [
+              0.014337371685722083,
+              0.02654730849169943
+            ],
+            "excludes_zero": true
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.007047076148434643,
+            "bca_95ci": [
+              0.0014006435529269748,
+              0.012466850618192988
+            ],
+            "excludes_zero": true
+          },
+          "selection_specific": {
+            "mean": 0.013588474061837169,
+            "bca_95ci": [
+              0.010152944109068062,
+              0.017392429261301166
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 0.6584982674740215
+        },
+        "resolution": {
+          "gap_at_selected": {
+            "mean": -0.0035749410527717725,
+            "bca_95ci": [
+              -0.007399905491679386,
+              0.00033401208553707256
+            ],
+            "excludes_zero": false
+          },
+          "placebo_all_layer_mean": {
+            "mean": 0.001968632186314571,
+            "bca_95ci": [
+              -0.0011629586958772505,
+              0.005248672516713246
+            ],
+            "excludes_zero": false
+          },
+          "selection_specific": {
+            "mean": -0.005543573239086343,
+            "bca_95ci": [
+              -0.007123448983154483,
+              -0.00385526129092848
+            ],
+            "excludes_zero": true
+          },
+          "share_selection_specific": 1.5506754257635167
+        }
+      },
+      "risk_violation_at_coverage": {
+        "mean": 0.016452762781719376,
+        "bca_95ci": [
+          0.007328787210432669,
+          0.025669921224671162
+        ],
+        "excludes_zero": true
+      },
+      "convergence": {
+        "n_fits": 9600,
+        "max_n_iter": 42,
+        "n_convergence_warnings": 0
+      }
+    }
+  }
+}

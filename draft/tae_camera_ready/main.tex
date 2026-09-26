@@ -56,11 +56,11 @@ structurally different mechanism and a real
 ECE bug in an externally published, pinned-commit-verified pipeline corroborate
 the direction. Nine of ten cells are established per-cell -- six cleanly,
 three resting on a non-negativity our own method section disqualifies -- and
-all nine survive joint family-wise correction; a regularization sweep leaves
-the Brier gap shrunk, the Mechanism-1 ECE gap gone, and the risk violation
-intact. Calibration is checked on three of five mechanisms and established on
-two, on one model family across two question pools; the four additional
-architectures test the AUROC selection component only, not calibration.
+all nine survive family-wise correction. Regularization does not explain the
+effect -- at a probe that cannot interpolate the increment grows -- but a
+second harness bounds it: on real features from two model families, selection
+inflates discrimination ($+0.007$ AUROC, established in both) \emph{without}
+corrupting calibration.
 Measured severity is a property of a (mechanism, metric, control)
 \emph{triple}: one cell spans $1.44\times$ across two admissible controls. We
 release the taxonomy, three pinned third-party verifications, a checklist
@@ -444,16 +444,16 @@ Appendix~\ref{app:reviewer-response}); Qwen-7B is not, at $\alpha{=}0.05$.
 forced-choice rather than generation-labeled, so task and architecture change
 together and we attribute the difference to neither alone; they test the AUROC
 selection component, not calibration. Mechanism 1's larger gap ($+0.0260$
-Brier) follows from its degenerate construction, not from selection. We check
-calibration on three of the five mechanisms and establish it on two -- on
-Mechanism 3's real-feature harness neither gap is BCa-established -- and do not
-claim it generalizes to Mechanisms 4--5 without checking each directly.
-Mechanism 1's probe interpolates at $C=1.0$; at $C=0.01$ its Brier gap survives
-shrunk ($4\times$), \textbf{its ECE gap does not}, and Mechanism 2's cells,
-which never interpolate, are untouched (Appendix~\ref{app:reg}). The direction
-matches every discrimination-metric finding here: the selection step that
-inflates AUROC also makes the resulting confidence estimates look more
-trustworthy than they are.
+Brier) follows from its degenerate construction, not from selection; its probe
+interpolates at $C{=}1.0$ and \textbf{its ECE gap does not survive} $C{=}0.01$,
+where Mechanism 2's increment does (Appendices~\ref{app:reg},
+\ref{app:regularization}). We establish calibration on two of the five
+mechanisms and on one feature representation: run on real features from two
+model families, this same construction inflates discrimination \emph{without}
+corrupting calibration (Appendix~\ref{app:secondfamily}). \textbf{The
+calibration consequence does not follow automatically from the discrimination
+one}, and where it does hold, the selection step that inflates AUROC also makes
+the resulting confidence estimates look more trustworthy than they are.
 
 \subsection{Does this move a deployment's actual error budget?}
 \label{sec:selective-prediction}
@@ -632,14 +632,15 @@ evaluation protocols that exempts itself measures nothing.
 
 \section*{Limitations}
 
-Calibration is checked on three of five mechanisms and established on two, and
-roughly half the gap is ordinary reuse rather than selection. Mechanism 1's
-probe sits near interpolation: under regularization the risk violation is
-stable but its ECE gap does \emph{not} survive. The cross-architecture check
-uses forced-choice caches and tests discrimination only. We give no prevalence
-estimate, the severity surface is a fit rather than a bound, and one case
-study's headline number is not independently re-verifiable and is excluded
-from every comparison. Appendix~\ref{app:limitations} has these in full.
+Calibration is established on two of five mechanisms and one feature
+representation; roughly half of even that gap is ordinary reuse rather than
+selection, and on real features from two model families the selection-specific
+calibration increment is null or negative
+(Appendix~\ref{app:secondfamily}). Mechanism 1's ECE gap does \emph{not}
+survive regularization, though Mechanism 2's increment does. We give no
+prevalence estimate, the severity surface is a fit rather than a bound, and one
+case study's headline number is not independently re-verifiable.
+Appendices~\ref{app:prevalence}--\ref{app:limitations} have the rest.
 
 \section*{References}
 
@@ -755,9 +756,14 @@ M4 & Non-negative by construction (Appendix~\ref{app:nonneg}); n.s.\ vs.\ a
 Selection attribution & A placebo at unselected layers absorbs roughly
   \emph{half} the calibration gap; the selection-specific increment is
   established but is not the whole effect. \\
-Scope limits & Calibration shown on two mechanisms (the four extra
-  architectures test AUROC only); M2 at $30\%$ coverage established only under
-  the coverage-aware count; severity relationship diagnostic, not predictive
+Cross-harness & \textbf{Negative.} On real features from two model families,
+  selection inflates AUROC ($+0.007$, established in both) but the
+  selection-specific calibration increment is null or negative
+  (Appendix~\ref{app:secondfamily}). The calibration consequence does not
+  follow from the discrimination one. \\
+Scope limits & Calibration established on one feature representation (the four
+  extra architectures test AUROC only); M2 at $30\%$ coverage established only
+  under the coverage-aware count; severity relationship diagnostic, not predictive
   ($9.2$--$24.3\times$ off); threshold transfer is informal, not conformal;
   per-day error counts scale one dataset to a hypothetical query volume rather
   than estimating a population; M5's $+0.0090$ is quantified in our synthetic
@@ -1034,6 +1040,8 @@ randomized splits are stored, so no new inference was required). Seed
 $20260925$; BCa $95\%$ intervals over the $50$ splits as elsewhere.
 Script: \texttt{103\_reviewer\_response\_mechanism2.py},
 \texttt{104\_deployment\_error\_count\_corrected.py}.
+Appendix~\ref{app:reliability} gives the corresponding reliability diagrams and
+locates the miscalibration within the probability range.
 
 \paragraph{(a) Brier decomposition, slope, and a binning-free calibration
 error.} Brier score is a proper score, not a calibration metric: under the
@@ -1206,6 +1214,243 @@ transferred threshold. ``Submitted'' is the fixed-coverage estimator
 $Q\cdot\text{target}\cdot(\text{risk}_\text{CLEAN}-\text{risk}_\text{LEAKY})$.}
 \label{tab:deploy}
 \end{table}
+
+\section{Reliability Diagrams, and Where the Miscalibration Sits}
+\label{app:reliability}
+
+The statistics in Appendix~\ref{app:reviewer-response} say \emph{that} the
+held-out predictions are less reliable; a reliability diagram says \emph{where}
+in the probability range. Figure~\ref{fig:reliability} pools all $50$ splits'
+predictions at each split's own CV-argmax layer ($20{,}000$ reused-fold and
+$15{,}000$ held-out predictions) into equal-mass bins, so a bin's visual weight
+matches its statistical weight. Pooling mixes splits and is descriptive only:
+every inferential statement in this paper is computed per split and aggregated
+with BCa across splits.
+
+Two features matter. Both arms are \emph{under}-confident at the low end and
+\emph{over}-confident above about $p=0.6$, which is the familiar signature of a
+probe fit on few samples in high dimension. And the arms separate in the
+high-confidence region: averaged over bins with mean predicted probability
+$\geq 0.8$ -- $10{,}500$ held-out predictions, the region an abstention
+threshold actually operates in -- the reused fold sits $0.0592$ below the
+diagonal and the held-out data $0.0729$, an excess overconfidence of $0.0136$.
+That is the mechanical link between \S\ref{sec:calibration-bridge} and
+\S\ref{sec:selective-prediction}: the optimism is concentrated exactly where a
+selective-prediction threshold reads, which is why a gap of a few thousandths
+in aggregate ECE becomes a $10$--$16\%$ inflation of the realized error budget.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/fig_reliability.pdf}
+\caption{Reliability of the selected layer's predictions, pooled over $50$
+splits, equal-mass bins. Left: observed frequency against mean predicted
+probability. Right: the same data as deviation from perfect calibration, where
+the separation is legible. Below the diagonal is overconfident. The held-out
+arm (red) is further below throughout the high-confidence region.}
+\label{fig:reliability}
+\end{figure}
+
+\section{Is the Calibration Effect an Interpolation Artifact?}
+\label{app:regularization}
+
+Mechanism 1's ECE gap does not survive stronger regularization
+(Appendix~\ref{app:reg}), which raises the question of whether Mechanism 2's
+calibration effect is likewise a consequence of fitting a $d{=}4096$ probe to
+$n{=}400$ samples near interpolation rather than of selection. The paper
+already answers this for \emph{discrimination}: \texttt{code/48}'s sweep finds
+the selection-specific AUROC component stable across five decades of $C$. It
+had not been answered for calibration, which is the claim that matters here.
+
+We therefore re-run the placebo decomposition of
+Appendix~\ref{app:reviewer-response} under regularization: same $50$ splits,
+same RNG stream, same $5$-fold CV, varying only feature scaling and $C$.
+Table~\ref{tab:reg} reports it. \textbf{The selection-specific increment does
+not shrink under regularization; it grows.} At $C{=}0.01$ with standardized
+features -- a regime that cannot interpolate -- the reliability increment is
+$+0.0035$ (BCa $[+0.0024,+0.0048]$) against $+0.0026$ at the shipped probe, the
+ECE increment is $+0.0136$ against $+0.0099$, and the risk violation is
+unchanged at $+0.016$. What regularization removes is part of the
+\emph{placebo}: the ordinary reuse baseline falls, so the share of the gap
+attributable to selection \emph{rises} from $56.6\%$ to $62.5\%$.
+
+The shipped arm here is replayed from the cached artifact rather than refitted,
+so its row reproduces Appendix~\ref{app:reviewer-response} exactly and serves
+as a consistency check on this script. Regularization is therefore not a
+competing explanation for Mechanism 2's calibration result, and the contrast
+with Mechanism 1 is informative rather than awkward: Mechanism 1 fits on the
+evaluation data and its gap is an interpolation phenomenon, whereas Mechanism 2
+never fits on the reported data at all and its gap is not.
+
+\begin{table}[h]
+\centering
+\small
+{\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llrrll@{}}
+\toprule
+Probe & Metric & Gap @ sel. & Placebo & Selection-specific (BCa $95\%$) & Share \\
+\midrule
+shipped              & reliability & $+0.00457$ & $+0.00199$ & $+0.00259$ $[+0.00135,+0.00397]$ & $56.6\%$ \\
+$d{=}4096$, unscaled & ECE         & $+0.01713$ & $+0.00721$ & $+0.00992$ $[+0.00541,+0.01496]$ & $57.9\%$ \\
+$C{=}1.0$            & risk @$50\%$ & \multicolumn{4}{l}{$+0.01497$ $[+0.00679,+0.02347]$} \\
+\midrule
+scaled               & reliability & $+0.00745$ & $+0.00326$ & $+0.00418$ $[+0.00227,+0.00633]$ & $56.2\%$ \\
+$C{=}1.0$            & ECE         & $+0.01812$ & $+0.00649$ & $+0.01162$ $[+0.00709,+0.01646]$ & $64.2\%$ \\
+                     & risk @$50\%$ & \multicolumn{4}{l}{$+0.01675$ $[+0.00872,+0.02480]$} \\
+\midrule
+scaled               & reliability & $+0.00560$ & $+0.00210$ & $+0.00350$ $[+0.00239,+0.00480]$ & $62.5\%$ \\
+$C{=}0.01$           & ECE         & $+0.02064$ & $+0.00705$ & $+0.01359$ $[+0.01015,+0.01739]$ & $65.8\%$ \\
+(no interpolation)   & risk @$50\%$ & \multicolumn{4}{l}{$+0.01645$ $[+0.00733,+0.02567]$} \\
+\bottomrule
+\end{tabular}}
+\caption{Selection-specific calibration effect under regularization, $50$
+splits each. Every selection-specific interval excludes zero in every probe
+configuration. \texttt{106\_calibration\_under\_regularization.py}.}
+\label{tab:reg}
+\end{table}
+
+\section{A Second Model Family: Where the Calibration Effect Does Not Replicate}
+\label{app:secondfamily}
+
+The four extra architectures of \S\ref{sec:calibration-bridge} cannot address
+calibration: the artifact retains their summary statistics, not their
+per-sample scores. The real-feature harness can. It ships per-sample features
+for \emph{two} model families on the same pool -- Mistral-7B and Qwen2.5-7B,
+HaluEval, the same extractor, $12$ summary statistics at each of $32$ sampled
+layers -- so the identical Mechanism-2 construction can be run on both under a
+matched protocol. The probe there is $12$-dimensional at $n{=}229$ and so
+cannot interpolate, which makes this a second, independent check on
+Appendix~\ref{app:regularization}'s question as well.
+
+The result is \textbf{adverse to a general reading of our calibration claim},
+and Table~\ref{tab:secondfamily} reports it in full. In both model families the
+selection mechanism is plainly operating: $\Delta_{\text{sel}}$ on AUROC is
+positive and established ($+0.0070$ and $+0.0072$). But the selection-specific
+\emph{calibration} increment is not positive in either. It is significantly
+\emph{negative} for ECE in both ($-0.0039$, $-0.0030$) and for reliability in
+Mistral-7B ($-0.0018$), and the risk violation is not established in either.
+
+We read this as a scope result, not a refutation. Magnitudes here are not
+comparable with \S\ref{sec:calibration-bridge}'s -- different features,
+different dataset, different $n$ -- so the comparison that carries information
+is one of sign and significance, and the sign does not carry. The honest
+statement is therefore narrower than ``selection corrupts calibration'':
+\textbf{in the one additional harness we can test, selection inflates
+discrimination without corrupting calibration}. The calibration consequence is
+not an automatic corollary of the discrimination one, and a practitioner cannot
+infer it from the presence of a selection step alone. That is consistent with
+this paper's own thesis about severity being a (mechanism, metric, control)
+triple; it adds that the harness belongs in the tuple too. It is also
+consistent with the paper's existing statement that neither calibration gap is
+BCa-established on the real-feature harness -- this sharpens that null into a
+measured, placebo-decomposed negative across two model families.
+
+\begin{table}[h]
+\centering
+\small
+{\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llrrl@{}}
+\toprule
+Model & Metric & Gap @ sel. & Placebo & Selection-specific (BCa $95\%$) \\
+\midrule
+Mistral-7B  & $\Delta_\text{sel}$ (AUROC) & \multicolumn{3}{l}{$+0.00700$ $[+0.00231,+0.01164]$ \quad established} \\
+            & reliability & $+0.00106$ & $+0.00283$ & $-0.00177$ $[-0.00284,-0.00078]$ \\
+            & ECE         & $+0.00779$ & $+0.01171$ & $-0.00392$ $[-0.00653,-0.00148]$ \\
+            & Brier       & $-0.00003$ & $-0.00142$ & $+0.00139$ $[-0.00120,+0.00402]$ \\
+            & risk @$50\%$ & \multicolumn{3}{l}{$+0.00212$ $[-0.00136,+0.00558]$ \quad covers zero} \\
+\midrule
+Qwen2.5-7B  & $\Delta_\text{sel}$ (AUROC) & \multicolumn{3}{l}{$+0.00718$ $[+0.00542,+0.00915]$ \quad established} \\
+            & reliability & $+0.00102$ & $+0.00171$ & $-0.00069$ $[-0.00168,+0.00033]$ \\
+            & ECE         & $+0.00527$ & $+0.00828$ & $-0.00301$ $[-0.00567,-0.00004]$ \\
+            & Brier       & $-0.00045$ & $-0.00302$ & $+0.00257$ $[+0.00127,+0.00396]$ \\
+            & risk @$50\%$ & \multicolumn{3}{l}{$+0.00254$ $[-0.00187,+0.00681]$ \quad covers zero} \\
+\bottomrule
+\end{tabular}}
+\caption{The Mechanism-2 construction on the real-feature harness, two model
+families, $50$ splits each, matched protocol. Discrimination optimism
+replicates in both; the selection-specific calibration increment does not, and
+is significantly negative for ECE in both.
+\texttt{108\_calibration\_second\_model\_family.py}.}
+\label{tab:secondfamily}
+\end{table}
+
+\section{What a Prevalence Study Would Require}
+\label{app:prevalence}
+
+Two reviews of this work asked how widespread these mechanisms are. We give no
+estimate, and the reason is worth stating precisely, because the cheap version
+of this study would produce a confidently wrong number.
+
+\textbf{There is no denominator.} The repositories here were found by targeted
+adversarial search for this failure class. That yields no sampling frame, so
+the audited set supports neither a rate nor even a lower bound: a search
+designed to find instances tells you nothing about how often you would find
+them if you had not been looking.
+
+\textbf{The obvious instrument is disqualified by our own measurement.}
+\S\ref{sec:checklist} reports what happened when we automated four of the five
+checklist items with a regex scanner: $7$ raw hits across $7$ repositories,
+\emph{all} false positives, and \emph{both} known true positives missed. Its
+measured precision and recall on this failure class are therefore $0$ and $0$.
+Running that scanner across a large corpus would return a number, and the
+number would be an undercount with no error bars. A prevalence study that
+scaled the cheapest available instrument would be exactly the kind of
+confidently-wrong evaluation this paper exists to audit.
+
+\textbf{What a valid design needs.} Four things, in order. (i) A sampling
+frame: an enumerable population, such as every paper in a fixed set of venues
+and years that reports a hidden-state probe metric \emph{and} releases code,
+since a mechanism that cannot be checked against source cannot be scored.
+(ii) A random sample from that frame, not a search. (iii) An instrument with
+measured error rates on this failure class. Our blinded language-model re-read
+is the only candidate we have evidence for -- it agreed with all $7$ manual
+classifications and located both missed bugs unprompted -- but agreement on
+$7$ cases is a pilot, not a validation. (iv) A human-adjudicated validation
+subsample large enough to estimate that instrument's sensitivity and
+specificity with intervals, so the raw hit rate can be corrected for
+misclassification rather than reported as a prevalence.
+
+Only step (iv) makes the resulting number interpretable, and none of the four
+is expensive relative to the cost of getting the answer wrong. We flag this as
+the single most valuable follow-up to this paper, and as the reason its
+taxonomy and checklist -- not any severity number -- are its most reusable
+output.
+
+\section{Estimands Used in This Paper}
+\label{app:estimands}
+
+Reviewers noted that the number of distinct estimands, controls and
+qualifications makes the paper dense. Every quantity we report is one of the
+following six; nothing else is estimated.
+
+\begin{itemize}
+\itemsep0pt
+\item \textbf{Optimism gap} $=$ metric on the data used for selection $-$
+  metric on genuinely held-out data, at the same fixed configuration. The base
+  quantity all others derive from.
+\item \textbf{Selection-specific component} $=$ optimism gap at the layer the
+  argmax \emph{would select} $-$ mean optimism gap across all candidate
+  layers. Positive in expectation even under a pure-noise null, by
+  construction: that is the winner's curse it exists to measure, and it is why
+  its significance must not be read as evidence of any further pathology
+  (Appendix~\ref{app:severity}).
+\item $\Delta_{\text{sel}}$ $=$ the selection-specific component measured on
+  AUROC specifically. The paper's discrimination headline.
+\item \textbf{Calibration gap} $=$ optimism gap measured on Brier, its Murphy
+  reliability term, ECE, or smooth calibration error. Signed so positive means
+  worse on held-out data.
+\item \textbf{Placebo gap} $=$ the same LEAKY/CLEAN comparison at layers the
+  argmax did \emph{not} select, and \textbf{selection-specific increment} $=$
+  calibration gap at the selected layer $-$ placebo gap
+  (Appendix~\ref{app:reviewer-response}).
+\item \textbf{Risk violation} $=$ risk achieved on held-out data at a
+  threshold transferred from the reused fold $-$ risk that threshold reported
+  on the reused fold. The operational quantity.
+\end{itemize}
+
+Two controls recur. \textbf{CLEAN\_MATCHED} refits on the selection pool and
+scores genuinely held-out data, matching the leaky arm's training size.
+\textbf{Fold-matched} controls equalise selection-set size between arms, which
+is the correction that carries Mechanism 3's primary estimate to null.
 
 \section{Extended Limitations}
 \label{app:limitations}

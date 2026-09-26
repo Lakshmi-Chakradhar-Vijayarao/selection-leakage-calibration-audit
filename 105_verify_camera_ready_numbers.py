@@ -263,6 +263,91 @@ for ct, e in dep["coverage_targets"].items():
         failures.append(f"104's CLEAN coverage at {ct} does not reproduce "
                         f"selective_prediction_consequence.json")
 
+# ── Calibration under regularization (106) ─────────────────────────────────
+print("\nCalibration under regularization:")
+reg = json.load(open(R / "calibration_under_regularization.json"))
+for cfg_name, cfg in reg["by_config"].items():
+    for m in ("reliability", "ece"):
+        e = cfg["metrics"][m]
+        check(f"  {cfg_name} {m} gap", e["gap_at_selected"]["mean"], "{:+.5f}")
+        check(f"  {cfg_name} {m} placebo", e["placebo_all_layer_mean"]["mean"], "{:+.5f}")
+        ss = e["selection_specific"]
+        check(f"  {cfg_name} {m} selection-specific", ss["mean"], "{:+.5f}")
+        check(f"  {cfg_name} {m} ss lo", ss["bca_95ci"][0], "{:+.5f}")
+        check(f"  {cfg_name} {m} ss hi", ss["bca_95ci"][1], "{:+.5f}")
+    r = cfg["risk_violation_at_coverage"]
+    check(f"  {cfg_name} risk violation", r["mean"], "{:+.5f}")
+
+# The paper's claim is that regularization does NOT explain the effect. If a
+# rerun ever makes an increment lose significance, that sentence must change.
+checks += 1
+_reg_ok = all(
+    cfg["metrics"][m]["selection_specific"]["excludes_zero"]
+    for cfg in reg["by_config"].values() for m in ("reliability", "ece"))
+print(f"  {'OK  ' if _reg_ok else 'FAIL'}  selection-specific reliability AND ece "
+      f"exclude zero in every probe configuration")
+if not _reg_ok:
+    failures.append("main.tex claims the selection-specific increment survives every "
+                    "probe configuration; the JSON no longer shows that")
+
+# And that the SHARE rises rather than falls once the probe cannot interpolate.
+checks += 1
+_share_shipped = reg["by_config"]["shipped_unscaled_C1.0"]["metrics"]["reliability"]["share_selection_specific"]
+_share_reg = reg["by_config"]["scaled_C0.01"]["metrics"]["reliability"]["share_selection_specific"]
+_rise_ok = _share_reg > _share_shipped
+print(f"  {'OK  ' if _rise_ok else 'FAIL'}  selection share rises under regularization "
+      f"({_share_shipped:.1%} -> {_share_reg:.1%})")
+if not _rise_ok:
+    failures.append("main.tex says the selection share rises under regularization; it does not")
+
+# ── Second model family: the negative replication (108) ────────────────────
+print("\nSecond model family (negative replication):")
+sf = json.load(open(R / "calibration_second_model_family.json"))
+for model, e in sf["by_model"].items():
+    check(f"  {model} delta_sel", e["delta_sel_auroc"]["mean"], "{:+.5f}")
+    for m in ("reliability", "ece"):
+        s = e["metrics"][m]
+        check(f"  {model} {m} gap", s["gap_at_selected"]["mean"], "{:+.5f}")
+        check(f"  {model} {m} placebo", s["placebo_all_layer_mean"]["mean"], "{:+.5f}")
+        check(f"  {model} {m} selection-specific", s["selection_specific"]["mean"], "{:+.5f}")
+
+# The paper reports this as a NEGATIVE result. Guard both halves of it, so the
+# claim cannot silently invert: discrimination replicates, calibration does not.
+checks += 1
+_disc_ok = all(e["delta_sel_auroc"]["excludes_zero"] and e["delta_sel_auroc"]["mean"] > 0
+               for e in sf["by_model"].values())
+print(f"  {'OK  ' if _disc_ok else 'FAIL'}  Delta_sel positive and established in both families")
+if not _disc_ok:
+    failures.append("main.tex says discrimination optimism replicates in both model "
+                    "families; the JSON no longer shows that")
+
+checks += 1
+_calib_neg_ok = all(e["metrics"]["ece"]["selection_specific"]["mean"] < 0
+                    for e in sf["by_model"].values())
+print(f"  {'OK  ' if _calib_neg_ok else 'FAIL'}  ECE selection-specific increment is "
+      f"negative in both families (the reported negative result)")
+if not _calib_neg_ok:
+    failures.append("main.tex reports a negative cross-harness calibration result; "
+                    "the JSON no longer shows a negative ECE increment")
+
+# ── Reliability diagram region statistic (107) ─────────────────────────────
+print("\nReliability diagram:")
+rd = json.load(open(R / "reliability_diagram.json"))
+hc = rd["high_confidence_region"]
+# The prose states these as magnitudes below the diagonal ("sits 0.0592
+# below"), so compare on absolute value rather than the JSON's signed form.
+check("  high-confidence deviation LEAKY", abs(hc["leaky"]["mean_deviation"]), "{:.4f}")
+check("  high-confidence deviation CLEAN", abs(hc["clean"]["mean_deviation"]), "{:.4f}")
+check("  excess overconfidence",
+      abs(hc["excess_overconfidence_clean_minus_leaky"]), "{:.4f}")
+checks += 1
+_hc_ok = hc["clean"]["mean_deviation"] < hc["leaky"]["mean_deviation"] < 0
+print(f"  {'OK  ' if _hc_ok else 'FAIL'}  both arms overconfident in the high-confidence "
+      f"region and CLEAN more so")
+if not _hc_ok:
+    failures.append("main.tex says both arms are overconfident above p=0.8 with CLEAN "
+                    "further below the diagonal; the JSON no longer shows that")
+
 # ── Superseded literals that must not survive the camera-ready ─────────────
 print("\nSuperseded literals:")
 check_absent("fixed-coverage excess at 70% (980)", "$980$")
