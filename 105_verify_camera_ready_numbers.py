@@ -16,8 +16,18 @@ document, not necessarily at the sentence it nominally verifies. Occurrence
 counts are printed so a short/common literal cannot silently pass on an
 unrelated match.
 
+Two venue modes, because the anonymity requirement inverts between them:
+
+  default        de-anonymized camera-ready. The author block and the real
+                 artifact URL must be PRESENT; the anonymous mirror and
+                 "Anonymous Author" must be ABSENT.
+  --anonymous    double-blind submission. Exactly the reverse.
+
+Getting this backwards is a desk-reject at one venue and a broken link at the
+other, so it is checked rather than assumed.
+
 Usage:
-    python 105_verify_camera_ready_numbers.py [path/to/main.tex]
+    python 105_verify_camera_ready_numbers.py [path/to/main.tex] [--anonymous]
 Default path is the camera-ready staging directory.
 """
 import json
@@ -33,8 +43,11 @@ IN_REPO_TEX = ROOT / "draft" / "tae_camera_ready" / "main.tex"
 WORKING_TEX = (Path.home() / "Downloads" / "SUBMISSIONS" / "CAMERA_READY"
                / "P2_TAE" / "main.tex")
 
-if len(sys.argv) > 1:
-    TEX_PATH = Path(sys.argv[1])
+ARGS = [a for a in sys.argv[1:] if not a.startswith("--")]
+ANONYMOUS = "--anonymous" in sys.argv[1:]
+
+if ARGS:
+    TEX_PATH = Path(ARGS[0])
 else:
     TEX_PATH = IN_REPO_TEX if IN_REPO_TEX.exists() else WORKING_TEX
 if not TEX_PATH.exists():
@@ -354,8 +367,23 @@ check_absent("fixed-coverage excess at 70% (980)", "$980$")
 check_absent("fixed-coverage excess at 50% (750)", "$750$")
 check_absent("fixed-coverage believed errors", "8{,}960")
 check_absent("fixed-coverage actual errors", "9{,}940")
-check_absent("anonymous artifact URL", "anonymous.4open.science")
-check_absent("anonymous author block", "Anonymous Author")
+if ANONYMOUS:
+    # Double-blind submission: the de-anonymizing strings are what must not
+    # survive, and the anonymizing ones must be there.
+    check_absent("real artifact URL", "github.com/Lakshmi-Chakradhar-Vijayarao")
+    check_absent("author name", "Vijayarao")
+    check_absent("affiliation", "Northeastern")
+    check_absent("author email", "vijayarao.l@")
+    for label, needle in [("anonymous artifact mirror", "anonymous.4open.science"),
+                          ("anonymous author block", "Anonymous Author")]:
+        checks += 1
+        ok = needle in TEX
+        print(f"  {'OK  ' if ok else 'FAIL'}  present: {label} ({needle!r})")
+        if not ok:
+            failures.append(f"double-blind submission is missing {needle!r}")
+else:
+    check_absent("anonymous artifact URL", "anonymous.4open.science")
+    check_absent("anonymous author block", "Anonymous Author")
 
 print(f"\n{checks} checks run, {len(failures)} failures")
 for f in failures:

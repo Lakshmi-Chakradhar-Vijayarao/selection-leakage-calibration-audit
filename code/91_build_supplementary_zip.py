@@ -34,7 +34,15 @@ DIRS = ["code", "results", "kaggle_kernels", "draft"]
 EXCLUDE_SUFFIX = {".pyc", ".aux", ".log", ".out", ".synctex.gz", ".zip", ".fls",
                   ".fdb_latexmk", ".bbl", ".blg", ".DS_Store"}
 EXCLUDE_NAMES = {"VERSION_2.0_MEGA_REVIEW.md", "main.pdf"}
-EXCLUDE_PARTS = {"__pycache__", ".git", ".ipynb_checkpoints"}
+EXCLUDE_PARTS = {"__pycache__", ".git", ".ipynb_checkpoints",
+                 # The TAE camera-ready is DE-ANONYMIZED by design: it
+                 # carries the author block and the real artifact URL.
+                 # Shipping it inside a double-blind supplementary archive
+                 # would de-anonymize the submission outright, so it is
+                 # excluded from the manifest rather than scrubbed. The
+                 # identity scan below caught this when the directory was
+                 # first added; the exclusion is what makes that pass.
+                 "tae_camera_ready"}
 TEXT_SUFFIX = {".py", ".md", ".tex", ".txt", ".json", ".yaml", ".yml", ".sty",
                ".bst", ".cfg", ".toml", ".sh", ".gitignore"}
 
