@@ -1,0 +1,136 @@
+{
+  "n_draws": 20000,
+  "n_reps": 50,
+  "n_layers": 32,
+  "seed": 20260928,
+  "null_construction": "code/64's: permute which layer's CLEAN calibration value is paired with which layer's LEAKY value; marginals, argmax rule and layer count untouched",
+  "selected_layer_per_rep": [
+    18,
+    19,
+    16,
+    14,
+    19,
+    11,
+    10,
+    12,
+    13,
+    14,
+    15,
+    20,
+    18,
+    15,
+    15,
+    19,
+    20,
+    10,
+    22,
+    19,
+    23,
+    15,
+    14,
+    14,
+    15,
+    14,
+    23,
+    16,
+    14,
+    5,
+    19,
+    16,
+    10,
+    11,
+    14,
+    14,
+    21,
+    14,
+    14,
+    15,
+    14,
+    14,
+    19,
+    22,
+    16,
+    19,
+    15,
+    10,
+    16,
+    15
+  ],
+  "metrics": {
+    "reliability": {
+      "observed_increment": 0.0025892269022481395,
+      "null_mean_simulated": 0.0038066586079669546,
+      "null_mean_closed_form": 0.003789687807761459,
+      "null_closed_form_abs_diff": 1.6970800205495448e-05,
+      "null_sd": 0.0014113684663588782,
+      "null_ci_95": [
+        0.0011105092540333004,
+        0.006607444985141434
+      ],
+      "p_null_le_observed": 0.1975,
+      "observed_below_entire_null_ci": false,
+      "decomposition": {
+        "A_curse_on_leaky_arm": -0.003789687807761459,
+        "B_transferred_on_clean_arm": -0.0012004609055133193,
+        "identity_check_B_minus_A_equals_increment": 0.0,
+        "B_bca_95ci": [
+          -0.0028369962674824867,
+          0.0007228467077222747
+        ],
+        "B_excludes_zero": false,
+        "B_sd_over_reps": 0.0063891949312152195,
+        "B_n_negative_reps": 33
+      }
+    },
+    "ece": {
+      "observed_increment": 0.009916530496759257,
+      "null_mean_simulated": 0.010528311519825485,
+      "null_mean_closed_form": 0.010601531521623306,
+      "null_closed_form_abs_diff": 7.322000179782115e-05,
+      "null_sd": 0.005845939755256215,
+      "null_ci_95": [
+        -0.0008199517483519999,
+        0.02188449601187402
+      ],
+      "p_null_le_observed": 0.45805,
+      "observed_below_entire_null_ci": false,
+      "decomposition": {
+        "A_curse_on_leaky_arm": -0.010601531521623306,
+        "B_transferred_on_clean_arm": -0.0006850010248640523,
+        "identity_check_B_minus_A_equals_increment": 0.0,
+        "B_bca_95ci": [
+          -0.007963224805761376,
+          0.007297715385086078
+        ],
+        "B_excludes_zero": false,
+        "B_sd_over_reps": 0.02754721019550267,
+        "B_n_negative_reps": 28
+      }
+    },
+    "brier": {
+      "observed_increment": 0.007520953998726687,
+      "null_mean_simulated": 0.014144612399407702,
+      "null_mean_closed_form": 0.01415911854824075,
+      "null_closed_form_abs_diff": 1.4506148833047516e-05,
+      "null_sd": 0.0016566367717271533,
+      "null_ci_95": [
+        0.010916181235856573,
+        0.017430868357765913
+      ],
+      "p_null_le_observed": 0.0,
+      "observed_below_entire_null_ci": true,
+      "decomposition": {
+        "A_curse_on_leaky_arm": -0.01415911854824075,
+        "B_transferred_on_clean_arm": -0.006638164549514063,
+        "identity_check_B_minus_A_equals_increment": 0.0,
+        "B_bca_95ci": [
+          -0.008713607435283452,
+          -0.004119145812932086
+        ],
+        "B_excludes_zero": true,
+        "B_sd_over_reps": 0.008253452269132643,
+        "B_n_negative_reps": 39
+      }
+    }
+  }
+}

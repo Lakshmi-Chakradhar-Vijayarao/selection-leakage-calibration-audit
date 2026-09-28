@@ -217,16 +217,89 @@ for metric in ["reliability", "ece_10_width", "smooth_calibration_error",
     check(f"  {metric} increment lo", inc["bca_95ci"][0], "{:+.5f}")
     check(f"  {metric} increment hi", inc["bca_95ci"][1], "{:+.5f}")
 
-# The paper says "roughly 57% selection / 43% reuse"; guard the split so that
-# sentence cannot drift away from the JSON it summarises.
+# The 57%/43% selection-vs-reuse split was WITHDRAWN: the increment does not
+# clear its mechanical null (110). Guard the withdrawal rather than the claim.
+# The old check here tested for the substrings "57" and "43", which occur all
+# over a number-dense paper and so passed regardless -- a weak check guarding
+# a claim that has since been retracted.
+for _phrase in ["of the calibration gap is selection-specific",
+                "is selection-specific and $43",
+                "roughly $57\\%$ of the calibration gap"]:
+    check_absent(f"withdrawn selection-attribution claim ({_phrase[:38]}...)", _phrase)
+
 checks += 1
 _share = pc["reliability"]["share_of_gap_that_is_selection_specific"]
-_share_ok = 0.50 <= _share <= 0.65 and "57" in TEX and "43" in TEX
-print(f"  {'OK  ' if _share_ok else 'FAIL'}  reliability selection-specific share "
-      f"{_share:.1%} consistent with the 57/43 split quoted in main.tex")
-if not _share_ok:
-    failures.append(f"selection-specific share is {_share:.1%}; the 57/43 split "
-                    f"quoted in main.tex no longer describes it")
+_null_ok = "mechanical null" in TEX
+print(f"  {'OK  ' if _null_ok else 'FAIL'}  the placebo share ({_share:.1%}) is presented "
+      f"against a mechanical null rather than against zero")
+if not _null_ok:
+    failures.append("main.tex reports a selection-specific share without the "
+                    "mechanical null that qualifies it")
+
+# ── Mechanical null for the selection-specific increment (110) ─────────────
+# Content-gated, not venue-gated: a version that REPORTS the null must get its
+# numbers right, and a version that does NOT report it must not be making the
+# selection-attribution claim the null withdrew. Either is acceptable; keeping
+# the claim without the null is not.
+mn = json.load(open(R / "calibration_increment_null.json"))
+# Gate on the full treatment (the null table), not on the phrase: a short
+# version may cite the null and point at the artifact without tabulating it,
+# which is honest. What is forbidden is asserting the attribution with no
+# mention of the null at all.
+REPORTS_NULL = "tab:mechnull" in TEX
+if not REPORTS_NULL:
+    print("\nMechanical null: not reported in this version -- "
+          "checking the withdrawn claim is absent instead")
+    checks += 1
+    _clean = "selection-specific" not in TEX or "mechanical" in TEX
+    print(f"  {'OK  ' if _clean else 'FAIL'}  does not assert a selection-specific "
+          f"effect without reporting its mechanical null")
+    if not _clean:
+        failures.append("this version claims a selection-specific effect but omits "
+                        "the mechanical null that withdraws it (see 110)")
+print("\nMechanical null (selection-specific increment):" if REPORTS_NULL else "")
+for m, e in (mn["metrics"].items() if REPORTS_NULL else []):
+    check(f"  {m} observed increment", e["observed_increment"], "{:+.5f}")
+    check(f"  {m} null mean", e["null_mean_simulated"], "{:+.5f}")
+    check(f"  {m} null CI lo", e["null_ci_95"][0], "{:+.5f}")
+    check(f"  {m} null CI hi", e["null_ci_95"][1], "{:+.5f}")
+
+# The paper's central claim: NO increment is above its null. If a rerun ever
+# puts one above, the thesis changes and this must fail loudly.
+checks += 1
+_none_above = all(
+    e["observed_increment"] <= e["null_ci_95"][1] for e in mn["metrics"].values())
+print(f"  {'OK  ' if _none_above else 'FAIL'}  no calibration increment exceeds the "
+      f"upper bound of its own mechanical null")
+if not _none_above:
+    failures.append("main.tex claims no increment clears its mechanical null; the "
+                    "JSON now shows one that does")
+
+# The simulated null must match the closed form, which is the correctness
+# check on the null itself.
+checks += 1
+_cf_ok = all(e["null_closed_form_abs_diff"] < 1e-3 for e in mn["metrics"].values())
+print(f"  {'OK  ' if _cf_ok else 'FAIL'}  simulated null matches its closed form "
+      f"for every metric")
+if not _cf_ok:
+    failures.append("the simulated mechanical null no longer matches its closed form")
+
+# B is the identified component; the paper leans on it being established for
+# Brier and NOT established for reliability/ECE.
+print("\nIdentified component B:" if REPORTS_NULL else "")
+for m, e in (mn["metrics"].items() if REPORTS_NULL else []):
+    b = e["decomposition"]
+    # The prose writes B to 4 decimals; check at the precision it is quoted.
+    check(f"  {m} B", b["B_transferred_on_clean_arm"], "{:+.4f}")
+checks += 1
+_b_ok = (mn["metrics"]["brier"]["decomposition"]["B_excludes_zero"]
+         and not mn["metrics"]["reliability"]["decomposition"]["B_excludes_zero"]
+         and not mn["metrics"]["ece"]["decomposition"]["B_excludes_zero"])
+print(f"  {'OK  ' if _b_ok else 'FAIL'}  B established for Brier, not established for "
+      f"reliability or ECE (exactly as claimed)")
+if not _b_ok:
+    failures.append("main.tex's account of which B components are established no "
+                    "longer matches the JSON")
 
 # The negative resolution increment is load-bearing: it is why Brier's 92%
 # share is not evidence the effect is mostly selection.

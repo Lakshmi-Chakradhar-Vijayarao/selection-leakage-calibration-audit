@@ -1,0 +1,39 @@
+{
+  "n_perm": 500,
+  "n_reps": 50,
+  "n_layers": 32,
+  "seed": 20260928,
+  "null_construction": "labels permuted within each arm (base rate preserved); cached probe scores unchanged",
+  "metrics": {
+    "reliability": {
+      "observed": 0.00258922690224814,
+      "null_mean": 0.0032595366438981817,
+      "null_sd": 0.0013187698261924756,
+      "null_q975": 0.00578003403806141,
+      "null_max": 0.0073352754026596865,
+      "permutation_p_one_sided": 0.6786427145708582,
+      "observed_minus_null_mean": -0.0006703097416500417,
+      "exceeds_null_97_5th_pct": false
+    },
+    "ece": {
+      "observed": 0.009916530496759257,
+      "null_mean": 0.008759004840797682,
+      "null_sd": 0.002663238557420934,
+      "null_q975": 0.013736237000837386,
+      "null_max": 0.01668376378544233,
+      "permutation_p_one_sided": 0.35728542914171657,
+      "observed_minus_null_mean": 0.0011575256559615745,
+      "exceeds_null_97_5th_pct": false
+    },
+    "brier": {
+      "observed": 0.00752095399872669,
+      "null_mean": 0.0040065854286708774,
+      "null_sd": 0.0012606178146170432,
+      "null_q975": 0.006440645587071927,
+      "null_max": 0.008118654927736238,
+      "permutation_p_one_sided": 0.005988023952095809,
+      "observed_minus_null_mean": 0.003514368570055813,
+      "exceeds_null_97_5th_pct": true
+    }
+  }
+}

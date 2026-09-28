@@ -35,32 +35,30 @@ A Code-Verified Audit of Hidden-State Hallucination-Detection Pipelines}
 When a checkpoint, layer, threshold, or hyperparameter is selected on data
 later reused to report performance, the reported number is optimistic. This is
 well documented for \emph{discrimination} metrics such as AUROC. \emph{In the
-settings we test}, the same selection step also corrupts \emph{calibration} --
-how reliable a system's stated confidence is, not just how well it ranks --
-and degrades the operating point a selective-prediction threshold is believed
-to buy. Selecting one layer by argmax over $32$ candidates, with no fitting on
-the evaluation data at all, inflates achieved risk by $10$--$16\%$ relative to
-the believed budget: at a $70\%$ coverage \emph{target} over $100{,}000$
-queries a day, $1{,}082$ additional unflagged errors daily (BCa $95\%$
-$[435,1718]$), priced at the coverage each arm actually achieves because the
-transferred threshold does not preserve coverage.
+settings we test}, evaluating on reused data at a selected configuration also
+costs \emph{calibration} -- how reliable a system's stated confidence is, not
+just how well it ranks -- and degrades the operating point a
+selective-prediction threshold is believed to buy. Selecting one layer by
+argmax over $32$ candidates, with no fitting on the evaluation data at all,
+inflates achieved risk by $10$--$16\%$ relative to the believed budget: at a
+$70\%$ coverage \emph{target} over $100{,}000$ queries a day, $1{,}082$
+additional unflagged errors daily (BCa $95\%$ $[435,1718]$), priced at the
+coverage each arm actually achieves.
+
 We separate calibration from discrimination rather than inferring it: under a
 Murphy decomposition the \emph{reliability} term carries the effect
-($+0.0046$, BCa $[+0.0027,+0.0065]$) while \emph{resolution} does not
-($+0.0028$, covering zero). The ECE gap holds in all eight binning settings
-(four bin counts, equal-width and equal-mass) and a binning-free calibration
-slope agrees ($0.68$ reused versus $0.62$ held out). A placebo at prespecified
-rather than selected layers shows roughly \emph{half} the gap is
-selection-specific and half ordinary reuse; we report both. A second,
-structurally different mechanism and a real
-ECE bug in an externally published, pinned-commit-verified pipeline corroborate
-the direction. Nine of ten cells are established per-cell -- six cleanly,
-three resting on a non-negativity our own method section disqualifies -- and
-all nine survive family-wise correction. Regularization does not explain the
-effect -- at a probe that cannot interpolate the increment grows -- but a
-second harness bounds it: on real features from two model families, selection
-inflates discrimination ($+0.007$ AUROC, established in both) \emph{without}
-corrupting calibration.
+($+0.0046$, BCa $[+0.0027,+0.0065]$) while \emph{resolution} does not. The ECE
+gap holds in all eight binning settings and a binning-free calibration slope
+agrees ($0.68$ reused versus $0.62$ held out). We do \emph{not} attribute the
+gap to the selection step: a placebo at unselected layers absorbs roughly half
+of it, and the remaining selection-specific increment does not clear its own
+mechanical null, which is positive in expectation because the selected index
+maximises the same criterion the gap contains. A second harness sharpens the
+point -- there the same procedure inflates discrimination ($+0.007$ AUROC)
+while leaving calibration alone. Nine of ten cells are established per-cell,
+six cleanly and three resting on a non-negativity our own method section
+disqualifies, and all nine survive family-wise correction.
+
 Measured severity is a property of a (mechanism, metric, control)
 \emph{triple}: one cell spans $1.44\times$ across two admissible controls. We
 release the taxonomy, three pinned third-party verifications, a checklist
@@ -439,13 +437,13 @@ probabilistic prediction quality.
 $\in\{5,10,15,20\}$, equal-width and equal-mass), spanning $+0.0164$ to
 $+0.0212$ with the submitted $+0.0171$ mid-range.
 \emph{(iii)} Repeating the comparison at unselected layers gives a real but
-smaller placebo (reliability $+0.0020$), so \textbf{roughly $57\%$ of the gap
-is selection-specific and $43\%$ ordinary reuse} (increment $+0.0026$, BCa
-$[+0.0014,+0.0040]$; ECE $+0.0099$, BCa $[+0.0054,+0.0150]$). Both components
-are established and we claim only the increment for selection. Resolution's
-increment is \emph{negative} ($-0.0048$, BCa $[-0.0066,-0.0031]$), as expected
-if selection buys in-sample discrimination, and is a second reason not to read
-Brier as the calibration result.
+smaller placebo (reliability $+0.0020$), leaving an increment of $+0.0026$
+(BCa $[+0.0014,+0.0040]$). But that increment belongs against a
+\emph{mechanical} null, not zero: $l^\star$ maximises the same criterion the
+gap contains, so it is positive in expectation with no transferable signal, and
+against that null it is not established (\texttt{110} in the artifact).
+\textbf{We therefore report the gap as a reuse cost and claim no
+selection-specific calibration effect.}
 
 \paragraph{Across architectures, and scope.} Re-running the argmax protocol on
 cached states from four other architectures -- identical $n$, split, folds,
@@ -630,28 +628,27 @@ against their naive alternatives, not merely prescribed.
 
 \section{Conclusion}
 
-Selection-induced optimism corrupts calibration, not only discrimination
-(\S\ref{sec:calibration-bridge}--\ref{sec:mechanism5-ece}), under two unrelated
-causes and unmeasured before for this failure class: a clean discrimination
-metric does not imply a clean confidence estimate. The five-mechanism taxonomy
-is the most reusable artifact here, pending a prevalence study not run.
+Evaluating on reused data at a selected configuration costs calibration, not
+only discrimination (\S\ref{sec:calibration-bridge}--\ref{sec:mechanism5-ece}),
+and costs $10$--$16\%$ of a selective-prediction risk budget. We do not
+attribute that cost to the selection step: the selection-specific increment
+does not clear its mechanical null.
 
 We held this paper to the standard it asks of the literature it audits, and
-report the cost: our own primary severity estimate does not survive its own
-correction, we decline BCa where the estimator makes it invalid, and where a
-robustness check split our findings we report all outcomes. An audit of
-evaluation protocols that exempts itself measures nothing.
+report the cost: our primary severity estimate does not survive its own
+correction, we decline BCa where the estimator makes it invalid, and the
+attribution this work set out to establish is the claim its own null withdrew.
+An audit of evaluation protocols that exempts itself measures nothing.
 
 \section*{Limitations}
 
 Calibration is established on two of five mechanisms and one feature
-representation; roughly half of even that gap is ordinary reuse rather than
-selection, and on real features from two model families the selection-specific
-calibration increment is null or negative
-(Appendix~\ref{app:secondfamily}). Mechanism 1's ECE gap does \emph{not}
-survive regularization, though Mechanism 2's increment does. We give no
-prevalence estimate, the severity surface is a fit rather than a bound, and one
-case study's headline number is not independently re-verifiable.
+representation, and we claim no selection-\emph{specific} effect: the increment
+does not clear its mechanical null, and on a second representation it is null
+or negative (Appendix~\ref{app:secondfamily}). Mechanism 1's ECE gap does
+\emph{not} survive regularization. We give no prevalence estimate, the severity
+surface is a fit rather than a bound, and one case study's headline number is
+not independently re-verifiable.
 Appendices~\ref{app:prevalence}--\ref{app:limitations} have the rest.
 
 \section*{References}
@@ -765,9 +762,8 @@ M3 primary synthetic & Carried to $-0.0001$ by its own factorial control. The
   decomposition is the contribution, not the null. \\
 M4 & Non-negative by construction (Appendix~\ref{app:nonneg}); n.s.\ vs.\ a
   permutation null, so its sign carries no information. \\
-Selection attribution & A placebo at unselected layers absorbs roughly
-  \emph{half} the calibration gap; the selection-specific increment is
-  established but is not the whole effect. \\
+Selection attribution & \textbf{Withdrawn.} The increment does not clear its
+  mechanical null. The reuse gap itself is directly measured and unaffected. \\
 Cross-harness & \textbf{Negative.} On real features from two model families,
   selection inflates AUROC ($+0.007$, established in both) but the
   selection-specific calibration increment is null or negative
