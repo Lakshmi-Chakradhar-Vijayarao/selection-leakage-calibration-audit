@@ -79,16 +79,17 @@ is $\Delta_{\text{sel}}-A=-B$, and the corrected test is a one-sample test of
 $B$, whose null value is genuinely zero. No permutation, no conditioning
 event, no added assumption.
 
-How much this matters is an empirical question about the estimator, and we
-answer it with known ground truth. In simulation the practised test has a type
-I error of $1.000$: under a null in which selection buys nothing transferable
-it declares an effect in all $2{,}000$ audits, at every candidate count we
-tried, and the problem grows with the candidate set. The corrected test is
-nominal and powered. Worse for the practised statistic,
-$\mathbb{E}[\Delta_{\text{sel}}]$ \emph{falls} as real transferable quality
-rises, because that quality cancels part of the curse --- so it is
-anti-monotone in the effect it is read as measuring
-(\S\ref{sec:sizepower}).
+How much this matters is an empirical question, and we answer it with known
+ground truth. In simulation the practised test declares a selection effect in
+essentially every audit whatever the state of the world --- in all $2{,}000$
+when selection recovers nothing transferable, and in $99\%$ when it recovers
+a great deal. Its rejection therefore carries almost no information about the
+auditor's question. This is a statement about relevance and not about
+validity: $H_0:\Delta_{\text{sel}}=0$ is false whenever an argmax acts on
+noise, so the test is a valid test of a hypothesis nobody should be asking.
+The corrected test does distinguish the two states, holding its level at
+$\tau=0$ --- where its null is genuinely true --- and reaching power $1$ as
+transferable quality grows (\S\ref{sec:sizepower}).
 
 Applied to our own harness the corrected procedure says selection recovers
 genuinely better layers on AUROC and Brier and leaves reliability and ECE

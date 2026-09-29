@@ -515,8 +515,12 @@ if "sec:comparison" in TEX:
 
 # ── K1: the size/power mislabelling must never come back ──────────────────
 checks += 1
-_bad = ("type I error of $1" in TEX or "type I error $1$" in TEX
-        or "rejection rate there \\emph{is} the type I error" in TEX)
+# whitespace-insensitive: LaTeX line breaks hid this phrase from an earlier
+# version of this very check, and the claim survived in the introduction.
+_flat = " ".join(TEX.split())
+_bad = ("type I error of $1" in _flat or "type I error $1$" in _flat
+        or "rejection rate there \\emph{is} the type I error" in _flat
+        or "anti-monotone in the effect it is read as measuring" in _flat)
 print(f"  {'OK  ' if not _bad else 'FAIL'}  the practised test's rejection rate is "
       f"NOT described as a type I error")
 if _bad:
