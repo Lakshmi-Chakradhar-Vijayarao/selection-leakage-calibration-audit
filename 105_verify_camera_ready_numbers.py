@@ -31,6 +31,7 @@ Usage:
 Default path is the camera-ready staging directory.
 """
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -441,12 +442,26 @@ check_absent("fixed-coverage excess at 50% (750)", "$750$")
 check_absent("fixed-coverage believed errors", "8{,}960")
 check_absent("fixed-coverage actual errors", "9{,}940")
 if ANONYMOUS:
-    # Double-blind submission: the de-anonymizing strings are what must not
-    # survive, and the anonymizing ones must be there.
-    check_absent("real artifact URL", "github.com/Lakshmi-Chakradhar-Vijayarao")
-    check_absent("author name", "Vijayarao")
-    check_absent("affiliation", "Northeastern")
-    check_absent("author email", "vijayarao.l@")
+    # Double-blind submission: the de-anonymizing strings must not survive and
+    # the anonymizing ones must be there.
+    #
+    # The identity strings are read from the environment rather than written
+    # here, following code/91's ANON_AUTHOR/ANON_INSTITUTION convention. A
+    # checker of anonymity cannot hard-code the very names it forbids and also
+    # ship inside an anonymous archive -- code/91's identity scan flags it, and
+    # it is right to.
+    _author = os.environ.get("ANON_AUTHOR_LITERAL")
+    _inst = os.environ.get("ANON_INSTITUTION_LITERAL")
+    _email = os.environ.get("ANON_EMAIL_LITERAL")
+    _repo = os.environ.get("ANON_REPO_LITERAL")
+    if not any([_author, _inst, _email, _repo]):
+        print("  NOTE  identity literals unset; export ANON_AUTHOR_LITERAL, "
+              "ANON_INSTITUTION_LITERAL, ANON_EMAIL_LITERAL, ANON_REPO_LITERAL "
+              "to run the de-anonymization checks")
+    for _label, _needle in [("author name", _author), ("affiliation", _inst),
+                            ("author email", _email), ("real artifact URL", _repo)]:
+        if _needle:
+            check_absent(_label, _needle)
     for label, needle in [("anonymous artifact mirror", "anonymous.4open.science"),
                           ("anonymous author block", "Anonymous Author")]:
         checks += 1

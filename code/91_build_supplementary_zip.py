@@ -190,6 +190,15 @@ def members():
         p = ROOT / name
         if p.exists():
             out.append((p, name))
+    # Root-level analysis scripts (95-110). These were silently absent from
+    # every archive built before 2026-09-29: DIRS covers code/ and results/,
+    # so their OUTPUT shipped while the code that produced it did not -- which
+    # the paper's reproducibility checklist asserts otherwise. They live at the
+    # repository root rather than in code/ because each resolves ROOT as its
+    # own parent directory, so moving them would break their paths.
+    for p in sorted(ROOT.glob("[0-9]*.py")):
+        if p.name not in EXCLUDE_NAMES:
+            out.append((p, p.name))
     for d in DIRS:
         base = ROOT / d
         if not base.exists():
