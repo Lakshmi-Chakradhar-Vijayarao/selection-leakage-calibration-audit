@@ -1,0 +1,74 @@
+{
+  "n_reps": 50,
+  "n_layers": 32,
+  "metrics": {
+    "auroc": {
+      "is_loss": false,
+      "gap_at_selected_mean": 0.023230410441531877,
+      "A_curse_mean": 0.042865131095741305,
+      "B_mean": 0.017315717448797566,
+      "B_bca_95ci": [
+        0.013416278559888029,
+        0.020929104634555183
+      ],
+      "B_t": 9.072385206078346,
+      "B_p": 4.600143471385886e-12,
+      "B_excludes_zero": true,
+      "B_favours_transfer": true,
+      "verdict": "transfers",
+      "delta_sel_mean": 0.025549413646943728,
+      "identity_check": 1.0408340855860843e-17
+    },
+    "reliability": {
+      "is_loss": true,
+      "gap_at_selected_mean": -0.004574954063529454,
+      "A_curse_mean": -0.003789687807761459,
+      "B_mean": -0.0012004609055133193,
+      "B_bca_95ci": [
+        -0.0028369962674824867,
+        0.0007228467077222747
+      ],
+      "B_t": -1.3285774749031798,
+      "B_p": 0.1901418643328345,
+      "B_excludes_zero": false,
+      "B_favours_transfer": true,
+      "verdict": "not established",
+      "delta_sel_mean": -0.0025892269022481395,
+      "identity_check": 4.336808689942018e-19
+    },
+    "ece": {
+      "is_loss": true,
+      "gap_at_selected_mean": -0.017128712622192694,
+      "A_curse_mean": -0.010601531521623306,
+      "B_mean": -0.0006850010248640523,
+      "B_bca_95ci": [
+        -0.007963224805761376,
+        0.007297715385086078
+      ],
+      "B_t": -0.17583227715748284,
+      "B_p": 0.8611503663123713,
+      "B_excludes_zero": false,
+      "B_favours_transfer": true,
+      "verdict": "not established",
+      "delta_sel_mean": -0.009916530496759257,
+      "identity_check": 3.469446951953614e-18
+    },
+    "brier": {
+      "is_loss": true,
+      "gap_at_selected_mean": -0.008194743779071936,
+      "A_curse_mean": -0.01415911854824075,
+      "B_mean": -0.006638164549514063,
+      "B_bca_95ci": [
+        -0.008713607435283452,
+        -0.004119145812932086
+      ],
+      "B_t": -5.687185209937392,
+      "B_p": 7.073270559234768e-07,
+      "B_excludes_zero": true,
+      "B_favours_transfer": true,
+      "verdict": "transfers",
+      "delta_sel_mean": -0.007520953998726687,
+      "identity_check": 0.0
+    }
+  }
+}

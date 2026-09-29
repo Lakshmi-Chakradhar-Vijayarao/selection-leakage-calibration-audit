@@ -435,6 +435,46 @@ if not _hc_ok:
     failures.append("main.tex says both arms are overconfident above p=0.8 with CLEAN "
                     "further below the diagonal; the JSON no longer shows that")
 
+
+# ── Corrected procedure and its size/power (111, 112) ──────────────────────
+if "sec:sizepower" in TEX or "corrected report" in TEX.lower():
+    print("\nCorrected procedure (111/112):")
+    sp = json.load(open(R / "estimator_size_power.json"))
+    cr = json.load(open(R / "corrected_report.json"))
+
+    # The headline: the practised test is saturated, the corrected one nominal.
+    checks += 1
+    _prac = sp["summary"]["practised_type_I_error_range"]
+    _corr = sp["summary"]["corrected_type_I_error_range"]
+    _ok = _prac[0] >= 0.99 and 0.03 <= _corr[0] <= 0.07 and 0.03 <= _corr[1] <= 0.07
+    print(f"  {'OK  ' if _ok else 'FAIL'}  practised type I error {_prac[0]:.3f}-{_prac[1]:.3f}, "
+          f"corrected {_corr[0]:.3f}-{_corr[1]:.3f}")
+    if not _ok:
+        failures.append("the size result main.tex reports no longer holds in the JSON")
+
+    # Delta_sel must be anti-monotone in tau -- the paper's sharpest claim.
+    checks += 1
+    _k32 = [v for v in sp["results"].values() if v["K"] == 32]
+    _k32.sort(key=lambda v: v["tau"])
+    _anti = all(a["mean_delta"] >= b["mean_delta"] for a, b in zip(_k32, _k32[1:]))
+    _mono_B = all(a["mean_B"] <= b["mean_B"] for a, b in zip(_k32, _k32[1:]))
+    print(f"  {'OK  ' if (_anti and _mono_B) else 'FAIL'}  E[Delta_sel] falls and E[B] rises "
+          f"as tau grows (the anti-monotonicity claim)")
+    if not (_anti and _mono_B):
+        failures.append("main.tex claims Delta_sel is anti-monotone in transferable "
+                        "quality; the simulation no longer shows that")
+
+    # B's verdicts on the real harness must match what the paper states.
+    for _m, _want in [("auroc", "transfers"), ("brier", "transfers"),
+                      ("reliability", "not established"), ("ece", "not established")]:
+        checks += 1
+        _got = cr["metrics"][_m]["verdict"]
+        print(f"  {'OK  ' if _got == _want else 'FAIL'}  B on {_m}: {_got}")
+        if _got != _want:
+            failures.append(f"main.tex says B on {_m} is '{_want}'; 112 reports '{_got}'")
+    for _m in ("auroc", "brier"):
+        check(f"  {_m} B t-statistic", cr["metrics"][_m]["B_t"], "{:.2f}")
+
 # ── Superseded literals that must not survive the camera-ready ─────────────
 print("\nSuperseded literals:")
 check_absent("fixed-coverage excess at 70% (980)", "$980$")
