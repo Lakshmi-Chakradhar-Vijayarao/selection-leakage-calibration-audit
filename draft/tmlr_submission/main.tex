@@ -159,8 +159,7 @@ construction asymmetries.
 
 \paragraph{What each claim is, and how strongly.} Every claim sits in one tier
 of Table~\ref{tab:tiers}, read at that tier and nowhere at a stronger one;
-Table~\ref{tab:claim-tiers} in Appendix~\ref{app:claim-tiers} assigns every
-individual result to one.
+Table~\ref{tab:tiers} assigns every claim to a tier.
 
 \begin{table}[h]
 \centering
@@ -1155,106 +1154,133 @@ Journal of Human Genetics}, 80(4), 605--615.
 \appendix
 \section*{Guide to the Appendices}
 
-The appendices divide into four groups, and a reader checking a particular
-claim need only enter one.
+The appendices are grouped so that a reader checking one claim need enter only
+one group. \textbf{A} gives the corrected procedure applied to our own
+harness, its family-wise correction, the permutation null we discarded, and a
+glossary of every estimand. \textbf{B} holds the statistical basis: what the
+intervals resample, the two non-negativity proofs behind our declining the
+bootstrap elsewhere, and the family verdicts. \textbf{C} holds the audits
+themselves and the within-harness severity relationship. \textbf{D} holds the
+robustness checks, including the two regularization analyses, the reliability
+diagrams, and the second harness in which the effect does not appear.
+\textbf{E} holds scope: the prevalence study we did not run, why its obvious
+version would mislead, and the extended limitations.
 
-\textbf{The corrected procedure, applied and audited.}
-Appendix~\ref{app:mechnull} gives the three-line report of
-\S\ref{sec:estimand} for our own harness, the family-wise correction, and the
-permutation null we built and discarded.
+\section{The Corrected Procedure}
 
-\textbf{What the numbers rest on.} Appendix~\ref{app:resampling} states the
-resampling unit and what the intervals are about; Appendix~\ref{app:nonneg}
-proves the two non-negativity results that make us decline the bootstrap
-elsewhere; Appendix~\ref{app:estimands} defines every estimand used anywhere
-in the paper.
+\subsection{Applying the Corrected Procedure to the Audited Harness}
+\label{app:mechnull}
 
-\textbf{The audits themselves.} Appendix~\ref{app:severity} tabulates
-per-mechanism severity; Appendix~\ref{app:cases} gives case-study detail;
-Appendix~\ref{app:ece} quantifies the external ECE defect;
-Appendix~\ref{app:holm} gives family verdicts;
-Appendix~\ref{app:severity-detail} holds the within-harness severity
-relationship.
-
-\textbf{Robustness, and where the paper fails its own checks.}
-Appendix~\ref{app:reviewer-response} holds the calibration robustness suite;
-Appendix~\ref{app:reliability} the reliability diagrams;
-Appendix~\ref{app:reg} and Appendix~\ref{app:regularization} the
-regularization checks; Appendix~\ref{app:secondfamily} the second harness, in
-which the effect does not appear; Appendix~\ref{app:prevalence} the
-prevalence study we did not run and why the obvious version would mislead;
-and Appendix~\ref{app:limitations} the extended limitations.
-
-
-
-
-
-\section{Claim-to-Evidence Map}
-\label{app:claim-tiers}
+\S\ref{sec:estimand} prescribes a three-line report. Table~\ref{tab:corrected}
+is that report for the Mechanism-2 harness, so that the paper practises what
+it prescribes. Selection is on the CV AUROC criterion in every row; only the
+metric being reported changes.
 
 \begin{table}[h]
 \centering
 \small
-{\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}p{0.235\linewidth}p{0.715\linewidth}@{}}
+\begin{tabular}{@{}lrrrlrl@{}}
 \toprule
-\multicolumn{2}{@{}l}{\textbf{A. Documented} \emph{-- descriptive; no effect
-  size claimed}} \\
+Metric & gap at $l^\star$ & $A$ & $B$ & $B$ BCa $95\%$ & $t$ & Transfer? \\
 \midrule
-Five mechanisms & Present in the harnesses as written; three traced to pinned
-  third-party source (\S\ref{sec:mechanisms}). \\
-\midrule
-\multicolumn{2}{@{}l}{\textbf{B. Statistically established} \emph{-- BCa
-  $95\%$ excludes zero; Holm-corrected where a family applies}} \\
-\midrule
-M2 reuse gaps & $+0.0255$ AUROC, $+0.0082$ Brier, $+0.0171$ ECE between the reused fold and held-out data at the selected layer. Directly measured. \emph{Not} attributed to selection: see Tier C. \\
-M2 calibration (reuse) & Reliability $+0.0046$; ECE $+0.0171$ in all $8$
-  binning settings; slope $0.68\!\to\!0.62$. A reuse gap, not a selection
-  effect (\S\ref{sec:calibration-bridge}). \\
-Identified component $B$ & $+0.0173$ AUROC ($t=9.07$) and $-0.0066$ Brier
-  (BCa $[-0.0087,-0.0041]$): the selected layer is genuinely better on data
-  that played no part in selecting it (Appendix~\ref{app:mechnull}). \\
-M2 operating point & Risk inflated $10$--$16\%$ of target at $50$/$70\%$
-  coverage; $1{,}082$ excess errors/day (\S\ref{sec:selective-prediction}). \\
-M1, M3, M5 & $+0.13$--$0.29$ (M1 reconstruction, $100$ seeds); $+0.0060$--$0.0067$
-  (M3 real features); M5 ECE contamination reproduced externally
-  (\S\ref{sec:mechanism5-ece}). \\
-\midrule
-\multicolumn{2}{@{}l}{\textbf{C. Illustrative, unresolved, or negative}
-  \emph{-- reported, not relied on}} \\
-\midrule
-M1 narrative $+0.1906$ & Prior work's number; not reproducible from the
-  artifact, excluded from every comparison. \\
-M3 primary synthetic & Carried to $-0.0001$ by its own factorial control. The
-  decomposition is the contribution, not the null. \\
-M4 & Non-negative by construction (Appendix~\ref{app:nonneg}); n.s.\ vs.\ a
-  permutation null, so its sign carries no information. \\
-Selection attribution & \textbf{Withdrawn.} A placebo at unselected layers
-  absorbs roughly half the gap, and the remaining selection-specific increment
-  is tested against the wrong null; under the corrected test
-  (\S\ref{sec:estimand}) nothing is established on reliability or ECE. We claim no selection-specific calibration
-  effect. \\
-Cross-harness & \textbf{Negative.} On real features from two model families,
-  selection inflates AUROC ($+0.007$, established in both) but the
-  selection-specific calibration increment is null or negative
-  (Appendix~\ref{app:secondfamily}). The calibration consequence does not
-  follow from the discrimination one. \\
-Scope limits & Calibration established on one feature representation (the four
-  extra architectures test AUROC only); M2 at $30\%$ coverage established only
-  under the coverage-aware count; severity relationship diagnostic, not predictive
-  ($9.2$--$24.3\times$ off); threshold transfer is informal, not conformal;
-  per-day error counts scale one dataset to a hypothetical query volume rather
-  than estimating a population; M5's $+0.0090$ is quantified in our synthetic
-  harness, not on the external pipeline's own reported outputs;
-  no prevalence estimate (repositories found by targeted search, not sampled). \\
+AUROC & $+0.0232$ & $+0.0429$ & $+0.0173$ & $[+0.0134,+0.0209]$ & $9.07$ & transfers \\
+Reliability & $-0.0046$ & $-0.0038$ & $-0.0012$ & $[-0.0028,+0.0007]$ & $-1.33$ & not established \\
+ECE & $-0.0171$ & $-0.0106$ & $-0.0007$ & $[-0.0080,+0.0073]$ & $-0.18$ & not established \\
+Brier & $-0.0082$ & $-0.0142$ & $-0.0066$ & $[-0.0087,-0.0041]$ & $-5.69$ & transfers \\
 \bottomrule
-\end{tabular}}
-\caption{Claim-to-evidence map. A is what the code does; B is what the
-statistics support; C is what we report without relying on.}
-\label{tab:claim-tiers}
+\end{tabular}
+\caption{The corrected report, $50$ replicates. Here gap is written
+$\text{cv}-\text{ho}$, so for the three losses a \emph{negative} value is the
+optimism (the selection fold looks better than held-out data); the main text
+reports the same quantities as held-out minus reused, hence with the opposite
+sign. $B$ is tested against zero by one-sample $t$; for a loss, $B<0$ favours
+transfer. \texttt{112\_corrected\_report.py}.}
+\label{tab:corrected}
 \end{table}
 
-\section{Resampling Unit for All Bootstrap Intervals}
+Read this way the harness says something simple. Selection recovers a layer
+that genuinely transfers on AUROC ($t=9.07$, $p=5\times10^{-12}$) and on Brier
+($t=-5.69$, $p=7\times10^{-7}$), and we cannot establish transfer either way
+on reliability or ECE. The optimism the practitioner pays is the gap column,
+which needs no correction at all. At no point do we need
+$\Delta_{\text{sel}}$, and had we tested it against zero we would have
+declared a selection effect on every metric, including the two where nothing
+is established.
+
+\paragraph{Family-wise correction.} These four $B$ tests share a selection
+rule and a set of replicates, so they form one family and we correct them as
+we correct every other family in this paper. Under Holm-Bonferroni at
+family-wise $\alpha=0.05$, AUROC ($p=4.6\times10^{-12}$ against threshold
+$0.0125$) and Brier ($p=7.1\times10^{-7}$ against $0.0167$) survive;
+reliability ($p=0.190$) and ECE ($p=0.861$) do not. \textbf{No verdict in
+Table~\ref{tab:corrected} changes under correction.}
+
+\paragraph{Why reliability and ECE are undetermined, and Brier is not.} This
+is power, not a substantive difference between the metrics. The three losses
+point the same way, and their $B$ estimates differ mainly in dispersion: the
+ECE interval is roughly five times as wide as the reliability interval and
+twenty times as wide as Brier's, which is what one expects of a binned
+estimator at $n\!\approx\!300$ per arm relative to a mean of squared errors.
+With $50$ replicates, Brier clears zero, reliability does not quite, and ECE
+is not close. We read this as the binned estimator lacking resolution at these
+sample sizes, consistent with the estimator-bias literature cited in
+\S\ref{sec:calibration-bridge}, not as evidence that calibration transfers
+while reliability does not.
+
+\paragraph{A permutation null is redundant here, and we say so.} We first
+approached this with a permutation that breaks the correspondence between each
+candidate's selection-fold and held-out values, and
+\texttt{110\_calibration\_increment\_null.py} in the artifact still computes
+it over $20{,}000$ draws. It is redundant. Under that permutation
+$\mathbb{E}_\pi[\text{ho}_{\pi(l^\star)}]=\overline{\text{ho}}$, so the null
+mean is exactly $A$; by the identity $\Delta_{\text{sel}}=A-B$, the event
+``$\Delta_{\text{sel}}$ falls below its permutation null'' is the event
+``$B>0$''. The simulation therefore recovers, with Monte Carlo error, a
+conclusion the $t$-test gives exactly, and it additionally assumes candidates
+are exchangeable, which adjacent transformer layers are not. We retain the
+script so the equivalence can be checked --- its simulated null means match
+$A$ to $7\times10^{-5}$ --- and base nothing on it.
+
+\subsection{Estimands Used in This Paper}
+\label{app:estimands}
+
+Reviewers noted that the number of distinct estimands, controls and
+qualifications makes the paper dense. Every quantity we report is one of the
+following six; nothing else is estimated.
+
+\begin{itemize}
+\itemsep0pt
+\item \textbf{Optimism gap} $=$ metric on the data used for selection $-$
+  metric on genuinely held-out data, at the same fixed configuration. The base
+  quantity all others derive from.
+\item \textbf{Selection-specific component} $=$ optimism gap at the layer the
+  argmax \emph{would select} $-$ mean optimism gap across all candidate
+  layers. Positive in expectation even under a pure-noise null, by
+  construction: that is the winner's curse it exists to measure, and it is why
+  its significance must not be read as evidence of any further pathology
+  (Appendix~\ref{app:severity}).
+\item $\Delta_{\text{sel}}$ $=$ the selection-specific component measured on
+  AUROC specifically. The paper's discrimination headline.
+\item \textbf{Calibration gap} $=$ optimism gap measured on Brier, its Murphy
+  reliability term, ECE, or isotonic calibration error. Signed so positive means
+  worse on held-out data.
+\item \textbf{Placebo gap} $=$ the same LEAKY/CLEAN comparison at layers the
+  argmax did \emph{not} select, and \textbf{selection-specific increment} $=$
+  calibration gap at the selected layer $-$ placebo gap
+  (Appendix~\ref{app:reviewer-response}).
+\item \textbf{Risk violation} $=$ risk achieved on held-out data at a
+  threshold transferred from the reused fold $-$ risk that threshold reported
+  on the reused fold. The operational quantity.
+\end{itemize}
+
+Two controls recur. \textbf{CLEAN\_MATCHED} refits on the selection pool and
+scores genuinely held-out data, matching the leaky arm's training size.
+\textbf{Fold-matched} controls equalise selection-set size between arms, which
+is the correction that carries Mechanism 3's primary estimate to null.
+
+\section{Statistical Basis}
+
+\subsection{Resampling Unit for All Bootstrap Intervals}
 \label{app:resampling}
 Every BCa interval in this paper resamples the \emph{replicate}, not the
 individual example. A replicate is one independent seed or fold-assignment
@@ -1283,39 +1309,7 @@ therefore report selection-set size as the dominant factor at the shipped
 setting, not as a setting-independent decomposition; the uncorrected gap
 itself also shrinks monotonically across the sweep ($0.0104$ to $0.0024$).
 
-\section{Per-Mechanism Severity Table}
-\label{app:severity}
-The five mechanisms' severity, each traced to source code. This is the
-paper's self-audit of its own effect sizes, not its headline result:
-italicised qualifiers mark a number -- ours or a source's -- that does not
-survive the control we built for it.
-
-\begin{table}[t]
-\centering
-\small
-{\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}p{0.04\linewidth}p{0.33\linewidth}p{0.55\linewidth}@{}}
-\toprule
-Mech. & Object selected / mechanism & Severity (code-verified) \\
-\midrule
-1 & Full-dataset probe fit, reused as feature -- controlled synthetic reconstruction of the general mechanism & $+0.13$ to $+0.29$ AUROC, BCa-established, $n{=}100$ seeds \\
-1 & --- the prior-work number (the degenerate case of selection: a candidate set of size one -- the entire dataset -- evaluated with no held-out complement) & $+0.1906$ AUROC -- \emph{not reproducible from this artifact} \\
-2 & CV-argmax layer selection & $\Delta_{\text{sel}}=+0.0255$ (SD $0.0186$), randomized stratified splits; \emph{single test, no within-family correction applies} \\
-3 & Per-fold checkpoint selection, fold-matched control & $\Delta_{\text{real}}=+0.0060$ to $+0.0067$ (real features); $+0.0159$/$+0.0044$ (synthetic, capacity 128/384) \\
-3 & --- isotropic synthetic sweep, as-published vs. fully corrected control & $\Delta_{\text{synth}}=+0.0011$ to $+0.0036$ / $-0.0001$ -- \emph{not detectable once corrected} \\
-4 & Test-set best-layer selection, bootstrap max-bias & $+0.0021$ as computed, $+0.0029$ to $+0.0040$ bias-corrected (24 cells); \emph{non-negative by construction, n.s.\ vs.\ permutation null} \\
-5 & Test-set threshold selection, independent validation split & AUROC: exactly $0$ (algebraic); F1: $+0.022$ to $+0.052$ at $n{=}140$, $\approx6.3\times$ smaller at $n{=}2000$ \\
-\bottomrule
-\end{tabular}}
-\caption{The five mechanisms' severity, each traced to source code -- including
-one number we could not reproduce from the artifact, marked as such.
-Non-negativity proofs in
-Appendix~\ref{app:nonneg}; derivations and factorial decompositions in the
-supplementary material, mapped in Appendix~\ref{app:cases}.}
-\label{tab:severity}
-\end{table}
-
-\section{Non-negativity of Both Mechanism-4 Estimators}
+\subsection{Non-negativity of Both Mechanism-4 Estimators}
 \label{app:nonneg}
 
 \S\ref{sec:mechanisms} states that Mechanism 4's estimate rests on a statistic
@@ -1409,22 +1403,104 @@ $-1.1\times10^{-16}$ and $+3.3\times10^{-17}$ rather than $-0.0001$ and
 $-0.0007$. The superseded values are retained in the shipped JSON as
 \texttt{bootstrap\_max\_bias\_monte\_carlo\_legacy}.
 
-\section{Mechanism 1's Regularization Check}
-\label{app:reg}
-Mechanism 1's probe is fit at $d=414$, $n=400$ and reaches exact in-sample
-separation at $C=1.0$ (AUROC $1.0000$), the overparameterized-interpolation
-regime, in which \emph{any} classifier scored on its own training data looks
-reliable whether or not a selection step occurred. Repeating the
-calibration-bridge comparison at $C=0.01$ (in-sample AUROC $0.997$, no longer
-interpolating), the Brier gap survives but shrinks roughly $4\times$:
-$+0.0061$, BCa $[+0.0058,+0.0063]$, against $+0.0260$ at $C=1.0$. \textbf{The
-ECE gap does not survive}: $+0.0002$, BCa $[-0.0004,+0.0010]$, against
-$+0.0193$. ECE at $n\approx400$ with 10 bins is a bin-sensitive estimator
-(Kumar et al., 2019), and we read Mechanism 1's ECE gap as an artifact of the
-near-interpolation regime it was measured in. Brier survives. Mechanism 2's
-probe never interpolates, so none of its cells are affected.
+\subsection{Holm-Bonferroni Family Verdicts}
+\label{app:holm}
 
-\section{Extended Case Study Detail}
+Table~\ref{tab:holm} reports, for every family from the severity analysis of
+\S\ref{sec:mechanisms}--\ref{sec:severity}, how many cells were nominally
+significant and how many survive Holm-Bonferroni within that family. The
+calibration-bridge and selective-prediction cells
+(Tables~\ref{tab:calibration-bridge} and~\ref{tab:selective-prediction}) form
+a separate ten-test family, corrected jointly, of which nine survive.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}p{0.42\linewidth}p{0.10\linewidth}p{0.10\linewidth}@{}}
+\toprule
+Family & Nom. sig. & Holm-surv. \\
+\midrule
+Primary synthetic sweep, as-published control (4 cells) & 2 & 1 \\
+Primary synthetic sweep, factorial-corrected control (4 cells) & 0 & 0 \\
+Real-feature + fidelity extension, corrected control (4 cells) & 2 (marg.) & 0 \\
+Anisotropic sweep pooled w/ 7 other synthetic tests (8 cells) & $\geq$2 & 2 \\
+\bottomrule
+\end{tabular}
+\caption{Every family from the severity analysis of
+\S\ref{sec:mechanisms}--\ref{sec:severity} with a Holm-Bonferroni verdict,
+alongside its pre-correction picture; the calibration-bridge/selective-prediction
+family (Table~\ref{tab:selective-prediction}) and the Mechanism-5 ECE family
+(\S\ref{sec:mechanism5-ece}) are reported separately. The final row's nominal
+count is written as a lower bound because per-cell nominal significance was
+not recorded for all eight pooled cells; two is what the Holm-surviving set
+implies, not an exact tally. Two mechanisms rest on
+a single test or a permutation null rather than a multi-cell family, so no
+within-family correction applies to them.}
+\label{tab:holm}
+\end{table}
+
+\section{The Audits}
+
+\subsection{Per-Mechanism Severity Table}
+\label{app:severity}
+The five mechanisms' severity, each traced to source code. This is the
+paper's self-audit of its own effect sizes, not its headline result:
+italicised qualifiers mark a number -- ours or a source's -- that does not
+survive the control we built for it.
+
+\begin{table}[t]
+\centering
+\small
+{\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{0.04\linewidth}p{0.33\linewidth}p{0.55\linewidth}@{}}
+\toprule
+Mech. & Object selected / mechanism & Severity (code-verified) \\
+\midrule
+1 & Full-dataset probe fit, reused as feature -- controlled synthetic reconstruction of the general mechanism & $+0.13$ to $+0.29$ AUROC, BCa-established, $n{=}100$ seeds \\
+1 & --- the prior-work number (the degenerate case of selection: a candidate set of size one -- the entire dataset -- evaluated with no held-out complement) & $+0.1906$ AUROC -- \emph{not reproducible from this artifact} \\
+2 & CV-argmax layer selection & $\Delta_{\text{sel}}=+0.0255$ (SD $0.0186$), randomized stratified splits; \emph{single test, no within-family correction applies} \\
+3 & Per-fold checkpoint selection, fold-matched control & $\Delta_{\text{real}}=+0.0060$ to $+0.0067$ (real features); $+0.0159$/$+0.0044$ (synthetic, capacity 128/384) \\
+3 & --- isotropic synthetic sweep, as-published vs. fully corrected control & $\Delta_{\text{synth}}=+0.0011$ to $+0.0036$ / $-0.0001$ -- \emph{not detectable once corrected} \\
+4 & Test-set best-layer selection, bootstrap max-bias & $+0.0021$ as computed, $+0.0029$ to $+0.0040$ bias-corrected (24 cells); \emph{non-negative by construction, n.s.\ vs.\ permutation null} \\
+5 & Test-set threshold selection, independent validation split & AUROC: exactly $0$ (algebraic); F1: $+0.022$ to $+0.052$ at $n{=}140$, $\approx6.3\times$ smaller at $n{=}2000$ \\
+\bottomrule
+\end{tabular}}
+\caption{The five mechanisms' severity, each traced to source code -- including
+one number we could not reproduce from the artifact, marked as such.
+Non-negativity proofs in
+Appendix~\ref{app:nonneg}; derivations and factorial decompositions in the
+supplementary material, mapped in Appendix~\ref{app:cases}.}
+\label{tab:severity}
+\end{table}
+
+\subsection{The Within-Harness Severity Relationship}
+\label{app:severity-detail}
+
+Within one harness, severity rises monotonically and concavely with candidate
+count $K$ at a fixed operating point, from $+0.0093$ at
+$\text{AUROC}_0=0.70$ to indistinguishable from zero at $0.985$
+($p=0.219$, $n=100$). This $K$-regularity is scoped to
+checkpoint-along-a-trajectory candidates only: an independently-seeded,
+exchangeable-candidate replication at adequate power ($N=200$) does not
+reproduce it (gaps $+0.0013$ to $-0.0010$, every CI covering zero). The
+operating-point relationship is not similarly scoped but does not transport
+across harnesses -- it is exceeded by roughly an order of magnitude at a
+matched operating point in our own real-feature harnesses, which is the
+$9.2$--$24.3\times$ figure quoted in \S\ref{sec:checklist}.
+
+\paragraph{Does mechanism identity matter beyond these two covariates?} A
+matched comparison at a common $(K,\text{AUROC}_0)$ shows a
+per-mechanism-intercept model beats a pooled one decisively ($304\times$
+intercept spread), and a pooled fit without a mechanism term gives a
+wrong-signed $\ln K$ coefficient that flips once mechanism is controlled for.
+Some factor beyond candidate count and operating point is therefore not
+absorbed by them -- though this design cannot separate whether it is mechanism
+identity itself or the unequal harness maturity correlated with it. What this
+licenses is only the negative conclusion: severity is not governed by those two
+covariates to the exclusion of mechanism. We do not read the severity surface
+as a calculator, and \S\ref{sec:checklist} says so.
+
+\subsection{Extended Case Study Detail}
 \label{app:cases}
 Full per-case-study derivations, the complete $2\times2\times2$ factorial
 table, all 24 published
@@ -1481,43 +1557,27 @@ pinned commit \texttt{ea0b967}) does not report ECE at all, which is why this
 finding is single-source. We do not extend
 \S\ref{sec:selective-prediction}'s deployment-consequence analysis to it.
 
-\section{Holm-Bonferroni Family Verdicts}
-\label{app:holm}
+\subsection{The Externally Verified ECE Defect}
+\label{sec:mechanism5-ece}
 
-Table~\ref{tab:holm} reports, for every family from the severity analysis of
-\S\ref{sec:mechanisms}--\ref{sec:severity}, how many cells were nominally
-significant and how many survive Holm-Bonferroni within that family. The
-calibration-bridge and selective-prediction cells
-(Tables~\ref{tab:calibration-bridge} and~\ref{tab:selective-prediction}) form
-a separate ten-test family, corrected jointly, of which nine survive.
+Unlike \S\ref{sec:calibration-bridge}'s comparisons, which we construct on our
+own cached scores, this is a bug we \emph{found} in MultiHaluDet's code (a
+multilingual hallucination-detection pipeline; Alvi et al., 2026; pinned
+commit \texttt{c759751}). Its ECE term uses
+\texttt{confidence=max(probs,1-probs)} (threshold-independent) but
+\texttt{correct=(preds==labels)}, with \texttt{preds} thresholded at Mechanism
+5's own test-label-selected Youden cut: \textbf{the pipeline's own reported
+ECE is contaminated by the mechanism this paper audits it for.} Quantified
+with the already-validated Mechanism-5 synthetic harness
+(Appendix~\ref{app:ece}), the pooled ECE gap across five operating points is
+$+0.0090$, all five cells BCa-established. This is a code-level defect rather
+than a decomposed attribution, so the null issue of
+Appendix~\ref{app:mechnull} does not bear on it; but it is verified in one of
+the two audited repositories only, and we do not generalize from one instance.
 
-\begin{table}[t]
-\centering
-\small
-\begin{tabular}{@{}p{0.42\linewidth}p{0.10\linewidth}p{0.10\linewidth}@{}}
-\toprule
-Family & Nom. sig. & Holm-surv. \\
-\midrule
-Primary synthetic sweep, as-published control (4 cells) & 2 & 1 \\
-Primary synthetic sweep, factorial-corrected control (4 cells) & 0 & 0 \\
-Real-feature + fidelity extension, corrected control (4 cells) & 2 (marg.) & 0 \\
-Anisotropic sweep pooled w/ 7 other synthetic tests (8 cells) & $\geq$2 & 2 \\
-\bottomrule
-\end{tabular}
-\caption{Every family from the severity analysis of
-\S\ref{sec:mechanisms}--\ref{sec:severity} with a Holm-Bonferroni verdict,
-alongside its pre-correction picture; the calibration-bridge/selective-prediction
-family (Table~\ref{tab:selective-prediction}) and the Mechanism-5 ECE family
-(\S\ref{sec:mechanism5-ece}) are reported separately. The final row's nominal
-count is written as a lower bound because per-cell nominal significance was
-not recorded for all eight pooled cells; two is what the Holm-surviving set
-implies, not an exact tally. Two mechanisms rest on
-a single test or a permutation null rather than a multi-cell family, so no
-within-family correction applies to them.}
-\label{tab:holm}
-\end{table}
+\section{Robustness Checks}
 
-\section{Calibration Robustness, Placebo Control, and the Coverage-Aware Error Count}
+\subsection{Calibration Robustness, Placebo Control, and the Coverage-Aware Error Count}
 \label{app:reviewer-response}
 
 Three analyses added after review, all recomputed from the cached per-sample
@@ -1701,7 +1761,7 @@ $Q\cdot\text{target}\cdot(\text{risk}_\text{CLEAN}-\text{risk}_\text{LEAKY})$.}
 \label{tab:deploy}
 \end{table}
 
-\section{Reliability Diagrams, and Where the Miscalibration Sits}
+\subsection{Reliability Diagrams, and Where the Miscalibration Sits}
 \label{app:reliability}
 
 The statistics in Appendix~\ref{app:reviewer-response} say \emph{that} the
@@ -1736,7 +1796,22 @@ arm (red) is further below throughout the high-confidence region.}
 \label{fig:reliability}
 \end{figure}
 
-\section{Is the Calibration Effect an Interpolation Artifact?}
+\subsection{Mechanism 1's Regularization Check}
+\label{app:reg}
+Mechanism 1's probe is fit at $d=414$, $n=400$ and reaches exact in-sample
+separation at $C=1.0$ (AUROC $1.0000$), the overparameterized-interpolation
+regime, in which \emph{any} classifier scored on its own training data looks
+reliable whether or not a selection step occurred. Repeating the
+calibration-bridge comparison at $C=0.01$ (in-sample AUROC $0.997$, no longer
+interpolating), the Brier gap survives but shrinks roughly $4\times$:
+$+0.0061$, BCa $[+0.0058,+0.0063]$, against $+0.0260$ at $C=1.0$. \textbf{The
+ECE gap does not survive}: $+0.0002$, BCa $[-0.0004,+0.0010]$, against
+$+0.0193$. ECE at $n\approx400$ with 10 bins is a bin-sensitive estimator
+(Kumar et al., 2019), and we read Mechanism 1's ECE gap as an artifact of the
+near-interpolation regime it was measured in. Brier survives. Mechanism 2's
+probe never interpolates, so none of its cells are affected.
+
+\subsection{Is the Calibration Effect an Interpolation Artifact?}
 \label{app:regularization}
 
 Mechanism 1's ECE gap does not survive stronger regularization
@@ -1794,7 +1869,7 @@ configuration. \texttt{106\_calibration\_under\_regularization.py}.}
 \label{tab:reg}
 \end{table}
 
-\section{A Second Model Family: Where the Calibration Effect Does Not Replicate}
+\subsection{A Second Model Family: Where the Calibration Effect Does Not Replicate}
 \label{app:secondfamily}
 
 The four extra architectures of \S\ref{sec:calibration-bridge} cannot address
@@ -1859,125 +1934,9 @@ is significantly negative for ECE in both.
 \label{tab:secondfamily}
 \end{table}
 
-\section{Applying the Corrected Procedure to the Audited Harness}
-\label{app:mechnull}
+\section{Scope and Limits}
 
-\S\ref{sec:estimand} prescribes a three-line report. Table~\ref{tab:corrected}
-is that report for the Mechanism-2 harness, so that the paper practises what
-it prescribes. Selection is on the CV AUROC criterion in every row; only the
-metric being reported changes.
-
-\begin{table}[h]
-\centering
-\small
-\begin{tabular}{@{}lrrrlrl@{}}
-\toprule
-Metric & gap at $l^\star$ & $A$ & $B$ & $B$ BCa $95\%$ & $t$ & Transfer? \\
-\midrule
-AUROC & $+0.0232$ & $+0.0429$ & $+0.0173$ & $[+0.0134,+0.0209]$ & $9.07$ & transfers \\
-Reliability & $-0.0046$ & $-0.0038$ & $-0.0012$ & $[-0.0028,+0.0007]$ & $-1.33$ & not established \\
-ECE & $-0.0171$ & $-0.0106$ & $-0.0007$ & $[-0.0080,+0.0073]$ & $-0.18$ & not established \\
-Brier & $-0.0082$ & $-0.0142$ & $-0.0066$ & $[-0.0087,-0.0041]$ & $-5.69$ & transfers \\
-\bottomrule
-\end{tabular}
-\caption{The corrected report, $50$ replicates. Here gap is written
-$\text{cv}-\text{ho}$, so for the three losses a \emph{negative} value is the
-optimism (the selection fold looks better than held-out data); the main text
-reports the same quantities as held-out minus reused, hence with the opposite
-sign. $B$ is tested against zero by one-sample $t$; for a loss, $B<0$ favours
-transfer. \texttt{112\_corrected\_report.py}.}
-\label{tab:corrected}
-\end{table}
-
-Read this way the harness says something simple. Selection recovers a layer
-that genuinely transfers on AUROC ($t=9.07$, $p=5\times10^{-12}$) and on Brier
-($t=-5.69$, $p=7\times10^{-7}$), and we cannot establish transfer either way
-on reliability or ECE. The optimism the practitioner pays is the gap column,
-which needs no correction at all. At no point do we need
-$\Delta_{\text{sel}}$, and had we tested it against zero we would have
-declared a selection effect on every metric, including the two where nothing
-is established.
-
-\paragraph{Family-wise correction.} These four $B$ tests share a selection
-rule and a set of replicates, so they form one family and we correct them as
-we correct every other family in this paper. Under Holm-Bonferroni at
-family-wise $\alpha=0.05$, AUROC ($p=4.6\times10^{-12}$ against threshold
-$0.0125$) and Brier ($p=7.1\times10^{-7}$ against $0.0167$) survive;
-reliability ($p=0.190$) and ECE ($p=0.861$) do not. \textbf{No verdict in
-Table~\ref{tab:corrected} changes under correction.}
-
-\paragraph{Why reliability and ECE are undetermined, and Brier is not.} This
-is power, not a substantive difference between the metrics. The three losses
-point the same way, and their $B$ estimates differ mainly in dispersion: the
-ECE interval is roughly five times as wide as the reliability interval and
-twenty times as wide as Brier's, which is what one expects of a binned
-estimator at $n\!\approx\!300$ per arm relative to a mean of squared errors.
-With $50$ replicates, Brier clears zero, reliability does not quite, and ECE
-is not close. We read this as the binned estimator lacking resolution at these
-sample sizes, consistent with the estimator-bias literature cited in
-\S\ref{sec:calibration-bridge}, not as evidence that calibration transfers
-while reliability does not.
-
-\paragraph{A permutation null is redundant here, and we say so.} We first
-approached this with a permutation that breaks the correspondence between each
-candidate's selection-fold and held-out values, and
-\texttt{110\_calibration\_increment\_null.py} in the artifact still computes
-it over $20{,}000$ draws. It is redundant. Under that permutation
-$\mathbb{E}_\pi[\text{ho}_{\pi(l^\star)}]=\overline{\text{ho}}$, so the null
-mean is exactly $A$; by the identity $\Delta_{\text{sel}}=A-B$, the event
-``$\Delta_{\text{sel}}$ falls below its permutation null'' is the event
-``$B>0$''. The simulation therefore recovers, with Monte Carlo error, a
-conclusion the $t$-test gives exactly, and it additionally assumes candidates
-are exchangeable, which adjacent transformer layers are not. We retain the
-script so the equivalence can be checked --- its simulated null means match
-$A$ to $7\times10^{-5}$ --- and base nothing on it.
-
-\section{The Within-Harness Severity Relationship}
-\label{app:severity-detail}
-
-Within one harness, severity rises monotonically and concavely with candidate
-count $K$ at a fixed operating point, from $+0.0093$ at
-$\text{AUROC}_0=0.70$ to indistinguishable from zero at $0.985$
-($p=0.219$, $n=100$). This $K$-regularity is scoped to
-checkpoint-along-a-trajectory candidates only: an independently-seeded,
-exchangeable-candidate replication at adequate power ($N=200$) does not
-reproduce it (gaps $+0.0013$ to $-0.0010$, every CI covering zero). The
-operating-point relationship is not similarly scoped but does not transport
-across harnesses -- it is exceeded by roughly an order of magnitude at a
-matched operating point in our own real-feature harnesses, which is the
-$9.2$--$24.3\times$ figure quoted in \S\ref{sec:checklist}.
-
-\paragraph{Does mechanism identity matter beyond these two covariates?} A
-matched comparison at a common $(K,\text{AUROC}_0)$ shows a
-per-mechanism-intercept model beats a pooled one decisively ($304\times$
-intercept spread), and a pooled fit without a mechanism term gives a
-wrong-signed $\ln K$ coefficient that flips once mechanism is controlled for.
-Some factor beyond candidate count and operating point is therefore not
-absorbed by them -- though this design cannot separate whether it is mechanism
-identity itself or the unequal harness maturity correlated with it. What this
-licenses is only the negative conclusion: severity is not governed by those two
-covariates to the exclusion of mechanism. We do not read the severity surface
-as a calculator, and \S\ref{sec:checklist} says so.
-
-\section{The Externally Verified ECE Defect}
-\label{sec:mechanism5-ece}
-
-Unlike \S\ref{sec:calibration-bridge}'s comparisons, which we construct on our
-own cached scores, this is a bug we \emph{found} in MultiHaluDet's code (a
-multilingual hallucination-detection pipeline; Alvi et al., 2026; pinned
-commit \texttt{c759751}). Its ECE term uses
-\texttt{confidence=max(probs,1-probs)} (threshold-independent) but
-\texttt{correct=(preds==labels)}, with \texttt{preds} thresholded at Mechanism
-5's own test-label-selected Youden cut: \textbf{the pipeline's own reported
-ECE is contaminated by the mechanism this paper audits it for.} Quantified
-with the already-validated Mechanism-5 synthetic harness
-(Appendix~\ref{app:ece}), the pooled ECE gap across five operating points is
-$+0.0090$, all five cells BCa-established. This is a code-level defect rather
-than a decomposed attribution, so the null issue of
-Appendix~\ref{app:mechnull} does not bear on it; but it is verified in one of
-the two audited repositories only, and we do not generalize from one instance.
-
-\section{What a Prevalence Study Would Require}
+\subsection{What a Prevalence Study Would Require}
 \label{app:prevalence}
 
 Two reviews of this work asked how widespread these mechanisms are. We give no
@@ -2019,44 +1978,7 @@ the single most valuable follow-up to this paper, and as the reason its
 taxonomy and checklist -- not any severity number -- are its most reusable
 output.
 
-\section{Estimands Used in This Paper}
-\label{app:estimands}
-
-Reviewers noted that the number of distinct estimands, controls and
-qualifications makes the paper dense. Every quantity we report is one of the
-following six; nothing else is estimated.
-
-\begin{itemize}
-\itemsep0pt
-\item \textbf{Optimism gap} $=$ metric on the data used for selection $-$
-  metric on genuinely held-out data, at the same fixed configuration. The base
-  quantity all others derive from.
-\item \textbf{Selection-specific component} $=$ optimism gap at the layer the
-  argmax \emph{would select} $-$ mean optimism gap across all candidate
-  layers. Positive in expectation even under a pure-noise null, by
-  construction: that is the winner's curse it exists to measure, and it is why
-  its significance must not be read as evidence of any further pathology
-  (Appendix~\ref{app:severity}).
-\item $\Delta_{\text{sel}}$ $=$ the selection-specific component measured on
-  AUROC specifically. The paper's discrimination headline.
-\item \textbf{Calibration gap} $=$ optimism gap measured on Brier, its Murphy
-  reliability term, ECE, or isotonic calibration error. Signed so positive means
-  worse on held-out data.
-\item \textbf{Placebo gap} $=$ the same LEAKY/CLEAN comparison at layers the
-  argmax did \emph{not} select, and \textbf{selection-specific increment} $=$
-  calibration gap at the selected layer $-$ placebo gap
-  (Appendix~\ref{app:reviewer-response}).
-\item \textbf{Risk violation} $=$ risk achieved on held-out data at a
-  threshold transferred from the reused fold $-$ risk that threshold reported
-  on the reused fold. The operational quantity.
-\end{itemize}
-
-Two controls recur. \textbf{CLEAN\_MATCHED} refits on the selection pool and
-scores genuinely held-out data, matching the leaky arm's training size.
-\textbf{Fold-matched} controls equalise selection-set size between arms, which
-is the correction that carries Mechanism 3's primary estimate to null.
-
-\section{Extended Limitations}
+\subsection{Extended Limitations}
 \label{app:limitations}
 
 This appendix states in full the limitations summarised in the main text; no
