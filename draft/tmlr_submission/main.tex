@@ -14,8 +14,8 @@
 \newtheorem{theorem}{Theorem}
 \usepackage{url}
 
-\title{Selection Optimism Is Tested Against the Wrong Null:\\
-A Corrected Procedure, and What Layer Selection Actually Costs}
+\title{Data Reuse, Not Selection: A Code-Verified Audit of\\
+Optimism in Hidden-State Hallucination Detection}
 
 \author{\name Anonymous Author(s) \email anonymous@anon.invalid \\
       \addr Affiliation withheld for double-blind review}
@@ -24,37 +24,32 @@ A Corrected Procedure, and What Layer Selection Actually Costs}
 \maketitle
 
 \begin{abstract}
-Audits of data leakage in machine-learning evaluation report what a selection
-step cost using the \emph{selection-specific component}: the optimism gap at
-the selected candidate minus the mean gap across candidates. They then declare
-a selection effect when a bootstrap interval for that statistic excludes zero.
-We show the statistic is fine and the test is not. Writing
+We audit five mechanisms by which evaluation labels leak into reported
+metrics in hidden-state hallucination detection, verifying three against
+pinned commits of published pipelines, and price the consequence: a
+confidence threshold calibrated on a reused fold and transferred to held-out
+data inflates achieved selective-prediction risk by $10$--$16\%$ of target,
+or $1.5$ additional unflagged errors per $100$ answered queries. We then ask
+how much of that cost is attributable to the \emph{selection} step, and the
+answer turns on a statistic this kind of audit invites: the
+selection-specific component $\Delta_{\text{sel}}$, the optimism gap at the
+selected candidate minus the mean gap across candidates. Writing
 $\Delta_{\text{sel}}=A-B$, with $A$ the winner's curse on the selection
 criterion and $B$ the selected candidate's advantage on data that played no
-part in selecting it, the null value of $\Delta_{\text{sel}}$ is $A$, not
-zero, because an argmax over a noisy criterion makes $\mathbb{E}[A]>0$
-whatever the data. In simulation with known ground truth the practised test
-has a type I error of $1.000$ at every candidate count we tried: under a null
-in which selection buys nothing transferable, it declares an effect in all
-$2{,}000$ audits. Worse, $\mathbb{E}[\Delta_{\text{sel}}]$ \emph{falls} as
-real transferable quality rises, so the statistic is anti-monotone in the
-effect it is read as measuring. The correction is free, because audits already
-compute $A$: report the gap at the selected candidate, report $A$, and test
-$B$, whose null value is genuinely zero. That test is nominal
-($0.045$--$0.054$ at $\alpha=0.05$) and powered. We also ask what the existing
-instruments give here: against known ground truth, both
-$\Delta_{\text{sel}}$ and the direct held-out difference are unbiased for the
-optimism incurred, while Tweedie shrinkage and an argmax-shift correction ---
-which must model how candidate quality is distributed --- are biased and never
-reach nominal coverage in any configuration we tried ($0.03$--$0.88$ against
-$0.95$). The estimator was never the problem; only the null was. Applied to hidden-state
-hallucination-detection probes selecting one of $32$ layers, selection
-transfers real quality on AUROC and Brier and is undetermined on reliability
-and ECE, while the cost a practitioner pays --- a threshold moved from reused
-to held-out data inflating achieved selective-prediction risk by
-$10$--$16\%$ of target --- is a reuse cost that needs no correction at all. We
-supply a five-mechanism leakage taxonomy, three audits verified against pinned
-third-party commits, and two results against our own interest.
+part in selecting it, $\Delta_{\text{sel}}$ is an unbiased estimate of the
+optimism incurred but a poor basis for attribution: it is bounded away from
+zero whenever an argmax acts on noise, so an interval excluding zero is
+uninformative, and in simulation it rejects in essentially every audit
+whether selection recovered everything or nothing. $B$ is the component that
+answers the attribution question, and testing it is valid as it stands. On
+our harness $B$ shows selection recovering genuine quality on AUROC and
+Brier and nothing establishable on reliability or ECE, so we attribute the
+measured cost to reuse rather than to selection. We compare against
+empirical-Bayes winner's-curse correction under a parametric-bootstrap
+interval and find it unnecessary here, since an audit always has the held-out
+replicate those methods exist to do without. We report two claims from
+earlier versions of this work that we withdraw, and the analysis that
+withdrew them.
 \end{abstract}
 
 \section{Introduction}
@@ -120,41 +115,33 @@ construction asymmetries.
 \paragraph{Contributions.}
 \begin{itemize}
 \itemsep0pt
-\item \textbf{The test used to attribute optimism to selection has a type I
-   error of $1$.} The statistic's null value is $A$, not zero, by the identity
-   $\Delta_{\text{sel}}=A-B$. In simulation with known ground truth the
-   practised test declares a selection effect in all $2{,}000$ null audits at
-   every candidate count, and the problem grows with the candidate set
-   (\S\ref{sec:sizepower}).
-\item \textbf{$\Delta_{\text{sel}}$ is anti-monotone in the effect it is read
-   as measuring}: its expectation falls as real transferable quality rises,
-   because that quality cancels part of the curse.
-\item \textbf{A correction that costs nothing}, because audits already compute
-   $A$: report the gap at the selected candidate, report $A$, and test $B$.
-   The corrected test is nominal and powered (\S\ref{sec:estimand}), and needs
-   no conditioning event, selection region or added assumption.
-\item \textbf{What the imported corrections give here, measured.} Against
-   known ground truth, $\Delta_{\text{sel}}$ and the direct held-out
-   difference are both unbiased for the optimism incurred with near-nominal
-   coverage, while Tweedie shrinkage and an argmax-shift correction are biased
-   and never reach nominal coverage in any configuration
-   ($0.03$--$0.88$ against $0.95$). Winner's-curse correction is the right
-   tool when no held-out replicate exists; an audit always has one
+\item A five-mechanism taxonomy of label-information leakage specific to
+   hidden-state probing pipelines, three verified directly against pinned
+   commits of published third-party code (\S\ref{sec:mechanisms}), with a
+   practitioner checklist (\S\ref{sec:checklist}).
+\item \textbf{The cost, priced}: a threshold moved from a reused fold to
+   held-out data inflates achieved selective-prediction risk by
+   $10$--$16\%$ of target, which we report as a rate as well as a scaled
+   count (\S\ref{sec:selective-prediction}).
+\item \textbf{Why we attribute that cost to reuse and not to selection.}
+   $\Delta_{\text{sel}}$ is unbiased for the optimism incurred but is bounded
+   away from zero whenever an argmax acts on noise, so it cannot carry an
+   attribution; $B$ can, and does (\S\ref{sec:estimand}). We do not claim the
+   remedy is new --- differencing against a held-out replicate is the oldest
+   advice in the subject. What we document is that the natural decomposition
+   quietly abandons it, which we know because we abandoned it.
+\item \textbf{A comparison the critique obliges us to make}: against
+   empirical-Bayes winner's-curse correction, given a parametric-bootstrap
+   interval so the comparison is fair, which is unnecessary here because an
+   audit always has the held-out replicate those methods exist to do without
    (\S\ref{sec:comparison}).
-\item Applied to a $32$-layer probe selection: selection transfers real
-   quality on AUROC ($t=9.07$) and Brier ($t=-5.69$) and is undetermined on
-   reliability and ECE, while the practitioner's cost is a \emph{reuse} cost
-   priced at $10$--$16\%$ of a selective-prediction risk budget
-   (\S\ref{sec:selective-prediction}).
-\item A five-mechanism taxonomy of label-information leakage in hidden-state
-   probing pipelines, three verified against pinned third-party commits
-   (\S\ref{sec:mechanisms}), and a practitioner checklist
-   (\S\ref{sec:checklist}).
-\item \textbf{Results against our own interest}: a primary synthetic estimate
-   that fails its own factorial control, two estimators we prove non-negative
-   by construction and then decline to bootstrap, a second harness where the
-   same procedure leaves calibration untouched, and a permutation null we
-   built, showed redundant, and discarded (Appendix~\ref{app:mechnull}).
+\item \textbf{Four results against our own interest}: a primary synthetic
+   estimate that fails its own factorial control; two estimators we prove
+   non-negative by construction and then decline to bootstrap; a second
+   harness in which the same procedure leaves calibration untouched; and two
+   claims from earlier versions of this work --- a selection-specific
+   calibration effect, and a reading of $\Delta_{\text{sel}}$ as
+   anti-monotone --- that we state, refute and withdraw here.
 \end{itemize}
 
 \paragraph{What each claim is, and how strongly.} Every claim sits in one tier
@@ -393,17 +380,27 @@ the winner's curse on the selection criterion, which is the reference
 $\Delta_{\text{sel}}$ must beat. Test $B$, not $\Delta_{\text{sel}}$, if the
 question is whether the selected candidate carries transferable quality.
 
-\subsection{Size and power}
+\subsection{What the two tests can and cannot distinguish}
 \label{sec:sizepower}
 
-Whether this matters is an empirical question about the estimator, so we
-answer it with known ground truth rather than with our own data. For $K$
+We answer this with known ground truth rather than with our own data. For $K$
 candidates we draw true qualities $q_l\sim N(0,\tau^2)$, observe
 $\text{cv}_l=q_l+N(0,\sigma^2)$ and $\text{ho}_l=q_l+N(0,\sigma^2)$ with
 $\sigma=0.03$, form $l^\star$, and run $2{,}000$ independent audits of $50$
-replicates each. At $\tau=0$ no candidate carries transferable quality, so the
-rejection rate there \emph{is} the type I error. Table~\ref{tab:sizepower}
-reports both tests.
+replicates each. $\tau$ controls how much transferable quality exists:
+$\tau=0$ is the state in which selection can recover nothing, since all
+candidates are equally good.
+
+\paragraph{A caution about what $\tau=0$ is and is not.} It is \emph{not} a
+null under which $\Delta_{\text{sel}}=0$. The optimism incurred,
+$\theta=\text{cv}_{l^\star}-q_{l^\star}$, is $+0.062$ at $K=32$ even when
+$\tau=0$, because an argmax over noise is optimistic whether or not the
+candidates differ; and $\Delta_{\text{sel}}$ estimates $\theta$ without bias
+(\S\ref{sec:comparison}). So the rejection rate of the practised test at
+$\tau=0$ is \textbf{not} a type I error --- the hypothesis it rejects is
+genuinely false --- and we are careful not to call it one. What it is, is a
+rejection rate in the state of the world where the auditor's question has the
+answer ``no''.
 
 \begin{table}[h]
 \centering
@@ -412,51 +409,53 @@ reports both tests.
 \toprule
 & & \multicolumn{2}{c}{Declares a selection effect} & \multicolumn{3}{c}{Expected values} \\
 \cmidrule(lr){3-4}\cmidrule(lr){5-7}
-$K$ & $\tau$ & as practised & corrected & $\Delta_{\text{sel}}$ & $A$ & $B$ \\
+$K$ & $\tau$ & practised & corrected & $\Delta_{\text{sel}}$ & $A$ & $B$ \\
 \midrule
- 8 & $0.000$ & \textbf{1.000} & $0.045$ & $0.0427$ & $0.0427$ & $-0.0000$ \\
+ 8 & $0.000$ & $1.000$ & $0.045$ & $0.0427$ & $0.0427$ & $-0.0000$ \\
  8 & $0.010$ & $1.000$ & $0.197$ & $0.0407$ & $0.0450$ & $0.0043$ \\
  8 & $0.040$ & $0.934$ & $0.993$ & $0.0260$ & $0.0710$ & $0.0450$ \\
 \midrule
- 32 & $0.000$ & \textbf{1.000} & $0.054$ & $0.0620$ & $0.0620$ & $0.0001$ \\
+ 32 & $0.000$ & $1.000$ & $0.054$ & $0.0620$ & $0.0620$ & $0.0001$ \\
  32 & $0.010$ & $1.000$ & $0.310$ & $0.0589$ & $0.0655$ & $0.0066$ \\
  32 & $0.040$ & $0.990$ & $1.000$ & $0.0376$ & $0.1031$ & $0.0656$ \\
 \midrule
-128 & $0.000$ & \textbf{1.000} & $0.053$ & $0.0778$ & $0.0779$ & $0.0001$ \\
+128 & $0.000$ & $1.000$ & $0.053$ & $0.0778$ & $0.0779$ & $0.0001$ \\
 128 & $0.010$ & $1.000$ & $0.444$ & $0.0738$ & $0.0820$ & $0.0083$ \\
 128 & $0.040$ & $0.995$ & $1.000$ & $0.0465$ & $0.1299$ & $0.0835$ \\
 \bottomrule
 \end{tabular}
-\caption{Rejection rates at $\alpha=0.05$, $2{,}000$ audits per row. At
-$\tau=0$ the rate is the type I error. The practised test rejects on
-\emph{every} null audit at every $K$; the corrected test is nominal
-($0.045$--$0.054$) and retains power as $\tau$ grows.
+\caption{Rejection rates at $\alpha=0.05$, $2{,}000$ audits per row. The
+corrected test's rate at $\tau=0$ \emph{is} a type I error, because
+$H_0:B=0$ is true there; the practised test's is not, because
+$H_0:\Delta_{\text{sel}}=0$ is false everywhere.
 \texttt{111\_estimator\_size\_power.py}.}
 \label{tab:sizepower}
 \end{table}
 
-Three things follow.
+\textbf{The practised test cannot distinguish the two states of the world.}
+It rejects in essentially every audit at every $\tau$ --- $1.000$ when
+selection recovers nothing, $0.990$ when it recovers a great deal. Its
+rejection rate carries almost no information about the question an auditor is
+asking. This is a statement about relevance, not about validity: the test is
+a valid test of a hypothesis that is false by construction, which is exactly
+why rejecting it tells you nothing.
 
-\textbf{The practised test has a type I error of $1.000$.} Not inflated ---
-saturated, at every candidate count we tried. Under a null in which selection
-buys nothing transferable, an audit following current practice declares a
-selection effect in every single one of $2{,}000$ simulated studies. This is
-not a small-sample artifact: the rejection is driven by $\mathbb{E}[A]>0$,
-which grows with $K$ ($0.043$ at $K=8$, $0.078$ at $K=128$), so the problem
-worsens exactly as the candidate set grows and the audit becomes more
-worthwhile.
+\textbf{The corrected test does distinguish them.} $H_0:B=0$ is true at
+$\tau=0$, and the test holds its level there ($0.045$--$0.054$ against a
+nominal $0.05$) while rising to $1.000$ by $\tau=0.04$. That is the behaviour
+an auditor needs: silence when selection bought nothing, rejection when it
+bought something.
 
-\textbf{The corrected test is nominal and powered.} Type I error
-$0.045$--$0.054$ against a nominal $0.05$, with power rising to $1.000$ by
-$\tau=0.04$ at $K\geq32$.
-
-\textbf{The practised statistic moves the wrong way.} As real transferable
-quality increases, $\mathbb{E}[\Delta_{\text{sel}}]$ \emph{falls} ($0.062$ to
-$0.038$ at $K=32$) while $\mathbb{E}[B]$ rises. $\Delta_{\text{sel}}$ is
-anti-monotone in the quantity an auditor is trying to detect, because real
-transferable quality cancels part of the curse. An audit that reads a
-\emph{larger} $\Delta_{\text{sel}}$ as a worse selection problem has the sign
-of the relationship backwards.
+\paragraph{One thing we previously got wrong.} An earlier version of this
+work read the falling $\mathbb{E}[\Delta_{\text{sel}}]$ across the $\tau$
+column --- $0.062$ to $0.038$ at $K=32$ --- as the statistic moving
+\emph{against} the effect it measures. That reading was mistaken.
+$\Delta_{\text{sel}}$ tracks $\theta$ to within $10^{-4}$ at every $\tau$
+(\S\ref{sec:comparison}), and $\theta$ itself falls as candidates become more
+distinguishable, because an argmax over well-separated candidates is less
+lucky than one over near-ties. The statistic is behaving correctly. We record
+the error because the pattern is genuinely counterintuitive and a reader may
+reach for the same wrong reading.
 
 \subsection{What the existing corrections give here, and what they cost}
 \label{sec:comparison}
@@ -507,7 +506,8 @@ $\Delta_{\text{sel}}$ and the direct gap are essentially unbiased for $\theta$
 wrong with reporting $\Delta_{\text{sel}}$ as a point estimate of the optimism
 incurred. What is wrong is testing it against zero, because
 $\theta>0$ whenever an argmax acts on a noisy criterion --- which is why that
-test has type I error $1$ in \S\ref{sec:sizepower}. The test asks whether
+test rejects in essentially every audit in \S\ref{sec:sizepower}. The test
+asks whether
 optimism exists; the answer is always yes; the informative question is whether
 the selected candidate \emph{transfers}, and that is $B$.
 
@@ -515,9 +515,22 @@ the selected candidate \emph{transfers}, and that is $B$.
 Both cv-only corrections must model how candidate quality is distributed,
 and they pay for it. The Tweedie estimator has the smallest SD of any
 estimator in the table and the worst coverage by a wide margin --- $0.046$
-against a nominal $0.95$ at $\tau=0$, $0.588$ at $\tau=0.01$, and never above
-$0.883$ in any of the nine $(K,\tau)$ cells we ran --- because shrinkage buys
-precision with a bias its interval does not acknowledge. The
+against a nominal $0.95$ at $\tau=0$, $0.588$ at $\tau=0.01$, never above
+$0.883$ in any of the nine $(K,\tau)$ cells.
+
+A first version of this comparison gave the shrinkage estimator the same
+interval as every other estimator, namely a $t$ interval from its
+replicate-to-replicate spread. That is unfair: shrinkage deliberately trades
+variance for bias, so its own sampling spread understates its error, and no
+empirical-Bayes practitioner would use that interval. We therefore re-ran the
+coverage comparison giving it a parametric bootstrap through the fitted
+model, which is the interval such a practitioner would use
+(\texttt{114\_fair\_interval\_comparison.py}). It makes essentially no
+difference: coverage $0.037$--$0.870$ under the bootstrap against
+$0.037$--$0.877$ under the naive interval, while the direct estimator holds
+$0.975$--$0.985$ throughout. The under-coverage is driven by bias, which no
+interval built around the estimator's own sampling distribution can repair,
+not by the width we gave it. The
 argmax-shift correction is unbiased only when candidates are genuinely
 exchangeable and drifts to $+0.018$ once they are not. Neither is competitive
 with simply differencing against held-out data.
@@ -550,7 +563,8 @@ think, more useful to the practitioners concerned: the audits in question
 already compute $A$ without recognising it, so the fix is free, and
 \S\ref{sec:comparison} shows the imported alternatives are worse in this
 setting rather than better. The absence of that observation is what allows a
-test with type I error $1$ to remain standard.
+test that cannot distinguish the two states of the world to look
+informative.
 
 \section{Five Mechanisms, Measured}
 \label{sec:mechanisms}
@@ -920,30 +934,30 @@ against their naive alternatives, not merely prescribed.
 
 \section{Conclusion}
 
-The statistic this literature uses to say what a selection step cost is sound;
-the test applied to it is not. Its null value is the winner's curse on the
-selection criterion, not zero, and that follows from an identity rather than a
-model. The consequence is not a mild miscalibration: in simulation the
-practised test declares a selection effect in every null audit at every
-candidate count we tried, and the statistic's expectation moves \emph{against}
-the effect it is read as measuring. The correction costs nothing, because the
-reference is already computed inside the audit. Report the gap at the selected
-candidate, report the curse, and test the transferred component.
+Reusing evaluation data at a selected configuration costs something
+measurable, and in this harness it costs $10$--$16\%$ of a
+selective-prediction risk budget. That number is directly measured and needs
+no correction. What it cannot do on its own is say how much of the cost the
+\emph{selection} step is responsible for, and the statistic this kind of
+audit reaches for to answer that --- the optimism gap at the selected
+candidate minus the mean gap --- cannot answer it either. It is an unbiased
+estimate of the optimism incurred, but it is bounded away from zero whenever
+an argmax acts on a noisy criterion, so an interval excluding zero is
+compatible with selection having recovered everything or nothing. The
+component that does carry the attribution is the selected candidate's
+advantage on data that played no part in choosing it, and testing that is
+valid without any machinery. On our harness it says selection recovered real
+quality, so the cost belongs to reuse.
 
-Applied to a $32$-layer probe selection, that procedure says selection
-recovers genuinely better layers on AUROC and Brier, leaves reliability and
-ECE undetermined, and reattributes the optimism a practitioner pays: it is the
-cost of evaluating on reused data at a selected configuration, which shows up
-as a $10$--$16\%$ inflation of a selective-prediction risk budget and needs no
-correction to measure.
-
-We held this paper to the standard it asks of the literature it audits. Our
-primary severity estimate does not survive its own factorial control; we prove
-two estimators non-negative by construction and then decline to bootstrap
-them; a second harness leaves calibration untouched; the selection attribution
-an earlier version of this work asserted is a claim we withdraw here; and the
-permutation null we first built to withdraw it turned out to be redundant, so
-we report that too. An audit of evaluation protocols that exempts itself
+None of the remedy is new. Differencing against a held-out replicate is
+elementary, and where a held-out replicate is unavailable the selective-
+inference and winner's-curse literatures are stronger than anything here.
+What we can offer is the anatomy of how an audit stops doing the elementary
+thing without noticing, and we can offer it with some authority, because two
+earlier versions of this work did exactly that. We held the paper to the
+standard it asks of the literature it audits, and the cost was three
+withdrawn claims, one discarded method, and a primary estimate that did not
+survive its own control. An audit of evaluation protocols that exempts itself
 measures nothing.
 
 \section*{Limitations}

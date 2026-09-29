@@ -512,6 +512,35 @@ if "sec:comparison" in TEX:
     if not _h:
         failures.append("main.tex says Holm changes no verdict; 112 disagrees")
 
+
+# ── K1: the size/power mislabelling must never come back ──────────────────
+checks += 1
+_bad = ("type I error of $1" in TEX or "type I error $1$" in TEX
+        or "rejection rate there \\emph{is} the type I error" in TEX)
+print(f"  {'OK  ' if not _bad else 'FAIL'}  the practised test's rejection rate is "
+      f"NOT described as a type I error")
+if _bad:
+    failures.append("main.tex calls the practised test's rejection rate a type I "
+                    "error; H0 is false there, so that is a category error")
+
+# ── K3: the fair-interval comparison (114) ────────────────────────────────
+if "114" in TEX or "parametric bootstrap" in TEX:
+    fi = json.load(open(R / "fair_interval_comparison.json"))
+    f = fi["summary"]
+    for lab, key in [("direct t", "direct_t_coverage_range"),
+                     ("Tweedie naive", "tweedie_naive_range"),
+                     ("Tweedie bootstrap", "tweedie_bootstrap_range")]:
+        for v in f[key]:
+            check(f"  {lab} coverage bound", v, "{:.3f}")
+    checks += 1
+    _fair = (f["tweedie_bootstrap_range"][1] < 0.95
+             and f["direct_t_coverage_range"][0] > 0.95)
+    print(f"  {'OK  ' if _fair else 'FAIL'}  under a FAIR interval Tweedie still "
+          f"under-covers and the direct estimator does not")
+    if not _fair:
+        failures.append("main.tex claims the under-coverage survives a fair "
+                        "interval; 114 no longer shows that")
+
 # ── Superseded literals that must not survive the camera-ready ─────────────
 print("\nSuperseded literals:")
 check_absent("fixed-coverage excess at 70% (980)", "$980$")
