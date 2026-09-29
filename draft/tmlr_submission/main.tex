@@ -270,7 +270,8 @@ against the code-verified numbers.
 conflation: $\Delta_{\text{synth}}$ (calibrated synthetic-harness gap at a
 fixed Bayes-optimal operating point), $\Delta_{\text{real}}$ (the same on
 real Mistral-7B/HaluEval features), $\Delta_{\text{sel}}$ (within-split
-selection-specific component against its own permutation null), and
+selection-specific component, read against the reference of
+\S\ref{sec:estimand} rather than against zero), and
 $\Delta_{\text{boot}}$ (bootstrap max-bias over already-published AUROC
 arrays, no model retrained) -- all AUROC differences, sharing units but not
 a reference. BCa (bias-corrected and accelerated bootstrap) 95\% intervals
@@ -312,10 +313,11 @@ independent family of confirmations.
 \section{The Estimand, Its Null, and a Corrected Test}
 \label{sec:estimand}
 
-This section is the paper's methodological core. It concerns not the audits
-that follow but the statistic audits use, and it applies wherever a candidate
-is chosen by argmax of a noisy criterion and the choice is then charged with
-the resulting optimism.
+The audit above measures what reuse at a selected configuration costs. This
+section asks how much of that cost is attributable to the \emph{selection}
+step, and concerns the statistic that question invites rather than the audits
+themselves. It applies wherever a candidate is chosen by argmax of a noisy
+criterion and the choice is then charged with the resulting optimism.
 
 \subsection{The statistic, and the test applied to it}
 
