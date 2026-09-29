@@ -70,5 +70,28 @@
       "delta_sel_mean": -0.007520953998726687,
       "identity_check": 0.0
     }
-  }
+  },
+  "holm_across_B_tests": {
+    "auroc": {
+      "p": 4.600143471385886e-12,
+      "threshold": 0.0125,
+      "survives_holm": true
+    },
+    "brier": {
+      "p": 7.073270559234768e-07,
+      "threshold": 0.016666666666666666,
+      "survives_holm": true
+    },
+    "reliability": {
+      "p": 0.1901418643328345,
+      "threshold": 0.025,
+      "survives_holm": false
+    },
+    "ece": {
+      "p": 0.8611503663123713,
+      "threshold": 0.05,
+      "survives_holm": false
+    }
+  },
+  "holm_changes_no_verdict": true
 }

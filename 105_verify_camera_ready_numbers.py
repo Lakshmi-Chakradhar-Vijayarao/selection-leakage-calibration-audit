@@ -475,6 +475,43 @@ if "sec:sizepower" in TEX or "corrected report" in TEX.lower():
     for _m in ("auroc", "brier"):
         check(f"  {_m} B t-statistic", cr["metrics"][_m]["B_t"], "{:.2f}")
 
+
+# ── Estimator comparison: what the imported corrections cost (113) ────────
+if "sec:comparison" in TEX:
+    print("\nEstimator comparison (113):")
+    ec = json.load(open(R / "estimator_comparison.json"))
+    k = ec["summary"]
+    checks += 1
+    # the honest property is that the direct estimator is unbiased and at
+    # least nominal (it is mildly conservative), not exactly 0.95
+    _cov = [v["E2_direct_gap"]["ci_coverage"] for v in ec["results"].values()]
+    _bias = max(abs(v["E2_direct_gap"]["bias"]) for v in ec["results"].values())
+    _ok = (_bias < 1e-3 and min(_cov) >= 0.95
+           and not k["delta_sel_is_biased_for_theta"])
+    print(f"  {'OK  ' if _ok else 'FAIL'}  direct gap unbiased and covering, and "
+          f"Delta_sel NOT biased for theta (the paper's own correction to itself)")
+    if not _ok:
+        failures.append("main.tex says the estimator was never the problem; 113 "
+                        "no longer supports that")
+    # the Tweedie coverage failure is the evidence for K2(b); guard it
+    checks += 1
+    _tw = [v["E3_tweedie_cv_only"]["ci_coverage"] for v in ec["results"].values()]
+    _tw_bad = max(_tw) < 0.95
+    print(f"  {'OK  ' if _tw_bad else 'FAIL'}  Tweedie never reaches nominal coverage "
+          f"in any cell (range {min(_tw):.3f}-{max(_tw):.3f} vs 0.95)")
+    if not _tw_bad:
+        failures.append("main.tex reports the winner's-curse correction as badly "
+                        "under-covering; 113 no longer shows that")
+
+    # Holm across the four B tests must not change any verdict
+    cr2 = json.load(open(R / "corrected_report.json"))
+    checks += 1
+    _h = cr2.get("holm_changes_no_verdict")
+    print(f"  {'OK  ' if _h else 'FAIL'}  Holm-Bonferroni changes no verdict in the "
+          f"corrected report")
+    if not _h:
+        failures.append("main.tex says Holm changes no verdict; 112 disagrees")
+
 # ── Superseded literals that must not survive the camera-ready ─────────────
 print("\nSuperseded literals:")
 check_absent("fixed-coverage excess at 70% (980)", "$980$")

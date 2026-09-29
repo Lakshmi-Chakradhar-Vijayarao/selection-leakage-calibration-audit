@@ -130,6 +130,33 @@ def main():
         print(f"{m:<13} {gap.mean():>+10.5f} {A.mean():>+11.5f} {B.mean():>+10.5f} "
               f"[{lo:>+9.5f},{hi:>+9.5f}] {t:>7.2f} {pv:>9.2e}  {verdict}")
 
+    # ---- Holm-Bonferroni across the four B tests (referee M6) -------------
+    # These four tests form one family: the same selection rule, the same
+    # replicates, four reported metrics. The paper applies Holm to its other
+    # families, so it applies Holm here.
+    ms = [m for m, _ in METRICS]
+    ps = sorted(((out["metrics"][m]["B_p"], m) for m in ms))
+    m_tests, holm = len(ps), {}
+    still_rejecting = True
+    for i, (pv, name) in enumerate(ps):
+        thresh = 0.05 / (m_tests - i)
+        if still_rejecting and pv <= thresh:
+            holm[name] = {"p": pv, "threshold": thresh, "survives_holm": True}
+        else:
+            still_rejecting = False
+            holm[name] = {"p": pv, "threshold": thresh, "survives_holm": False}
+    out["holm_across_B_tests"] = holm
+    out["holm_changes_no_verdict"] = all(
+        holm[m]["survives_holm"] == out["metrics"][m]["B_excludes_zero"] for m in ms)
+
+    print("-" * 104)
+    print("Holm-Bonferroni across the four B tests (family-wise alpha = 0.05):")
+    for pv, name in ps:
+        h = holm[name]
+        print(f"  {name:<13} p={pv:>9.2e}  threshold={h['threshold']:.4f}  "
+              f"{'survives' if h['survives_holm'] else 'does not survive'}")
+    print(f"  -> verdicts unchanged by correction: {out['holm_changes_no_verdict']}")
+
     print("-" * 104)
     print("gap@l* is what the practitioner pays and needs no correction.")
     print("A is the reference Delta_sel must beat; Delta_sel = A - B by identity.")

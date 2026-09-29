@@ -41,7 +41,13 @@ real transferable quality rises, so the statistic is anti-monotone in the
 effect it is read as measuring. The correction is free, because audits already
 compute $A$: report the gap at the selected candidate, report $A$, and test
 $B$, whose null value is genuinely zero. That test is nominal
-($0.045$--$0.054$ at $\alpha=0.05$) and powered. Applied to hidden-state
+($0.045$--$0.054$ at $\alpha=0.05$) and powered. We also ask what the existing
+instruments give here: against known ground truth, both
+$\Delta_{\text{sel}}$ and the direct held-out difference are unbiased for the
+optimism incurred, while Tweedie shrinkage and an argmax-shift correction ---
+which must model how candidate quality is distributed --- are biased and never
+reach nominal coverage in any configuration we tried ($0.03$--$0.88$ against
+$0.95$). The estimator was never the problem; only the null was. Applied to hidden-state
 hallucination-detection probes selecting one of $32$ layers, selection
 transfers real quality on AUROC and Brier and is undetermined on reliability
 and ECE, while the cost a practitioner pays --- a threshold moved from reused
@@ -127,6 +133,14 @@ construction asymmetries.
    $A$: report the gap at the selected candidate, report $A$, and test $B$.
    The corrected test is nominal and powered (\S\ref{sec:estimand}), and needs
    no conditioning event, selection region or added assumption.
+\item \textbf{What the imported corrections give here, measured.} Against
+   known ground truth, $\Delta_{\text{sel}}$ and the direct held-out
+   difference are both unbiased for the optimism incurred with near-nominal
+   coverage, while Tweedie shrinkage and an argmax-shift correction are biased
+   and never reach nominal coverage in any configuration
+   ($0.03$--$0.88$ against $0.95$). Winner's-curse correction is the right
+   tool when no held-out replicate exists; an audit always has one
+   (\S\ref{sec:comparison}).
 \item Applied to a $32$-layer probe selection: selection transfers real
    quality on AUROC ($t=9.07$) and Brier ($t=-5.69$) and is undetermined on
    reliability and ECE, while the practitioner's cost is a \emph{reuse} cost
@@ -445,31 +459,99 @@ transferable quality cancels part of the curse. An audit that reads a
 \emph{larger} $\Delta_{\text{sel}}$ as a worse selection problem has the sign
 of the relationship backwards.
 
-\subsection{Relation to existing corrections}
+\subsection{What the existing corrections give here, and what they cost}
+\label{sec:comparison}
+
+The referee's question for any such critique is the right one: statistics has
+instruments for selection bias already, so what do they give in this setting?
+We answer empirically rather than by assertion. Using the same simulation, we
+estimate the quantity an auditor actually wants --- the optimism incurred at
+the reported configuration, $\theta=\text{cv}_{l^\star}-q_{l^\star}$, knowable
+here because $q$ is --- with four estimators, and report bias, dispersion,
+RMSE and interval coverage (Table~\ref{tab:comparison}).
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}llrrrrc@{}}
+\toprule
+$\tau$ & Estimator & Bias & SD & RMSE & Coverage & Uses held-out? \\
+\midrule
+$0.00$ & $\Delta_{\text{sel}}$ (as reported) & $-0.00006$ & $0.0045$ & $0.0042$ & $0.966$ & no \\
+       & direct gap $\text{cv}_{l^\star}-\text{ho}_{l^\star}$ & $-0.00003$ & $0.0047$ & $0.0042$ & $0.974$ & yes \\
+       & Tweedie / empirical Bayes & $-0.00547$ & $0.0016$ & $0.0057$ & \textbf{0.046} & no \\
+       & argmax-shift correction & $-0.00007$ & --- & $0.0021$ & n/a & no \\
+\midrule
+$0.01$ & $\Delta_{\text{sel}}$ (as reported) & $+0.00011$ & $0.0048$ & $0.0042$ & $0.974$ & no \\
+       & direct gap & $+0.00011$ & $0.0049$ & $0.0042$ & $0.977$ & yes \\
+       & Tweedie / empirical Bayes & $-0.00254$ & $0.0016$ & $0.0034$ & \textbf{0.588} & no \\
+       & argmax-shift correction & $+0.00315$ & --- & $0.0041$ & n/a & no \\
+\midrule
+$0.03$ & $\Delta_{\text{sel}}$ (as reported) & $+0.00003$ & $0.0080$ & $0.0043$ & $0.980$ & no \\
+       & direct gap & $+0.00003$ & $0.0080$ & $0.0043$ & $0.983$ & yes \\
+       & Tweedie / empirical Bayes & $+0.00143$ & $0.0038$ & $0.0082$ & \textbf{0.291} & no \\
+       & argmax-shift correction & $\mathbf{+0.01816}$ & --- & $0.0194$ & n/a & no \\
+\bottomrule
+\end{tabular}
+\caption{Estimating $\theta$ at $K=32$, $4{,}000$ audits of $50$ replicates,
+nominal coverage $0.95$. The argmax-shift correction is deterministic within
+an audit, so it has no within-audit interval.
+\texttt{113\_estimator\_comparison.py}.}
+\label{tab:comparison}
+\end{table}
+
+Two things follow, and the first is a correction to our own framing.
+
+\textbf{The estimator was never the problem.} Both
+$\Delta_{\text{sel}}$ and the direct gap are essentially unbiased for $\theta$
+(bias $\leq 10^{-4}$) with near-nominal coverage at every $\tau$. Nothing is
+wrong with reporting $\Delta_{\text{sel}}$ as a point estimate of the optimism
+incurred. What is wrong is testing it against zero, because
+$\theta>0$ whenever an argmax acts on a noisy criterion --- which is why that
+test has type I error $1$ in \S\ref{sec:sizepower}. The test asks whether
+optimism exists; the answer is always yes; the informative question is whether
+the selected candidate \emph{transfers}, and that is $B$.
+
+\textbf{Winner's-curse correction buys nothing here, and costs coverage.}
+Both cv-only corrections must model how candidate quality is distributed,
+and they pay for it. The Tweedie estimator has the smallest SD of any
+estimator in the table and the worst coverage by a wide margin --- $0.046$
+against a nominal $0.95$ at $\tau=0$, $0.588$ at $\tau=0.01$, and never above
+$0.883$ in any of the nine $(K,\tau)$ cells we ran --- because shrinkage buys
+precision with a bias its interval does not acknowledge. The
+argmax-shift correction is unbiased only when candidates are genuinely
+exchangeable and drifts to $+0.018$ once they are not. Neither is competitive
+with simply differencing against held-out data.
+
+This is why we do not reach for conditional selective inference or a
+winner's-curse correction. Those instruments exist because in their home
+settings --- a genome-wide scan, a lasso fit --- there is no held-out
+replicate of the selected effect. An audit always has one, which is what makes
+the direct difference unbiased with no model for $q$. Where held-out data is
+unavailable they are the right tool and stronger than anything here; where it
+is available they are a worse answer to an easier question.
+
+\subsection{Positioning}
 \label{sec:relation}
 
-That selection on a noisy criterion biases the selected estimate is old, and
-statistics has several instruments for it that this ML audit literature does
-not use. Valid post-selection inference (Berk et al., 2013) provides
-simultaneous intervals over all selection outcomes; conditional selective
-inference (Fithian et al., 2014; Lee et al., 2016) conditions on the selection
-event and yields exact intervals; false coverage-statement rate control
-(Benjamini \& Yekutieli, 2005) adjusts intervals for selected parameters; and a
-substantial genetics literature corrects winner's-curse point estimates
-directly (Z\"ollner \& Pritchard, 2007; Sun \& Bull, 2005; Zhong \& Prentice, 2008), with
-Efron (2011) giving the empirical-Bayes view.
-Bates et al.\ (2024) is closest in spirit here, asking what
-cross-validation actually estimates and showing that naive CV intervals
-undercover.
+That selection on a noisy criterion biases the selected estimate is old.
+Valid post-selection inference (Berk et al., 2013) gives simultaneous
+intervals over selection outcomes; conditional selective inference
+(Fithian et al., 2014; Lee et al., 2016) conditions on the selection event for
+exact intervals; false coverage-statement rate control (Benjamini \&
+Yekutieli, 2005) adjusts intervals for selected parameters; and a genetics
+literature corrects winner's-curse point estimates directly
+(Z\"ollner \& Pritchard, 2007; Sun \& Bull, 2005; Zhong \& Prentice, 2008),
+with Efron (2011) giving the empirical-Bayes view. Bates et al.\ (2024) is
+nearest in spirit, asking what cross-validation estimates and showing naive CV
+intervals undercover.
 
-We do not propose an alternative to any of these, and where exact conditional
-inference is available it is stronger than what we describe. The point is
-narrower and, we think, more useful to practitioners: the audits in question
-already compute $A$ without realising it, so the correction costs nothing ---
-no conditioning event to characterise, no selection region to describe, no
-distributional assumption beyond those the audit already makes. It is the
-cheapest possible fix, and its absence is what allows a test with type I error
-$1$ to remain standard.
+We claim no improvement on any of them. Our contribution is narrower and, we
+think, more useful to the practitioners concerned: the audits in question
+already compute $A$ without recognising it, so the fix is free, and
+\S\ref{sec:comparison} shows the imported alternatives are worse in this
+setting rather than better. The absence of that observation is what allows a
+test with type I error $1$ to remain standard.
 
 \section{Five Mechanisms, Measured}
 \label{sec:mechanisms}
@@ -509,20 +591,18 @@ Mechanism 5's F1 severity is $n$-dependent ($\approx6.3\times$ smaller at
 $n{=}2000$ vs.\ $n{=}140$); whether it stays distinguishable from noise at
 typical benchmark sizes is untested here.
 
-\section{What Governs Severity Within a Harness}
+\paragraph{What governs severity within a harness.}
 \label{sec:severity}
-
-Within one harness, severity rises monotonically and concavely with candidate
-count $K$ at a fixed operating point, and falls to indistinguishable from zero
-as the operating point approaches ceiling. Neither relationship transports: an
+Severity rises
+monotonically and concavely with candidate count at a fixed operating point
+and vanishes near ceiling, but neither relationship transports: an
 exchangeable-candidate replication at adequate power does not reproduce the
-$K$-regularity, and the operating-point relationship is exceeded by roughly an
-order of magnitude at a matched operating point in our own real-feature
-harnesses. A matched comparison at common $(K,\text{AUROC}_0)$ shows that
-\emph{something} beyond these two covariates is not absorbed by them, but the
-design cannot separate mechanism identity from the unequal harness maturity
-correlated with it, so the only conclusion it licenses is negative. Full
-numbers, the replication and the fits are in Appendix~\ref{app:severity-detail}.
+first, and the second is exceeded by an order of magnitude at a matched
+operating point in our own real-feature harnesses. A matched comparison shows
+something beyond these two covariates is unabsorbed, but cannot separate
+mechanism identity from the harness maturity correlated with it, so the only
+conclusion it licenses is negative. Numbers and fits in
+Appendix~\ref{app:severity-detail}.
 
 \section{Operational Consequences: What the Reuse Gap Costs a Deployment}
 \label{sec:calibration-bridge}
@@ -780,23 +860,14 @@ fits on the reported data at all: under the same regularization its
 selection-specific calibration increment grows rather than shrinks
 (Appendix~\ref{app:regularization}).
 
-\subsection{ECE contamination in the audited pipeline itself}
-\label{sec:mechanism5-ece}
-
-Unlike \S\ref{sec:calibration-bridge}'s comparisons, which we construct on our
-own cached scores, this is a bug we \emph{found} in MultiHaluDet's code (a
-multilingual hallucination-detection pipeline; Alvi et al., 2026; pinned
-commit \texttt{c759751}). Its ECE term uses
-\texttt{confidence=max(probs,1-probs)} (threshold-independent) but
-\texttt{correct=(preds==labels)}, with \texttt{preds} thresholded at Mechanism
-5's own test-label-selected Youden cut: \textbf{the pipeline's own reported
-ECE is contaminated by the mechanism this paper audits it for.} Quantified
-with the already-validated Mechanism-5 synthetic harness
-(Appendix~\ref{app:ece}), the pooled ECE gap across five operating points is
-$+0.0090$, all five cells BCa-established. This is a code-level defect rather
-than a decomposed attribution, so the null issue of
-Appendix~\ref{app:mechnull} does not bear on it; but it is verified in one of
-the two audited repositories only, and we do not generalize from one instance.
+\paragraph{An externally verified instance.} One of the audited pipelines
+computes its own ECE with a threshold-independent confidence but a
+threshold-dependent correctness, the threshold being its own
+test-label-selected Youden cut: the pipeline's reported ECE is contaminated
+by the mechanism we audit it for. This is a code-level defect at a pinned
+commit rather than a decomposed attribution, so the null question of
+\S\ref{sec:estimand} does not bear on it. Detail, magnitude and its single-
+source caveat in Appendix~\ref{sec:mechanism5-ece}.
 
 \section{A Checklist for This Literature}
 \label{sec:checklist}
@@ -1082,6 +1153,38 @@ Estimating Penetrance Parameters from Case-Control Data. \emph{American
 Journal of Human Genetics}, 80(4), 605--615.
 
 \appendix
+\section*{Guide to the Appendices}
+
+The appendices divide into four groups, and a reader checking a particular
+claim need only enter one.
+
+\textbf{The corrected procedure, applied and audited.}
+Appendix~\ref{app:mechnull} gives the three-line report of
+\S\ref{sec:estimand} for our own harness, the family-wise correction, and the
+permutation null we built and discarded.
+
+\textbf{What the numbers rest on.} Appendix~\ref{app:resampling} states the
+resampling unit and what the intervals are about; Appendix~\ref{app:nonneg}
+proves the two non-negativity results that make us decline the bootstrap
+elsewhere; Appendix~\ref{app:estimands} defines every estimand used anywhere
+in the paper.
+
+\textbf{The audits themselves.} Appendix~\ref{app:severity} tabulates
+per-mechanism severity; Appendix~\ref{app:cases} gives case-study detail;
+Appendix~\ref{app:ece} quantifies the external ECE defect;
+Appendix~\ref{app:holm} gives family verdicts;
+Appendix~\ref{app:severity-detail} holds the within-harness severity
+relationship.
+
+\textbf{Robustness, and where the paper fails its own checks.}
+Appendix~\ref{app:reviewer-response} holds the calibration robustness suite;
+Appendix~\ref{app:reliability} the reliability diagrams;
+Appendix~\ref{app:reg} and Appendix~\ref{app:regularization} the
+regularization checks; Appendix~\ref{app:secondfamily} the second harness, in
+which the effect does not appear; Appendix~\ref{app:prevalence} the
+prevalence study we did not run and why the obvious version would mislead;
+and Appendix~\ref{app:limitations} the extended limitations.
+
 
 
 
@@ -1795,6 +1898,14 @@ $\Delta_{\text{sel}}$, and had we tested it against zero we would have
 declared a selection effect on every metric, including the two where nothing
 is established.
 
+\paragraph{Family-wise correction.} These four $B$ tests share a selection
+rule and a set of replicates, so they form one family and we correct them as
+we correct every other family in this paper. Under Holm-Bonferroni at
+family-wise $\alpha=0.05$, AUROC ($p=4.6\times10^{-12}$ against threshold
+$0.0125$) and Brier ($p=7.1\times10^{-7}$ against $0.0167$) survive;
+reliability ($p=0.190$) and ECE ($p=0.861$) do not. \textbf{No verdict in
+Table~\ref{tab:corrected} changes under correction.}
+
 \paragraph{Why reliability and ECE are undetermined, and Brier is not.} This
 is power, not a substantive difference between the metrics. The three losses
 point the same way, and their $B$ estimates differ mainly in dispersion: the
@@ -1847,6 +1958,24 @@ identity itself or the unequal harness maturity correlated with it. What this
 licenses is only the negative conclusion: severity is not governed by those two
 covariates to the exclusion of mechanism. We do not read the severity surface
 as a calculator, and \S\ref{sec:checklist} says so.
+
+\section{The Externally Verified ECE Defect}
+\label{sec:mechanism5-ece}
+
+Unlike \S\ref{sec:calibration-bridge}'s comparisons, which we construct on our
+own cached scores, this is a bug we \emph{found} in MultiHaluDet's code (a
+multilingual hallucination-detection pipeline; Alvi et al., 2026; pinned
+commit \texttt{c759751}). Its ECE term uses
+\texttt{confidence=max(probs,1-probs)} (threshold-independent) but
+\texttt{correct=(preds==labels)}, with \texttt{preds} thresholded at Mechanism
+5's own test-label-selected Youden cut: \textbf{the pipeline's own reported
+ECE is contaminated by the mechanism this paper audits it for.} Quantified
+with the already-validated Mechanism-5 synthetic harness
+(Appendix~\ref{app:ece}), the pooled ECE gap across five operating points is
+$+0.0090$, all five cells BCa-established. This is a code-level defect rather
+than a decomposed attribution, so the null issue of
+Appendix~\ref{app:mechnull} does not bear on it; but it is verified in one of
+the two audited repositories only, and we do not generalize from one instance.
 
 \section{What a Prevalence Study Would Require}
 \label{app:prevalence}
