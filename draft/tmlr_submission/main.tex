@@ -53,10 +53,13 @@ as $1.67$ effective independent ones (mean adjacent correlation $+0.957$), and
 a resampling contrast that removes cross-candidate dependence while preserving
 every marginal inflates the winner's curse by $1.65\times$ and no longer
 reproduces the curse we observe, whereas preserving dependence reproduces it
-to four decimal places. A mechanism this literature treats as a serious source
-of optimism is, in the setting where it is most often invoked, substantially
-smaller than the nominal candidate count implies --- including in our own
-simulation, which we correct accordingly. We report two claims from
+to four decimal places. Across two model families, two datasets and two feature
+representations $K_{\text{eff}}$ never exceeds $5.4$, so the candidate count
+is overstated by $5.9$ to $19.2$ times wherever we can measure it. A mechanism
+this literature treats as a serious source of optimism is, in the setting
+where it is most often invoked, substantially smaller than the nominal
+candidate count implies --- including in our own simulation, which we correct
+accordingly. We report two claims from
 earlier versions of this work that we withdraw, and the analysis that
 withdrew them.
 \end{abstract}
@@ -620,6 +623,37 @@ selection recovers. $4{,}000$ resampling trials.
 equicorrelation heuristic $\sqrt{1-\bar\rho}=0.495$ anticipates a factor near
 two; the measured factor is $1.65$, and we quote the measurement rather than
 the heuristic, since the correlation matrix is far from equicorrelated.
+
+\paragraph{Does this generalise?} If the redundancy were a property of one
+harness it would be a curiosity. We recompute the same quantities on the
+real-feature harness for two model families on a different dataset, so the
+comparison spans two model families, two datasets and two feature
+representations (Table~\ref{tab:keff}). $K_{\text{eff}}$ never exceeds
+$5.42$: the candidate count is overstated by between $5.9\times$ and
+$19.2\times$ in every harness we can measure. The ordering is interpretable
+--- $4096$-dimensional raw hidden states are more redundant across layers than
+$12$-dimensional summary statistics --- but the conclusion does not depend on
+it. Layer selection, wherever we look, is a choice among a handful of
+effective candidates and not among thirty-two.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Harness & $K$ & $\bar\rho$ & adjacent & $K_{\text{eff}}$ \\
+\midrule
+Mistral-7B / TruthfulQA / hidden states & $32$ & $0.755$ & $0.957$ & $1.67$ \\
+Qwen2.5-7B / HaluEval / real features & $32$ & $0.639$ & $0.861$ & $2.15$ \\
+Mistral-7B / HaluEval / real features & $32$ & $0.305$ & $0.728$ & $5.42$ \\
+\bottomrule
+\end{tabular}
+\caption{Effective candidate count across harnesses, same estimator
+throughout: per-layer $5$-fold CV AUROC over randomized selection pools, then
+the participation ratio of the correlation matrix's eigenvalues.
+\texttt{116\_effective\_k\_across\_harnesses.py}.}
+\label{tab:keff}
+\end{table}
 
 \paragraph{What this costs us.} Our own simulation in
 \S\ref{sec:sizepower} draws candidates independently and reports

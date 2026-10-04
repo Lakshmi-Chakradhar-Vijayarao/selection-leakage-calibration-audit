@@ -1,0 +1,40 @@
+{
+  "n_reps": 40,
+  "n_sel": 229,
+  "seed": 42,
+  "harnesses": {
+    "mistral-7b / truthfulqa / hidden states": {
+      "nominal_K": 32,
+      "mean_offdiagonal_correlation": 0.755,
+      "mean_adjacent_correlation": 0.957,
+      "effective_K": 1.67,
+      "source": "115_candidate_dependence.py"
+    },
+    "mistral-7b / halueval / real features": {
+      "nominal_K": 32,
+      "mean_offdiagonal_correlation": 0.30494185948482483,
+      "mean_adjacent_correlation": 0.7282028936887961,
+      "effective_K": 5.421460233327005,
+      "source": "116_effective_k_across_harnesses.py"
+    },
+    "qwen2.5-7b / halueval / real features": {
+      "nominal_K": 32,
+      "mean_offdiagonal_correlation": 0.6389305025076122,
+      "mean_adjacent_correlation": 0.8613645267870288,
+      "effective_K": 2.150087003031156,
+      "source": "116_effective_k_across_harnesses.py"
+    }
+  },
+  "summary": {
+    "effective_K_range": [
+      1.67,
+      5.421460233327005
+    ],
+    "nominal_K": 32,
+    "overstatement_factor_range": [
+      5.902468822567099,
+      19.16167664670659
+    ],
+    "all_far_below_nominal": true
+  }
+}

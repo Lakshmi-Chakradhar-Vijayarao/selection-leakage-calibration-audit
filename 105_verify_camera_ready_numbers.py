@@ -584,6 +584,22 @@ if "sec:effectivek" in TEX:
         failures.append("main.tex says dependence acts on the curse and not on B; "
                         "115 no longer shows that separation")
 
+
+# -- Does the redundancy generalise? (116) --------------------------------
+if "tab:keff" in TEX:
+    print("\nEffective K across harnesses (116):")
+    ek = json.load(open(R / "effective_k_across_harnesses.json"))
+    for name, h in ek["harnesses"].items():
+        check(f"  {name.split('/')[0].strip()} K_eff", h["effective_K"], "{:.2f}")
+    checks += 1
+    _ks = [h["effective_K"] for h in ek["harnesses"].values()]
+    _ok = max(_ks) < 8 and ek["summary"]["all_far_below_nominal"]
+    print(f"  {'OK  ' if _ok else 'FAIL'}  every harness is far below nominal K "
+          f"(max K_eff {max(_ks):.2f} of 32)")
+    if not _ok:
+        failures.append("main.tex claims K_eff never exceeds 5.4 across harnesses; "
+                        "116 no longer shows that")
+
 # ── Superseded literals that must not survive the camera-ready ─────────────
 print("\nSuperseded literals:")
 check_absent("fixed-coverage excess at 70% (980)", "$980$")
