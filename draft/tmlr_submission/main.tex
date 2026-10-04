@@ -641,9 +641,22 @@ decaying as $\text{decay}^{|i-j|}$, the equicorrelation formula over-predicts
 the shrinkage by up to $19\%$, with the error growing as banding strengthens
 ($\text{ratio}=1.00$ at $\text{decay}=0$ falling to $0.81$ at
 $\text{decay}=0.99$). An inflation of $1.65$ against a formula value near two
-is exactly what that bias produces. We therefore quote the measurement, and
-note that $\bar\rho$ alone does not determine the curse: $K_{\text{eff}}$,
-which uses the whole spectrum, tracks it considerably better.
+is exactly what that bias produces, and we quote the measurement rather than
+the formula.
+
+We should be clear about what $K_{\text{eff}}$ is and is not doing here. It is
+a descriptive summary of redundancy, and a good one: $1.67$ of $32$ conveys
+the situation at a glance. It is \emph{not} the right input to a curse
+formula. Substituting $K_{\text{eff}}$ into $\sigma e_K$ predicts the banded
+curse with mean absolute log error $0.21$ across the decay grid, against
+$0.10$ for the equicorrelation formula driven by $\bar\rho$ --- twice as bad,
+and badly wrong at strong banding (predicted $0.031$ against a measured
+$0.016$ at $\text{decay}=0.99$). The reason is that
+$\mathbb{E}[\max_l \text{cv}_l]$ depends on the whole correlation structure
+and not on any one scalar summary of it; neither $\bar\rho$ nor
+$K_{\text{eff}}$ determines it, and $\bar\rho$ merely happens to be the less
+bad of the two. We use $K_{\text{eff}}$ to describe and the measurement to
+quantify.
 
 \paragraph{Does this generalise?} If the redundancy were a property of one
 harness it would be a curiosity. We recompute the same quantities on the

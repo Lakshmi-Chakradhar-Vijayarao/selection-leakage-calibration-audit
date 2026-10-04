@@ -625,6 +625,20 @@ if "117" in TEX or "e_K" in TEX:
         failures.append("main.tex explains the 1.65x by the formula over-predicting "
                         "under banding; 117 no longer shows that")
 
+
+# -- K_eff must not be sold as a predictor of the curse --------------------
+# It is twice as bad as rho_bar at that job (mean |log ratio| 0.21 vs 0.10).
+# An earlier revision asserted the opposite; this guards the correction.
+checks += 1
+_flat2 = " ".join(TEX.split())
+_bad_keff = ("K_{\\text{eff}}, which uses the whole spectrum, tracks it "
+             "considerably better") in _flat2
+print(f"  {'OK  ' if not _bad_keff else 'FAIL'}  K_eff is described as descriptive, "
+      f"not as the better predictor of the curse")
+if _bad_keff:
+    failures.append("main.tex claims K_eff predicts the curse better than rho_bar; "
+                    "117 shows the opposite")
+
 # ── Superseded literals that must not survive the camera-ready ─────────────
 print("\nSuperseded literals:")
 check_absent("fixed-coverage excess at 70% (980)", "$980$")
