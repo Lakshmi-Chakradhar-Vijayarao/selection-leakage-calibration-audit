@@ -47,7 +47,16 @@ Brier and nothing establishable on reliability or ECE, so we attribute the
 measured cost to reuse rather than to selection. We compare against
 empirical-Bayes winner's-curse correction under a parametric-bootstrap
 interval and find it unnecessary here, since an audit always has the held-out
-replicate those methods exist to do without. We report two claims from
+replicate those methods exist to do without. Finally we measure the quantity
+all of these instruments are calibrated to. The $32$ candidate layers behave
+as $1.67$ effective independent ones (mean adjacent correlation $+0.957$), and
+a resampling contrast that removes cross-candidate dependence while preserving
+every marginal inflates the winner's curse by $1.65\times$ and no longer
+reproduces the curse we observe, whereas preserving dependence reproduces it
+to four decimal places. A mechanism this literature treats as a serious source
+of optimism is, in the setting where it is most often invoked, substantially
+smaller than the nominal candidate count implies --- including in our own
+simulation, which we correct accordingly. We report two claims from
 earlier versions of this work that we withdraw, and the analysis that
 withdrew them.
 \end{abstract}
@@ -136,6 +145,15 @@ construction asymmetries.
    interval so the comparison is fair, which is unnecessary here because an
    audit always has the held-out replicate those methods exist to do without
    (\S\ref{sec:comparison}).
+\item \textbf{How many candidates there really are.} The instruments above
+   are all calibrated to the nominal candidate count $K$. For layer selection
+   that is badly wrong: $32$ layers behave as $K_{\text{eff}}=1.67$
+   independent ones, and removing cross-candidate dependence while holding
+   every marginal fixed inflates the curse by $1.65\times$
+   (\S\ref{sec:effectivek}). The dependence-preserving model reproduces the
+   observed curse to four decimals; the independent one does not cover it.
+   Corrections calibrated to nominal $K$ therefore over-correct here, ours
+   included.
 \item \textbf{Four results against our own interest}: a primary synthetic
    estimate that fails its own factorial control; two estimators we prove
    non-negative by construction and then decline to bootstrap; a second
@@ -545,6 +563,87 @@ replicate of the selected effect. An audit always has one, which is what makes
 the direct difference unbiased with no model for $q$. Where held-out data is
 unavailable they are the right tool and stronger than anything here; where it
 is available they are a worse answer to an easier question.
+
+\subsection{How many candidates are there, really?}
+\label{sec:effectivek}
+
+Every reference we have discussed is calibrated to $K$, the nominal number of
+candidates: $\mathbb{E}[A]$ grows with $K$, the winner's-curse corrections of
+\S\ref{sec:comparison} take $K$ as given, and the simulation of
+\S\ref{sec:sizepower} draws candidates independently. That is a substantive
+assumption, and for layer selection it is a bad one. Adjacent transformer
+layers produce near-identical representations, so their cross-validated
+criteria move together, and a curse calibrated to $32$ independent candidates
+will be calibrated to a harness that does not exist.
+
+\paragraph{The dependence, measured.} Across the $50$ splits, the per-layer CV
+AUROC has mean off-diagonal correlation $+0.755$ and mean adjacent-layer
+correlation $+0.957$ (maximum $+0.987$); $97\%$ of layer pairs exceed $0.5$.
+The participation ratio of the correlation eigenvalues gives an effective
+\[
+  K_{\text{eff}} \;=\; \frac{(\sum_i \lambda_i)^2}{\sum_i \lambda_i^2}
+  \;=\; 1.67 ,
+\]
+against a nominal $K=32$. The selection is over roughly two effective
+candidates, not thirty-two.
+
+\paragraph{Does that explain the curse we observe?} We test this without
+assuming a distribution or estimating a $64\times64$ covariance from $50$
+rows. Centring the per-layer CV and held-out AUROCs gives a residual matrix
+whose rows carry the joint dependence. Resampling whole \emph{rows} preserves
+that dependence; permuting each \emph{column} separately preserves every
+marginal exactly and destroys only the cross-candidate dependence. Both keep
+the per-layer means, so genuine quality differences survive in both, and the
+contrast isolates dependence and nothing else.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}lrll@{}}
+\toprule
+& $A$ & $95\%$ interval & Covers observed $A=+0.04287$? \\
+\midrule
+Resampling with dependence & $+0.04285$ & $[+0.04024,+0.04560]$ & yes \\
+Resampling without dependence & $+0.07084$ & $[+0.06941,+0.07216]$ & no \\
+\bottomrule
+\end{tabular}
+\caption{The dependent model reproduces the observed winner's curse to four
+decimal places; removing dependence inflates it by $1.65\times$ and the
+interval no longer covers. Transferred quality $B$ is nearly unaffected
+($+0.0174$ against $+0.0191$), so dependence acts on the curse and not on what
+selection recovers. $4{,}000$ resampling trials.
+\texttt{115\_candidate\_dependence.py}.}
+\label{tab:dependence}
+\end{table}
+
+\textbf{Independence inflates the curse by $1.65\times$ in this harness.} The
+equicorrelation heuristic $\sqrt{1-\bar\rho}=0.495$ anticipates a factor near
+two; the measured factor is $1.65$, and we quote the measurement rather than
+the heuristic, since the correlation matrix is far from equicorrelated.
+
+\paragraph{What this costs us.} Our own simulation in
+\S\ref{sec:sizepower} draws candidates independently and reports
+$\mathbb{E}[A]=0.062$ at $K=32$. For this harness that overstates the curse by
+about the same $1.65\times$. The simulation's purpose there is to show that
+the practised test cannot separate the two states of the world, and that
+conclusion is unaffected --- it holds at every $K$ and every $\tau$ we tried.
+But the \emph{magnitude} in that table should not be read as a prediction for
+a real layer-selection audit, and any correction calibrated to nominal $K$,
+including the winner's-curse estimators of \S\ref{sec:comparison}, will
+over-correct here by a comparable factor.
+
+\paragraph{What is and is not ours.} Neither ingredient is new. An effective
+number of independent tests estimated from a correlation matrix is standard in
+statistical genetics (Cheverud; Nyholt; Li \& Ji), where it is used to adjust
+multiple-testing thresholds for linkage disequilibrium, and selective
+inference conditional on a cross-validation criterion is treated by Loftus
+(2015). We import both rather than invent either. What we contribute is the
+measurement --- $K_{\text{eff}}=1.67$ of $32$ for layer selection, and a
+$1.65\times$ inflation validated against the observed curse --- and its
+consequence for audit practice, which is that a mechanism this literature
+treats as a serious source of optimism is, in the setting where it is most
+often invoked, substantially smaller than the nominal candidate count
+implies.
 
 \subsection{Positioning}
 \label{sec:relation}

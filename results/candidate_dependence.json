@@ -1,0 +1,62 @@
+{
+  "n_layers": 32,
+  "n_reps": 50,
+  "n_trials": 4000,
+  "seed": 20261002,
+  "dependence": {
+    "mean_offdiagonal_correlation": 0.754610307456196,
+    "mean_adjacent_correlation": 0.9565958114255311,
+    "max_adjacent_correlation": 0.9868632821846418,
+    "fraction_pairs_above_0.5": 0.9737903225806451,
+    "effective_K": 1.6667520593749379,
+    "nominal_K": 32,
+    "sqrt_1_minus_rhobar": 0.4953682393369644
+  },
+  "observed": {
+    "A": 0.042865131095741305,
+    "B": 0.017315717448797566,
+    "delta_sel": 0.025549413646943728
+  },
+  "resampling_dependent": {
+    "A": {
+      "mean": 0.04285130700971593,
+      "sd": 0.0013821879045261877,
+      "ci_95": [
+        0.040239282341852436,
+        0.04559925993848595
+      ]
+    },
+    "B": {
+      "mean": 0.01734975093602003,
+      "sd": 0.001885166687827725,
+      "ci_95": [
+        0.013550001633710534,
+        0.02091920772725874
+      ]
+    }
+  },
+  "resampling_independent": {
+    "A": {
+      "mean": 0.07084252276403152,
+      "sd": 0.000704208425958009,
+      "ci_95": [
+        0.06940658290965826,
+        0.07215749821793599
+      ]
+    },
+    "B": {
+      "mean": 0.019099278860938554,
+      "sd": 0.004219539918277607,
+      "ci_95": [
+        0.010763469463066607,
+        0.027123362445414835
+      ]
+    }
+  },
+  "verdict": {
+    "dependent_ci_covers_observed_A": true,
+    "independent_ci_covers_observed_A": false,
+    "independence_inflation_factor": 1.6532173160545367,
+    "kill_criterion_fired": false
+  }
+}

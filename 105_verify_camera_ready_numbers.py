@@ -545,6 +545,45 @@ if "114" in TEX or "parametric bootstrap" in TEX:
         failures.append("main.tex claims the under-coverage survives a fair "
                         "interval; 114 no longer shows that")
 
+
+# -- Candidate dependence and effective K (115) ---------------------------
+if "sec:effectivek" in TEX:
+    print("\nCandidate dependence (115):")
+    cd = json.load(open(R / "candidate_dependence.json"))
+    d, o, v = cd["dependence"], cd["observed"], cd["verdict"]
+    check("  mean off-diagonal correlation", d["mean_offdiagonal_correlation"], "{:.3f}")
+    check("  mean adjacent correlation", d["mean_adjacent_correlation"], "{:.3f}")
+    check("  effective K", d["effective_K"], "{:.2f}")
+    check("  observed A", o["A"], "{:.5f}")
+    check("  dependent-resample A", cd["resampling_dependent"]["A"]["mean"], "{:.5f}")
+    check("  independent-resample A", cd["resampling_independent"]["A"]["mean"], "{:.5f}")
+    check("  inflation factor", v["independence_inflation_factor"], "{:.2f}")
+
+    # The claim rests on this asymmetry. If a rerun ever lets the independent
+    # model cover the observed curse, the section is wrong.
+    checks += 1
+    _ok = (v["dependent_ci_covers_observed_A"]
+           and not v["independent_ci_covers_observed_A"]
+           and not v["kill_criterion_fired"])
+    print(f"  {'OK  ' if _ok else 'FAIL'}  dependent model covers the observed curse "
+          f"and the independent one does not")
+    if not _ok:
+        failures.append("main.tex's dependence claim requires the dependent model to "
+                        "cover observed A and the independent one not to; 115 no "
+                        "longer shows that")
+
+    # Dependence must act on the curse, not on what selection recovers.
+    checks += 1
+    _bd = cd["resampling_dependent"]["B"]["mean"]
+    _bi = cd["resampling_independent"]["B"]["mean"]
+    _ratio_B = abs(_bi / _bd) if _bd else float("inf")
+    _b_ok = _ratio_B < 1.25 < v["independence_inflation_factor"]
+    print(f"  {'OK  ' if _b_ok else 'FAIL'}  B far less sensitive to dependence than A "
+          f"(B x{_ratio_B:.2f} vs A x{v['independence_inflation_factor']:.2f})")
+    if not _b_ok:
+        failures.append("main.tex says dependence acts on the curse and not on B; "
+                        "115 no longer shows that separation")
+
 # ── Superseded literals that must not survive the camera-ready ─────────────
 print("\nSuperseded literals:")
 check_absent("fixed-coverage excess at 70% (980)", "$980$")
