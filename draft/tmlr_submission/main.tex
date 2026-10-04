@@ -619,10 +619,31 @@ selection recovers. $4{,}000$ resampling trials.
 \label{tab:dependence}
 \end{table}
 
-\textbf{Independence inflates the curse by $1.65\times$ in this harness.} The
-equicorrelation heuristic $\sqrt{1-\bar\rho}=0.495$ anticipates a factor near
-two; the measured factor is $1.65$, and we quote the measurement rather than
-the heuristic, since the correlation matrix is far from equicorrelated.
+\textbf{Independence inflates the curse by $1.65\times$ in this harness.}
+
+\paragraph{Why $1.65$ and not two.} Under equicorrelated candidates the curse
+obeys
+\[
+  \mathbb{E}[A] \;=\; \sigma\,\sqrt{1-\rho}\;e_K ,
+  \qquad e_K=\mathbb{E}\big[\max_{l\le K} Z_l\big],\; Z_l\sim N(0,1),
+\]
+because the shared component shifts every candidate together and cannot be
+exploited by an argmax. We verify this over $K\in\{4,\dots,128\}$ and
+$\rho\in\{0,\dots,0.9\}$: the worst relative error is $0.67\%$
+(\texttt{117\_curse\_scaling.py}). Substituting $\bar\rho=0.755$ would predict
+a shrinkage of $\sqrt{1-\bar\rho}=0.495$, hence an inflation near two.
+
+The measured factor is $1.65$, and the gap is informative rather than
+embarrassing: layer correlations are \emph{banded}, not equicorrelated
+--- adjacent layers correlate at $0.957$ and distant ones far less --- and
+$\bar\rho$ discards that structure. Repeating the simulation with correlations
+decaying as $\text{decay}^{|i-j|}$, the equicorrelation formula over-predicts
+the shrinkage by up to $19\%$, with the error growing as banding strengthens
+($\text{ratio}=1.00$ at $\text{decay}=0$ falling to $0.81$ at
+$\text{decay}=0.99$). An inflation of $1.65$ against a formula value near two
+is exactly what that bias produces. We therefore quote the measurement, and
+note that $\bar\rho$ alone does not determine the curse: $K_{\text{eff}}$,
+which uses the whole spectrum, tracks it considerably better.
 
 \paragraph{Does this generalise?} If the redundancy were a property of one
 harness it would be a curiosity. We recompute the same quantities on the
@@ -752,6 +773,16 @@ something beyond these two covariates is unabsorbed, but cannot separate
 mechanism identity from the harness maturity correlated with it, so the only
 conclusion it licenses is negative. Numbers and fits in
 Appendix~\ref{app:severity-detail}.
+
+We note but do not resolve a connection to \S\ref{sec:effectivek}. Both that
+section and the exchangeable replication here concern candidate dependence,
+and it is tempting to read one as explaining the other. We resist it: the
+replication did not merely decorrelate the candidates, it changed what a
+candidate \emph{is} --- independently-seeded probes in place of epochs of one
+run --- so the two manipulations are not comparable on a dependence axis
+alone. Settling it would need $K_{\text{eff}}$ for that harness, which the
+shipped artifact cannot supply because per-candidate criteria were not logged
+there. We flag it as the obvious next measurement rather than claim it.
 
 \section{Operational Consequences: What the Reuse Gap Costs a Deployment}
 \label{sec:calibration-bridge}

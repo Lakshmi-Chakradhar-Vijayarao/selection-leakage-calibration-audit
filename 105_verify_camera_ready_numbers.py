@@ -600,6 +600,31 @@ if "tab:keff" in TEX:
         failures.append("main.tex claims K_eff never exceeds 5.4 across harnesses; "
                         "116 no longer shows that")
 
+
+# -- The curse scaling law (117) ------------------------------------------
+if "117" in TEX or "e_K" in TEX:
+    print("\nCurse scaling law (117):")
+    cs = json.load(open(R / "curse_scaling.json"))
+    checks += 1
+    _err = cs["equicorrelated_max_relative_error"]
+    _ok = _err < 0.02
+    print(f"  {'OK  ' if _ok else 'FAIL'}  E[A] = sigma*sqrt(1-rho)*e_K holds under "
+          f"equicorrelation (worst relative error {_err:.4f})")
+    if not _ok:
+        failures.append("main.tex states the equicorrelation law holds to under 1%; "
+                        "117 no longer shows that")
+    check("  worst relative error (%)", _err * 100, "{:.2f}")
+
+    # The banded case is why the measured inflation is 1.65 and not 2.
+    checks += 1
+    lo, hi = cs["banded_ratio_range"]
+    _b_ok = lo < 0.85 and hi <= 1.01
+    print(f"  {'OK  ' if _b_ok else 'FAIL'}  under banding the formula over-predicts "
+          f"shrinkage (ratio {lo:.2f}-{hi:.2f})")
+    if not _b_ok:
+        failures.append("main.tex explains the 1.65x by the formula over-predicting "
+                        "under banding; 117 no longer shows that")
+
 # ── Superseded literals that must not survive the camera-ready ─────────────
 print("\nSuperseded literals:")
 check_absent("fixed-coverage excess at 70% (980)", "$980$")
