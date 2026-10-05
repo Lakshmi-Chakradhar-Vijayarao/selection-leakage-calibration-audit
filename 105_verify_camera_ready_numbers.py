@@ -737,6 +737,22 @@ if ANONYMOUS:
                         "'-XXXX'. Create the mirror and substitute the real "
                         "identifier; as it stands reviewers get a 404.")
 
+    # The obvious thing to paste is the mirror from the August workshop round,
+    # which UPLOAD_CHECKLIST.md still lists. It is live, and it is a snapshot
+    # taken 2026-08-30: it contains scripts 95-102 and none of 103-117, which
+    # is every script behind this paper's corrected test, estimator
+    # comparison, effective-candidate-count result and scaling law. Pointing
+    # reviewers at it would show them an artifact missing the analyses the
+    # main claims rest on.
+    checks += 1
+    _stale = "selection-leakage-calibration-audit-3F1D" in TEX
+    print(f"  {'OK  ' if not _stale else 'BLOCK'}  the cited mirror is not the "
+          f"stale 2026-08-30 snapshot (3F1D)")
+    if _stale:
+        failures.append("BLOCKER: the cited mirror is the 3F1D snapshot from "
+                        "2026-08-30, which predates scripts 103-117. Create a "
+                        "fresh mirror from the current repository.")
+
 # ── Superseded literals that must not survive the camera-ready ─────────────
 print("\nSuperseded literals:")
 check_absent("fixed-coverage excess at 70% (980)", "$980$")
