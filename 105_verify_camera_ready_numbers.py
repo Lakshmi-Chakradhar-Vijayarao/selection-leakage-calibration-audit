@@ -602,7 +602,7 @@ if "tab:keff" in TEX:
 
 
 # -- The curse scaling law (117) ------------------------------------------
-if "117" in TEX or "e_K" in TEX:
+if "117_curse_scaling" in TEX or "117\\_curse\\_scaling" in TEX:
     print("\nCurse scaling law (117):")
     cs = json.load(open(R / "curse_scaling.json"))
     checks += 1
@@ -645,7 +645,14 @@ if _bad_keff:
 # to withdraw or qualify, and prose drifts back toward the stronger version.
 print("\nScope and framing guards:")
 
-for _label, _needed, _why in [
+# Two versions of this paper exist and their prose differs by design: the
+# journal version (tmlr.sty) and the de-anonymized workshop camera-ready
+# (neurips_2026.sty + \\workshoptitle). Guards written for one must not fire
+# against the other, so each is gated on the style file it belongs to.
+IS_JOURNAL = "\\usepackage{tmlr}" in TEX
+IS_WORKSHOP = "\\workshoptitle" in TEX
+
+for _label, _needed, _why in ([] if not IS_JOURNAL else [
     ("the remedy is conceded as standard practice in the abstract",
      "not claiming to have invented",
      "the abstract must concede the remedy is standard practice, not bury it "
@@ -654,31 +661,59 @@ for _label, _needed, _why in [
      "optimism is the effect",
      "'leakage' names a mechanism this paper does not observe; the definition "
      "must say the measured quantity is optimism"),
-]:
+]):
     checks += 1
     ok = _needed in " ".join(TEX.split())
     print(f"  {'OK  ' if ok else 'FAIL'}  {_label}")
     if not ok:
         failures.append(_why)
 
-checks += 1
-# The withdrawal count appeared in three places and disagreed: the abstract
-# and the contributions list enumerated two, the conclusion tallied three.
-# A reviewer who counts will find two, so two is the number everywhere.
-_fl = " ".join(TEX.split())
-_counts = {
-    "abstract": "two claims from earlier versions of this work that we withdraw" in _fl,
-    "contributions": "and two claims from earlier versions of this work" in _fl,
-    "conclusion": "the cost was two withdrawn claims" in _fl,
-}
-_agree = all(_counts.values())
-print(f"  {'OK  ' if _agree else 'FAIL'}  the withdrawal count is two in all three "
-      f"places that state it")
-if not _agree:
-    failures.append("the withdrawn-claim count disagrees across abstract, "
-                    "contributions and conclusion: "
-                    + ", ".join(f"{k}={'ok' if v else 'MISSING'}"
-                                for k, v in _counts.items()))
+if IS_JOURNAL:
+  checks += 1
+  # The withdrawal count appeared in three places and disagreed: the abstract
+  # and the contributions list enumerated two, the conclusion tallied three.
+  # A reviewer who counts will find two, so two is the number everywhere.
+  _fl = " ".join(TEX.split())
+  _counts = {
+      "abstract": "two claims from earlier versions of this work that we withdraw" in _fl,
+      "contributions": "and two claims from earlier versions of this work" in _fl,
+      "conclusion": "the cost was two withdrawn claims" in _fl,
+  }
+  _agree = all(_counts.values())
+  print(f"  {'OK  ' if _agree else 'FAIL'}  the withdrawal count is two in all three "
+        f"places that state it")
+  if not _agree:
+      failures.append("the withdrawn-claim count disagrees across abstract, "
+                      "contributions and conclusion: "
+                      + ", ".join(f"{k}={'ok' if v else 'MISSING'}"
+                                  for k, v in _counts.items()))
+
+# ── The workshop camera-ready: title, heading and intro must not credit the
+#    selection step for what the paper reports as a reuse cost. Its body
+#    withdraws the selection attribution explicitly ("we therefore report the
+#    gap as a reuse cost and claim no selection-specific calibration effect"),
+#    and for a while the title asserted the opposite five pages earlier.
+if IS_WORKSHOP:
+    _wfl = " ".join(TEX.split())
+    for _label, _bad, _why in [
+        ("title does not credit selection",
+         "Selection-Induced Optimism Can Corrupt Calibration",
+         "the workshop title asserts a selection-specific calibration effect "
+         "that the same paper withdraws in its own results section"),
+        ("section heading does not credit selection",
+         "Selection Bias Degrades Selective Prediction",
+         "the operational-consequences heading attributes the risk cost to "
+         "selection; the paper attributes it to reuse"),
+        ("introduction does not credit selection",
+         "same selection step also corrupts",
+         "the introduction tells the reader the thesis is a selection effect, "
+         "which the results section then declines to claim"),
+    ]:
+        checks += 1
+        ok = _bad not in _wfl
+        print(f"  {'OK  ' if ok else 'FAIL'}  {_label}")
+        if not ok:
+            failures.append(_why)
 
 checks += 1
 # Reach: this paper audits pinned repositories it ran, not a literature. It
