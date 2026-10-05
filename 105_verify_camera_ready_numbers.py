@@ -639,6 +639,69 @@ if _bad_keff:
     failures.append("main.tex claims K_eff predicts the curse better than rho_bar; "
                     "117 shows the opposite")
 
+# ── Scope and framing: the concessions the referee forced, kept in place ───
+# These are not numerical claims, so nothing downstream catches them if they
+# are edited away. They are here because each one was a claim this paper had
+# to withdraw or qualify, and prose drifts back toward the stronger version.
+print("\nScope and framing guards:")
+
+for _label, _needed, _why in [
+    ("the remedy is conceded as standard practice in the abstract",
+     "not claiming to have invented",
+     "the abstract must concede the remedy is standard practice, not bury it "
+     "in the contributions list"),
+    ("the measured quantity is named as optimism where leakage is defined",
+     "optimism is the effect",
+     "'leakage' names a mechanism this paper does not observe; the definition "
+     "must say the measured quantity is optimism"),
+]:
+    checks += 1
+    ok = _needed in " ".join(TEX.split())
+    print(f"  {'OK  ' if ok else 'FAIL'}  {_label}")
+    if not ok:
+        failures.append(_why)
+
+checks += 1
+# The withdrawal count appeared in three places and disagreed: the abstract
+# and the contributions list enumerated two, the conclusion tallied three.
+# A reviewer who counts will find two, so two is the number everywhere.
+_fl = " ".join(TEX.split())
+_counts = {
+    "abstract": "two claims from earlier versions of this work that we withdraw" in _fl,
+    "contributions": "and two claims from earlier versions of this work" in _fl,
+    "conclusion": "the cost was two withdrawn claims" in _fl,
+}
+_agree = all(_counts.values())
+print(f"  {'OK  ' if _agree else 'FAIL'}  the withdrawal count is two in all three "
+      f"places that state it")
+if not _agree:
+    failures.append("the withdrawn-claim count disagrees across abstract, "
+                    "contributions and conclusion: "
+                    + ", ".join(f"{k}={'ok' if v else 'MISSING'}"
+                                for k, v in _counts.items()))
+
+checks += 1
+# Reach: this paper audits pinned repositories it ran, not a literature. It
+# cannot evidence what the field does, and said so under K2.
+_overreach = "the literature it audits" in " ".join(TEX.split())
+print(f"  {'OK  ' if not _overreach else 'FAIL'}  scope is the audited code, not "
+      f"'the literature it audits'")
+if _overreach:
+    failures.append("main.tex claims to set a standard for a literature; the "
+                    "paper audits pinned repositories and conceded it cannot "
+                    "evidence field-wide practice")
+
+# ── BLOCKER: an unfilled anonymous-mirror placeholder would ship a dead URL ─
+if ANONYMOUS:
+    checks += 1
+    _unfilled = "4open.science" in TEX and "-XXXX" in TEX
+    print(f"  {'OK  ' if not _unfilled else 'BLOCK'}  the anonymous mirror URL is "
+          f"filled in (no '-XXXX' placeholder)")
+    if _unfilled:
+        failures.append("BLOCKER: the anonymous.4open.science URL still ends in "
+                        "'-XXXX'. Create the mirror and substitute the real "
+                        "identifier; as it stands reviewers get a 404.")
+
 # ── Superseded literals that must not survive the camera-ready ─────────────
 print("\nSuperseded literals:")
 check_absent("fixed-coverage excess at 70% (980)", "$980$")
