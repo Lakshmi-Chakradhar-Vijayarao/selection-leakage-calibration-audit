@@ -437,7 +437,8 @@ if not _hc_ok:
 
 
 # ── Corrected procedure and its size/power (111, 112) ──────────────────────
-if "sec:sizepower" in TEX or "corrected report" in TEX.lower():
+if ("sec:sizepower" in TEX or "corrected report" in TEX.lower()
+        or "tab:corrected" in TEX):
     print("\nCorrected procedure (111/112):")
     sp = json.load(open(R / "estimator_size_power.json"))
     cr = json.load(open(R / "corrected_report.json"))
@@ -447,22 +448,29 @@ if "sec:sizepower" in TEX or "corrected report" in TEX.lower():
     _prac = sp["summary"]["practised_type_I_error_range"]
     _corr = sp["summary"]["corrected_type_I_error_range"]
     _ok = _prac[0] >= 0.99 and 0.03 <= _corr[0] <= 0.07 and 0.03 <= _corr[1] <= 0.07
-    print(f"  {'OK  ' if _ok else 'FAIL'}  practised type I error {_prac[0]:.3f}-{_prac[1]:.3f}, "
-          f"corrected {_corr[0]:.3f}-{_corr[1]:.3f}")
+    # At tau=0 the practised test's H0 (Delta_sel=0) is false, so its rate is
+    # not a type I error; only the corrected test's rate is one. The JSON key
+    # predates that correction.
+    print(f"  {'OK  ' if _ok else 'FAIL'}  practised test rejects {_prac[0]:.3f}-{_prac[1]:.3f} "
+          f"with no transferable quality; corrected test's type I error "
+          f"{_corr[0]:.3f}-{_corr[1]:.3f}")
     if not _ok:
         failures.append("the size result main.tex reports no longer holds in the JSON")
 
-    # Delta_sel must be anti-monotone in tau -- the paper's sharpest claim.
+    # The paper WITHDREW "Delta_sel is anti-monotone in the effect it
+    # measures". What it says now: Delta_sel tracks theta, and theta itself
+    # falls with tau because an argmax over well-separated candidates is less
+    # lucky. This guards that data pattern, not the withdrawn reading.
     checks += 1
     _k32 = [v for v in sp["results"].values() if v["K"] == 32]
     _k32.sort(key=lambda v: v["tau"])
     _anti = all(a["mean_delta"] >= b["mean_delta"] for a, b in zip(_k32, _k32[1:]))
     _mono_B = all(a["mean_B"] <= b["mean_B"] for a, b in zip(_k32, _k32[1:]))
     print(f"  {'OK  ' if (_anti and _mono_B) else 'FAIL'}  E[Delta_sel] falls and E[B] rises "
-          f"as tau grows (the anti-monotonicity claim)")
+          f"as tau grows (theta falls with tau; not the withdrawn anti-monotone reading)")
     if not (_anti and _mono_B):
-        failures.append("main.tex claims Delta_sel is anti-monotone in transferable "
-                        "quality; the simulation no longer shows that")
+        failures.append("main.tex says E[Delta_sel] falls with tau because theta "
+                        "does; the simulation no longer shows that")
 
     # B's verdicts on the real harness must match what the paper states.
     for _m, _want in [("auroc", "transfers"), ("brier", "transfers"),
@@ -474,6 +482,13 @@ if "sec:sizepower" in TEX or "corrected report" in TEX.lower():
             failures.append(f"main.tex says B on {_m} is '{_want}'; 112 reports '{_got}'")
     for _m in ("auroc", "brier"):
         check(f"  {_m} B t-statistic", cr["metrics"][_m]["B_t"], "{:.2f}")
+    # The table itself, cell by cell, at the 4 dp it is printed to.
+    for _m in ("auroc", "reliability", "ece", "brier"):
+        _v = cr["metrics"][_m]
+        for _lab, _x in [("gap@l*", _v["gap_at_selected_mean"]), ("A", _v["A_curse_mean"]),
+                         ("B", _v["B_mean"]), ("B lo", _v["B_bca_95ci"][0]),
+                         ("B hi", _v["B_bca_95ci"][1])]:
+            check(f"  {_m} {_lab}", _x, "{:+.4f}")
 
 
 # ── Estimator comparison: what the imported corrections cost (113) ────────
@@ -752,6 +767,62 @@ if ANONYMOUS:
         failures.append("BLOCKER: the cited mirror is the 3F1D snapshot from "
                         "2026-08-30, which predates scripts 103-117. Create a "
                         "fresh mirror from the current repository.")
+
+# ── The placebo reading, in every phrasing it has had ───────────────────────
+# The selection-specific calibration increment was withdrawn (script 110: it
+# does not clear its mechanical null). An earlier guard looked for "57\%" and
+# so missed "$57.9\%$ of ECE" in the placebo appendix, which went on asserting
+# "an established increment" in both versions after the body had withdrawn it.
+# Guard the claim's wording, whitespace-insensitively, not one of its numbers.
+_pl = " ".join(TEX.split())
+for _label, _bad in [
+    ("placebo appendix does not call the increment established",
+     "increment remains established"),
+    ("placebo appendix does not say selection contributes an established increment",
+     "established increment on top"),
+    ("regularization check does not present the increment's growth as the result",
+     "does not shrink under regularization; it grows"),
+    ("our estimator is not called by Blasiok et al.'s name for a different one",
+     "smooth calibration error"),
+]:
+    checks += 1
+    ok = _bad.lower() not in _pl.lower()
+    print(f"  {'OK  ' if ok else 'FAIL'}  {_label}")
+    if not ok:
+        failures.append(f"withdrawn or misnamed wording survives: {_bad!r}")
+
+# ── Workshop page budget ────────────────────────────────────────────────────
+# TAE camera-ready: "up to 10 content pages (including figures and tables)
+# ... References and appendices do not count" (tai-eval.github.io/cfp/, read
+# 2026-10-09; the submission limit was 8). Checked on the built PDF, because
+# "references start on page N+1" is not the same statement as "nothing but
+# references is on page N+1": the Limitations section once spilled 31 words
+# past the 8-page line while the first statement held.
+WORKSHOP_CONTENT_PAGES = 10
+if IS_WORKSHOP:
+    _pdf = TEX_PATH.with_suffix(".pdf")
+    checks += 1
+    if not _pdf.exists():
+        print("  FAIL  workshop PDF not built; cannot check the 8-page budget")
+        failures.append(f"{_pdf.name} missing; build it before verifying")
+    else:
+        import re as _re
+        from pypdf import PdfReader as _R
+        _pages = [" ".join(pg.extract_text().split()) for pg in _R(str(_pdf)).pages]
+        _ref = next((i for i, t in enumerate(_pages, 1)
+                     if _re.search(r"References [A-Z]", t)), None)
+        _spill = []
+        if _ref:
+            _spill = [w for w in _pages[_ref - 1][:_pages[_ref - 1].find("References")].split()
+                      if not w.isdigit()]
+        _body = (_ref - 1) + (1 if _spill else 0) if _ref else None
+        _ok = _body is not None and _body <= WORKSHOP_CONTENT_PAGES
+        print(f"  {'OK  ' if _ok else 'FAIL'}  body is {_body} of "
+              f"{WORKSHOP_CONTENT_PAGES} allowed content pages "
+              f"(references start p{_ref}, {len(_spill)} body words on that page)")
+        if not _ok:
+            failures.append(f"workshop body is {_body} content pages; the camera-ready "
+                            f"limit is {WORKSHOP_CONTENT_PAGES}")
 
 # ── Superseded literals that must not survive the camera-ready ─────────────
 print("\nSuperseded literals:")
