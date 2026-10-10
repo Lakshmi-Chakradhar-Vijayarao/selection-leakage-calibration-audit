@@ -791,6 +791,26 @@ for _label, _bad in [
     if not ok:
         failures.append(f"withdrawn or misnamed wording survives: {_bad!r}")
 
+# ── Selection credited with the cost, in any phrasing ───────────────────────
+# Three sentences survived every earlier guard because each phrased the
+# withdrawn attribution differently ("selection steps corrupt calibration",
+# "corrupted by the selection step", "the selection step that inflates AUROC
+# also makes ..."). Guard the pattern, not the sentence. The one permitted use
+# is the quoted narrowing ``selection corrupts calibration'' that the paper
+# explicitly rejects.
+import re as _re2
+_af = " ".join(TEX.split())
+_af = _af.replace("narrower than ``selection corrupts calibration''", "")
+_attr = _re2.findall(
+    r"selection steps? (?:that inflates AUROC also|also corrupts?|corrupts?|degrades?)"
+    r"|corrupted by the selection step|selection (?:contributes|corrupts|degrades)",
+    _af, flags=_re2.I)
+checks += 1
+print(f"  {'OK  ' if not _attr else 'FAIL'}  no sentence credits the selection step "
+      f"with the measured cost")
+if _attr:
+    failures.append(f"withdrawn selection attribution survives: {_attr}")
+
 # ── Workshop page budget ────────────────────────────────────────────────────
 # TAE camera-ready: "up to 10 content pages (including figures and tables)
 # ... References and appendices do not count" (tai-eval.github.io/cfp/, read
@@ -851,8 +871,18 @@ if ANONYMOUS:
                             ("author email", _email), ("real artifact URL", _repo)]:
         if _needle:
             check_absent(_label, _needle)
-    for label, needle in [("anonymous artifact mirror", "anonymous.4open.science"),
-                          ("anonymous author block", "Anonymous Author")]:
+    # The artifact reaches reviewers either through an anonymous mirror or,
+    # since 2026-10-10 for the journal version, through the anonymized
+    # supplementary archive alone. Either satisfies the requirement; a link to
+    # the public, named repository would not.
+    checks += 1
+    _art = ("anonymous.4open.science" in TEX
+            or "anonymized supplementary archive" in " ".join(TEX.split()))
+    print(f"  {'OK  ' if _art else 'FAIL'}  artifact reachable without identity "
+          f"(anonymous mirror or anonymized supplementary)")
+    if not _art:
+        failures.append("double-blind submission names no anonymous route to the artifact")
+    for label, needle in [("anonymous author block", "Anonymous Author")]:
         checks += 1
         ok = needle in TEX
         print(f"  {'OK  ' if ok else 'FAIL'}  present: {label} ({needle!r})")
