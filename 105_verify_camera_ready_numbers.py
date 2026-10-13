@@ -654,6 +654,70 @@ if _bad_keff:
     failures.append("main.tex claims K_eff predicts the curse better than rho_bar; "
                     "117 shows the opposite")
 
+# ── Second model family, corrected test (118) ──────────────────────────────
+if "tab:secondfamily-corrected" in TEX:
+    print("\nSecond family, corrected report (118):")
+    sf = json.load(open(R / "second_family_corrected_report.json"))
+    for _mdl, _v in sf["by_model"].items():
+        for _m in ("auroc", "reliability", "ece", "brier"):
+            _e = _v["metrics"][_m]
+            check(f"  {_mdl} {_m} B", _e["B_mean"], "{:+.4f}")
+            check(f"  {_mdl} {_m} gap@l*", _e["gap_at_selected_mean"], "{:+.4f}")
+            check(f"  {_mdl} {_m} B t", _e["B_t"], "{:.1f}")
+            checks += 1
+            _ok = _e["verdict"] == "transfers"
+            print(f"  {'OK  ' if _ok else 'FAIL'}  {_mdl} {_m}: {_e['verdict']}")
+            if not _ok:
+                failures.append(f"main.tex says B transfers on {_mdl} {_m}; 118 says {_e['verdict']}")
+
+# ── Noise robustness and re-split dependence (119) ─────────────────────────
+if "sec:resplit" in TEX:
+    print("\nRobustness and re-splits (119):")
+    rb = json.load(open(R / "size_power_robustness.json"))
+    _a = rb["part_a"]["summary"]
+    for _v in _a["corrected_type_I_error_range"] + _a["practised_rejection_at_tau0_range"]:
+        check("  part A range bound", _v, "{:.3f}")
+    _c = rb["part_b"]["cells"]
+    check("  B naive false-transfer rate (%)", 100 * _c["tau=0.0"]["reject_B_naive_t"], "{:.1f}")
+    check("  B corrected false-transfer rate (%)", 100 * _c["tau=0.0"]["reject_B_nadeau_bengio"], "{:.1f}")
+    check("  Delta_sel vs zero rate (%)", 100 * _c["tau=0.0"]["reject_delta_sel_vs_zero_naive"], "{:.1f}")
+    check("  corrected power, tau=0.1", _c["tau=0.1"]["reject_B_nadeau_bengio"], "{:.2f}")
+    check("  corrected power, tau=0.2", _c["tau=0.2"]["reject_B_nadeau_bengio"], "{:.3f}")
+    check("  population gain, tau=0.1", _c["tau=0.1"]["population_auroc_gain_of_selected_mean"], "{:.3f}")
+    check("  population gain, tau=0.2", _c["tau=0.2"]["population_auroc_gain_of_selected_mean"], "{:.3f}")
+    rc = json.load(open(R / "resplit_dependence_correction.json"))
+    check("  main B AUROC corrected t", rc["main_harness"]["B"]["auroc"]["nadeau_bengio"]["t"], "{:.2f}")
+    checks += 1
+    _none = not any(v["nadeau_bengio"]["excludes_zero"]
+                    for grp in ("B", "gap_at_selected", "risk_violation")
+                    for v in rc["main_harness"][grp].values())
+    print(f"  {'OK  ' if _none else 'FAIL'}  nothing on the main harness survives the re-split correction")
+    if not _none:
+        failures.append("main.tex says nothing on the main harness survives the correction; 121 disagrees")
+    for _mdl in ("mistral-7b", "qwen2.5-7b"):
+        check(f"  {_mdl} B AUROC corrected t", rc["second_family"]["by_model"][_mdl]["B"]["auroc"]["nadeau_bengio"]["t"], "{:.1f}")
+
+# ── Inference on winners (120) ─────────────────────────────────────────────
+if "tab:akm" in TEX:
+    print("\nInference on winners (120):")
+    ak = json.load(open(R / "inference_on_winners_comparison.json"))["summary"]
+    for _v in ak["akm_hybrid"]["coverage_range"]:
+        check("  hybrid coverage bound", _v, "{:.2f}")
+    check("  naive coverage floor", ak["naive"]["coverage_range"][0], "{:.2f}")
+    _dw = ak["direct"]["median_width_range"][0]
+    check("  hybrid width ratio max", ak["akm_hybrid"]["median_width_range"][1] / _dw, "{:.1f}")
+    check("  conditional width ratio max", ak["akm_conditional"]["median_width_range"][1] / _dw, "{:.1f}")
+
+# withdrawn readings that must not come back, in any phrasing
+for _label, _bad in [("second family not read as 'established' against zero", "established in both"),
+                     ("winner's-curse correction not dismissed as costing coverage",
+                      "Winner's-curse correction buys nothing here")]:
+    checks += 1
+    _ok = _bad.lower() not in " ".join(TEX.split()).lower()
+    print(f"  {'OK  ' if _ok else 'FAIL'}  {_label}")
+    if not _ok:
+        failures.append(f"withdrawn reading survives: {_bad!r}")
+
 # ── Scope and framing: the concessions the referee forced, kept in place ───
 # These are not numerical claims, so nothing downstream catches them if they
 # are edited away. They are here because each one was a claim this paper had

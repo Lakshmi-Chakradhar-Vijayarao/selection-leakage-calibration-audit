@@ -1,0 +1,564 @@
+{
+  "seed": 20261010,
+  "alpha": 0.05,
+  "n_reps": 50,
+  "part_a": {
+    "n_audits": 2000,
+    "results": {
+      "gaussian|K=8|tau=0.0": {
+        "kind": "gaussian",
+        "K": 8,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.052
+      },
+      "gaussian|K=8|tau=0.01": {
+        "kind": "gaussian",
+        "K": 8,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.1925
+      },
+      "gaussian|K=8|tau=0.04": {
+        "kind": "gaussian",
+        "K": 8,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.9055,
+        "reject_corrected_B_vs_zero": 0.9915
+      },
+      "gaussian|K=32|tau=0.0": {
+        "kind": "gaussian",
+        "K": 32,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0545
+      },
+      "gaussian|K=32|tau=0.01": {
+        "kind": "gaussian",
+        "K": 32,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.328
+      },
+      "gaussian|K=32|tau=0.04": {
+        "kind": "gaussian",
+        "K": 32,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.98,
+        "reject_corrected_B_vs_zero": 1.0
+      },
+      "gaussian|K=128|tau=0.0": {
+        "kind": "gaussian",
+        "K": 128,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0485
+      },
+      "gaussian|K=128|tau=0.01": {
+        "kind": "gaussian",
+        "K": 128,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.4545
+      },
+      "gaussian|K=128|tau=0.04": {
+        "kind": "gaussian",
+        "K": 128,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.9975,
+        "reject_corrected_B_vs_zero": 1.0
+      },
+      "t3|K=8|tau=0.0": {
+        "kind": "t3",
+        "K": 8,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 0.9975,
+        "reject_corrected_B_vs_zero": 0.0445
+      },
+      "t3|K=8|tau=0.01": {
+        "kind": "t3",
+        "K": 8,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 0.9975,
+        "reject_corrected_B_vs_zero": 0.2885
+      },
+      "t3|K=8|tau=0.04": {
+        "kind": "t3",
+        "K": 8,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.8945,
+        "reject_corrected_B_vs_zero": 0.988
+      },
+      "t3|K=32|tau=0.0": {
+        "kind": "t3",
+        "K": 32,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.046
+      },
+      "t3|K=32|tau=0.01": {
+        "kind": "t3",
+        "K": 32,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.2295
+      },
+      "t3|K=32|tau=0.04": {
+        "kind": "t3",
+        "K": 32,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.9885,
+        "reject_corrected_B_vs_zero": 0.9995
+      },
+      "t3|K=128|tau=0.0": {
+        "kind": "t3",
+        "K": 128,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0465
+      },
+      "t3|K=128|tau=0.01": {
+        "kind": "t3",
+        "K": 128,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 0.9995,
+        "reject_corrected_B_vs_zero": 0.1555
+      },
+      "t3|K=128|tau=0.04": {
+        "kind": "t3",
+        "K": 128,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.9995
+      },
+      "skewed_chi2_3|K=8|tau=0.0": {
+        "kind": "skewed_chi2_3",
+        "K": 8,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.061
+      },
+      "skewed_chi2_3|K=8|tau=0.01": {
+        "kind": "skewed_chi2_3",
+        "K": 8,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.1195
+      },
+      "skewed_chi2_3|K=8|tau=0.04": {
+        "kind": "skewed_chi2_3",
+        "K": 8,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.9475,
+        "reject_corrected_B_vs_zero": 0.9815
+      },
+      "skewed_chi2_3|K=32|tau=0.0": {
+        "kind": "skewed_chi2_3",
+        "K": 32,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.061
+      },
+      "skewed_chi2_3|K=32|tau=0.01": {
+        "kind": "skewed_chi2_3",
+        "K": 32,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.108
+      },
+      "skewed_chi2_3|K=32|tau=0.04": {
+        "kind": "skewed_chi2_3",
+        "K": 32,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.9965,
+        "reject_corrected_B_vs_zero": 0.9995
+      },
+      "skewed_chi2_3|K=128|tau=0.0": {
+        "kind": "skewed_chi2_3",
+        "K": 128,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0525
+      },
+      "skewed_chi2_3|K=128|tau=0.01": {
+        "kind": "skewed_chi2_3",
+        "K": 128,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0945
+      },
+      "skewed_chi2_3|K=128|tau=0.04": {
+        "kind": "skewed_chi2_3",
+        "K": 128,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 1.0
+      },
+      "ho_sd_2x|K=8|tau=0.0": {
+        "kind": "ho_sd_2x",
+        "K": 8,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 0.999,
+        "reject_corrected_B_vs_zero": 0.052
+      },
+      "ho_sd_2x|K=8|tau=0.01": {
+        "kind": "ho_sd_2x",
+        "K": 8,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 0.997,
+        "reject_corrected_B_vs_zero": 0.0945
+      },
+      "ho_sd_2x|K=8|tau=0.04": {
+        "kind": "ho_sd_2x",
+        "K": 8,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.768,
+        "reject_corrected_B_vs_zero": 0.921
+      },
+      "ho_sd_2x|K=32|tau=0.0": {
+        "kind": "ho_sd_2x",
+        "K": 32,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0455
+      },
+      "ho_sd_2x|K=32|tau=0.01": {
+        "kind": "ho_sd_2x",
+        "K": 32,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.1255
+      },
+      "ho_sd_2x|K=32|tau=0.04": {
+        "kind": "ho_sd_2x",
+        "K": 32,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.9335,
+        "reject_corrected_B_vs_zero": 0.9995
+      },
+      "ho_sd_2x|K=128|tau=0.0": {
+        "kind": "ho_sd_2x",
+        "K": 128,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.043
+      },
+      "ho_sd_2x|K=128|tau=0.01": {
+        "kind": "ho_sd_2x",
+        "K": 128,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.1575
+      },
+      "ho_sd_2x|K=128|tau=0.04": {
+        "kind": "ho_sd_2x",
+        "K": 128,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.9775,
+        "reject_corrected_B_vs_zero": 1.0
+      },
+      "ho_sd_half|K=8|tau=0.0": {
+        "kind": "ho_sd_half",
+        "K": 8,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.057
+      },
+      "ho_sd_half|K=8|tau=0.01": {
+        "kind": "ho_sd_half",
+        "K": 8,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.4605
+      },
+      "ho_sd_half|K=8|tau=0.04": {
+        "kind": "ho_sd_half",
+        "K": 8,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.964,
+        "reject_corrected_B_vs_zero": 0.9985
+      },
+      "ho_sd_half|K=32|tau=0.0": {
+        "kind": "ho_sd_half",
+        "K": 32,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0455
+      },
+      "ho_sd_half|K=32|tau=0.01": {
+        "kind": "ho_sd_half",
+        "K": 32,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.701
+      },
+      "ho_sd_half|K=32|tau=0.04": {
+        "kind": "ho_sd_half",
+        "K": 32,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.9945,
+        "reject_corrected_B_vs_zero": 1.0
+      },
+      "ho_sd_half|K=128|tau=0.0": {
+        "kind": "ho_sd_half",
+        "K": 128,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0475
+      },
+      "ho_sd_half|K=128|tau=0.01": {
+        "kind": "ho_sd_half",
+        "K": 128,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.8755
+      },
+      "ho_sd_half|K=128|tau=0.04": {
+        "kind": "ho_sd_half",
+        "K": 128,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 1.0
+      },
+      "heterogeneous_sd|K=8|tau=0.0": {
+        "kind": "heterogeneous_sd",
+        "K": 8,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0515
+      },
+      "heterogeneous_sd|K=8|tau=0.01": {
+        "kind": "heterogeneous_sd",
+        "K": 8,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.1005
+      },
+      "heterogeneous_sd|K=8|tau=0.04": {
+        "kind": "heterogeneous_sd",
+        "K": 8,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.9725,
+        "reject_corrected_B_vs_zero": 0.941
+      },
+      "heterogeneous_sd|K=32|tau=0.0": {
+        "kind": "heterogeneous_sd",
+        "K": 32,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0425
+      },
+      "heterogeneous_sd|K=32|tau=0.01": {
+        "kind": "heterogeneous_sd",
+        "K": 32,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0965
+      },
+      "heterogeneous_sd|K=32|tau=0.04": {
+        "kind": "heterogeneous_sd",
+        "K": 32,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.9985,
+        "reject_corrected_B_vs_zero": 0.9935
+      },
+      "heterogeneous_sd|K=128|tau=0.0": {
+        "kind": "heterogeneous_sd",
+        "K": 128,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0485
+      },
+      "heterogeneous_sd|K=128|tau=0.01": {
+        "kind": "heterogeneous_sd",
+        "K": 128,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.094
+      },
+      "heterogeneous_sd|K=128|tau=0.04": {
+        "kind": "heterogeneous_sd",
+        "K": 128,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 1.0
+      },
+      "equicorr_0.75|K=8|tau=0.0": {
+        "kind": "equicorr_0.75",
+        "K": 8,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.044
+      },
+      "equicorr_0.75|K=8|tau=0.01": {
+        "kind": "equicorr_0.75",
+        "K": 8,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 0.997,
+        "reject_corrected_B_vs_zero": 0.767
+      },
+      "equicorr_0.75|K=8|tau=0.04": {
+        "kind": "equicorr_0.75",
+        "K": 8,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.6425,
+        "reject_corrected_B_vs_zero": 0.9995
+      },
+      "equicorr_0.75|K=32|tau=0.0": {
+        "kind": "equicorr_0.75",
+        "K": 32,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0435
+      },
+      "equicorr_0.75|K=32|tau=0.01": {
+        "kind": "equicorr_0.75",
+        "K": 32,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.9785
+      },
+      "equicorr_0.75|K=32|tau=0.04": {
+        "kind": "equicorr_0.75",
+        "K": 32,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.8045,
+        "reject_corrected_B_vs_zero": 1.0
+      },
+      "equicorr_0.75|K=128|tau=0.0": {
+        "kind": "equicorr_0.75",
+        "K": 128,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0565
+      },
+      "equicorr_0.75|K=128|tau=0.01": {
+        "kind": "equicorr_0.75",
+        "K": 128,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.9995
+      },
+      "equicorr_0.75|K=128|tau=0.04": {
+        "kind": "equicorr_0.75",
+        "K": 128,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.876,
+        "reject_corrected_B_vs_zero": 1.0
+      },
+      "banded_ar1_0.957|K=8|tau=0.0": {
+        "kind": "banded_ar1_0.957",
+        "K": 8,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.041
+      },
+      "banded_ar1_0.957|K=8|tau=0.01": {
+        "kind": "banded_ar1_0.957",
+        "K": 8,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 0.9725,
+        "reject_corrected_B_vs_zero": 0.9615
+      },
+      "banded_ar1_0.957|K=8|tau=0.04": {
+        "kind": "banded_ar1_0.957",
+        "K": 8,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.481,
+        "reject_corrected_B_vs_zero": 1.0
+      },
+      "banded_ar1_0.957|K=32|tau=0.0": {
+        "kind": "banded_ar1_0.957",
+        "K": 32,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.046
+      },
+      "banded_ar1_0.957|K=32|tau=0.01": {
+        "kind": "banded_ar1_0.957",
+        "K": 32,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.971
+      },
+      "banded_ar1_0.957|K=32|tau=0.04": {
+        "kind": "banded_ar1_0.957",
+        "K": 32,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.853,
+        "reject_corrected_B_vs_zero": 1.0
+      },
+      "banded_ar1_0.957|K=128|tau=0.0": {
+        "kind": "banded_ar1_0.957",
+        "K": 128,
+        "tau": 0.0,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.0505
+      },
+      "banded_ar1_0.957|K=128|tau=0.01": {
+        "kind": "banded_ar1_0.957",
+        "K": 128,
+        "tau": 0.01,
+        "reject_practised_delta_vs_zero": 1.0,
+        "reject_corrected_B_vs_zero": 0.9375
+      },
+      "banded_ar1_0.957|K=128|tau=0.04": {
+        "kind": "banded_ar1_0.957",
+        "K": 128,
+        "tau": 0.04,
+        "reject_practised_delta_vs_zero": 0.9815,
+        "reject_corrected_B_vs_zero": 1.0
+      }
+    },
+    "summary": {
+      "corrected_type_I_error_range": [
+        0.041,
+        0.061
+      ],
+      "practised_rejection_at_tau0_range": [
+        0.9975,
+        1.0
+      ]
+    }
+  },
+  "part_b": {
+    "n_audits": 1000,
+    "n_items": 700,
+    "n_sel": 400,
+    "base_rate": 0.765,
+    "K": 32,
+    "nadeau_bengio_variance_factor": 0.77,
+    "naive_variance_factor": 0.02,
+    "t_shrinkage": 0.16116459280507606,
+    "cells": {
+      "tau=0.0": {
+        "tau": 0.0,
+        "population_auroc_gain_of_selected_mean": 0.0,
+        "reject_B_naive_t": 0.677,
+        "reject_B_nadeau_bengio": 0.022,
+        "reject_delta_sel_vs_zero_naive": 0.991
+      },
+      "tau=0.05": {
+        "tau": 0.05,
+        "population_auroc_gain_of_selected_mean": 0.013169954651240596,
+        "reject_B_naive_t": 0.794,
+        "reject_B_nadeau_bengio": 0.113,
+        "reject_delta_sel_vs_zero_naive": 0.97
+      },
+      "tau=0.1": {
+        "tau": 0.1,
+        "population_auroc_gain_of_selected_mean": 0.03212713797761513,
+        "reject_B_naive_t": 0.992,
+        "reject_B_nadeau_bengio": 0.604,
+        "reject_delta_sel_vs_zero_naive": 0.889
+      },
+      "tau=0.2": {
+        "tau": 0.2,
+        "population_auroc_gain_of_selected_mean": 0.06824246532020234,
+        "reject_B_naive_t": 1.0,
+        "reject_B_nadeau_bengio": 0.997,
+        "reject_delta_sel_vs_zero_naive": 0.691
+      }
+    }
+  }
+}
