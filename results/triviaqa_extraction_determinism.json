@@ -1,0 +1,10 @@
+{
+  "pairs": 400,
+  "identical_answer_share": 0.9775,
+  "same_label_share": 0.9975,
+  "same_answer_max_relative_state_diff": {
+    "median": 0.001973741687834263,
+    "max": 0.00701918825507164
+  },
+  "different_answer_n": 9
+}
