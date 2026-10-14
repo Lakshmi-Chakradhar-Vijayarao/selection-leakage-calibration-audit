@@ -28,7 +28,7 @@ OUT = ROOT / "draft" / "latex" / "supplementary_material.zip"
 ROOT_FILES = [".gitignore", "README.md", "requirements.txt", "REPRODUCE.md",
               "ANONYMITY_AUDIT.md", "PROVENANCE_LOG.md",
               "EXTENDED_TECHNICAL_DETAIL.md"]
-DIRS = ["code", "results", "kaggle_kernels", "draft"]
+DIRS = ["code", "results", "kaggle_runs", "draft"]  # was "kaggle_kernels", which does not exist: no kernel ever shipped
 # Excluded: LaTeX build products, caches, the archive itself, and the reviewer
 # document (which is not part of the submission).
 EXCLUDE_SUFFIX = {".pyc", ".aux", ".log", ".out", ".synctex.gz", ".zip", ".fls",

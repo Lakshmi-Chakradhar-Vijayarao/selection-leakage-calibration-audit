@@ -1,0 +1,139 @@
+{
+  "model": "mistralai/Mistral-7B-Instruct-v0.2",
+  "revision": "63a8b081895390a26e140280378bc85ec8bce07a",
+  "dataset": "mandarjoshi/trivia_qa rc.nocontext validation",
+  "seed": 20261012,
+  "n_shards": 25,
+  "shard_size": 700,
+  "max_new_tokens": 32,
+  "label_rule": "alias containment; 1 = incorrect",
+  "prompt_template": "<s>[INST] Answer the following question concisely and factually.\n\nQuestion: {question} [/INST]",
+  "shards": [
+    {
+      "shard": 0,
+      "n": 700,
+      "hallucination_rate": 0.3514285714285714
+    },
+    {
+      "shard": 1,
+      "n": 700,
+      "hallucination_rate": 0.34285714285714286
+    },
+    {
+      "shard": 2,
+      "n": 700,
+      "hallucination_rate": 0.35285714285714287
+    },
+    {
+      "shard": 3,
+      "n": 700,
+      "hallucination_rate": 0.36857142857142855
+    },
+    {
+      "shard": 4,
+      "n": 700,
+      "hallucination_rate": 0.37714285714285717
+    },
+    {
+      "shard": 5,
+      "n": 700,
+      "hallucination_rate": 0.36857142857142855
+    },
+    {
+      "shard": 6,
+      "n": 700,
+      "hallucination_rate": 0.36428571428571427
+    },
+    {
+      "shard": 7,
+      "n": 700,
+      "hallucination_rate": 0.36142857142857143
+    },
+    {
+      "shard": 8,
+      "n": 700,
+      "hallucination_rate": 0.3628571428571429
+    },
+    {
+      "shard": 9,
+      "n": 700,
+      "hallucination_rate": 0.35428571428571426
+    },
+    {
+      "shard": 10,
+      "n": 700,
+      "hallucination_rate": 0.3557142857142857
+    },
+    {
+      "shard": 11,
+      "n": 700,
+      "hallucination_rate": 0.35714285714285715
+    },
+    {
+      "shard": 12,
+      "n": 700,
+      "hallucination_rate": 0.3628571428571429
+    },
+    {
+      "shard": 13,
+      "n": 700,
+      "hallucination_rate": 0.3585714285714286
+    },
+    {
+      "shard": 14,
+      "n": 700,
+      "hallucination_rate": 0.3442857142857143
+    },
+    {
+      "shard": 15,
+      "n": 700,
+      "hallucination_rate": 0.37857142857142856
+    },
+    {
+      "shard": 16,
+      "n": 700,
+      "hallucination_rate": 0.32857142857142857
+    },
+    {
+      "shard": 17,
+      "n": 700,
+      "hallucination_rate": 0.36142857142857143
+    },
+    {
+      "shard": 18,
+      "n": 700,
+      "hallucination_rate": 0.3557142857142857
+    },
+    {
+      "shard": 19,
+      "n": 700,
+      "hallucination_rate": 0.34714285714285714
+    },
+    {
+      "shard": 20,
+      "n": 700,
+      "hallucination_rate": 0.33285714285714285
+    },
+    {
+      "shard": 21,
+      "n": 700,
+      "hallucination_rate": 0.3171428571428571
+    },
+    {
+      "shard": 22,
+      "n": 700,
+      "hallucination_rate": 0.3871428571428571
+    },
+    {
+      "shard": 23,
+      "n": 700,
+      "hallucination_rate": 0.32142857142857145
+    },
+    {
+      "shard": 24,
+      "n": 700,
+      "hallucination_rate": 0.3485714285714286
+    }
+  ],
+  "total_minutes": 82.18415736754736
+}

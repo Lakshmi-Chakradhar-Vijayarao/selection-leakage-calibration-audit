@@ -1,0 +1,69 @@
+{
+  "model": "mistralai/Mistral-7B-Instruct-v0.2",
+  "revision": "63a8b081895390a26e140280378bc85ec8bce07a",
+  "dataset": "mandarjoshi/trivia_qa rc.nocontext train, unique, disjoint from validation",
+  "seed": 20261013,
+  "n_shards": 11,
+  "shard_size": 700,
+  "max_new_tokens": 32,
+  "label_rule": "alias containment; 1 = incorrect",
+  "prompt_template": "<s>[INST] Answer the following question concisely and factually.\n\nQuestion: {question} [/INST]",
+  "shards": [
+    {
+      "shard": 0,
+      "n": 700,
+      "hallucination_rate": 0.35714285714285715
+    },
+    {
+      "shard": 1,
+      "n": 700,
+      "hallucination_rate": 0.3271428571428571
+    },
+    {
+      "shard": 2,
+      "n": 700,
+      "hallucination_rate": 0.35
+    },
+    {
+      "shard": 3,
+      "n": 700,
+      "hallucination_rate": 0.3757142857142857
+    },
+    {
+      "shard": 4,
+      "n": 700,
+      "hallucination_rate": 0.3557142857142857
+    },
+    {
+      "shard": 5,
+      "n": 700,
+      "hallucination_rate": 0.3385714285714286
+    },
+    {
+      "shard": 6,
+      "n": 700,
+      "hallucination_rate": 0.37
+    },
+    {
+      "shard": 7,
+      "n": 700,
+      "hallucination_rate": 0.3557142857142857
+    },
+    {
+      "shard": 8,
+      "n": 700,
+      "hallucination_rate": 0.35
+    },
+    {
+      "shard": 9,
+      "n": 700,
+      "hallucination_rate": 0.3385714285714286
+    },
+    {
+      "shard": 10,
+      "n": 700,
+      "hallucination_rate": 0.3442857142857143
+    }
+  ],
+  "total_minutes": 35.87100567817688
+}

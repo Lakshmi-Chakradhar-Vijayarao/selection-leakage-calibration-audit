@@ -718,6 +718,66 @@ for _label, _bad in [("second family not read as 'established' against zero", "e
     if not _ok:
         failures.append(f"withdrawn reading survives: {_bad!r}")
 
+# ── Population level: 25 independent samples (122 on each, 123) ───────────
+if "tab:population" in TEX or "sec:population" in TEX:
+    print("\nPopulation level (123):")
+    pop = json.load(open(R / "population_triviaqa.json"))
+    assert pop["n_samples"] == 25, "population result is not the 25-sample run"
+    Q = pop["quantities"]
+    if "tab:population" in TEX:
+        for _m in ("auroc", "brier", "reliability", "ece"):
+            for _k in (f"gap_{_m}", f"B_{_m}"):
+                check(f"  {_k} mean", Q[_k]["population_mean"], "{:+.4f}")
+                for _v in Q[_k]["population_ci_95"]:
+                    check(f"  {_k} CI bound", _v, "{:+.4f}")
+        for _c in ("30", "50", "70"):
+            check(f"  risk_{_c} mean", Q[f"risk_{_c}"]["population_mean"], "{:+.4f}")
+            for _v in Q[f"risk_{_c}"]["population_ci_95"]:
+                check(f"  risk_{_c} CI bound", _v, "{:+.4f}")
+    check("  risk_50 per 100 answered", 100 * Q["risk_50"]["population_mean"], "{:.2f}")
+    for _v in Q["risk_50"]["population_ci_95"]:
+        check("  risk_50 CI per 100", 100 * _v, "{:.2f}")
+    check("  AUROC reuse cost", Q["gap_auroc"]["population_mean"], "{:+.4f}")
+    check("  ECE reuse cost", Q["gap_ece"]["population_mean"], "{:+.4f}")
+    check("  B on AUROC", Q["B_auroc"]["population_mean"], "{:+.3f}")
+    checks += 1
+    _all = all(v["population_established"] for v in Q.values())
+    print(f"  {'OK  ' if _all else 'FAIL'}  every population quantity is established")
+    if not _all:
+        failures.append("main.tex says every population interval excludes zero; 123 disagrees")
+    checks += 1
+    _none = all(Q[k]["share_samples_corrected_established"] == 0
+                for k in Q if k.startswith(("gap_", "risk_")))
+    print(f"  {'OK  ' if _none else 'FAIL'}  the corrected single-sample test establishes no reuse cost")
+    if not _none:
+        failures.append("main.tex says the corrected single-sample test never establishes a reuse cost; 123 disagrees")
+    sc = json.load(open(R / "population_triviaqa_split_check.json"))
+    check("  validation/train min p", min(v["welch_p"] for v in sc.values()), "{:.2f}")
+    check("  validation risk_50 per 100", 100 * sc["risk_50"]["validation"][0], "{:.2f}")
+    check("  train risk_50 per 100", 100 * sc["risk_50"]["train"][0], "{:.2f}")
+    det = json.load(open(R / "triviaqa_extraction_determinism.json"))
+    check("  identical-answer share (%)", 100 * det["identical_answer_share"], "{:.1f}")
+
+# ── HaluEval replication, reproduced by 122 ────────────────────────────────
+if "+0.0112" in TEX:
+    print("\nHaluEval replication (122):")
+    import numpy as _np
+    _h = _np.load(R / "audit_halueval_pool.npz")
+    _rows = _np.arange(len(_h["l_star"])); _ls = _h["l_star"]
+    _mi = list(map(str, _h["metrics"]))
+    for _name, _m in (("Brier", "brier"), ("ECE", "ece")):
+        _k = _mi.index(_m)
+        _gap = (_h["ho"][:, _k][_rows, _ls] - _h["cv"][:, _k][_rows, _ls]).mean()
+        check(f"  HaluEval {_name} reuse gap", _gap, "{:+.4f}")
+
+for _label, _bad in [("the test on B is not called valid without qualification", "valid as it stands"),
+                     ("no pointer to the removed architecture table", "across architectures next")]:
+    checks += 1
+    _ok = _bad not in " ".join(TEX.split())
+    print(f"  {'OK  ' if _ok else 'FAIL'}  {_label}")
+    if not _ok:
+        failures.append(f"stale wording survives: {_bad!r}")
+
 # ── Scope and framing: the concessions the referee forced, kept in place ───
 # These are not numerical claims, so nothing downstream catches them if they
 # are edited away. They are here because each one was a claim this paper had
@@ -754,12 +814,12 @@ if IS_JOURNAL:
   # A reviewer who counts will find two, so two is the number everywhere.
   _fl = " ".join(TEX.split())
   _counts = {
-      "abstract": "two claims from earlier versions of this work that we withdraw" in _fl,
-      "contributions": "and two claims from earlier versions of this work" in _fl,
-      "conclusion": "the cost was two withdrawn claims" in _fl,
+      "abstract": "four claims from earlier versions of this work that we withdraw" in _fl,
+      "contributions": "and four claims from earlier versions of this work" in _fl,
+      "conclusion": "the cost was four withdrawn claims" in _fl,
   }
   _agree = all(_counts.values())
-  print(f"  {'OK  ' if _agree else 'FAIL'}  the withdrawal count is two in all three "
+  print(f"  {'OK  ' if _agree else 'FAIL'}  the withdrawal count is four in all three "
         f"places that state it")
   if not _agree:
       failures.append("the withdrawn-claim count disagrees across abstract, "
