@@ -1,5 +1,10 @@
 # Supplementary artifact
 
+[![Preprint DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23624980.svg)](https://doi.org/10.5281/zenodo.23624980) [![Code DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23624982.svg)](https://doi.org/10.5281/zenodo.23624982)
+
+Paper: *Data Reuse, Not Selection: A Code-Verified Audit of Optimism in Hidden-State Hallucination-Detection Pipelines* — accepted at the NeurIPS 2026 Workshop on Trustworthy AI Evaluation. Preprint: https://doi.org/10.5281/zenodo.23624980
+
+
 Code, result files, and reproduction map for the accompanying submission.
 
 Entry points:
